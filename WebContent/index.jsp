@@ -7,7 +7,7 @@
 <title>Insert title here</title>
 </head>
 <body>
-test
+testtest
 <script type="text/javascript">
 location.href="hello?id=aabbcc";
 </script>
