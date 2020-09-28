@@ -28,7 +28,7 @@
   
   <dependencies>
   
-  	<dependency>
+  		<dependency>
 	    <groupId>org.springframework</groupId>
 	    <artifactId>spring-webmvc</artifactId>
 	    <version>5.2.7.RELEASE</version>
@@ -45,7 +45,11 @@
 	    <artifactId>slf4j-simple</artifactId>
 	    <version>1.7.25</version>	    
 	</dependency>
-  
+  	<dependency>
+  		<groupId>org.slf4j</groupId>
+  		<artifactId>slf4j-log4j12</artifactId>
+  		<version>1.7.30</version>
+  	</dependency>
   	<dependency>
 		<groupId>javax.servlet</groupId>
 		<artifactId>servlet-api</artifactId>
@@ -128,13 +132,6 @@
 	    <version>3.5.3</version>
 	</dependency>
 	
-	<!-- 마이 SQL 사용시 -->	
-  	<dependency>
-	    <groupId>mysql</groupId>
-	    <artifactId>mysql-connector-java</artifactId>
-	    <version>8.0.18</version>
-	</dependency>
-	
 	<!-- XML 파싱 -->
   	<dependency>
 	    <groupId>org.jdom</groupId>
@@ -149,13 +146,6 @@
   		<version>1.7.30</version>
   	</dependency>
 
-	<!-- log4j -->
-  	<!-- <dependency>
-  		<groupId>ant</groupId>
-  		<artifactId>ant-apache-log4j</artifactId>
-  		<version>1.9.4</version>
-  	</dependency> -->
-  	
   	<dependency>
 	    <groupId>commons-dbcp</groupId>
 	    <artifactId>commons-dbcp</artifactId>
@@ -194,11 +184,6 @@
   		<groupId>org.apache.commons</groupId>
   		<artifactId>commons-pool2</artifactId>
   		<version>2.8.0</version>
-  	</dependency>
-  	<dependency>
-  		<groupId>org.slf4j</groupId>
-  		<artifactId>slf4j-log4j12</artifactId>
-  		<version>1.7.30</version>
   	</dependency>
   	
   	<!-- spring -->
@@ -375,17 +360,25 @@
 	</dependency>	
 	
 	<dependency>
-	    <groupId>org.json</groupId>
-	    <artifactId>json</artifactId>
-	    <version>20190722</version>
-	</dependency>
-	
-	<dependency>
 	    <groupId>com.googlecode.json-simple</groupId>
 	    <artifactId>json-simple</artifactId>
 	    <version>1.1.1</version>
 	</dependency>
-  
+	
+	<!-- SMTP -->
+	<dependency>
+	    <groupId>javax.mail</groupId>
+	    <artifactId>javax.mail-api</artifactId>
+	    <version>1.6.2</version>
+	</dependency>
+			
+	<!-- OAuth 2.0 -->
+	<dependency>
+	    <groupId>org.springframework.security.oauth</groupId>
+	    <artifactId>spring-security-oauth2</artifactId>
+	    <version>2.5.0.RELEASE</version>
+	</dependency>
+  	
   </dependencies>		  
    
 <repositories>
