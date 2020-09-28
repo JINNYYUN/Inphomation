@@ -7,7 +7,7 @@
 <html>
 <head>
 <meta charset="UTF-8">
-<title>Insert title here</title>
+<title>Inphomation</title>
 
 <tiles:insertAttribute name="header"/>
 	
@@ -15,6 +15,10 @@
 <body>
 
 <div>
+	<div>
+		<tiles:insertAttribute name="global_navigation" />
+	</div>
+	
 	<div>	
 		<tiles:insertAttribute name="main"/>	
 	</div>		
