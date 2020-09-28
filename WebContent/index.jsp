@@ -8,6 +8,7 @@
 </head>
 <body>
 testtest
+<i class="fas fa-star"></i>
 <script type="text/javascript">
 location.href="hello?id=aabbcc";
 </script>
