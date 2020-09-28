@@ -7,6 +7,7 @@
 
 <definition name="hello.tiles" template="/WEB-INF/views/layouts-tiles.jsp">
 	<put-attribute name="header" value="/WEB-INF/views/commons/header.jsp"/>
+	<put-attribute name="global_navigation" value="/WEB-INF/views/commons/navigation.jsp"/>
 	<put-attribute name="main" value="/WEB-INF/views/hello.jsp"/>	
 	<put-attribute name="footer" value="/WEB-INF/views/commons/footer.jsp"/>
 </definition>
