@@ -1,8 +1,8 @@
 package bit.com.inpho.service;
 
-import bit.com.inpho.dto.BookmarkDto;
+import bit.com.inpho.dto.DetailBookmarkDto;
 
 public interface DetailService {
 
-	boolean addBookmark(BookmarkDto dto);
+	boolean addBookmark(DetailBookmarkDto dto);
 }

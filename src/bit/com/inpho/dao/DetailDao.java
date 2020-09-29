@@ -1,8 +1,8 @@
 package bit.com.inpho.dao;
 
-import bit.com.inpho.dto.BookmarkDto;
+import bit.com.inpho.dto.DetailBookmarkDto;
 
 public interface DetailDao {
 
-	boolean addBookmark(BookmarkDto dto);
+	boolean addBookmark(DetailBookmarkDto dto);
 }

@@ -5,9 +5,17 @@
   
 <mapper namespace="Detail">
 
-<insert id="addBookmark" parameterType="bit.com.inpho.dto.BookmarkDto">
-	INSERT INTO POST_LIKE
-	VALUES(#{postid}, #{userindex})
+<insert id="addBookmark" parameterType="bit.com.inpho.dto.DetailBookmarkDto">
+	INSERT INTO POST_BOOKMARK
+	VALUES(#{post_seq}, #{user_seq})
 </insert>
+
+<delete id="deleteBookmark" parameterType="bit.com.inpho.dto.DetailBookmarkDto">
+	DELETE FROM POST_BOOKMARK
+	WHERE USER_SEQ = #{user_seq}
+	AND POST_SEQ = #{post_seq}
+</delete>
+
+
 
 </mapper>
