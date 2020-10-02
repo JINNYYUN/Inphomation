@@ -1,0 +1,25 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper
+  PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+  "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+  
+<mapper namespace="Mypage">
+
+<select id="getProfile" parameterType="java.lang.Integer" resultType="bit.com.inpho.dto.MyPageMemberDto">
+	SELECT * FROM MEMBER
+	WHERE USER_SEQ=#{seq}
+</select>
+
+<select id="getCamera" parameterType="java.lang.Integer" resultType="bit.com.inpho.dto.MyPageCameraDto">
+	SELECT A.CAMERA_SEQ, B.CAMERA_SERIAL, B.CAMERA_IMAGE
+	FROM MEMBER_MYPAGE_CAMERA A, INFO_CAMERA B
+	WHERE A.CAMERA_SEQ = B.CAMERA_SEQ AND A.USER_SEQ=#{seq}
+</select>
+
+<update id="uploadProfile" parameterType="bit.com.inpho.dto.MyPageMemberDto">
+	UPDATE MEMBER
+	SET PROFILE_IMAGE = #{profile_image}
+	WHERE USER_SEQ=#{user_seq}
+</update>
+
+</mapper>

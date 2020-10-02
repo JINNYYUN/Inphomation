@@ -12,10 +12,19 @@
 	<put-attribute name="footer" value="/WEB-INF/views/commons/footer.jsp"/>
 </definition>
 
+<definition name="mypage.tiles" template="/WEB-INF/views/layouts-tiles.jsp">
+	<put-attribute name="header" value="/WEB-INF/views/commons/header.jsp"/>
+	<put-attribute name="global_navigation" value="/WEB-INF/views/commons/navigation.jsp"/>
+	<put-attribute name="main" value="/WEB-INF/views/mypage/MyPage.jsp"/>	
+	<put-attribute name="footer" value="/WEB-INF/views/commons/footer.jsp"/>
+</definition>
+
+<definition name="mypageedit.tiles" extends="mypage.tiles">
+	<put-attribute name="main" value="/WEB-INF/views/mypage/MyPageEdit.jsp"/>	
+</definition>
+
+<definition name="MyPageUpload.tiles" template="/WEB-INF/views/mypage/empty.jsp">
+	<put-attribute name="main" value="/WEB-INF/views/mypage/MyPageUpload.jsp"/>	
+</definition>
 
 </tiles-definitions>
-
-
-
-
-
