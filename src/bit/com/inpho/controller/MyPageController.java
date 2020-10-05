@@ -18,6 +18,7 @@ import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.multipart.MultipartFile;
 
 import bit.com.inpho.dto.MyPageCameraDto;
@@ -42,7 +43,7 @@ public class MyPageController {
 		System.out.println(mem.toString());
 		
 		// 카메라 정보 가져오기
-		List<MyPageCameraDto> camList = service.getCamera(2);
+		List<MyPageCameraDto> camList = service.getCamera(1);
 		map.put("camlist", camList);
 		
 		model.addAttribute("map", map);
@@ -50,6 +51,7 @@ public class MyPageController {
 		return "mypage.tiles";
 	}
 	
+	// 프로필 수정 페이지 이동
 	@RequestMapping(value = "mypageedit", method = RequestMethod.GET)
 	public String mypageedit( Model model, int user_seq ) {
 		Map<String, Object> map = new HashMap<String, Object>();
@@ -61,7 +63,7 @@ public class MyPageController {
 		System.out.println(mem.toString());
 		
 		// 카메라 정보 가져오기
-		List<MyPageCameraDto> camList = service.getCamera(2);
+		List<MyPageCameraDto> camList = service.getCamera(1);
 		map.put("camlist", camList);
 		
 		model.addAttribute("map", map);
@@ -69,12 +71,23 @@ public class MyPageController {
 		return "mypageedit.tiles";
 	}
 	
+	//카메라 리스트 불러오기
+	@ResponseBody
+	@RequestMapping(value = "getCam", method = RequestMethod.POST)
+	public List<String> getCam( Model model, String keyWord ) {
+		List<String> allcamlist = service.getAllCam();
+		System.out.println("camlist" + allcamlist.get(0).toString());
+		return allcamlist;
+	}
+	
+	// 프로필 업로드창 이동
 	@RequestMapping(value = "MyPageUpload", method = RequestMethod.GET)
 	public String MyPageUpload() {
 		System.out.println("mypageupload");
 		return "MyPageUpload.tiles";
 	}
 	
+	//프로필 이미지 업로드
 	@RequestMapping(value = "MyPageUploadAf", method = {RequestMethod.GET, RequestMethod.POST})
 	public void pdsupload( @RequestParam(value = "fileload", required = false)MultipartFile fileload, 
 					HttpServletRequest req, HttpServletResponse resp) throws Exception{
@@ -85,10 +98,10 @@ public class MyPageController {
 		
 		// upload 경로 설정
 		// server
-		//String fupload = req.getSession().getServletContext().getRealPath("/upload");
+		String fupload = req.getSession().getServletContext().getRealPath("/upload/profileImage");
 		
 		// 폴더
-		String fupload = "d:\\inphoimg";
+		//String fupload = "d:\\inphoimg";
 		
 		System.out.println("fupload:" + fupload);
 		
@@ -143,6 +156,26 @@ public class MyPageController {
 		
 		
 		return filename;
+	}
+	
+	// 프로필 수정 
+	@RequestMapping(value = "myPageEditAf", method = RequestMethod.POST)
+	public String myPageEditAf( MyPageMemberDto mem, String[] camera_serial ) {
+		
+		System.out.println(mem.getUser_nickname());
+		System.out.println(mem.getMypage_introduce());
+
+		//전체 카메라 리스트에 추가
+		List<String> allcam = service.getAllCam();
+		service.addAllCam(allcam, camera_serial);
+		
+		//session 받아오기
+		// 내 카메라 리스트에 추가
+		int user_seq = 1;
+		allcam = service.getAllCam();
+		service.addMyCam(allcam, camera_serial, user_seq);
+		
+		return "redirect:/mypage?user_seq=1";
 	}
 	
 	

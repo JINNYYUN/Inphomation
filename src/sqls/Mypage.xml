@@ -22,4 +22,29 @@
 	WHERE USER_SEQ=#{user_seq}
 </update>
 
+<select id="getAllCam" resultType="java.lang.String">
+	SELECT CAMERA_SERIAL
+	FROM INFO_CAMERA
+</select>
+
+<insert id="addAllCam" parameterType="bit.com.inpho.dto.MyPageCameraDto">
+	INSERT INTO INFO_CAMERA
+	VALUES(SEQ_CAMERA.NEXTVAL, #{camera_serial}, NULL)
+</insert>
+
+<delete id="deleteMyCam" parameterType="java.lang.Integer">
+	DELETE FROM MEMBER_MYPAGE_CAMERA
+	WHERE USER_SEQ = #{user_seq}
+</delete>
+
+<select id="getMyCamSeq" parameterType="bit.com.inpho.dto.MyPageCameraDto" resultType="java.lang.Integer">
+	SELECT CAMERA_SEQ FROM INFO_CAMERA
+	WHERE CAMERA_SERIAL = #{camera_serial}
+</select>
+
+<insert id="addMyCam" parameterType="bit.com.inpho.dto.MyPageCameraParam">
+	INSERT INTO MEMBER_MYPAGE_CAMERA
+	VALUES( #{user_seq}, #{camera_seq} )
+</insert>
+
 </mapper>

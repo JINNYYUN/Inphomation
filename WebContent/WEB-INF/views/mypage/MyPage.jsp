@@ -74,9 +74,9 @@ List<MyPageCameraDto> camlist = (List<MyPageCameraDto>)map.get("camlist");
 			%>
 				<img alt="" src="./image/2017070900603_4.jpg">
 			<%	
-			}else{
+			}else{ 
 			%>
-				<img src="d:\\inphoimg/${map.mem.profile_image}">
+				<img src="http://localhost:8090/Inphomation/upload/profileImage/${map.mem.profile_image}">
 			<%	
 			}
 			%>

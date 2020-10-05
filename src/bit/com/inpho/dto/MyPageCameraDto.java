@@ -18,6 +18,17 @@ public class MyPageCameraDto implements Serializable {
 		this.camera_image = camera_image;
 	}
 
+	public MyPageCameraDto(int camera_seq, String camera_serial) {
+		super();
+		this.camera_seq = camera_seq;
+		this.camera_serial = camera_serial;
+	}
+
+	public MyPageCameraDto(String camera_serial) {
+		super();
+		this.camera_serial = camera_serial;
+	}
+
 	public int getCamera_seq() {
 		return camera_seq;
 	}

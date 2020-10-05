@@ -13,4 +13,10 @@ public interface MyPageDao {
 	
 	public int uploadProfile(MyPageMemberDto mem );
 	
-}
+	public List<String> getAllCam();
+	
+	public int addAllCam(List<MyPageCameraDto> addcamlist);
+	
+	public void addMyCam(List<MyPageCameraDto> addcamlist, int user_seq);
+	
+	}
