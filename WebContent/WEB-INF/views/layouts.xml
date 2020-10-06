@@ -12,6 +12,9 @@
 	<put-attribute name="footer" value="/WEB-INF/views/commons/footer.jsp"/>
 </definition>
 
+<definition name="detail.tiles" extends="hello.tiles">
+	<put-attribute name="main" value="/WEB-INF/views/Detail/detail.jsp"/>
+</definition>
 
 </tiles-definitions>
 

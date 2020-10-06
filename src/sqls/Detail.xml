@@ -10,6 +10,13 @@
 	VALUES(#{post_seq}, #{user_seq})
 </insert>
 
+<select id="countBookmark" parameterType="bit.com.inpho.dto.DetailBookmarkDto" resultType="java.lang.Integer">
+	SELECT NVL(COUNT(*),0)
+	FROM POST_BOOKMARK
+	WHERE USER_SEQ = #{user_seq}
+	AND POST_SEQ = #{post_seq}
+</select>
+
 <delete id="deleteBookmark" parameterType="bit.com.inpho.dto.DetailBookmarkDto">
 	DELETE FROM POST_BOOKMARK
 	WHERE USER_SEQ = #{user_seq}
@@ -18,4 +25,44 @@
 
 
 
+<insert id="addLike" parameterType="bit.com.inpho.dto.DetailBookmarkDto">
+	INSERT INTO POST_LIKE
+	VALUES(#{post_seq}, #{user_seq}, SYSDATE)
+</insert>
+
+<select id="countLike" parameterType="bit.com.inpho.dto.DetailBookmarkDto" resultType="java.lang.Integer">
+	SELECT NVL(COUNT(*),0)
+	FROM POST_LIKE
+	WHERE USER_SEQ = #{user_seq}
+	AND POST_SEQ = #{post_seq}
+</select>
+
+<delete id="deleteLike" parameterType="bit.com.inpho.dto.DetailBookmarkDto">
+	DELETE FROM POST_LIKE
+	WHERE USER_SEQ = #{user_seq}
+	AND POST_SEQ = #{post_seq}
+</delete>
+
+<select id="countLikeAll" parameterType="java.lang.Integer" resultType="java.lang.Integer">
+	SELECT NVL(COUNT(*),0)
+	FROM POST_LIKE
+	WHERE POST_SEQ = #{post_seq}
+</select>
+
+<insert id="addReply" parameterType="bit.com.inpho.dto.DetailReplyDto">
+	INSERT INTO POST_REPLY
+	VALUES(#{post_seq}, #{user_seq}, #{reply_content}, SYSDATE)
+</insert>
+
+
 </mapper>
+
+
+
+
+
+
+
+
+
+
