@@ -7,10 +7,10 @@
 <title>Insert title here</title>
 </head>
 <body>
-testtest
+index이동
 <i class="fas fa-star"></i>
 <script type="text/javascript">
-location.href="hello?id=aabbcc";
+location.href="map";
 </script>
 </body>
 </html>

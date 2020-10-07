@@ -2,6 +2,13 @@ package bit.com.inpho.dto;
 
 import java.io.Serializable;
 
-public class HelloDto implements Serializable {
+import lombok.*;
 
+@Getter
+@ToString
+@Setter
+@NoArgsConstructor
+@AllArgsConstructor
+public class HelloDto implements Serializable {
+	String email;
 }
