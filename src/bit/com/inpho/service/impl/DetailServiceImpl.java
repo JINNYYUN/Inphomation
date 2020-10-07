@@ -1,5 +1,7 @@
 package bit.com.inpho.service.impl;
 
+import java.util.List;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -52,6 +54,11 @@ public class DetailServiceImpl implements DetailService {
 	@Override
 	public boolean addReply(DetailReplyDto dto) {
 		return dao.addReply(dto);
+	}
+
+	@Override
+	public List<DetailReplyDto> replyList(int post_seq) {
+		return dao.replyList(post_seq);
 	}
 
 

@@ -85,11 +85,12 @@
 					<td colspan="3">내용</td>
 				</tr>
 				<tr>
-					<td colspan="3">
-						<textarea style="resize: none">댓글</textarea><br>
-						
-						<input type="text" id="comment">
-						<input type="button" id="addCmt" value="입력">
+					<td colspan="3" rowspan="4" height="180px">					
+						<div style="overflow: scroll;width: 200px; height: 120px">
+							<table id="cmt"></table>		<!-- 댓글 불러오기 -->
+						</div>
+							<input type="text" id="comment">
+							<input type="button" id="addCmt" class="btn btn-" value="입력">
 					</td>
 				</tr>
 				</table>
@@ -104,7 +105,6 @@
 <script type="text/javascript">
 $(document).ready(function(){
 
-	
 	$("#subnav").hide();
 
 	$("#topnav").on("click",function(){
@@ -116,27 +116,63 @@ $(document).ready(function(){
 	});
 
 	
-	if( $("#comment").val(); == null){
-		$("#comment").focus();
-	}else{
-		$("#addCmt").on("click",function(){
-	
-			$.ajax({
-				url:"addReply.do",
-				type: "get",
-				data: {"post_seq":"1", "user_seq":"1", 
-					"reply_content": cmt},
-				success:function(data){
-					console.log(data)
-				},
-				error:function(){
-	
-				}
-			});
-		});
-	}
-});
 
+	// 댓글 불러오기
+	 $.ajax({
+			url:"replyList.do",
+			type:"get",
+			data:{"post_seq":"1"},
+			success:function(list){
+	
+				
+	
+				$.each(list, function(i, item){
+	
+					let d = list[i].reply_date;
+	
+					let date = d.substring(0, 11);
+					
+					console.log(date);
+					
+				//	txt.html( txt.val() + "\n" + "<a href='#none'>" + list[i].user_nickname + "</a>" + list[i].reply_content + "\n" + date);
+					$("#cmt").append("<tr>"+"<td>"+"<a href='#none'>" + item.user_nickname + "</a>" +"</td>" +
+										 "<td>" + item.reply_content + "<td>" + "<tr>" + "<td>" + date + "<td>" + "<tr>");
+	
+				})
+				
+				
+			},
+			error:function(){
+				alert("error");
+			}
+		});
+
+	// 댓글 추가 부분
+	$("#addCmt").on("click",function(){
+		if( $("#comment").val() == null){
+			$("#comment").focus();
+		}else{
+			$("#addCmt").on("click",function(){
+		
+				$.ajax({
+					url:"addReply.do",
+					type: "get",
+					data: {"post_seq":"1", "user_seq":"1", "reply_content":  $("#comment").val() },
+					success:function(data){
+					//	console.log(data)
+						$("#comment").val("");
+					},
+					error:function(){
+		
+					}
+				});
+			});
+		}
+	});
+
+	
+
+});
 </script>
 <script type="text/javascript">
 let Honoff = 0;
@@ -199,8 +235,8 @@ $(document).ready(function(){
 		}
 	});
 
-});
-</script>
+}); 
+ </script>
 <script type="text/javascript">
 let Bonoff = 0;
 let BclsName = "far fa-bookmark";
@@ -243,7 +279,7 @@ $(document).ready(function(){
 });
 
 </script>  
-
+ 
 <script>
 function urlClipCopy() {
 	var f = document.clipboard.url;
@@ -252,7 +288,7 @@ function urlClipCopy() {
 	therange=f.createTextRange() ;
 	therange.execCommand("Copy");
 	alert("클립보드로 URL이 복사되었습니다.");
-	}
+}
 </script>
 
 </body>

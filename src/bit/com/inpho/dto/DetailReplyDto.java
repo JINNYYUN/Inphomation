@@ -7,27 +7,34 @@ public class DetailReplyDto implements Serializable {
 	private int post_seq;
 	private int user_seq;
 	private String reply_content;
-	private String date;
+	private String reply_date;
 	
-	private String nickname;
+	private String user_nickname;
 	
 	public DetailReplyDto() {}
 
-	public DetailReplyDto(int post_seq, int user_seq, String reply_content, String date) {
+	public DetailReplyDto(int post_seq, int user_seq, String reply_content, String reply_date) {
 		super();
 		this.post_seq = post_seq;
 		this.user_seq = user_seq;
 		this.reply_content = reply_content;
-		this.date = date;
+		this.reply_date = reply_date;
 	}
 
-	public DetailReplyDto(int post_seq, int user_seq, String reply_content, String date, String nickname) {
+	public DetailReplyDto(int post_seq, int user_seq, String reply_content, String reply_date, String user_nickname) {
 		super();
 		this.post_seq = post_seq;
 		this.user_seq = user_seq;
 		this.reply_content = reply_content;
-		this.date = date;
-		this.nickname = nickname;
+		this.reply_date = reply_date;
+		this.user_nickname = user_nickname;
+	}
+
+	public DetailReplyDto(String reply_content, String reply_date, String user_nickname) {
+		super();
+		this.reply_content = reply_content;
+		this.reply_date = reply_date;
+		this.user_nickname = user_nickname;
 	}
 
 	public int getPost_seq() {
@@ -54,26 +61,26 @@ public class DetailReplyDto implements Serializable {
 		this.reply_content = reply_content;
 	}
 
-	public String getDate() {
-		return date;
+	public String getreply_date() {
+		return reply_date;
 	}
 
-	public void setDate(String date) {
-		this.date = date;
+	public void setreply_date(String reply_date) {
+		this.reply_date = reply_date;
 	}
 
-	public String getNickname() {
-		return nickname;
+	public String getuser_nickname() {
+		return user_nickname;
 	}
 
-	public void setNickname(String nickname) {
-		this.nickname = nickname;
+	public void setuser_nickname(String user_nickname) {
+		this.user_nickname = user_nickname;
 	}
 
 	@Override
 	public String toString() {
 		return "DetailReplyDto [post_seq=" + post_seq + ", user_seq=" + user_seq + ", reply_content=" + reply_content
-				+ ", date=" + date + ", nickname=" + nickname + "]";
+				+ ", reply_date=" + reply_date + ", user_nickname=" + user_nickname + "]";
 	}
 	
 	

@@ -1,5 +1,7 @@
 package bit.com.inpho.dao;
 
+import java.util.List;
+
 import bit.com.inpho.dto.DetailBookmarkDto;
 import bit.com.inpho.dto.DetailLikeDto;
 import bit.com.inpho.dto.DetailReplyDto;
@@ -16,4 +18,5 @@ public interface DetailDao {
 	int countLikeAll(int post_seq);
 	
 	boolean addReply(DetailReplyDto dto);
+	List<DetailReplyDto> replyList(int post_seq);
 }

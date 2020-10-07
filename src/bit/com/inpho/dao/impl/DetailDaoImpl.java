@@ -1,5 +1,7 @@
 package bit.com.inpho.dao.impl;
 
+import java.util.List;
+
 import org.apache.ibatis.session.SqlSession;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
@@ -62,6 +64,12 @@ public class DetailDaoImpl implements DetailDao {
 	public boolean addReply(DetailReplyDto dto) {
 		int n = sqlSession.insert(ns + "addReply", dto);
 		return n>0?true:false;
+	}
+
+	@Override
+	public List<DetailReplyDto> replyList(int post_seq) {
+		List<DetailReplyDto> list= sqlSession.selectList(ns +"replyList", post_seq);
+		return list;
 	}
 
 

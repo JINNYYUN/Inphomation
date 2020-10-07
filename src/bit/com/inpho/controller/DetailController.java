@@ -1,5 +1,9 @@
 package bit.com.inpho.controller;
 
+import java.util.HashMap;
+import java.util.List;
+import java.util.Map;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -94,5 +98,21 @@ public class DetailController {
 			return "NO";
 		}
 	}
+	@ResponseBody
+	@RequestMapping(value = "replyList.do", method = {RequestMethod.GET, RequestMethod.POST})
+	public List<DetailReplyDto> replyList (int post_seq, Model model) throws Exception {
+		
+		List<DetailReplyDto> list = service.replyList(post_seq);
+
+		System.out.println("list: " + list);
+		
+		return list;
+	}
 
 }
+
+
+
+
+
+

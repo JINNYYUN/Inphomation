@@ -49,11 +49,22 @@
 	WHERE POST_SEQ = #{post_seq}
 </select>
 
+
+
+
 <insert id="addReply" parameterType="bit.com.inpho.dto.DetailReplyDto">
 	INSERT INTO POST_REPLY
 	VALUES(#{post_seq}, #{user_seq}, #{reply_content}, SYSDATE)
 </insert>
 
+<select id="replyList" parameterType="bit.com.inpho.dto.DetailReplyDto"
+			resultType="bit.com.inpho.dto.DetailReplyDto">
+	SELECT PR.REPLY_CONTENT, PR.REPLY_DATE, B.USER_NICKNAME
+	FROM POST_REPLY PR, MEMBER B
+	WHERE PR.USER_SEQ = B.USER_SEQ
+	AND POST_SEQ=#{post_seq}	
+	ORDER BY REPLY_DATE DESC
+</select>
 
 </mapper>
 
