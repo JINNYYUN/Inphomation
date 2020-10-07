@@ -1,0 +1,50 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper
+  PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+  "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+  
+<mapper namespace="Mypage">
+
+<select id="getProfile" parameterType="java.lang.Integer" resultType="bit.com.inpho.dto.MyPageMemberDto">
+	SELECT * FROM MEMBER
+	WHERE USER_SEQ=#{seq}
+</select>
+
+<select id="getCamera" parameterType="java.lang.Integer" resultType="bit.com.inpho.dto.MyPageCameraDto">
+	SELECT A.CAMERA_SEQ, B.CAMERA_SERIAL, B.CAMERA_IMAGE
+	FROM MEMBER_MYPAGE_CAMERA A, INFO_CAMERA B
+	WHERE A.CAMERA_SEQ = B.CAMERA_SEQ AND A.USER_SEQ=#{seq}
+</select>
+
+<update id="uploadProfile" parameterType="bit.com.inpho.dto.MyPageMemberDto">
+	UPDATE MEMBER
+	SET PROFILE_IMAGE = #{profile_image}
+	WHERE USER_SEQ=#{user_seq}
+</update>
+
+<select id="getAllCam" resultType="java.lang.String">
+	SELECT CAMERA_SERIAL
+	FROM INFO_CAMERA
+</select>
+
+<insert id="addAllCam" parameterType="bit.com.inpho.dto.MyPageCameraDto">
+	INSERT INTO INFO_CAMERA
+	VALUES(SEQ_CAMERA.NEXTVAL, #{camera_serial}, NULL)
+</insert>
+
+<delete id="deleteMyCam" parameterType="java.lang.Integer">
+	DELETE FROM MEMBER_MYPAGE_CAMERA
+	WHERE USER_SEQ = #{user_seq}
+</delete>
+
+<select id="getMyCamSeq" parameterType="bit.com.inpho.dto.MyPageCameraDto" resultType="java.lang.Integer">
+	SELECT CAMERA_SEQ FROM INFO_CAMERA
+	WHERE CAMERA_SERIAL = #{camera_serial}
+</select>
+
+<insert id="addMyCam" parameterType="bit.com.inpho.dto.MyPageCameraParam">
+	INSERT INTO MEMBER_MYPAGE_CAMERA
+	VALUES( #{user_seq}, #{camera_seq} )
+</insert>
+
+</mapper>
