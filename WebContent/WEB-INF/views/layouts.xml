@@ -12,6 +12,25 @@
 	<put-attribute name="footer" value="/WEB-INF/views/commons/footer.jsp"/>
 </definition>
 
+<definition name="main.tiles" extends="hello.tiles">
+	<put-attribute name="main" value="/WEB-INF/views/main/main.jsp" />
+</definition>
+
+
+
+<!-- Contain -->
+<definition name="modal.tiles" template="/WEB-INF/views/contain.jsp">
+	<put-attribute name="content" value="/WEB-INF/views/member/modal.jsp" />
+</definition>
+
+<definition name="getRegi.tiles" template="/WEB-INF/views/contain.jsp">
+	<put-attribute name="content" value="/WEB-INF/views/member/regeisterContainer.jsp" />
+</definition>
+
+<definition name="getLogin.tiles" template="/WEB-INF/views/contain.jsp">
+	<put-attribute name="content" value="/WEB-INF/views/member/loginContainer.jsp" />
+</definition>
+
 
 </tiles-definitions>
 

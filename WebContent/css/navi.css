@@ -1,0 +1,127 @@
+.text {
+  color: #f28705;
+}
+
+.navbar {
+  padding: 5px 0 0 0;
+  width: 100%;
+  justify-content: flex-start;
+  border-bottom: 1px solid rgb(219, 219, 219);
+  display:block;
+}
+
+.navbar .container {
+  padding-left: 0;
+  margin: 0;
+  justify-content: space-between;
+  max-width:100%;
+}
+
+nav .container .brand-logo {
+  width: 50px;
+  height: 50px;
+  background-image: url("https://banner2.cleanpng.com/20171207/62f/vector-camera-5a28d563c87e29.6624833315126255078212.jpg");
+  background-repeat: no-repeat;
+  background-position: center center;
+  background-size: contain;
+}
+
+nav .container a {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  margin-right: 20px;
+}
+
+.container .menu {
+  height: 50px;
+  display: flex;
+  align-items: center;
+}
+
+.container .menu h1 i {
+  cursor: pointer;
+  margin-right: 10px;
+}
+
+.container .search-bar {
+  position: relative;
+  margin-left: 10px;
+}
+
+.container .search-bar input {
+  border: none;
+  padding-right: 30px;
+  border-radius: 4px;
+  border: 1px solid #ccc;
+  height: 40px;
+  width: 350px;
+}
+
+.container .search-bar input:hover,
+.container .search-bar input:focus{
+  border: 2px solid blue;
+}
+
+.container .search-bar i {
+  position: absolute;
+  right: 10px;
+  top: 10px;
+}
+
+.container i:hover {
+  color: blue;
+  cursor: pointer;
+}
+.loginMode{
+	display:relative;
+}
+.dropbox {
+	display: none;
+	position: absolute;
+	top: 100%;
+	right: 0;
+	width: 200px;
+	padding: 8px 0;
+	border-radius: 4px;
+	background-color: #fff;
+	box-shadow: 0 1px 15px rgba(27, 31, 35, 0.15);
+	transition: transform 200ms ease-in;
+}
+.dropbox ul {
+	list-style-type: none;
+	padding: 8px 0;
+}
+
+.dropbox ul:last-child {
+	border-top: 1px solid #e1e4e8;
+}
+.dropbox h3 {
+	padding: 8px 16px 16px;
+	border-bottom: 1px solid #e1e4e8;
+	font-weight: 500;
+}
+.dropbox ul a {
+	display: block;
+	padding: 8px 16px;
+	font-size: 14px;
+	line-height: 1.5;
+	color: #24292e;
+	text-decoration: none;
+}
+.dropbox ul a:hover {
+	color: #fff;
+	background-color: #0366d6;
+}
+.dropbox.active{
+	display:block;
+}
+.dropbox a{
+    line-height: 1.5;
+    color: #24292e;
+    text-decoration: none;
+}
+.guestMode .trigger-btn{
+	margin:0px;
+	text-decoration: none;
+}
