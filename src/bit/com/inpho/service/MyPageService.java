@@ -1,5 +1,6 @@
 package bit.com.inpho.service;
 
+import java.util.HashMap;
 import java.util.List;
 
 import bit.com.inpho.dto.MyPageCameraDto;
@@ -15,7 +16,19 @@ public interface MyPageService {
 	
 	public List<String> getAllCam();
 	
+	public int updateProfile(MyPageMemberDto mem);
+	
 	public int addAllCam(List<String> allcam, String[] camera_serial);
 
 	public void addMyCam(List<String> allcam, String[] camera_serial, int user_seq);
+
+	public int[] getFollowCount(int user_seq);
+	
+	public List<MyPageMemberDto> getFollowing(int user_seq);
+	
+	public List<MyPageMemberDto> getFollower(int user_seq);
+	
+	public boolean isFollowing(HashMap<String, Integer> map);
+	
+	public void follow(HashMap<String, Integer> map, String work);
 }

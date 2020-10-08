@@ -27,6 +27,12 @@
 	FROM INFO_CAMERA
 </select>
 
+<update id="updateProfile" parameterType="bit.com.inpho.dto.MyPageMemberDto">
+	UPDATE MEMBER
+	SET USER_NICKNAME = #{user_nickname}, MYPAGE_INTRODUCE = #{mypage_introduce}
+	WHERE USER_SEQ = #{user_seq}
+</update>
+
 <insert id="addAllCam" parameterType="bit.com.inpho.dto.MyPageCameraDto">
 	INSERT INTO INFO_CAMERA
 	VALUES(SEQ_CAMERA.NEXTVAL, #{camera_serial}, NULL)
@@ -46,5 +52,44 @@
 	INSERT INTO MEMBER_MYPAGE_CAMERA
 	VALUES( #{user_seq}, #{camera_seq} )
 </insert>
+
+<!-- FOLLOW -->
+<select id="getFollowingCount" parameterType="java.lang.Integer" resultType="java.lang.Integer">
+	SELECT COUNT(*) FROM MEMBER_FOLLOW
+	WHERE USER_FOLLOWER = #{user_seq}
+</select>
+
+<select id="getFollowerCount" parameterType="java.lang.Integer" resultType="java.lang.Integer">
+	SELECT COUNT(*) FROM MEMBER_FOLLOW
+	WHERE USER_FOLLOWING = #{user_seq}
+</select>
+
+<select id="getFollowing" parameterType="java.lang.Integer" resultType="bit.com.inpho.dto.MyPageMemberDto">
+	SELECT B.USER_SEQ, B.USER_EMAIL, B.AUTH, B.USER_PASSWORD, B.USER_NICKNAME, B.USER_CREATE, B.PROFILE_IMAGE, B.MYPAGE_INTRODUCE
+	FROM MEMBER_FOLLOW A, MEMBER B
+	WHERE A.USER_FOLLOWING = B.USER_SEQ AND A.USER_FOLLOWER=#{user_seq}
+</select>
+
+<select id="getFollower" parameterType="java.lang.Integer" resultType="bit.com.inpho.dto.MyPageMemberDto">
+	SELECT B.USER_SEQ, B.USER_EMAIL, B.AUTH, B.USER_PASSWORD, B.USER_NICKNAME, B.USER_CREATE, B.PROFILE_IMAGE, B.MYPAGE_INTRODUCE
+	FROM MEMBER_FOLLOW A, MEMBER B
+	WHERE A.USER_FOLLOWER = B.USER_SEQ AND A.USER_FOLLOWING=#{user_seq}
+</select>
+
+<select id="isFollowing" parameterType="HashMap" resultType="java.lang.Integer">
+	SELECT USER_FOLLOWING
+	FROM MEMBER_FOLLOW
+	WHERE USER_FOLLOWER = #{follower} AND USER_FOLLOWING =#{following} 
+</select>
+
+<insert id="follow" parameterType="HashMap">
+	INSERT INTO MEMBER_FOLLOW
+	VALUES(#{follower}, #{following} )
+</insert>
+
+<delete id="unfollow" parameterType="HashMap">
+	DELETE FROM MEMBER_FOLLOW
+	WHERE USER_FOLLOWER = #{follower} AND USER_FOLLOWING =#{following}
+</delete>
 
 </mapper>

@@ -11,11 +11,10 @@ public class HelloSerivceImpl implements HelloService {
 
 	@Autowired
 	HelloDao dao;
-	
-	@Override
-	public String getName(String id) {
-		return dao.getName(id);
-	}
 
-	
+	@Override
+	public String getName() {
+		// TODO Auto-generated method stub
+		return dao.getName();
+	}
 }
