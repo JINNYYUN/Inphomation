@@ -23,14 +23,13 @@ pageEncoding="UTF-8"%>
       <!-- Guest -->
       <div class="guestMode">
         <h1>
-	        <!-- <a href="#myModal" class="trigger-btn" data-toggle="modal"> -->
 	          <i class="fas fa-sign-in-alt text" onclick="goLogin();"></i>
         </h1>
-        <div id="modal-container">
-</div>
+        <div id="modal-container"></div>
       </div>
       <!-- user login -->
       <!-- admin login -->
+     
       <div class="loginMode">
 	      <h1>
 	        <i class="fas fa-pencil-alt text" onclick="goWrite();"></i>
