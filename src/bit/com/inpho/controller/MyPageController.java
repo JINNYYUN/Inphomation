@@ -32,28 +32,115 @@ public class MyPageController {
 	MyPageService service;
 	
 	@RequestMapping(value = "mypage", method = RequestMethod.GET)
-	public String mypage( Model model, int user_seq ) {
+	public String mypage( Model model, int user_seq, HttpServletRequest req ) {
 		Map<String, Object> map = new HashMap<String, Object>();
 		
-		// 회원정보 가져오기 (user_seq)
+		// 임시 세션~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~!!
+		MyPageMemberDto login = new MyPageMemberDto(1, null, 0, null, null, null, null, null);
 		
-		MyPageMemberDto mem = service.getProfile(1);		
-		map.put("mem", mem);
+		req.getSession().setAttribute("login", login);
+		//req.getSession().setMaxInactiveInterval(60 * 60 * 3);
+
+		// 회원정보 가져오기 (user_seq)
+		MyPageMemberDto sessionMem = (MyPageMemberDto)req.getSession().getAttribute("login");
+		
+		MyPageMemberDto mem = service.getProfile(user_seq);		
+		model.addAttribute("mem", mem);
 		
 		System.out.println(mem.toString());
 		
-		// 카메라 정보 가져오기
-		List<MyPageCameraDto> camList = service.getCamera(1);
-		map.put("camlist", camList);
+
+		// 팔로워/팔로잉 수 가져오기
+		int[] count = service.getFollowCount(user_seq);
+		model.addAttribute("following", count[0]);
+		model.addAttribute("follower", count[1]);
 		
-		model.addAttribute("map", map);
+		// 팔로잉 여부 가져오기
+		HashMap<String, Integer> hashmap = new HashMap<String, Integer>();
+		hashmap.put("following", user_seq);
+		hashmap.put("follower", sessionMem.getUser_seq());
+		boolean b = service.isFollowing(hashmap);
+		
+		model.addAttribute("isFollowing", b);
 		
 		return "mypage.tiles";
 	}
 	
+	// FOLLOW & FOLLOWING LIST 가져오기
+	@RequestMapping(value = "getFollowing", method = RequestMethod.GET)
+	public String getFollowing( Model model, int user_seq, HttpServletRequest req ) {
+
+			List<MyPageMemberDto> list =  service.getFollowing(user_seq);
+			MyPageMemberDto login = (MyPageMemberDto)req.getSession().getAttribute("login");
+
+			model.addAttribute("list", list);
+			
+			// 팔로우 여부 가져오기
+			boolean[] follow = new boolean[list.size()];
+			for (int i = 0; i < list.size(); i++) {
+				HashMap<String, Integer> hashmap = new HashMap<String, Integer>();
+				hashmap.put("following", list.get(i).getUser_seq());
+				hashmap.put("follower", login.getUser_seq());
+				follow[i] = service.isFollowing(hashmap);
+			}
+			
+			model.addAttribute("list", list);
+			model.addAttribute("follow", follow);
+			model.addAttribute("user_seq", user_seq);
+	
+		return "MyPageFollow.tiles";
+	}
+	
+	@RequestMapping(value = "getFollower", method = RequestMethod.GET)
+	public String getFollower( Model model, int user_seq, HttpServletRequest req ) {
+		
+			List<MyPageMemberDto> list = service.getFollower(user_seq);
+			MyPageMemberDto login = (MyPageMemberDto)req.getSession().getAttribute("login");
+			
+			// 팔로우 여부 가져오기
+			boolean[] follow = new boolean[list.size()];
+			for (int i = 0; i < list.size(); i++) {
+				HashMap<String, Integer> hashmap = new HashMap<String, Integer>();
+				hashmap.put("following", list.get(i).getUser_seq());
+				hashmap.put("follower", login.getUser_seq());
+				follow[i] = service.isFollowing(hashmap);
+			}
+			
+			model.addAttribute("list", list);
+			model.addAttribute("follow", follow);
+			model.addAttribute("user_seq", user_seq);
+
+		return "MyPageFollow.tiles";
+	}
+	
+	// FOLLOW & UNFOLLOW
+	@ResponseBody
+	@RequestMapping(value = "follow", method = RequestMethod.POST)
+	public void follow( int user_seq, String work, HttpServletRequest req ) {
+
+		System.out.println("빨로우" + user_seq);
+		MyPageMemberDto login = (MyPageMemberDto)req.getSession().getAttribute("login");
+		
+		HashMap<String, Integer> hashmap = new HashMap<String, Integer>();
+		hashmap.put("following", user_seq);
+		hashmap.put("follower", login.getUser_seq());
+		
+		service.follow(hashmap, work);
+	}
+	
+	// 프로필 카메라 리스트 가져오기 ajax
+	@ResponseBody
+	@RequestMapping(value = "getMyCamera", method = RequestMethod.POST)
+	public List<MyPageCameraDto> getMyCamera( int user_seq ) {
+		
+		// 카메라 정보 가져오기
+		List<MyPageCameraDto> camlist = service.getCamera(user_seq);
+		return camlist;
+	}
+	
 	// 프로필 수정 페이지 이동
 	@RequestMapping(value = "mypageedit", method = RequestMethod.GET)
-	public String mypageedit( Model model, int user_seq ) {
+	public String mypageedit( Model model ) {
 		Map<String, Object> map = new HashMap<String, Object>();
 
 		// 회원정보 가져오기 (user_seq)
@@ -71,12 +158,12 @@ public class MyPageController {
 		return "mypageedit.tiles";
 	}
 	
-	//카메라 리스트 불러오기
+	// 프로필 수정 카메라 리스트 불러오기
 	@ResponseBody
 	@RequestMapping(value = "getCam", method = RequestMethod.POST)
 	public List<String> getCam( Model model, String keyWord ) {
 		List<String> allcamlist = service.getAllCam();
-		System.out.println("camlist" + allcamlist.get(0).toString());
+		//System.out.println("camlist" + allcamlist.get(0).toString());
 		return allcamlist;
 	}
 	
@@ -109,10 +196,9 @@ public class MyPageController {
 		//String f = pdsdto.getOldfilename();
 		String newfilename = getNewFileName( filename );	// 324324324324.txt
 		
-		MyPageMemberDto mem = new MyPageMemberDto();
-		
-		// session 받아서 넣기
-		mem.setUser_seq(1);
+		// session
+		MyPageMemberDto mem = (MyPageMemberDto)req.getSession().getAttribute("login");
+
 		mem.setProfile_image(newfilename);
 		//pdsdto.setFilename(newfilename);
 		
@@ -162,21 +248,24 @@ public class MyPageController {
 	@RequestMapping(value = "myPageEditAf", method = RequestMethod.POST)
 	public String myPageEditAf( MyPageMemberDto mem, String[] camera_serial ) {
 		
-		System.out.println(mem.getUser_nickname());
-		System.out.println(mem.getMypage_introduce());
-
+		System.out.println("controller" + mem.toString());
+		
+		//닉네임 & 자기소개 수정
+		service.updateProfile(mem);
+		
+		//카메라 수정
 		//전체 카메라 리스트에 추가
 		List<String> allcam = service.getAllCam();
 		service.addAllCam(allcam, camera_serial);
 		
-		//session 받아오기
 		// 내 카메라 리스트에 추가
-		int user_seq = 1;
 		allcam = service.getAllCam();
-		service.addMyCam(allcam, camera_serial, user_seq);
+		service.addMyCam(allcam, camera_serial, mem.getUser_seq());
 		
-		return "redirect:/mypage?user_seq=1";
+		return "redirect:/mypage?user_seq=" + mem.getUser_seq();
 	}
+	
+	
 	
 	
 	

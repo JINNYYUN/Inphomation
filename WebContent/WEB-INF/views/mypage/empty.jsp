@@ -5,8 +5,7 @@
 <!DOCTYPE html>
 <html>
 <head>
-<meta charset="UTF-8">
-<title>Image upload</title>
+
 </head>
 <body>
 <tiles:insertAttribute name="main"/>	

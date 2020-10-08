@@ -1,6 +1,7 @@
 package bit.com.inpho.service.impl;
 
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.HashSet;
 import java.util.List;
 
@@ -38,6 +39,12 @@ public class MyPageServiceImpl implements MyPageService {
 	@Override
 	public List<String> getAllCam() {
 		return dao.getAllCam();
+	}
+	
+
+	@Override
+	public int updateProfile(MyPageMemberDto mem) {
+		return dao.updateProfile(mem);
 	}
 
 	@Override
@@ -97,12 +104,34 @@ public class MyPageServiceImpl implements MyPageService {
         for (MyPageCameraDto cam : camlist) {
         	System.out.println("~~~serviceImpl" + cam.toString());
 		}
-        
-       
+   
 		dao.addMyCam(camlist, user_seq);	
-		
-        
-		
+	
+	}
+
+	@Override
+	public int[] getFollowCount(int user_seq) {
+		return dao.getFollowCount(user_seq);
+	}
+
+	@Override
+	public List<MyPageMemberDto> getFollowing(int user_seq) {
+		return dao.getFollowing(user_seq);
+	}
+
+	@Override
+	public List<MyPageMemberDto> getFollower(int user_seq) {
+		return dao.getFollower(user_seq);
+	}
+
+	@Override
+	public boolean isFollowing(HashMap<String, Integer> map) {
+		return dao.isFollowing(map);
+	}
+
+	@Override
+	public void follow(HashMap<String, Integer> map, String work) {
+		dao.follow(map, work);
 	}
 	
 	

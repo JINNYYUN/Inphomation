@@ -1,6 +1,7 @@
 package bit.com.inpho.dao.impl;
 
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
 
 import org.apache.ibatis.session.SqlSession;
@@ -42,6 +43,11 @@ public class MyPageDaoImpl implements MyPageDao {
 	public List<String> getAllCam() {
 		return sqlSession.selectList(ns + "getAllCam");
 	}
+	
+	@Override
+	public int updateProfile(MyPageMemberDto mem) {
+		return sqlSession.update(ns + "updateProfile", mem);
+	}
 
 	@Override
 	public int addAllCam(List<MyPageCameraDto> addcamlist) {
@@ -78,14 +84,55 @@ public class MyPageDaoImpl implements MyPageDao {
 				sqlSession.insert(ns + "addMyCam", cam);
 			}
 		}
+	
+	}
+
+	// FOLLOW
+	@Override
+	public int[] getFollowCount(int user_seq) {
+		int[] count = new int[2];
+		count[0] = sqlSession.selectOne(ns + "getFollowingCount", user_seq);
+		count[1] = sqlSession.selectOne(ns + "getFollowerCount", user_seq);
+		return count;
+	}
+
+	@Override
+	public List<MyPageMemberDto> getFollowing(int user_seq) {
+		return sqlSession.selectList(ns + "getFollowing", user_seq);
+	}
+
+	@Override
+	public List<MyPageMemberDto> getFollower(int user_seq) {
+		return sqlSession.selectList(ns + "getFollower", user_seq);
+	}
+
+	@Override
+	public boolean isFollowing(HashMap<String, Integer> map) {
 		
+		System.out.println("map size = "+ map.size());
 		
+		sqlSession.selectOne(ns + "isFollowing", map);
+		boolean b = false;
 		
+		if(sqlSession.selectOne(ns + "isFollowing", map) != null) {
+			b = true;
+		}
+		System.out.println("B: " + b);
+		
+		return b;
+	}
+
+	@Override
+	public void follow(HashMap<String, Integer> map, String work) {
+		
+		if(work.equals("Follow")) {
+			sqlSession.insert(ns + "follow", map);
+			System.out.println("팔로팔로");
+		}else {
+			sqlSession.delete(ns + "unfollow", map);
+		}
 		
 	}
-	
-	
-	
 	
 	
 	

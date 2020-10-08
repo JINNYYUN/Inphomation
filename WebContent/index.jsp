@@ -7,10 +7,11 @@
 <title>Insert title here</title>
 </head>
 <body>
-index이동
-<i class="fas fa-star"></i>
-<script type="text/javascript">
-location.href="map";
-</script>
+<h1>index이동</h1>
+
+<br><br>
+<a href="map">지도페이지 이동</a><br>
+<a href="mypage?user_seq=1"><button>mypage</button></a>
+
 </body>
 </html>
