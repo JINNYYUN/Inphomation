@@ -91,12 +91,19 @@
 			success:function(data){
 				modal.innerHTML=data
 				$('#myModal').modal();
+				$('.modal-backdrop').css('z-index',2)
 			},
 			error:function(){
 				alert('삐뽀삐뽀')
 			}
 		})
 	}
+	//헤더가 없는상황일때 로그인클릭
+	function goImgLogin(){
+		$('.navbar').css('display','block')
+		goLogin()
+	}
+
 	
 	/*
 		Modal의 버튼이 어떤 버튼인지 구분하고 그에따른 form파일을 가져오기 위한
