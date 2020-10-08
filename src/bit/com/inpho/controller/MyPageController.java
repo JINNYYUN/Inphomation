@@ -49,12 +49,7 @@ public class MyPageController {
 		
 		System.out.println(mem.toString());
 		
-		// 카메라 정보 가져오기
-		List<MyPageCameraDto> camList = service.getCamera(user_seq);
-		model.addAttribute("camlist", camList);
-		
-		//model.addAttribute("map", map);
-		
+
 		// 팔로워/팔로잉 수 가져오기
 		int[] count = service.getFollowCount(user_seq);
 		model.addAttribute("following", count[0]);
@@ -133,6 +128,16 @@ public class MyPageController {
 		service.follow(hashmap, work);
 	}
 	
+	// 프로필 카메라 리스트 가져오기 ajax
+	@ResponseBody
+	@RequestMapping(value = "getMyCamera", method = RequestMethod.POST)
+	public List<MyPageCameraDto> getMyCamera( int user_seq ) {
+		
+		// 카메라 정보 가져오기
+		List<MyPageCameraDto> camlist = service.getCamera(user_seq);
+		return camlist;
+	}
+	
 	// 프로필 수정 페이지 이동
 	@RequestMapping(value = "mypageedit", method = RequestMethod.GET)
 	public String mypageedit( Model model ) {
@@ -153,7 +158,7 @@ public class MyPageController {
 		return "mypageedit.tiles";
 	}
 	
-	//카메라 리스트 불러오기
+	// 프로필 수정 카메라 리스트 불러오기
 	@ResponseBody
 	@RequestMapping(value = "getCam", method = RequestMethod.POST)
 	public List<String> getCam( Model model, String keyWord ) {

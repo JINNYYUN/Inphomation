@@ -1,9 +1,9 @@
 @charset "UTF-8";
-
 .top{
 	width: 100%;
 	height: 300px;
 	background-color: #FFFAF2;
+	margin-top: 50px;
 }
 .top-wrap{
 	padding: 20px;
@@ -58,12 +58,13 @@ hr{
 .profile{
 	width: 700px;
     margin: auto;
-   /*  padding-top: 30px; */
+    padding-top: 30px;
     line-height: 55px;
 }
-.text{
+.prf-text{
 	font-size: 20px;
     font-weight: 100;
+    color: black;
 }
 .box{
 	width: 700px;
@@ -78,6 +79,7 @@ hr{
 	color: #fff;
     background-color: #F28705;
     border-color: #F28705;
+    margin-right: 5px;
 }
 
 

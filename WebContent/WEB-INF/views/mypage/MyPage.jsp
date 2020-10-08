@@ -17,10 +17,8 @@
 
 <%
 // 회원정보
-
 MyPageMemberDto mem = (MyPageMemberDto)request.getAttribute("mem");
-// 카메라 정보
-List<MyPageCameraDto> camlist = (List<MyPageCameraDto>)request.getAttribute("camlist");
+
 // 팔로잉 여부
 boolean isFollowing = (boolean)request.getAttribute("isFollowing");
 
@@ -28,7 +26,7 @@ boolean isFollowing = (boolean)request.getAttribute("isFollowing");
 MyPageMemberDto login = (MyPageMemberDto)request.getSession().getAttribute("login");
 %>
 
-<div id="container">
+<div class="container">
 
 	<!-- The Modal Following -->
 	<div id="myModal" class="modal">
@@ -104,32 +102,17 @@ MyPageMemberDto login = (MyPageMemberDto)request.getSession().getAttribute("logi
 		<hr>
 		<table class="mynav-table">
 			<tr>
-				<td><i class="fas fa-camera"> 게시글</i></td>
-				<td><i class="far fa-bookmark"> 북마크</i></td>
-				<td><i class="far fa-user-circle"> 프로필</i></td>
+				<td id="nav_photo"><i class="fas fa-camera"> 게시글</i></td>
+				<td id="nav_bookmark"><i class="far fa-bookmark"> 북마크</i></td>
+				<td id="nav_profile"><i class="far fa-user-circle"> 프로필</i></td>
 			</tr>
 		</table>
 	</div>
 	
 	<div class="content-detail">
-		
+	<hr>
 	<!-- 디폴트값 게시글로 -->
-		<div class="profile">
-			<hr>
-			<p class="text">ABOUT ME</p>
-			<div class="box">${mem.mypage_introduce}</div>
-			<p class="text">CAMERA</p>
-			<div class="box">
-			<% 
-				for(int i=0; i<camlist.size(); i++){
-			%>
-					<span class="btn btn-cam"><%=camlist.get(i).getCamera_serial() %></span>
-			
-			<%	
-				}
-			%>
-			</div>
-		</div>
+		
 	</div>
 </div>
 
@@ -234,10 +217,38 @@ $(".modal-detail2").load("getFollower?user_seq=" + ${mem.user_seq});
 <!-- ① 게시글 & 북마크 구현 -->
 <script type="text/javascript">
 
-
 </script>
 
 <!-- ② 프로필 구현 -->
+<script type="text/javascript">
+$("#nav_profile").click(function(){
+
+	$.ajax({
+		url:"getMyCamera",
+		type:"post",
+		data:{"user_seq":<%=mem.getUser_seq()%>},
+		success:function(camlist){
+			//alert('success');
+			let content = '<div class="profile">'
+				+ '<p class="prf-text">ABOUT ME</p><div class="box">${mem.mypage_introduce}</div>'
+				+ '<p class="prf-text">CAMERA</p>'
+				+ '<div class="box">';
+				
+			$.each(camlist, function(i, cam) {
+					content += '<span class="btn btn-cam">' + cam.camera_serial + '</span>';
+			});
+			
+			$(".profile").remove();
+			$(".content-detail").append(content);
+		},
+		error:function(){
+			alert('error');
+		}
+	});
+});
+
+</script>
+
 
 </body>
 </html>

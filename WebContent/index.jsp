@@ -15,7 +15,7 @@ testtest
 <a href="main"><button>main</button></a>
 
 <script type="text/javascript">
-location.href="/";
+location.href="main";
 </script>
 </body>
 </html>
