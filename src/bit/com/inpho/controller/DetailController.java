@@ -27,14 +27,12 @@ public class DetailController {
 	
 	
 	@RequestMapping(value = "detail.do", method = RequestMethod.GET)
-	public String detail(Model model, DetailPostDto post, DetailCountAllDto count) throws Exception {
+	public String detail(Model model,int post_seq, DetailPostDto post, DetailCountAllDto count) throws Exception {
 
-		int seq = 1;
+		MyPageMemberDto myPage = MyService.getProfile(post_seq);
 		
-		MyPageMemberDto myPage = MyService.getProfile(seq);
-		
-		DetailPostDto postList = service.getPost(seq);
-		List<DetailPostDto> tagList = service.getHashTag(seq);
+		DetailPostDto postList = service.getPost(post_seq);
+		List<DetailPostDto> tagList = service.getHashTag(post_seq);
 		
 		
 		int cLike = service.countLike(count);

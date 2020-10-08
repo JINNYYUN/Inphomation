@@ -85,8 +85,8 @@ a:hover {
   <div>
 	 <a href="#none" onclick="history.back()"><i class="far fa-arrow-alt-circle-left" ></i></a>
   </div>
-<form class="frm">
-<input type="hidden" name="seq" value="${post.post_seq }">
+<div class="frm">
+<input type="hidden" name="seq" id="post_seq" value="${post.post_seq }">
 	<div class="detailTbl">
 		<table class="tableBack">
 		<tr>
@@ -179,7 +179,7 @@ a:hover {
 		</tr>
 		</table>
 	</div>
-</form>
+	</div>
 </div> 
 
 <script type="text/javascript">
@@ -203,7 +203,8 @@ $(document).ready(function(){
 	 $.ajax({
 		url:"replyList.do",
 		type:"get",
-		data:{"post_seq":1},
+		data:{"post_seq":$("#post_seq").val()},
+		async:true,
 		success:function(list){
 
 			$.each(list, function(i, item){
@@ -238,9 +239,9 @@ function replyMenu(){
 							+"</div> ");
 }
 
-function deletReply(post_seq, user_seq,reply_seq){
-	location.href="deletReply.do?post_seq="+post_seq+"&user_seq="+user_seq + "&reply_seq=" + reply_seq;
-	
+function deletReply(){
+	/* location.href="deletReply.do?post_seq="+post_seq+"&user_seq="+user_seq + "&reply_seq=" + reply_seq;
+	 */
 }
 
 $(function(){
@@ -260,7 +261,8 @@ function addComment(){
 			$.ajax({
 			url:"addReply.do",
 			type: "get",
-			data: {"post_seq":"1", "user_seq":"1", "reply_content":  $("#comment").val() },
+			data: {"post_seq":$("#post_seq").val(), "user_seq":"1", "reply_content":  $("#comment").val() },
+			async:true,
 			success:function(data){
 			//	console.log(data)
 				$("#comment").val("");
@@ -291,8 +293,8 @@ $(document).ready(function(){
 		$.ajax({
 			url:"addLike.do",
 			type:"get",
-			async:false,
-			data: {"post_seq" : "1", "user_seq":"1"},
+			async:true,
+			data: {"post_seq" : $("#post_seq").val(), "user_seq":"1"},
 			success:function(msg){
 				/*msg가 NO일 경우 북마크에 추가됨*/
 
@@ -321,7 +323,7 @@ $(document).ready(function(){
 		url:"countLikeAll.do",
 		type:"get",
 		data:{"post_seq":"1"},
-		async: false,
+		async: true,
 		success:function(data){
 		//	alert("success" + data);
 		
@@ -353,8 +355,8 @@ $(document).ready(function(){
 		$.ajax({
 			url:"addBookmark.do",
 			type:"get",
-			async:false,
-			data: {"post_seq" : "1", "user_seq":"1"},
+			async:true,
+			data: {"post_seq" : $("#post_seq").val(), "user_seq":"1"},
 			success:function(msg){
 				/*msg가 NO일 경우 북마크에 추가됨*/
 
