@@ -9,8 +9,13 @@
 <body>
 testtest
 <i class="fas fa-star"></i>
+
+<br><br><br><br>
+<a href="mypage?user_seq=1"><button>mypage</button></a>
+<a href="main"><button>main</button></a>
+
 <script type="text/javascript">
-location.href="hello?id=aabbcc";
+location.href="/";
 </script>
 </body>
 </html>
