@@ -10,7 +10,7 @@
 testtest
 <i class="fas fa-star"></i>
 <script type="text/javascript">
-location.href="hello?id=aabbcc";
+location.href="detail.do?post_seq=1&user_seq=1";
 </script>
 </body>
 </html>

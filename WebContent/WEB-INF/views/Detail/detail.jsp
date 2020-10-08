@@ -222,6 +222,7 @@ $(document).ready(function(){
 										+ "<a href='#ex2' rel='modal:open' onclick='replyMenu()'> ··· </a>"
 									+ "</div></td>"
 									+ "</tr>" + "<tr>" + "<td>" + date + "<td>" + "<tr>");
+				$("#cmt").append("<input type='hidden' name='reply_seq' value='" + ${item.reply_seq }+ "''>");
 			})
 		},
 		error:function(){
@@ -233,7 +234,7 @@ $(document).ready(function(){
 /* 댓글 삭제 파라미터에 넣기 +${mem.user_seq},${post.post_seq}+ */
 function replyMenu(){
 	$("#replyMenu").append("<div id='ex2' class='modal'  style='max-width: 100%; width: auto;height:auto; display: table;'>"
-								+"<button type='button' id='deletReply' onclick='deletReply(1, 1, 1)' class='btn modalBtn'>삭제하기</button><br>"
+								+"<button type='button' id='deletReply' class='btn modalBtn'>삭제하기</button><br>"
 							+"</div> ");
 }
 
@@ -241,6 +242,14 @@ function deletReply(post_seq, user_seq,reply_seq){
 	location.href="deletReply.do?post_seq="+post_seq+"&user_seq="+user_seq + "&reply_seq=" + reply_seq;
 	
 }
+
+$(function(){
+$("#deletReply").on("click",function(){
+	alert("dd");
+})
+	
+});
+
 
 
 /*  댓글 추가 부분 */
