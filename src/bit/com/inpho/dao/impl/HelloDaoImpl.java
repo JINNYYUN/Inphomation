@@ -7,7 +7,6 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
 
 import bit.com.inpho.dao.HelloDao;
-import bit.com.inpho.dto.HelloDto;
 
 @Repository
 public class HelloDaoImpl implements HelloDao {
