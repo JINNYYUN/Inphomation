@@ -5,19 +5,36 @@
   
 <mapper namespace="Detail">
 
-<insert id="addBookmark" parameterType="bit.com.inpho.dto.DetailBookmarkDto">
+<select id="getPost" parameterType="java.lang.Integer" resultType="bit.com.inpho.dto.DetailPostDto">
+	SELECT P.POST_SEQ, P.USER_SEQ, P.POST_CONTENT, P.POST_WDATE,
+        	P.POST_FILEPATH, P.POST_POSITION_NAME, IC.CAMERA_SERIAL
+	FROM POST P, INFO_CAMERA IC
+	WHERE P.CAMERA_SEQ = IC.CAMERA_SEQ
+	AND P.POST_SEQ = #{post_seq}
+</select>
+
+<select id="getHashTag" parameterType="java.lang.Integer" resultType="bit.com.inpho.dto.DetailPostDto">
+	SELECT IH.TAG_SEQ, IH.HASHTAG, PH.POST_SEQ 
+	FROM INFO_HASHTAG IH, POST_HASHTAG PH
+	WHERE IH.TAG_SEQ = PH.TAG_SEQ
+	AND PH.POST_SEQ = #{post_seq}
+</select>
+
+
+
+<insert id="addBookmark" parameterType="bit.com.inpho.dto.DetailCountAllDto">
 	INSERT INTO POST_BOOKMARK
 	VALUES(#{post_seq}, #{user_seq})
 </insert>
 
-<select id="countBookmark" parameterType="bit.com.inpho.dto.DetailBookmarkDto" resultType="java.lang.Integer">
+<select id="countBookmark" parameterType="bit.com.inpho.dto.DetailCountAllDto" resultType="java.lang.Integer">
 	SELECT NVL(COUNT(*),0)
 	FROM POST_BOOKMARK
 	WHERE USER_SEQ = #{user_seq}
 	AND POST_SEQ = #{post_seq}
 </select>
 
-<delete id="deleteBookmark" parameterType="bit.com.inpho.dto.DetailBookmarkDto">
+<delete id="deleteBookmark" parameterType="bit.com.inpho.dto.DetailCountAllDto">
 	DELETE FROM POST_BOOKMARK
 	WHERE USER_SEQ = #{user_seq}
 	AND POST_SEQ = #{post_seq}
@@ -25,19 +42,19 @@
 
 
 
-<insert id="addLike" parameterType="bit.com.inpho.dto.DetailBookmarkDto">
+<insert id="addLike" parameterType="bit.com.inpho.dto.DetailCountAllDto">
 	INSERT INTO POST_LIKE
 	VALUES(#{post_seq}, #{user_seq}, SYSDATE)
 </insert>
 
-<select id="countLike" parameterType="bit.com.inpho.dto.DetailBookmarkDto" resultType="java.lang.Integer">
+<select id="countLike" parameterType="bit.com.inpho.dto.DetailCountAllDto" resultType="java.lang.Integer">
 	SELECT NVL(COUNT(*),0)
 	FROM POST_LIKE
 	WHERE USER_SEQ = #{user_seq}
 	AND POST_SEQ = #{post_seq}
 </select>
 
-<delete id="deleteLike" parameterType="bit.com.inpho.dto.DetailBookmarkDto">
+<delete id="deleteLike" parameterType="bit.com.inpho.dto.DetailCountAllDto">
 	DELETE FROM POST_LIKE
 	WHERE USER_SEQ = #{user_seq}
 	AND POST_SEQ = #{post_seq}
@@ -54,17 +71,25 @@
 
 <insert id="addReply" parameterType="bit.com.inpho.dto.DetailReplyDto">
 	INSERT INTO POST_REPLY
-	VALUES(#{post_seq}, #{user_seq}, #{reply_content}, SYSDATE)
+	VALUES(#{post_seq}, #{user_seq} , #{reply_content}, SYSDATE, SEQ_REPLY.NEXTVAL)
 </insert>
 
 <select id="replyList" parameterType="bit.com.inpho.dto.DetailReplyDto"
 			resultType="bit.com.inpho.dto.DetailReplyDto">
-	SELECT PR.REPLY_CONTENT, PR.REPLY_DATE, B.USER_NICKNAME
+	SELECT 	PR.REPLY_CONTENT, PR.REPLY_DATE,
+			PR.REPLY_SEQ, PR.USER_SEQ, B.USER_NICKNAME
 	FROM POST_REPLY PR, MEMBER B
 	WHERE PR.USER_SEQ = B.USER_SEQ
 	AND POST_SEQ=#{post_seq}	
 	ORDER BY REPLY_DATE DESC
 </select>
+
+<delete id="deleteReply" parameterType="bit.com.inpho.dto.DetailReplyDto">
+	DELETE FROM POST_REPLY
+	WHERE POST_SEQ = ${post_seq}
+	AND USER_SEQ = ${user_seq}
+	AND REPLY_SEQ = ${reply_seq}
+</delete>
 
 </mapper>
 

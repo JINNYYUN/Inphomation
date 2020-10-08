@@ -2,22 +2,24 @@ package bit.com.inpho.dto;
 
 import java.io.Serializable;
 
-public class DetailLikeDto implements Serializable {
-
+public class DetailCountAllDto implements Serializable {
+	
 	private int post_seq;
 	private int user_seq;
 	private String like_wdate;
 	
-	public DetailLikeDto() {}
+	public DetailCountAllDto() {
+		// TODO Auto-generated constructor stub
+	}
 
-	public DetailLikeDto(int post_seq, int user_seq, String like_wdate) {
+	public DetailCountAllDto(int post_seq, int user_seq, String like_wdate) {
 		super();
 		this.post_seq = post_seq;
 		this.user_seq = user_seq;
 		this.like_wdate = like_wdate;
 	}
 
-	public DetailLikeDto(int post_seq, int user_seq) {
+	public DetailCountAllDto(int post_seq, int user_seq) {
 		super();
 		this.post_seq = post_seq;
 		this.user_seq = user_seq;
@@ -46,6 +48,12 @@ public class DetailLikeDto implements Serializable {
 	public void setLike_wdate(String like_wdate) {
 		this.like_wdate = like_wdate;
 	}
+
+	@Override
+	public String toString() {
+		return "DetailCountAll [post_seq=" + post_seq + ", user_seq=" + user_seq + ", like_wdate=" + like_wdate + "]";
+	}
+	
 	
 	
 }

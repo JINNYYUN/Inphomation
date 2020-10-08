@@ -2,21 +2,25 @@ package bit.com.inpho.dao;
 
 import java.util.List;
 
-import bit.com.inpho.dto.DetailBookmarkDto;
-import bit.com.inpho.dto.DetailLikeDto;
+import bit.com.inpho.dto.DetailCountAllDto;
+import bit.com.inpho.dto.DetailPostDto;
 import bit.com.inpho.dto.DetailReplyDto;
 
 public interface DetailDao {
 
-	boolean addBookmark(DetailBookmarkDto dto);
-	int countBookmark(DetailBookmarkDto dto);
-	boolean deleteBookmark(DetailBookmarkDto dto);
+	DetailPostDto getPost(int post_seq);
+	List<DetailPostDto> getHashTag(int post_seq);
 	
-	boolean addLike(DetailLikeDto dto);
-	int countLike(DetailLikeDto dto);
-	boolean deleteLike(DetailLikeDto dto);
+	boolean addBookmark(DetailCountAllDto dto);
+	int countBookmark(DetailCountAllDto dto);
+	boolean deleteBookmark(DetailCountAllDto dto);
+	
+	boolean addLike(DetailCountAllDto dto);
+	int countLike(DetailCountAllDto dto);
+	boolean deleteLike(DetailCountAllDto dto);
 	int countLikeAll(int post_seq);
 	
 	boolean addReply(DetailReplyDto dto);
 	List<DetailReplyDto> replyList(int post_seq);
+	boolean deleteReply(DetailReplyDto dto);
 }
