@@ -6,9 +6,13 @@
 <html>
 <head>
 <meta charset="UTF-8">
-<title>Insert title here</title>
+<title>Main Page</title>
 </head>
 <body>
+<<<<<<< HEAD
 	가입된 이메일 : ${email }
+=======
+ WOW 
+>>>>>>> feature/post
 </body>
 </html>
