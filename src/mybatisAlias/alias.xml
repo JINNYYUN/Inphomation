@@ -6,7 +6,6 @@
 
 
 	<typeAliases>
-		<typeAlias type="bit.com.inpho.dto.MemberDto" alias="MemberDto"/>
 		<typeAlias type="bit.com.inpho.dto.PostDto" alias="PostDto"/>
 	</typeAliases>
 	

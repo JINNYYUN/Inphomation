@@ -18,7 +18,7 @@ import org.springframework.web.bind.annotation.RequestMethod;
 
 @Controller
 public class PostController {
-	private static final Logger logger = LoggerFactory.getLogger(HelloController.class);
+	private static final Logger logger = LoggerFactory.getLogger(PostController.class);
 	
 	@RequestMapping(value = "postUpdate.do", method = {RequestMethod.GET,	RequestMethod.POST})
 	public String postwrite(Model model,HttpSession session) {
