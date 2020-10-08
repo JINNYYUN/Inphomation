@@ -12,10 +12,6 @@ testtest
 
 <br><br><br><br>
 <a href="mypage?user_seq=1"><button>mypage</button></a>
-<a href="main"><button>main</button></a>
 
-<script type="text/javascript">
-location.href="main";
-</script>
 </body>
 </html>
