@@ -27,4 +27,8 @@
 	<put-attribute name="main" value="/WEB-INF/views/mypage/MyPageUpload.jsp"/>	
 </definition>
 
+<definition name="MyPageFollow.tiles" template="/WEB-INF/views/mypage/empty.jsp">
+	<put-attribute name="main" value="/WEB-INF/views/mypage/MyPageFollow.jsp"/>	
+</definition>
+
 </tiles-definitions>

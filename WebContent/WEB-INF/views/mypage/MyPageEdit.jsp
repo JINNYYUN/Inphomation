@@ -8,65 +8,13 @@
 <html>
 <head>
 <meta charset="UTF-8">
-<title>Insert title here</title>
+<link rel="stylesheet" type="text/css" href="css/MyPage/MyPageEdit.css">
 
 <script type="text/javascript" src="js/MyPage/jquery/lib/jquery.js"></script>
 <script type="text/javascript" src="js/MyPage/jquery/lib/jquery.bgiframe.min.js"></script>
 <script type="text/javascript" src="js/MyPage/jquery/lib/jquery.ajaxQueue.js"></script>
 <script type="text/javascript" src="js/MyPage/jquery/jquery.autocomplete.js"></script>
 <link rel="stylesheet" type="text/css" href="js/MyPage/jquery/jquery.autocomplete.css">
-
-<style type="text/css">
-.top{
-	width: 100%;
-	height: 300px;
-	background-color: lightgrey;
-}
-.top-wrap{
-	padding: 20px;
-}
-.content-detail{
-	width: 600px;
-	height: 400px;
-	background-color: lightgrey;
-	margin: 0 auto;
-}
-.profile-img-back{
-	background-color: lightgrey;
-	border-radius: 50%;
-	width: 150px;
-	height: 150px;
-	margin: auto;
-}
-.profile-img{
-	position: relative;
-	width:140px;
-	height:140px;
-	border-radius: 50%;
-	margin: 5px;
-	
-}
-.fa-pen{
-	position: relative;
-	left: 63px;
-    top: -145px;
-}
-.top-detail{
-	margin: auto;
-}
-.box{
-	width: 500px;
-	height: 100px;
-	background-color: white;
-	border: 1px;
-	overflow: auto;
-}
-
-input:focus, textarea:focus{
-     outline: none; 
-}
-
-</style>
 
 </head>
 <body>
@@ -81,29 +29,38 @@ MyPageMemberDto mem = (MyPageMemberDto)map.get("mem");
 <div id="container">
 
 <div class="contents">
-	<div class="top-wrap">
-		<div class="profile-img-back" align="center">
-			<%
-			if(mem.getProfile_image() == null || mem.getProfile_image().equals("")){
-			%>
-				<img class=profile-img alt="" src="./image/2017070900603_4.jpg">
-			<%	
-			}else{ 
-			%>
-				<img class=profile-img src="http://localhost:8090/Inphomation/upload/profileImage/${map.mem.profile_image}">
-			<%	
-			}
-			%>
-			<i class="fas fa-pen fa-2x" id="faPen"></i>
+	<div class="top">
+		<div class="top-wrap">
+			<div class="profile-img" align="center">
+				<%
+				if(mem.getProfile_image() == null || mem.getProfile_image().equals("")){
+				%>
+					<img alt="" src="./image/2017070900603_4.jpg">
+				<%	
+				}else{ 
+				%>
+					<img src="http://localhost:8090/Inphomation/upload/profileImage/${map.mem.profile_image}">
+				<%	
+				}
+				%>
+				<i class="fas fa-pen fa-2x" id="faPen"></i>
+			</div>
 		</div>
 	</div>
-
 	
 	
-	<div class="content-detail">
+	<div class="contents">
+		<div class="mynav">
+		<hr>
+		<p align="center">프로필 수정</p>
+		</div>
+		<div class="content-detail">
+		
 		<div class="profile" align="center">
+			<hr>
 			<form id="frm" method="post">
 			닉네임
+			<input type="hidden" name="user_seq" value="${map.mem.user_seq}">
 			<input id="nickname" name="user_nickname" size="30" value="${map.mem.user_nickname}">
 			<p class=text>ABOUT ME</p>
 				<div class="box">
@@ -126,7 +83,8 @@ MyPageMemberDto mem = (MyPageMemberDto)map.get("mem");
 				
 				
 				
-			<button id="editBtn">프로필 수정</button>
+			<button class="btn follow-btn" id="editBtn">프로필 수정</button>
+		</div>
 		</div>
 	</div>
 	

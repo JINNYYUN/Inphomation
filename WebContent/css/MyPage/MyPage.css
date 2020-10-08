@@ -1,0 +1,203 @@
+@charset "UTF-8";
+
+.top{
+	width: 100%;
+	height: 300px;
+	background-color: #FFFAF2;
+}
+.top-wrap{
+	padding: 20px;
+}
+.profile-img{
+	background-color: white;
+	border-radius: 50%;
+	width: 150px;
+	height: 150px;
+	margin: auto;
+}
+img{
+	width:140px;
+	height:140px;
+	border-radius: 50%;
+	margin: 5px;
+}
+.follow-btn{
+	float: right;
+	color: #fff;
+    background-color: #F28705;
+    border-color: #F28705;
+}
+.top-detail{
+	margin-top: 10px;
+}
+.nickname{
+	font-size: 25px;
+}
+.follow{
+	margin-top: 5px;
+}
+.mynav-table{
+	width: 900px;
+	border: 1px;
+	border-collapse: collapse;
+	margin: auto;
+    height: 62px;
+    text-align: center;
+}
+hr{
+	margin: 0px;
+}
+.content-detail{
+	background-color: #fff;
+    width: 1000px;
+    height: 600px;
+    margin: auto;
+    border-color: black;
+    border: 1px;
+}
+.profile{
+	width: 700px;
+    margin: auto;
+   /*  padding-top: 30px; */
+    line-height: 55px;
+}
+.text{
+	font-size: 20px;
+    font-weight: 100;
+}
+.box{
+	width: 700px;
+	border: 1px solid lightgrey;
+	border-radius:0.4em;
+	height: 200px;
+	padding-left: 20px;
+	font-size: 20px;
+	padding-top: 10px;
+}
+.btn-cam{
+	color: #fff;
+    background-color: #F28705;
+    border-color: #F28705;
+}
+
+
+/* The Modal (background) */
+.modal {
+  display: none; /* Hidden by default */
+  position: fixed; /* Stay in place */
+  z-index: 1; /* Sit on top */
+  padding-top: 100px; /* Location of the box */
+  left: 0;
+  top: 0;
+  width: 100%; /* Full width */
+  height: 100%; /* Full height */
+  overflow: auto; /* Enable scroll if needed */
+  background-color: rgb(0,0,0); /* Fallback color */
+  background-color: rgba(0,0,0,0.4); /* Black w/ opacity */
+}
+
+/* Modal Content */
+.modal-content {
+  background-color: #fefefe;
+  margin: auto;
+  padding: 20px;
+  border: 1px solid #888;
+  width: 400px;
+  height: 500px;
+  /* overflow: auto; */
+}
+.modal-detail{
+	overflow: auto;
+}
+
+.modal-btn{
+	float: right;
+	color: #fff;
+    background-color: #F28705;
+    border-color: #F28705;
+}
+/* The Close Button */
+.close {
+  color: #aaaaaa;
+  float: right;
+  font-size: 28px;
+  font-weight: bold;
+}
+
+.close:hover,
+.close:focus {
+  color: #000;
+  text-decoration: none;
+  cursor: pointer;
+}
+.list img{
+	width: 50px;
+    height: 50px;
+}
+.btn-modal{
+	float: right;
+	margin: 12px 0;
+}
+
+/* The Modal (background) */
+.modal2 {
+  display: none; /* Hidden by default */
+  position: fixed; /* Stay in place */
+  z-index: 1; /* Sit on top */
+  padding-top: 100px; /* Location of the box */
+  left: 0;
+  top: 0;
+  width: 100%; /* Full width */
+  height: 100%; /* Full height */
+  overflow: auto; /* Enable scroll if needed */
+  background-color: rgb(0,0,0); /* Fallback color */
+  background-color: rgba(0,0,0,0.4); /* Black w/ opacity */
+}
+
+/* Modal Content */
+.modal-content2 {
+    position: relative;
+    display: flex;
+    flex-direction: column;
+    width: 100%;
+    pointer-events: auto;
+    background-color: #fff;
+    background-clip: padding-box;
+    border: 1px solid rgba(43, 45, 54, 0.2);
+    border-radius: 0.938rem;
+    outline: 0;
+}
+
+.modal-content2 {
+  background-color: #fefefe;
+  margin: auto;
+  padding: 20px;
+  border: 1px solid #888;
+  width: 400px;
+  height: 500px;
+}
+
+/* The Close Button */
+.close2 {
+    float: right;
+    font-size: 1.5rem;
+    font-weight: 700;
+    line-height: 1;
+    color: #858899;
+    text-shadow: 0 1px 0 #fff;
+    opacity: .5;
+}
+
+.close2 {
+  color: #aaaaaa;
+  float: right;
+  font-size: 28px;
+  font-weight: bold;
+}
+
+.close2:hover,
+.close2:focus {
+  color: #000;
+  text-decoration: none;
+  cursor: pointer;
+}
