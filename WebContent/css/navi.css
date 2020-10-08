@@ -4,23 +4,23 @@
 
 .navbar {
   padding: 0;
-  top:0;
+  top: 0;
   width: 100%;
-  min-width:770px;
-  height:50px;
+  min-width: 770px;
+  height: 50px;
   justify-content: flex-start;
   border-bottom: 1px solid rgb(219, 219, 219);
-  display:block;
-  position:fixed;
-  z-index:5;
-  background-color:white;
+  display: block;
+  position: fixed;
+  z-index: 5;
+  background-color: white;
 }
 
 .navbar .container {
   padding-left: 0;
   margin: 0;
   justify-content: space-between;
-  max-width:100%;
+  max-width: 100%;
 }
 
 nav .container .brand-logo {
@@ -66,7 +66,7 @@ nav .container a {
 }
 
 .search-bar input:hover,
-.search-bar input:focus{
+.search-bar input:focus {
   border: 2px solid blue;
 }
 
@@ -74,62 +74,71 @@ nav .container a {
   position: absolute;
   right: 10px;
   top: 10px;
-  cursor:pointer;
+  cursor: pointer;
 }
 
 .container i:hover {
   color: blue;
   cursor: pointer;
 }
-.loginMode{
-	display:relative;
+
+.loginMode {
+  display: relative;
 }
+
 .dropbox {
-	display: none;
-	position: absolute;
-	top: 100%;
-	right: 0;
-	width: 200px;
-	padding: 8px 0;
-	border-radius: 4px;
-	background-color: #fff;
-	box-shadow: 0 1px 15px rgba(27, 31, 35, 0.15);
-	transition: transform 200ms ease-in;
+  display: none;
+  position: absolute;
+  top: 100%;
+  right: 0;
+  width: 200px;
+  padding: 8px 0;
+  border-radius: 4px;
+  background-color: #fff;
+  box-shadow: 0 1px 15px rgba(27, 31, 35, 0.15);
+  transition: transform 200ms ease-in;
 }
+
 .dropbox ul {
-	list-style-type: none;
-	padding: 8px 0;
+  list-style-type: none;
+  padding: 8px 0;
 }
 
 .dropbox ul:last-child {
-	border-top: 1px solid #e1e4e8;
+  border-top: 1px solid #e1e4e8;
 }
+
 .dropbox h3 {
-	padding: 8px 16px 16px;
-	border-bottom: 1px solid #e1e4e8;
-	font-weight: 500;
+  padding: 8px 16px 16px;
+  border-bottom: 1px solid #e1e4e8;
+  font-weight: 500;
 }
+
 .dropbox ul a {
-	display: block;
-	padding: 8px 16px;
-	font-size: 14px;
-	line-height: 1.5;
-	color: #24292e;
-	text-decoration: none;
+  display: block;
+  padding: 8px 16px;
+  font-size: 14px;
+  line-height: 1.5;
+  color: #24292e;
+  text-decoration: none;
 }
+
 .dropbox ul a:hover {
-	color: #fff;
-	background-color: #0366d6;
+  color: #fff;
+  background-color: #0366d6;
 }
-.dropbox.active{
-	display:block;
+
+.dropbox.active {
+  display: block;
 }
-.dropbox a{
-    line-height: 1.5;
-    color: #24292e;
-    text-decoration: none;
+
+.dropbox a {
+  line-height: 1.5;
+  color: #24292e;
+  text-decoration: none;
 }
-.guestMode .trigger-btn{
-	margin:0px;
-	text-decoration: none;
+
+.guestMode .trigger-btn {
+  margin: 0px;
+  text-decoration: none;
 }
