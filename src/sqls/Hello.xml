@@ -2,12 +2,13 @@
 <!DOCTYPE mapper
   PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
   "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
-  
-<mapper namespace="Hello">
 
-<select id="getName" parameterType="String" resultType="String">
-	SELECT NAME FROM MEMBER
-	WHERE ID=#{id}
+<mapper namespace="post">
+
+<select id="postinfo" parameterType="MemberDto" resultType="PostDto">
+	SELECT FROM POST_SEQ, USER_SEQ, CAMERA_SEQ, POST_CONTENT, POST_WDATE, POST_FILEPATH, POST_READCOUNT, POST_POSITION_NAME
+	FROM POST
+	WHERE user_seq = #{user_seq} 
 </select>
 
 </mapper>

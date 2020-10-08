@@ -7,10 +7,10 @@
 <title>Insert title here</title>
 </head>
 <body>
-testtest
+test
 <i class="fas fa-star"></i>
 <script type="text/javascript">
-location.href="hello?id=aabbcc";
+location.href="hello";
 </script>
 </body>
 </html>
