@@ -20,11 +20,11 @@ import org.springframework.web.bind.annotation.RequestMethod;
 public class PostController {
 	private static final Logger logger = LoggerFactory.getLogger(PostController.class);
 	
-	@RequestMapping(value = "postUpdate.do", method = {RequestMethod.GET,	RequestMethod.POST})
+	@RequestMapping(value = "post", method = {RequestMethod.GET,	RequestMethod.POST})
 	public String postwrite(Model model,HttpSession session) {
 		logger.info("post"+new Date());
 //		String id = ((MemberDto)session.getAttribute("login")).getUser_email();
-		return "mainpage.tiles";
+		return "PostPage";
 		
 	}
 }
