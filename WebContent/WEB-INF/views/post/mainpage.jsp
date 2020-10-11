@@ -5,10 +5,10 @@
 <head>
 <meta charset="UTF-8">
 <title>hello</title>
-<script src="https://code.jquery.com/jquery-3.5.1.min.js"></script>
-<!-- <script
-	src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script> -->
 <script src="https://cdn.jsdelivr.net/npm/exif-js"></script>
+<script
+	src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+<script src="https://code.jquery.com/jquery-3.5.1.min.js"></script>
 <link href="css/mdb.css" rel="stylesheet">
 <link rel="stylesheet"
 	href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.0/css/bootstrap.min.css">
@@ -19,11 +19,12 @@
 	src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.0/js/bootstrap.min.js"></script>
 
 <style type="text/css">
-#thumbnailImg{
+#thumbnailImg {
 	width: 400px;
- 	height: 300px;
+	height: 300px;
 	background-repeat: no-repeat;
 }
+
 .content {
 	outline: 2px dashed #92b0b3;
 	outline-offset: -10px;
@@ -130,72 +131,73 @@ button:active {
 </head>
 <body>
 
-		<form method="POST" action="fileUpload" enctype="multipart/form-data">
-	<div class="container">
-		<div id="thumbnailUrl"></div>
-		<!-- Heading Row -->
-		<div class="row align-items-center my-5">
+	<form method="POST" action="fileUpload" enctype="multipart/form-data">
+		<div class="container">
+			<div id="thumbnailUrl"></div>
+			<!-- Heading Row -->
+			<div class="row align-items-center my-5">
 				<div class="">
 					<div class="content rounded mb-4 mb-lg-0" id="mylmg">
 
 						<br> <label for="upImgFile">이미지를 드래그 하거나 여기를 클릭하여 파일을
 							선택해주세요! (PNG, JPG,JEPG)</label> <input type="file" class="imagehide"
 							id="upImgFile" name="upImgFile" accept=".jpg, .jpeg, .png"
-							multiple onChange="uploadImgPreview()">
+							multiple>
 						<div class="preview">
 							<label class="label"><%=request.getRealPath("/")%></label>
 						</div>
 					</div>
-					<div id="thumbnailImg" class="photo-gallery content rounded mb-4 mb-lg-0" src="#">
+					<div id="thumbnailImg"
+						class="photo-gallery content rounded mb-4 mb-lg-0" src="#">
 					</div>
 				</div>
-			
-			<div class="mb-5">
-				<div class="card h-100">
-					
-					<div class="card-body">
 
-						<div class="postwrite">
-							<h2 class="text fas text-weight-medium">
-								<i class="fas fa-pencil-alt text"></i>게시글 작성
-							</h2>
+				<div class="mb-5">
+					<div class="card h-100">
+
+						<div class="card-body">
+
+							<div class="postwrite">
+								<h2 class="text fas text-weight-medium">
+									<i class="fas fa-pencil-alt text"></i>게시글 작성
+								</h2>
+							</div>
+
+
+							<div class="md-form">
+								<input type="text" id="inputLGEx"
+									class="form-control form-control-lg" placeholder="자신을 소개해 주세요!">
+								<label for="inputLGEx"></label>
+							</div>
+							<div class="md-form">
+								<input type="text" id="inputLGEx"
+									class="form-control form-control-lg"> <label
+									for="inputLGEx">촬영장소를 작성 해주세요!</label>
+							</div>
+							<div class="md-form">
+								<input type="text" id="inputLGEx"
+									class="form-control form-control-lg"> <label
+									for="inputLGEx">나만의 해쉬 태그 입력해주세요!</label>
+							</div>
+							<div class="md-form">
+								<input type="text" id="inputLGEx"
+									class="form-control form-control-lg"> <label
+									class="text" for="inputLGEx">촬영기기는 어떻게 되나요?</label>
+							</div>
+
+
+
+
+							<a href="#" class="btn btn-primary btn-sm">More Info</a> <input
+								id="done" class="btn btn-primary btn-sm" type="submit"
+								value="글쓰기">
 						</div>
-
-
-						<div class="md-form">
-							<input type="text" id="inputLGEx"
-								class="form-control form-control-lg" placeholder="자신을 소개해 주세요!">
-							<label for="inputLGEx"></label>
-						</div>
-						<div class="md-form">
-							<input type="text" id="inputLGEx"
-								class="form-control form-control-lg"> <label
-								for="inputLGEx">촬영장소를 작성 해주세요!</label>
-						</div>
-						<div class="md-form">
-							<input type="text" id="inputLGEx"
-								class="form-control form-control-lg"> <label
-								for="inputLGEx">나만의 해쉬 태그 입력해주세요!</label>
-						</div>
-						<div class="md-form">
-							<input type="text" id="inputLGEx"
-								class="form-control form-control-lg"> <label
-								class="text" for="inputLGEx">촬영기기는 어떻게 되나요?</label>
-						</div>
-
-
-
-
-						<a href="#" class="btn btn-primary btn-sm">More Info</a> <input
-							id="done" class="btn btn-primary btn-sm" type="submit"
-							value="글쓰기">
 					</div>
 				</div>
 			</div>
-		</div>
 
-	</div>
-</form>
+		</div>
+	</form>
 
 	<section id="photo-gallery">
 		<div class="container">
@@ -217,7 +219,8 @@ button:active {
 
 	<script type="text/javascript">
 		let files;
-		
+		let reader;
+		let fileInfo;
 		var input = document.querySelector('input');
 		var preview = document.querySelector('.preview');
 		input.style.opacity = 0;
@@ -269,7 +272,7 @@ button:active {
 				arlert("하나만 올려");
 				return;
 			}
-			if (files[0].type.match('image/jp.*')) {
+			if (files[0].type.match(/image.*/)) {
 				$(e.currentTarget).css(
 						{
 							"background-image" : "url("
@@ -280,41 +283,65 @@ button:active {
 						});
 
 			} else {
-				alert("not image!");
+				console.log("not image!");
 				return;
 			}
-			console.log("파일 내용" + files.EXIF);
+			console.log("파일 이름" + files[0].name);
 			EXIFutil();
 
 		}
+		$(function() {
+			$(".imagehide").change(
+					function(e) {
+						files = e.target.files || e.dataTransfer.files;
+						$('#thumbnailImg').css(
+								{
+									"background-image" : "url("
+											+ window.URL
+													.createObjectURL(files[0])
+											+ ")",
+									"outline" : "none",
+									"background-size" : "100% 100%"
+								});
+						EXIFutil();
 
-		function uploadImgPreview() {
-			let fileInfo = document.querySelector(".imagehide").files[0];
-			let reader = new FileReader();
+						/* alert($('input[type=file]')[0].files[0].name); //파일이름
+						  alert($("#m_file")[0].files[0].type); // 파일 타임
+						  alert($("#m_file")[0].files[0].size); // 파일 크기 */
+						//  $('input[type=file]')[0].files[0].name;
+						//  $("#imgUpload")[0].files[0].type;
+						//  $("#imgUpload")[0].files[0].size;
+					});
 
-			reader.onload = function() {
-				/* document.getElementById("thumbnailImg").src = reader.result; */
-				/* document.getElementById("thumbnailImg").style.background-image='url('+reader.result+')'; */
-				
-				$('#thumbnailImg').css({
-			        "background-image": "url(" + reader.result + ")",
-			        "outline": "none",
-			        "background-size": "100% 100%"
-			    });
+		});
+		/*  function uploadImgPreview() {
+			fileInfo = document.querySelector(".imagehide");
+			reader = new FileReader();
+
+			reader.onload = function() { */
+		/* document.getElementById("thumbnailImg").src = reader.result; */
+		/* document.getElementById("thumbnailImg").style.background-image='url('+reader.result+')'; */
+		/* 
+		$('#thumbnailImg').css({
+		    "background-image": "url(" + reader.result + ")",
+		    "outline": "none",
+		    "background-size": "100% 100%"
+		});
+			
 		
-			};
+		
 
-			if (fileInfo.type.match('image/jp.*')) {
-				reader.readAsDataURL(fileInfo)
-				EXIFutil();
+		};
 
-			}else{
-				alert("이미지 파일을 올려주세양");
-			}
+		if (fileInfo) {
+		reader.readAsDataURL(fileInfo)
+		EXIFutil();
 
 		}
 
-		/*  $("#done").click(function() {
+		}
+
+		 *//* $("#done").click(function() {
 			$.ajax({
 				url : "imageUpload",
 				type : "post",
@@ -331,8 +358,7 @@ button:active {
 					alert('error');
 				}
 			});
-		});   */
+		});  */
 	</script>
 </body>
 </html>
-
