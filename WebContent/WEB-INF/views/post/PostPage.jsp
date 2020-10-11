@@ -5,26 +5,17 @@
 <head>
 <meta charset="UTF-8">
 <title>hello</title>
-<script src="https://cdn.jsdelivr.net/npm/exif-js"></script>
 <script
 	src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
-<script src="https://code.jquery.com/jquery-3.5.1.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/exif-js"></script>
 <link href="css/mdb.css" rel="stylesheet">
-<link rel="stylesheet"
-	href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.0/css/bootstrap.min.css">
-<!-- Bootstrap JS -->
-<script
-	src="https://cdn.jsdelivr.net/npm/popper.js@1.16.0/dist/umd/popper.min.js"></script>
-<script
-	src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.0/js/bootstrap.min.js"></script>
+<link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.0/css/bootstrap.min.css">
+  	<!-- Bootstrap JS -->
+  	<script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"></script>
+	<script src="https://cdn.jsdelivr.net/npm/popper.js@1.16.0/dist/umd/popper.min.js"></script>
+	<script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.0/js/bootstrap.min.js"></script>
 
 <style type="text/css">
-#thumbnailImg {
-	width: 400px;
-	height: 300px;
-	background-repeat: no-repeat;
-}
-
 .content {
 	outline: 2px dashed #92b0b3;
 	outline-offset: -10px;
@@ -50,6 +41,38 @@ html {
 	font-family: sans-serif;
 }
 
+form {
+	width: 600px;
+	background: #ccc;
+	margin: 0 auto;
+	padding: 20px;
+	border: 1px solid black;
+}
+
+form ol {
+	padding-left: 0;
+}
+
+form li, div>p {
+	background: #eee;
+	display: flex;
+	justify-content: space-between;
+	margin-bottom: 10px;
+	list-style-type: none;
+	border: 1px solid black;
+}
+
+form img {
+	height: 64px;
+	order: 1;
+}
+
+form p {
+	line-height: 32px;
+	padding-left: 10px;
+}
+
+,
 button {
 	background-color: #F27405;
 	padding: 5px 10px;
@@ -131,38 +154,38 @@ button:active {
 </head>
 <body>
 
-	<form method="POST" action="fileUpload" enctype="multipart/form-data">
-		<div class="container">
-			<div id="thumbnailUrl"></div>
-			<!-- Heading Row -->
-			<div class="row align-items-center my-5">
-				<div class="">
-					<div class="content rounded mb-4 mb-lg-0" id="mylmg">
-
-						<br> <label for="upImgFile">이미지를 드래그 하거나 여기를 클릭하여 파일을
-							선택해주세요! (PNG, JPG,JEPG)</label> <input type="file" class="imagehide"
-							id="upImgFile" name="upImgFile" accept=".jpg, .jpeg, .png"
-							multiple>
-						<div class="preview">
-							<label class="label"><%=request.getRealPath("/")%></label>
-						</div>
-					</div>
-					<div id="thumbnailImg"
-						class="photo-gallery content rounded mb-4 mb-lg-0" src="#">
+	<div class="container">
+		<div id="thumbnailUrl"></div>
+		<!-- Heading Row -->
+		<div class="row align-items-center my-5">
+			<div class="">
+				<div class="content rounded mb-4 mb-lg-0" id="mylmg">
+					<br> <label for="upImgFile">이미지를 드래그 하거나 여기를 클릭하여 파일을
+						선택해주세요! (PNG, JPG,JEPG)</label> <input type="file" class="imagehide"
+						id="upImgFile" name="upImgFile" accept=".jpg, .jpeg, .png"
+						multiple onChange="uploadImgPreview()">
+					<div class="preview">
+						<label class="label">NOT FOUND FILE</label>
 					</div>
 				</div>
+				
+				<img style="width: 100%; height: 300px" id="thumbnailImg"
+					class="photo-gallery content rounded mb-4 mb-lg-0"
+					src="">
+					
+			</div>
 
-				<div class="mb-5">
-					<div class="card h-100">
+			<div class="mb-5">
+				<div class="card h-100">
+					<div class="card-body">
+						<div class="postwrite">
 
-						<div class="card-body">
-
-							<div class="postwrite">
-								<h2 class="text fas text-weight-medium">
-									<i class="fas fa-pencil-alt text"></i>게시글 작성
-								</h2>
-							</div>
-
+							<h2 class="text fas text-weight-medium">
+								<i class="fas fa-pencil-alt text"></i>게시글 작성
+							</h2>
+						</div>
+						<form name="frm" action="postUpdate.do" method="post"
+							enctype="multipart/form-data">
 
 							<div class="md-form">
 								<input type="text" id="inputLGEx"
@@ -182,22 +205,20 @@ button:active {
 							<div class="md-form">
 								<input type="text" id="inputLGEx"
 									class="form-control form-control-lg"> <label
-									class="text" for="inputLGEx">촬영기기는 어떻게 되나요?</label>
+									class="text" for="inputLGEx">촬영기기를 알려주세요!</label>
 							</div>
 
 
 
-
 							<a href="#" class="btn btn-primary btn-sm">More Info</a> <input
-								id="done" class="btn btn-primary btn-sm" type="submit"
-								value="글쓰기">
-						</div>
+								class="btn btn-primary btn-sm" type="submit" value="글쓰기">
+						</form>
 					</div>
 				</div>
 			</div>
-
 		</div>
-	</form>
+	</div>
+
 
 	<section id="photo-gallery">
 		<div class="container">
@@ -205,10 +226,12 @@ button:active {
 				<div class="col-md-6 col-lg-4">
 					<div class="photo-frame">
 						<div class="state-thumb">
-							<img id="thumbnailImg1" src="#" class="img-fluid">
+							<img id="thumbnailImg1"src="#" class="img-fluid">
 						</div>
 						<h4>
-							<a href="#">#fillDragon</a> <a href="#">#bitcamp</a> <a href="#">#null</a>
+							<a href="#">#fillDragon</a>
+							<a href="#">#bitcamp</a>
+							<a href="#">#null</a>
 							<a href="#">#hashtag</a>
 						</h4>
 					</div>
@@ -217,148 +240,111 @@ button:active {
 		</div>
 	</section>
 
-	<script type="text/javascript">
-		let files;
-		let reader;
-		let fileInfo;
-		var input = document.querySelector('input');
-		var preview = document.querySelector('.preview');
-		input.style.opacity = 0;
+				<script type="text/javascript">
+			function EXIFutil(){
+				EXIF.getData(files[0], function() {
+					var exifLong = EXIF
+							.getTag(files[0], "GPSLongitude");
+					var exifLat = EXIF.getTag(files[0], "GPSLatitude");
+					var exifLongRef = EXIF.getTag(files[0],
+							"GPSLongitudeRef");
+					var exifLatRef = EXIF.getTag(files[0],
+							"GPSLatitudeRef");
 
-		function EXIFutil() {
-			EXIF.getData(files[0], function() {
-				var exifLong = EXIF.getTag(files[0], "GPSLongitude");
-				var exifLat = EXIF.getTag(files[0], "GPSLatitude");
-				var exifLongRef = EXIF.getTag(files[0], "GPSLongitudeRef");
-				var exifLatRef = EXIF.getTag(files[0], "GPSLatitudeRef");
-
-				console.log("E:" + exifLong[2])
-				console.log("N:" + exifLat[2])
-
-			});
-
-		}
-
-		$(".content").on("dragover", dragOver).on("dragleave", dragOver).on(
-				"drop", dragFiles);
-		function dragOver(e) {
-			e.stopPropagation();
-			e.preventDefault();
-			if (e.type == "dragover") {
-				$(e.target).css * ({
-					"background-color" : "black",
-					"outline-offset" : "-20px"
+					console.log("E:" + exifLong[2])
+					console.log("N:" + exifLat[2])
 
 				});
-
-			} else {
-				$(e.target).css({
-					"background-colr" : "gray",
-					"outline-offset" : "-10px"
-
-				});
+				
 			}
-		}
+			
+					let files;
 
-		function dragFiles(e) {
+					var input = document.querySelector('input');
+					var preview = document.querySelector('.preview');
+					input.style.opacity = 0;
 
-			e.stopPropagation();
-			e.preventDefault();
-			dragOver(e);
-			e.dataTransfer = e.originalEvent.dataTransfer;
+					$(".content").on("dragover", dragOver).on("dragleave",
+							dragOver).on("drop", dragFiles);
+					function dragOver(e) {
+						e.stopPropagation();
+						e.preventDefault();
+						if (e.type == "dragover") {
+							$(e.target).css * ({
+								"background-color" : "black",
+								"outline-offset" : "-20px"
 
-			files = e.target.files || e.dataTransfer.files;
-			if (files.length > 1) {
-				arlert("하나만 올려");
-				return;
-			}
-			if (files[0].type.match(/image.*/)) {
-				$(e.currentTarget).css(
-						{
-							"background-image" : "url("
-									+ window.URL.createObjectURL(files[0])
-									+ ")",
-							"outline" : "none",
-							"background-size" : "100% 100%"
-						});
+							});
 
-			} else {
-				console.log("not image!");
-				return;
-			}
-			console.log("파일 이름" + files[0].name);
-			EXIFutil();
+						} else {
+							$(e.target).css({
+								"background-colr" : "gray",
+								"outline-offset" : "-10px"
 
-		}
-		$(function() {
-			$(".imagehide").change(
-					function(e) {
+							});
+						}
+					}
+
+					function dragFiles(e) {
+
+						e.stopPropagation();
+						e.preventDefault();
+						dragOver(e);
+						e.dataTransfer = e.originalEvent.dataTransfer;
+
 						files = e.target.files || e.dataTransfer.files;
-						$('#thumbnailImg').css(
-								{
-									"background-image" : "url("
-											+ window.URL
-													.createObjectURL(files[0])
-											+ ")",
-									"outline" : "none",
-									"background-size" : "100% 100%"
-								});
-						EXIFutil();
+						if (files.length > 1) {
+							arlert("하나만 올려");
+							return;
+						}
+						if (files[0].type.match(/image.*/)) {
+							$(e.currentTarget ).css(
+											{
+												"background-image" : "url("
+														+ window.URL
+																.createObjectURL(files[0])
+														+ ")",
+												"outline" : "none",
+												"background-size" : "100% 100%"
+											});
+							
+							 	
+							
+							
 
-						/* alert($('input[type=file]')[0].files[0].name); //파일이름
-						  alert($("#m_file")[0].files[0].type); // 파일 타임
-						  alert($("#m_file")[0].files[0].size); // 파일 크기 */
-						//  $('input[type=file]')[0].files[0].name;
-						//  $("#imgUpload")[0].files[0].type;
-						//  $("#imgUpload")[0].files[0].size;
+						} else {
+							console.log("not image!");
+							return;
+						}
+						console.log("파일 내용" + files.EXIF);
+						EXIFutil();
+						
+					}
+					$("#btnwrite").click(function() {
+						$(".frm").attr({
+							"target" : "self",
+							"action" : "postUpdate.do"
+						}).submit();
+
 					});
 
-		});
-		/*  function uploadImgPreview() {
-			fileInfo = document.querySelector(".imagehide");
-			reader = new FileReader();
+					function uploadImgPreview() {
+						let fileInfo = document.getElementById("upImgFile").files[0];
+						let reader = new FileReader();
 
-			reader.onload = function() { */
-		/* document.getElementById("thumbnailImg").src = reader.result; */
-		/* document.getElementById("thumbnailImg").style.background-image='url('+reader.result+')'; */
-		/* 
-		$('#thumbnailImg').css({
-		    "background-image": "url(" + reader.result + ")",
-		    "outline": "none",
-		    "background-size": "100% 100%"
-		});
-			
-		
-		
+						reader.onload = function() {
+						
+							document.getElementById("thumbnailImg").src = reader.result;
+							document.getElementById("thumbnailImg1").src = reader.result;
+						};
 
-		};
+						if (fileInfo) {
 
-		if (fileInfo) {
-		reader.readAsDataURL(fileInfo)
-		EXIFutil();
+							reader.readAsDataURL(fileInfo);
+							EXIFutil();
+						}
 
-		}
-
-		}
-
-		 *//* $("#done").click(function() {
-			$.ajax({
-				url : "imageUpload",
-				type : "post",
-				data : {
-					"imagePath" : 
-				},
-				processData: false,
-				contentType: false,
-				success : function(camlist) {
-					alert('success');
-
-				},
-				error : function() {
-					alert('error');
-				}
-			});
-		});  */
-	</script>
+					}
+				</script>
 </body>
 </html>
