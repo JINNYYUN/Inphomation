@@ -1,4 +1,4 @@
-package postutile;
+package bit.com.inpho.postutile;
 
 
 import com.google.cloud.storage.Blob;
@@ -7,6 +7,8 @@ import com.google.cloud.storage.Storage;
 import com.google.cloud.storage.StorageOptions;
 import java.nio.file.Paths;
 
+import org.springframework.stereotype.Service;
+@Service
 public class DownloadObject {
   public static void storageDownloadObject(
       String projectId, String bucketName, String objectName, String destFilePath) {

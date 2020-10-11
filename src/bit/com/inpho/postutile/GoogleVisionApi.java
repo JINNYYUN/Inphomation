@@ -1,4 +1,4 @@
-package postutile;
+package bit.com.inpho.postutile;
 
 import java.io.FileInputStream;
 import java.io.IOException;
