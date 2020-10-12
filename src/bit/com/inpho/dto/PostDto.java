@@ -1,6 +1,8 @@
 package bit.com.inpho.dto;
 
-public class PostDto {
+import java.io.Serializable;
+
+public class PostDto implements Serializable {
 
 	private String post_seq;
 	private String camera_seq;
