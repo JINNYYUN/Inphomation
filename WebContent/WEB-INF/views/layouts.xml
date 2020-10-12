@@ -66,4 +66,7 @@
 		<put-attribute name="footer" value="/WEB-INF/views/commons/footer.jsp"/>
 	</definition>
 
+	<definition name="naverLogin.tiles" template="/WEB-INF/views/contain.jsp">
+	   <put-attribute name="content" value="/WEB-INF/views/member/naver/login.jsp" />
+	</definition>
 </tiles-definitions>
