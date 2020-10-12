@@ -14,23 +14,25 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import com.google.cloud.Identity;
 import com.google.cloud.Policy;
-
 import com.google.cloud.storage.StorageRoles;
-
-
-
-import java.util.Date;
 import java.util.HashMap;
 import java.util.Map;
 @Service
 public class UploadObject {
 	@Autowired
 	private fileUploadService fie;
-	
+	@Autowired
+	private GoogleVisionApi googleObj;
 	
 	public void storageUploadObject(String projectId, String bucketName, String objectName, String filePath)
 			throws IOException {
 		System.out.println(filePath);
+		try {
+			googleObj.detectLabels(filePath);
+		} catch (Exception e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
 		String extName= objectName.substring(objectName.lastIndexOf("."), objectName.length());
 		String saveFileName =  fie.genSaveFileName(extName);
 		
@@ -42,7 +44,7 @@ public class UploadObject {
 		            .toBuilder()
 		            .addIdentity(StorageRoles.objectViewer(), Identity.allUsers()) // All users can view
 		            .build());
-
+		    
 		    System.out.println("Bucket " + bucketName + " all public files");
 		String str = new String(filePath);
 		storage = StorageOptions.newBuilder().setProjectId(projectId).build().getService();
