@@ -46,9 +46,9 @@ public class GoogleVisionApi {
 					String[] hashTag = new String[hashTaglist.size()];
 					hashTag=hashTaglist.toArray(hashTag);
 					// 해쉬태그리스트를 출력합니다.
-					for (String s : hashTag) {
-						System.out.println("해쉬태그 정보들 : " +s);
-					}
+					//for (String s : hashTag) {
+					//System.out.println("해쉬태그 정보들 : " +s);
+					//}
 				}
 			}
 		}

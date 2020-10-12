@@ -4,25 +4,24 @@ package bit.com.inpho.controller;
 
 import java.io.File;
 import java.io.IOException;
-import java.io.InputStream;
 import java.util.Date;
+import java.util.HashMap;
+import java.util.List;
+import java.util.Map;
 
 import javax.servlet.http.HttpServletRequest;
-import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
-
-import org.apache.commons.io.FileUtils;
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
-
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.multipart.MultipartFile;
+import org.springframework.web.servlet.ModelAndView;
 
 import bit.com.inpho.postutile.GoogleVisionApi;
 import bit.com.inpho.postutile.UploadObject;
@@ -34,7 +33,7 @@ import bit.com.inpho.postutile.fileUploadService;
 @Controller
 public class PostController {
 	private static final Logger logger = LoggerFactory.getLogger(PostController.class);
-	
+	private Map<String,String> map = new HashMap<>();
 	@Autowired
 	private tinyPngbyte uploadobj;
 	@Autowired
@@ -49,45 +48,45 @@ public class PostController {
 		return "form";
 	}
 	
-	@RequestMapping(value = "imageUploads", method = {RequestMethod.GET,RequestMethod.POST})
-	public String upload(
-			Model model,
-			@RequestParam(value ="upImgFile",required = false) MultipartFile file ,HttpServletResponse req ) {
+// 	@RequestMapping(value = "imageUploads", method = {RequestMethod.GET,RequestMethod.POST})
+// 	public String upload(
+// 			Model model,
+// 			@RequestParam(value ="upImgFile",required = false) MultipartFile file ,HttpServletResponse req ) {
 		
-		String url = fileUploadService.restore(file);
+// 		String url = fileUploadService.restore(file);
 		
-		model.addAttribute("url", url);
-		System.out.println(url); 
-		return "PostPage";
-	}
-	@RequestMapping(value = "post", method = {RequestMethod.GET,RequestMethod.POST})
-	public String postwrite(Model model,HttpSession session) {
-		logger.info("post"+new Date());
-		System.out.println("hello");
-		System.out.println(new java.io.File(".").getAbsolutePath());
-//		String id = ((MemberDto)session.getAttribute("login")).getUser_email();
-		return "PostPage";
+// 		model.addAttribute("url", url);
+// 		System.out.println(url); 
+// 		return "PostPage";
+// 	}
+ 	@RequestMapping(value = "post", method = {RequestMethod.GET,RequestMethod.POST})
+ 	public String postwrite(Model model,HttpSession session) {
+ 		logger.info("post"+new Date());
+ 		System.out.println("hello");
+ 		
+	//	String id = ((MemberDto)session.getAttribute("login")).getUser_email();
+ 		return "PostPage";
 		
-	}
-	@RequestMapping(value = "imageUpload",method = {RequestMethod.POST})
-	public String getimagepath(byte[] imagePath) {
+ 	}
+// 	@RequestMapping(value = "imageUpload",method = {RequestMethod.POST})
+// 	public String getimagepath(byte[] imagePath) {
 		
-		System.out.println(imagePath);
-		try {
+// 		System.out.println(imagePath);
+// 		try {
 			
-			//uploadobj.getBaseDecode(imagePath);
-			//uploadobj.tinyUpload(imagePath,"테스트입니다..ㅎ");
-			//obj.storageUploadObject("thermal-well-290414", "boomkit", "examples", imagePath);
-		} catch (Exception e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
-		}
+// 			//uploadobj.getBaseDecode(imagePath);
+// 			//uploadobj.tinyUpload(imagePath,"테스트입니다..ㅎ");
+// 			//obj.storageUploadObject("thermal-well-290414", "boomkit", "examples", imagePath);
+// 		} catch (Exception e) {
+// 			// TODO Auto-generated catch block
+// 			e.printStackTrace();
+// 		}
 		
-		return "detail.tiles";
-	}
-	
+// 		return "detail.tiles";
+// 	}
+	// 실제업로드
 	@RequestMapping(value = "fileUpload",method = {RequestMethod.POST})
-	public String fileUpload(HttpServletRequest req, @RequestParam(value ="upImgFile")
+	public ModelAndView fileUpload(HttpServletRequest req, @RequestParam(value ="upImgFile")
 	MultipartFile file) throws IOException {
 			
 	    //jspform에서 MultipartFile을 받아온다...
@@ -109,8 +108,15 @@ public class PostController {
 	    
 	    //원래 업로드한 파일이 지정한 path 위치로 이동...이때 카피본이 이동
 	    file.transferTo(copyFile);
-	    obj.storageUploadObject("thermal-well-290414", "boomkit", file.getOriginalFilename(),root+"/"+file.getOriginalFilename());
-	    return "PostPage";
+	    List<String> hashTag=obj.storageUploadObject("thermal-well-290414", "boomkit", file.getOriginalFilename(),root+"/"+file.getOriginalFilename());
+	    ModelAndView mv = new ModelAndView();
+	    System.out.println("toString"+hashTag.toString());
+	    System.out.println("origenal"+hashTag);
+	    String arr=hashTag.toString();
+	    arr.trim();
+	    mv.addObject("tag",arr.toString());
+	    mv.setViewName("PostPage");
+	    return mv;
 	    
 	}
 }

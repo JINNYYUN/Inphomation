@@ -1,6 +1,7 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
 	pageEncoding="UTF-8"%>
 <!DOCTYPE html>
+
 <html>
 <head>
 <meta charset="UTF-8">
@@ -19,8 +20,18 @@
 	src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.0/js/bootstrap.min.js"></script>
 
 <style type="text/css">
+.hashtag {
+    width:  100%;
+	height:  100%;
+    margin-left:  auto;
+    margin-right:  auto;
+    padding:  5px;
+    text-align:  center;
+    line-height:  300px;
+	vertical-align: middle;
+}
 #thumbnailImg {
-	width: 400px;
+	width: 500px;
 	height: 300px;
 	background-repeat: no-repeat;
 }
@@ -127,15 +138,19 @@ button:active {
 	box-shadow: 0px 0px 15px 0px #d0d0d0;
 	border-color: #9c27b0;
 }
+
+
 </style>
 </head>
 <body>
 
-	<form method="POST" action="fileUpload" enctype="multipart/form-data">
-		<div class="container">
-			<div id="thumbnailUrl"></div>
-			<!-- Heading Row -->
-			<div class="row align-items-center my-5">
+	<div class="container">	
+		<br>
+		<div id="thumbnailUrl"></div>
+		<!-- Heading Row -->
+		<div class="row align-items-center my-5">
+			<form id="frm" method="POST" action="fileUpload"
+				enctype="multipart/form-data">
 				<div class="">
 					<div class="content rounded mb-4 mb-lg-0" id="mylmg">
 
@@ -144,60 +159,61 @@ button:active {
 							id="upImgFile" name="upImgFile" accept=".jpg, .jpeg, .png"
 							multiple>
 						<div class="preview">
-							<label class="label"><%=request.getRealPath("/")%></label>
+							<label class="label"></label>
 						</div>
 					</div>
 					<div id="thumbnailImg"
 						class="photo-gallery content rounded mb-4 mb-lg-0" src="#">
+						<input class="hashtag" type="text" value='${ tag }'>
 					</div>
 				</div>
+				<a href="#" class="btn btn-primary btn-sm">More Info</a> <input
+					id="done" class="btn btn-primary btn-sm" type="submit" value="업로드">
+			</form>
+			<div class="mb-5">
+				<div class="card h-100">
 
-				<div class="mb-5">
-					<div class="card h-100">
+					<div class="card-body">
 
-						<div class="card-body">
-
-							<div class="postwrite">
-								<h2 class="text fas text-weight-medium">
-									<i class="fas fa-pencil-alt text"></i>게시글 작성
-								</h2>
-							</div>
-
-
-							<div class="md-form">
-								<input type="text" id="inputLGEx"
-									class="form-control form-control-lg" placeholder="자신을 소개해 주세요!">
-								<label for="inputLGEx"></label>
-							</div>
-							<div class="md-form">
-								<input type="text" id="inputLGEx"
-									class="form-control form-control-lg"> <label
-									for="inputLGEx">촬영장소를 작성 해주세요!</label>
-							</div>
-							<div class="md-form">
-								<input type="text" id="inputLGEx"
-									class="form-control form-control-lg"> <label
-									for="inputLGEx">나만의 해쉬 태그 입력해주세요!</label>
-							</div>
-							<div class="md-form">
-								<input type="text" id="inputLGEx"
-									class="form-control form-control-lg"> <label
-									class="text" for="inputLGEx">촬영기기는 어떻게 되나요?</label>
-							</div>
-
-
-
-
-							<a href="#" class="btn btn-primary btn-sm">More Info</a> <input
-								id="done" class="btn btn-primary btn-sm" type="submit"
-								value="글쓰기">
+						<div class="postwrite">
+							<h2 class="text fas text-weight-medium">
+								<i class="fas fa-pencil-alt text"></i>게시글 작성
+							</h2>
 						</div>
+
+
+						<div class="md-form">
+							<input type="text" id="inputLGEx"
+								class="form-control form-control-lg" placeholder="자신을 소개해 주세요!">
+							<label for="inputLGEx"></label>
+						</div>
+						<div class="md-form">
+							<input type="text" id="inputLGEx"
+								class="form-control form-control-lg"> <label
+								for="inputLGEx">촬영장소를 작성 해주세요!</label>
+						</div>
+						<div class="md-form">
+							<input type="text" id="inputLGEx"
+								class="form-control form-control-lg"> <label
+								for="inputLGEx">나만의 해쉬 태그 입력해주세요!</label>
+						</div>
+						<div class="md-form">
+							<input type="text" id="inputLGEx"
+								class="form-control form-control-lg"> <label
+								class="text" for="inputLGEx">촬영기기는 어떻게 되나요?</label>
+						</div>
+
+
+
+
+
 					</div>
 				</div>
 			</div>
-
 		</div>
-	</form>
+
+	</div>
+
 
 	<section id="photo-gallery">
 		<div class="container">
@@ -341,24 +357,61 @@ button:active {
 
 		}
 
-		 *//* $("#done").click(function() {
-			$.ajax({
-				url : "imageUpload",
-				type : "post",
-				data : {
-					"imagePath" : 
-				},
-				processData: false,
-				contentType: false,
-				success : function(camlist) {
-					alert('success');
+		 *//*  $("#done").click(function() {
+							 
+							$.ajax({
+								url : "imageUpload",
+								type : "post",
+								data : {
+									"imagePath" : 
+								},
+								processData: false,
+								contentType: false,
+								success : function(camlist) {
+									alert('success');
 
-				},
-				error : function() {
-					alert('error');
-				}
-			});
-		});  */
+								},
+								error : function() {
+									alert('error');
+								}
+							});
+						});  */
+		$("#frm")
+				.submit(
+						function(e) {
+
+							LoadingWithMask('/Users/simseongbo/Desktop/vsspring/FinalproJect/WebContent/img/uploading/ajax-loader.gif');
+							setTimeout("closeLoadingWithMask()", 3000);
+
+							var maskHeight = $(document).height();
+							var maskWidth = window.document.body.clientWidth;
+
+							var mask = "<div id='mask' style='position:absolute; z-index:9000; background-color:#000000; display:none; left:0; top:0;'></div>";
+							var loadingImg = '';
+
+							loadingImg += "<div id='loadingImg'>";
+							loadingImg += " <img src='{}' style='position: relative; display: block; margin: 0px auto;'/>";
+							loadingImg += "</div>";
+							$('body').append(mask).append(loadingImg)
+
+							//마스크의 높이와 너비를 화면 것으로 만들어 전체 화면을 채웁니다.
+							$('#mask').css({
+								'width' : maskWidth,
+								'height' : maskHeight,
+								'opacity' : '0.3'
+							});
+
+							//마스크 표시
+							$('#mask').show();
+
+							//로딩중 이미지 표시
+							$('#loadingImg').show();
+						});
+
+		function closeLoadingWithMask() {
+			$('#mask, #loadingImg').hide();
+			$('#mask, #loadingImg').empty();
+		}
 	</script>
 </body>
 </html>
