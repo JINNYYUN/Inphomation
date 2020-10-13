@@ -26,7 +26,7 @@ boolean isFollowing = (boolean)request.getAttribute("isFollowing");
 MyPageMemberDto login = (MyPageMemberDto)request.getSession().getAttribute("login");
 %>
 
-<div class="container">
+<div class="">
 
 	<!-- The Modal Following -->
 	<div id="myModal" class="modal">
@@ -53,6 +53,7 @@ MyPageMemberDto login = (MyPageMemberDto)request.getSession().getAttribute("logi
 		if(mem.getUser_seq() == login.getUser_seq()){
 		%>
 			<button class="btn follow-btn" id="editProfile">프로필 수정</button>
+			<button id="editMember">설정</button>
 		<%	
 		}else{
 		%>
@@ -72,18 +73,7 @@ MyPageMemberDto login = (MyPageMemberDto)request.getSession().getAttribute("logi
 		%>
 
 		<div class="profile-img">
-			<%
-			if(mem.getProfile_image() == null || mem.getProfile_image().equals("")){
-			%>
-				<img alt="" src="./image/2017070900603_4.jpg">
-			<%	
-			}else{ 
-			%>
-				<img src="http://localhost:8090/Inphomation/upload/profileImage/${mem.profile_image}">
-			<%	
-			}
-			%>
-
+			<img src="https://storage.googleapis.com/boomkit/${mem.profile_image}">
 		</div>
 		<div class="top-detail" align="center">
 			<span class="nickname">${mem.user_nickname}</span>
@@ -102,7 +92,7 @@ MyPageMemberDto login = (MyPageMemberDto)request.getSession().getAttribute("logi
 		<hr>
 		<table class="mynav-table">
 			<tr>
-				<td id="nav_photo"><i class="fas fa-camera"> 게시글</i></td>
+				<td id="nav_post" onclick="getPost()" ><i class="fas fa-camera"> 게시글</i></td>
 				<td id="nav_bookmark"><i class="far fa-bookmark"> 북마크</i></td>
 				<td id="nav_profile"><i class="far fa-user-circle"> 프로필</i></td>
 			</tr>
@@ -111,12 +101,15 @@ MyPageMemberDto login = (MyPageMemberDto)request.getSession().getAttribute("logi
 	
 	<div class="content-detail">
 	<hr>
-	<!-- 디폴트값 게시글로 -->
+		<!-- 디폴트값 게시글로 -->
 		
+
 	</div>
-</div>
+	</div>
 
 </div>
+
+
 
 <script type="text/javascript">
 // 프로필 수정 이동
@@ -124,11 +117,14 @@ $("#editProfile").click( function(){
 	location.href="mypageedit?user_seq=" + ${mem.user_seq};
 });
 
+$("#editMember").click( function(){
+	location.href="editMem?user_seq=" + ${mem.user_seq};
+});
+
 // 팔로우/언팔로우 함수
 $("#followBtn").click( function(){
 
 	var value = $(this).val();
-	
 	  $.ajax({
 		url:'follow?user_seq=' + ${mem.user_seq},
 		type:'post',
@@ -216,13 +212,69 @@ $(".modal-detail2").load("getFollower?user_seq=" + ${mem.user_seq});
 <!-- 하단 nav bar ajax -->
 <!-- ① 게시글 & 북마크 구현 -->
 <script type="text/javascript">
+//ajax로 post 불러오는 함수
+function getPost(){
+	$.ajax({
+		url:"getPost",
+		type:"post",
+		data:{"user_seq":<%=mem.getUser_seq()%>},
+		success:function(postlist){
+			//alert('success');
 
+			let content = '<div class="main-container">'
+						+ '<div class="grid">';
+
+			$.each(postlist, function(i, post) {
+				content += '<div class="item">'
+				+ '<img src="https://storage.googleapis.com/boomkit/' + post.post_filepath +'">'
+					+ '<div class="white-circle">'
+					+ '<i class="fas fa-bars menu" onclick="test();"></i>'
+					+ '</div>'
+				+ '<div class="bottom-icon-bar icon-absoulte">'
+				+ '<h4><i class="far fa-heart" onclick="clickLike(this,1);"> 0</i></h4>'
+				+ '<h4><i class="far fa-bookmark" onclick="clickBookMark(this,1);"> 0</i></h4>'
+				+ '</div>'
+				+ '</div>';
+			});
+				
+			content += '</div></div>';
+			
+			$(".main-container").remove();
+			$(".profile").remove();
+			$(".content-detail").append(content);
+
+			SetGridItemHeight();
+		},
+		error:function(){
+			alert('error');
+		}
+	});
+}
+
+//페이지 시작 시 함수 실행
+getPost();
+
+//grid layout 설정
+function SetGridItemHeight() {
+	let grid = document.getElementsByClassName('grid')[0];
+	let rowHeight = parseInt(window.getComputedStyle(grid).getPropertyValue('grid-auto-rows'));
+	let rowGap = parseInt(window.getComputedStyle(grid).getPropertyValue('grid-row-gap'));
+
+	let item = grid.getElementsByClassName('item');
+	for (let i = 0; i < item.length; ++i) {
+		let a = Math.floor((item[i].children[0].offsetHeight) / 25)
+		//item[i].style.gridRowEnd = `span ${Math.floor((item[i].children[0].offsetHeight) / 25)}`
+		item[i].style.gridRowEnd = `span ` + a
+	}
+}
+window.addEventListener("load", SetGridItemHeight);
+window.addEventListener("resize", SetGridItemHeight);
 </script>
 
 <!-- ② 프로필 구현 -->
 <script type="text/javascript">
-$("#nav_profile").click(function(){
 
+$("#nav_profile").click(function(){
 	$.ajax({
 		url:"getMyCamera",
 		type:"post",
@@ -237,7 +289,7 @@ $("#nav_profile").click(function(){
 			$.each(camlist, function(i, cam) {
 					content += '<span class="btn btn-cam">' + cam.camera_serial + '</span>';
 			});
-			
+			$(".main-container").remove();
 			$(".profile").remove();
 			$(".content-detail").append(content);
 		},

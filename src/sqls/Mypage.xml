@@ -92,4 +92,21 @@
 	WHERE USER_FOLLOWER = #{follower} AND USER_FOLLOWING =#{following}
 </delete>
 
+<!-- Member Edit -->
+<select id="pwdCheck" parameterType="bit.com.inpho.dto.MyPageMemberDto" resultType="bit.com.inpho.dto.MyPageMemberDto">
+	SELECT * FROM MEMBER
+	WHERE USER_SEQ = #{user_seq} AND USER_PASSWORD = #{user_password}
+</select>
+
+<update id="updatePwd" parameterType="bit.com.inpho.dto.MyPageMemberDto">
+	UPDATE MEMBER
+	SET USER_PASSWORD = #{user_password}
+	WHERE USER_SEQ = #{user_seq}
+</update>
+
+<select id="getPost" parameterType="java.lang.Integer" resultType="bit.com.inpho.dto.DetailPostDto">
+	SELECT * FROM POST 
+	WHERE USER_SEQ = #{user_seq}
+</select>
+
 </mapper>

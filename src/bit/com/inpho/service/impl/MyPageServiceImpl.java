@@ -9,6 +9,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import bit.com.inpho.dao.MyPageDao;
+import bit.com.inpho.dto.DetailPostDto;
 import bit.com.inpho.dto.MyPageCameraDto;
 import bit.com.inpho.dto.MyPageCameraParam;
 import bit.com.inpho.dto.MyPageMemberDto;
@@ -132,6 +133,21 @@ public class MyPageServiceImpl implements MyPageService {
 	@Override
 	public void follow(HashMap<String, Integer> map, String work) {
 		dao.follow(map, work);
+	}
+
+	@Override
+	public MyPageMemberDto pwdCheck(MyPageMemberDto mem) {
+		return dao.pwdCheck(mem);
+	}
+
+	@Override
+	public boolean updatePwd(MyPageMemberDto mem) {
+		return dao.updatePwd(mem);
+	}
+
+	@Override
+	public List<DetailPostDto> getPost(int user_seq) {
+		return dao.getPost(user_seq);
 	}
 	
 	

@@ -76,7 +76,7 @@ $("#writebtn").click(function(){
 		return false;
 	}
 	else{
-		$("#frm").attr("action", "MyPageUploadAf").submit();
+		$("#frm").attr("action", "MyPageFileUpload").submit();
 	}
 });
 $("#cancelbtn").click( function() {

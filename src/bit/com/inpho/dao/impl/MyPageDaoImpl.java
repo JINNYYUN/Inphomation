@@ -9,6 +9,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
 
 import bit.com.inpho.dao.MyPageDao;
+import bit.com.inpho.dto.DetailPostDto;
 import bit.com.inpho.dto.MyPageCameraDto;
 import bit.com.inpho.dto.MyPageCameraParam;
 import bit.com.inpho.dto.MyPageMemberDto;
@@ -132,6 +133,22 @@ public class MyPageDaoImpl implements MyPageDao {
 			sqlSession.delete(ns + "unfollow", map);
 		}
 		
+	}
+
+	@Override
+	public MyPageMemberDto pwdCheck(MyPageMemberDto mem) {
+		return sqlSession.selectOne(ns + "pwdCheck", mem);
+	}
+
+	@Override
+	public boolean updatePwd(MyPageMemberDto mem) {
+		int n = sqlSession.update(ns + "updatePwd", mem);
+		return n>0?true:false;
+	}
+
+	@Override
+	public List<DetailPostDto> getPost(int user_seq) {
+		return sqlSession.selectList(ns + "getPost", user_seq);
 	}
 	
 	
