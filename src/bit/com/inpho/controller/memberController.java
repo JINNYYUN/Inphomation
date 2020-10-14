@@ -7,6 +7,7 @@ import org.json.simple.parser.JSONParser;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
+import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
@@ -14,12 +15,19 @@ import org.springframework.web.bind.annotation.ResponseBody;
 
 import com.github.scribejava.core.model.OAuth2AccessToken;
 
+import bit.com.inpho.dto.MemberDto;
+import bit.com.inpho.service.MemberService;
+
 @Controller
 public class memberController {
 	
 	
 	private NaverController naver;
 	private String apiResult = null;
+	
+	@Autowired
+	private MemberService memberService;
+	
 	
 	@Autowired
 	private void setNaverLoginController(NaverController naver) {
@@ -38,6 +46,23 @@ public class memberController {
 	public String getRegiForm(){
 		return "getRegi.tiles";
 	}
+	
+	@ResponseBody
+	@PostMapping("/confirmId")
+	public boolean doPageLogin(MemberDto member) {
+		//중복 확인하기
+		
+		return memberService.confirmId(member);
+	}
+	@ResponseBody
+	@PostMapping("/login")
+	public boolean doLogin(MemberDto member, HttpSession session) {
+		//doLogin
+		//true ==정보가 있슴 false는 정보가 없슴
+		boolean result = memberService.doLogin(member, session);
+		return result;
+	}
+	
 	@ResponseBody
 	@RequestMapping(value="/getNaverLink",method= {RequestMethod.GET})
 	public String getNaverLoginLink(Model model, HttpSession session) {
@@ -47,7 +72,7 @@ public class memberController {
 		
 		return naverAuthUrl;
 	}
-	
+		
 	@RequestMapping(value="/naverLogin",method= {RequestMethod.GET})
 	public String naverCallBack(Model model, HttpSession session, @RequestParam String code, @RequestParam String state) throws Exception {
 		OAuth2AccessToken oauthToken;

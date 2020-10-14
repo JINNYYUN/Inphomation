@@ -18,7 +18,7 @@ pageEncoding="UTF-8"%>
           <form action="#" method="post" id="modal-form">
             <div class="form-group">
               <i class="fa fa-user"></i>
-              <input type="email" class="form-control" placeholder="email" id="login-id" required="required" />
+              <input type="email" class="form-control" placeholder="email" name="user_email" id="login-id" required="required" />
             </div>
             <div class="form-group">
               <i class="fa fa-lock"></i>
@@ -30,6 +30,7 @@ pageEncoding="UTF-8"%>
             </div>
             <div class="form-group">
               <input type="button" class="btn btn-primary btn-block btn-lg" value="Login" onclick="submitLogin();"/>
+              <input type="button" class="btn" value="테스트" onclick="confirmID();">
             </div>
             <div class="social-login">
               <input type="button" class="kakao-login" onclick="loginWithKakao();" style="background-image:url('<%=request.getContextPath()%>/img/login/kakao.png')"/>
