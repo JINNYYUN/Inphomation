@@ -76,8 +76,8 @@
 
 <select id="replyList" parameterType="bit.com.inpho.dto.DetailReplyDto"
 			resultType="bit.com.inpho.dto.DetailReplyDto">
-	SELECT 	PR.REPLY_CONTENT, PR.REPLY_DATE,
-			PR.REPLY_SEQ, PR.USER_SEQ, B.USER_NICKNAME
+	SELECT 	PR.REPLY_CONTENT, PR.REPLY_DATE, PR.POST_SEQ,
+			PR.REPLY_SEQ, PR.USER_SEQ, B.USER_NICKNAME, B.PROFILE_IMAGE
 	FROM POST_REPLY PR, MEMBER B
 	WHERE PR.USER_SEQ = B.USER_SEQ
 	AND POST_SEQ=#{post_seq}	
@@ -86,9 +86,9 @@
 
 <delete id="deleteReply" parameterType="bit.com.inpho.dto.DetailReplyDto">
 	DELETE FROM POST_REPLY
-	WHERE POST_SEQ = ${post_seq}
-	AND USER_SEQ = ${user_seq}
-	AND REPLY_SEQ = ${reply_seq}
+	WHERE POST_SEQ = #{post_seq}
+	AND USER_SEQ = #{user_seq}
+	AND REPLY_SEQ = #{reply_seq}
 </delete>
 
 </mapper>

@@ -1,5 +1,6 @@
 package bit.com.inpho.controller;
 
+import java.util.HashMap;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -27,12 +28,35 @@ public class DetailController {
 	
 	
 	@RequestMapping(value = "detail.do", method = RequestMethod.GET)
-	public String detail(Model model,int post_seq, DetailPostDto post, DetailCountAllDto count) throws Exception {
+	public String detail(Model model,int post_seq, int user_seq, DetailCountAllDto count) throws Exception {
 
+		
 		MyPageMemberDto myPage = MyService.getProfile(post_seq);
+		
+		HashMap<String, Integer> map = new HashMap<String, Integer>();
+		
+		map.put("following", user_seq);
+		map.put("follower", 1);
+		
+		boolean b = MyService.isFollowing(map);
 		
 		DetailPostDto postList = service.getPost(post_seq);
 		List<DetailPostDto> tagList = service.getHashTag(post_seq);
+		List<DetailReplyDto> reply = service.replyList(post_seq);
+		
+		/* date format */
+		String _date = null;
+		String date= null;
+		for (int i = 0; i < reply.size(); i++) {
+			_date=reply.get(i).getReply_date();
+		}
+		
+		if(_date == null) {
+			_date=null;
+		}else {
+			date = _date.substring(0, 11); 
+		}
+		
 		
 		
 		int cLike = service.countLike(count);
@@ -41,8 +65,15 @@ public class DetailController {
 		int cBook = service.countBookmark(count);
 		System.out.println("countBookmark: "+ cBook);
 		
+		System.out.println("reply" + reply);
+		System.out.println("tagList" + tagList);
 		
+		
+		model.addAttribute("user_seq", user_seq);
+		model.addAttribute("follow", b);
 		model.addAttribute("post", postList);
+		model.addAttribute("reply", reply);
+		model.addAttribute("date", date);
 		model.addAttribute("tag", tagList);
 		model.addAttribute("cLike", cLike);
 		model.addAttribute("cBook", cBook);
@@ -98,6 +129,8 @@ public class DetailController {
 	public String countLikeAll (int post_seq, Model model) throws Exception {
 		int count = service.countLikeAll(post_seq);
 		
+		System.out.println("count: " + count);
+		
 		return count + "";
 	}
 	
@@ -105,6 +138,9 @@ public class DetailController {
 	@RequestMapping(value = "addReply.do", method = {RequestMethod.GET, RequestMethod.POST})
 	public String addReply (DetailReplyDto dto, Model model) throws Exception {
 	
+		System.out.println("dto: " + dto.getPost_seq());
+		System.out.println("dto: " + dto.getUser_seq());
+				
 		boolean n = service.addReply(dto);
 		
 		if(n) {
@@ -113,31 +149,49 @@ public class DetailController {
 			return "NO";
 		}
 	}
-	@ResponseBody
-	@RequestMapping(value = "replyList.do", method = {RequestMethod.GET, RequestMethod.POST})
-	public List<DetailReplyDto> replyList (int post_seq, Model model) throws Exception {
-		
-		
-		List<DetailReplyDto> list = service.replyList(post_seq);
 
+	
+	@ResponseBody
+	@RequestMapping(value = "replyList.do", method = {RequestMethod.GET,RequestMethod.POST}) 
+	public List<DetailReplyDto> replyList (int post_seq, Model model) throws Exception {
+	
+	
+		List<DetailReplyDto> list = service.replyList(post_seq);
+		
 		System.out.println("list: " + list);
 		
 		return list;
-	}
-
-	@RequestMapping(value = "deletReply.do", method = {RequestMethod.GET, RequestMethod.POST})
-	public String deletReply(DetailReplyDto dto)  throws Exception{
-		System.out.println("deletReply: " + dto.getPost_seq());
 		
-		boolean n = service.deleteReply(dto);
-		
-		if (n) {
-			return "redirect:detail.do";
-		} else {
-			return "redirect:detail.do";
-		}		
 	}
 	
+	@RequestMapping(value = "deleteReply.do", method = {RequestMethod.GET, RequestMethod.POST})
+	public String deletReply(DetailReplyDto dto, Model model)  throws Exception{
+		System.out.println("deleteReply: " + dto.getReply_seq());
+		
+		model.addAttribute("post_seq", dto.getPost_seq());		
+		model.addAttribute("user_seq", dto.getUser_seq());		
+		
+		service.deleteReply(dto);
+	
+		return "redirect:detail.do";
+				
+	}
+	
+	@ResponseBody
+	@RequestMapping(value = "follow.do", method = {RequestMethod.GET, RequestMethod.POST})
+	public String follow(int following, String work, Model model) {
+		System.out.println(following + "," + work);
+		
+		HashMap<String, Integer> map = new HashMap<String, Integer>();
+		
+		map.put("following", following);
+		map.put("follower", 2);
+		
+		MyService.follow(map, work);
+		
+		return "YES";
+	}
+
 	
 }
 
