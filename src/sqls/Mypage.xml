@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<!DOCTYPE mapper
+<!DOCTYPE mapper 
   PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
   "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
   
@@ -91,5 +91,49 @@
 	DELETE FROM MEMBER_FOLLOW
 	WHERE USER_FOLLOWER = #{follower} AND USER_FOLLOWING =#{following}
 </delete>
+
+<!-- Member Edit -->
+<select id="pwdCheck" parameterType="bit.com.inpho.dto.MyPageMemberDto" resultType="bit.com.inpho.dto.MyPageMemberDto">
+	SELECT * FROM MEMBER
+	WHERE USER_SEQ = #{user_seq} AND USER_PASSWORD = #{user_password}
+</select>
+
+<update id="updatePwd" parameterType="bit.com.inpho.dto.MyPageMemberDto">
+	UPDATE MEMBER
+	SET USER_PASSWORD = #{user_password}
+	WHERE USER_SEQ = #{user_seq}
+</update>
+
+<!-- Post 리스트 가져오기 -->
+<select id="getPost" parameterType="java.lang.Integer" resultType="bit.com.inpho.dto.MyPagePostDto">
+	SELECT A.*, NVL(B.COUNT_LIKE,0) AS COUNT_LIKE, NVL(C.COUNT_BOOK,0) AS COUNT_BOOK
+	FROM POST A
+	LEFT JOIN (SELECT POST_SEQ,COUNT(*) AS COUNT_LIKE FROM POST_LIKE GROUP BY POST_SEQ) B ON A.POST_SEQ = B.POST_SEQ
+	LEFT JOIN (SELECT POST_SEQ, NVL(COUNT(*),0) AS COUNT_BOOK FROM POST_BOOKMARK GROUP BY POST_SEQ ) C ON A.POST_SEQ = C.POST_SEQ
+	WHERE A.USER_SEQ = #{user_seq}
+	ORDER BY A.POST_SEQ DESC
+</select>
+
+<select id="getBookPost" parameterType="java.lang.Integer" resultType="bit.com.inpho.dto.MyPagePostDto">
+	SELECT A.*, NVL(B.COUNT_LIKE,0) AS COUNT_LIKE, NVL(C.COUNT_BOOK,0) AS COUNT_BOOK
+	FROM (SELECT D.*
+			FROM POST_BOOKMARK C, POST D
+			WHERE C.POST_SEQ = D.POST_SEQ AND C.USER_SEQ = #{user_seq}) A
+	LEFT JOIN (SELECT POST_SEQ,COUNT(*) AS COUNT_LIKE FROM POST_LIKE GROUP BY POST_SEQ) B ON A.POST_SEQ = B.POST_SEQ
+	LEFT JOIN (SELECT POST_SEQ, NVL(COUNT(*),0) AS COUNT_BOOK FROM POST_BOOKMARK GROUP BY POST_SEQ ) C ON A.POST_SEQ = C.POST_SEQ
+	ORDER BY A.POST_SEQ DESC
+</select>
+
+<select id="doLike" parameterType="HashMap" resultType="java.lang.Integer">
+	SELECT POST_SEQ
+	FROM POST_LIKE
+	WHERE POST_SEQ = #{post_seq} AND USER_SEQ =#{login_user_seq} 
+</select>
+
+<select id="doBookmark" parameterType="HashMap" resultType="java.lang.Integer">
+	SELECT POST_SEQ
+	FROM POST_BOOKMARK
+	WHERE POST_SEQ = #{post_seq} AND USER_SEQ =#{login_user_seq} 
+</select>
 
 </mapper>

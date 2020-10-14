@@ -13,18 +13,10 @@ MyPageMemberDto login = (MyPageMemberDto)request.getSession().getAttribute("logi
 	for(int i=0; i<list.size(); i++){
 	%>
 	<div class="list">
-		<%
-		if(list.get(i).getProfile_image() == null || list.get(i).getProfile_image().equals("")){
-		%>
-			<img alt="" src="./image/2017070900603_4.jpg" onclick="goMyPage(<%=list.get(i).getUser_seq()%>)">
-		<%	
-		}else{ 
-		%>
-			<img src="http://localhost:8090/Inphomation/upload/profileImage/<%=list.get(i).getProfile_image()%>"
-				onclick="goMyPage(<%=list.get(i).getUser_seq()%>)">
-		<%	
-		}
-		%>
+			
+		<img src="https://storage.googleapis.com/boomkit/<%=list.get(i).getProfile_image()%>"
+			onclick="goMyPage(<%=list.get(i).getUser_seq()%>)">
+		
 		<span onclick="goMyPage(<%=list.get(i).getUser_seq()%>)"><%=list.get(i).getUser_nickname() %></span>
 		<%if(list.get(i).getUser_seq() != login.getUser_seq()){
 			if(follow[i]){
