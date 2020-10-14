@@ -154,8 +154,8 @@ button:active {
 					</div> --%>
 				<section id="photo-gallery">
 
-					<div class="photo-frame" >
-						<div class="state-thumb" >
+					<div class="photo-frame">
+						<div class="state-thumb">
 							<div id="thumbnailImg" src="#" class="photo-frame img-fluid"
 								style="height: 566px;"></div>
 						</div>
@@ -165,8 +165,6 @@ button:active {
 						</h4>
 
 					</div>
-
-
 				</section>
 
 			</form>
@@ -220,6 +218,7 @@ button:active {
 					</div>
 				</div>
 			</div>
+			<!-- </form> -->
 		</div>
 
 	</div>
@@ -351,24 +350,24 @@ button:active {
 		}
 
 		 *//*  $("#done").click(function() {
-									 
-									$.ajax({
-										url : "imageUpload",
-										type : "post",
-										data : {
-											"imagePath" : 
-										},
-										processData: false,
-										contentType: false,
-										success : function(camlist) {
-											alert('success');
+											 
+											$.ajax({
+												url : "imageUpload",
+												type : "post",
+												data : {
+													"imagePath" : 
+												},
+												processData: false,
+												contentType: false,
+												success : function(camlist) {
+													alert('success');
 
-										},
-										error : function() {
-											alert('error');
-										}
-									});
-								});  */
+												},
+												error : function() {
+													alert('error');
+												}
+											});
+										});  */
 
 		$("#upImgFile").on("change", function(e) {
 			$("#contentList").html('')
@@ -381,8 +380,7 @@ button:active {
 				contentType : false,
 				cache : false,
 				success : function(data) {
-					var w = data;
-					
+					console.log(data);
 
 				},
 				error : function() {

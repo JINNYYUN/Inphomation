@@ -4,9 +4,31 @@
   "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
   
 <mapper namespace="postwrite">
-
-<select id="getName" parameterType="int" resultType="String">
-	
+<insert id="setpost" parameterType="PostDto">
+	INSERT INTO POST (POST_SEQ,USER_SEQ,CAMERA_SEQ,POST_CONTENT,POST_WDATE,POST_FILEPATH,POST_READCOUNT,POST_POSITION_NAME)
+	VALUES(POST_SEQ.NEXTVAL,USER_SEQ.NEXTVAL,CAMERA_SEQ.NEXTVAL,#{post_content},SYSDATE,#{post_filepath},#{post_readcount},#{post_position_name})
+</insert>
+<insert id="setHashTagParam" parameterType="PostHashTagDto">
+	INSERT INTO POST_HASHTAG (POST_SEQ,TAG_SEQ)
+	VALUES(POST_SEQ.NEXTVAL,TAG_SEQ.NEXTVAL)
+</insert>
+<insert id="setHashTagName" parameterType="PostHashTagInfoDto">
+	INSERT INTO POST_HASHTAG (TAG_SEQ,HASHTAG)
+	VALUES(TAG_SEQ.NEXTVAL,#{hashtag})
+</insert>
+<select id="getHashTagName" parameterType="PostHashTagDto" resultType="PostHashTagInfoDto">
+	SLELCT *
+	FORM INFO_HASHTAG
+	WHERE POST_SEQ =
+	(SELECT POST_SEQ 
+	FORM POST_HASHTAG
+	WHERE TAG_SEQ = 1)
+</select>
+<select id="getCamera" parameterType="PostDto" resultType="MyPageCameraDto">
+SELECT CAMERA_SERIAL, CAMERA_IMAGE
+FORM WHERE CAMERA_SEQ =(SELECT CAMERA_SEQ FORM MEMBER_MYPAGE_CAMERA WHERE USER_SEQ = (
+SELECT CAMEA_SEQ, CAMERA_SERIAL, CAMERA_IMAGE FORM  INFO_CAMERA))
 </select>
 
 </mapper>
+

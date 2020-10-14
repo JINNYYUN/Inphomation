@@ -7,6 +7,9 @@
 
 	<typeAliases>
 		<typeAlias type="bit.com.inpho.dto.PostDto" alias="PostDto"/>
+		<typeAlias type="bit.com.inpho.dto.PostHashTagDto" alias="PostHashTagDto"/>
+		<typeAlias type="bit.com.inpho.dto.PostHashTagInfoDto" alias="PostHashTagInfoDto"/>
+		<typeAlias type="bit.com.inpho.dto.MyPageCameraDto" alias="MyPageCameraDto"/>
 	</typeAliases>
 	
 
