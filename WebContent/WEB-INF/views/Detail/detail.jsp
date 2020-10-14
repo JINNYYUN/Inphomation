@@ -2,6 +2,7 @@
 	pageEncoding="UTF-8"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
 
+
 <!DOCTYPE html>
 <html>
 <head>
@@ -19,7 +20,9 @@
 	<input type="hidden" name="shareUrl">
 </form>
 <input type="hidden" name="post_seq" id="post_seq" value="${post.post_seq }">
+<input type="hidden" name="writer" id="writer" value="${post.user_seq }">
 <input type="hidden" name="user_seq" id="user_seq" value="${user_seq }">
+
 <div class="container all">
 
 	<div class="frm">
@@ -38,10 +41,12 @@
 					<a href="#ex1" rel="modal:open">···</a>
 				</div>
 				<div id="ex1" class="modal">
-					<button type="button" id="editDetail" class="btn modalBtn">수정하기</button>
+				<c:if test="${post.user_seq eq user_seq }">
+					<button type="button" id="editDetail" onclick="editDetail()" class="btn modalBtn">수정하기</button>
 					<hr>
-					<button type="button" id="deletDetail" class="btn modalBtn">삭제하기</button>
+					<button type="button" id="deleteDetail" onclick="deleteDetail()" class="btn modalBtn">삭제하기</button>
 					<hr>
+				</c:if>
 					<button type="button" id="sh-link" class="btn modalBtn">공유하기</button>
 					<hr>
 				</div>
@@ -143,26 +148,30 @@
 
 <hr>
 			<div>
-				<span>
+					<c:if test="${user_seq eq 0  }">
+						<i id="heart" class="far fa-heart" onclick="addLikeBook(this.id)"></i>
+					</c:if>
 					<c:if test="${cLike eq 0  }">
 						<a href="javascript:void(0)">
-							<i id="heart" class="far fa-heart"></i>
+							<i id="heart" class="far fa-heart" onclick="addLikeBook(this.id)"></i>
 						</a>
 					</c:if> 
 					<c:if test="${cLike eq 1  }">
 						<a href="javascript:void(0)">
-							<i id="heart" class="fas fa-heart"></i>
+							<i id="heart" class="fas fa-heart" onclick="addLikeBook(this.id)"></i>
 						</a>
 					</c:if>
-				</span>
-			</div>
+				</div>
 			<div>
-				<span> <c:if test="${cBook eq 0  }">
-						<a href="javascript:void(0)"><i id="addBookmark" class="far fa-bookmark"></i></a>
-					</c:if> <c:if test="${cBook eq 1  }">
-						<a href="javascript:void(0)"><i id="addBookmark" class="fas fa-bookmark"></i></a>
+					<c:if test="${user_seq eq 0  }">
+						<i id="addBookmark" class="far fa-bookmark" onclick="addLikeBook(this.id)"></i>
 					</c:if>
-				</span>
+					<c:if test="${cBook eq 0  }">
+						<i id="addBookmark" class="far fa-bookmark" onclick="addLikeBook(this.id)"></i>
+					</c:if> <c:if test="${cBook eq 1  }">
+						<i id="addBookmark" class="fas fa-bookmark" onclick="addLikeBook(this.id)"></i>
+					</c:if>
+				
 			</div>
 
 			<div>
@@ -182,338 +191,7 @@
 
 
 
-
-
-<script type="text/javascript">
-/* 게시글 모달 사이즈 */
-document.getElementById('ex1').style.height = '180px';
-document.getElementById('ex1').style.width = '300px';
-
-/* 사진 원본 크기 불러오기 */
-function zoomPhoto(img){
-	img1= new Image();
-	img1.src=(img);
-	imgControll(img);	
-}
-function imgControll(img){
-
-	if((img1.width!= 0) && (img.height!=0)){
-		viewImage(img);
-	}else{
-		controller="imgController('"+img+"')";
-		intervalID=setTimeout(controller,20);
-	}
-}
-function viewImage(img){
-	W = img1.width;
-	H = img1.height;
-	O = "width=" + W + ",height=" + H + ",scrollerbars=yes";
-	imgWin = window.open("","",O);
-	imgWin.document.write("<html><head><title>확대보기</title></head>");
-	imgWin.document.write("<body topmargin=0 leftmargin=0>");
-	imgWin.document.write("<img src="+img+" onclick='self.close()' style='cursor:pointer;' title ='클릭하시면 창이 닫힙니다.'>");
-	imgWin.document.close();
-}
-/* ******************** */
-  
- 
- 
-$(document).ready(function(){
-
-	$("#subnav").hide();
-
-	$("#topnav").on("click",function(){
-		$(this).parent().find("#subnav").slideDown('normal').show();
-		$(this).parent().hover(function(){},
-			function(){
-				$(this).parent().find("#subnav").slideUp('fast');
-			});
-	});
-});
-/* function getReply(){
-	/* 댓글 불러오기 
-	 $.ajax({
-		url:"replyList.do",
-		type:"get",
-		data:{"post_seq":$("#post_seq").val()},
-		async:true,
-		success:function(list){
-
-			window.load();
-/* 
-			$.each(list, function(i, item){
-
-				/* 날짜만 가져오기  
-				let d = list[i].reply_date;
-				let date = d.substring(0, 11);
-			
-				$("#cmt").append("<tr class='text'>"
-									+"<td class='replyTbl'>"
-										+"<a href='javascript:void(0)' class='text ' onclick='profile("+ item.user_seq +")'>" 
-										+ item.user_nickname + "</a>" 
-									+"</td>" 
-									+ "<td class='replyTbl'>" + item.reply_content + "</td>"
-									+ "<td><div id='replyMenu' style='position: relative;'>"
-										+ "<a href='#ex2' rel='modal:open' onclick='replyMenu()'> ··· </a>"
-									+ "</div></td>"
-									+ "</tr>" + "<tr class='text'>" + "<td>" + date + "<td>" + "<tr>");
-				$("#cmt").append("<input type='hidden' name='reply_seq' value='" + ${item.reply_seq }+ "''>");
-			}) 
-		},
-		error:function(){
-			alert("error");
-		}
-	});
-} */
-/* 댓글 삭제 파라미터에 넣기 +${mem.user_seq},${post.post_seq}+ */
-function replyMenu(user, reply){
-	console.log(user + "," + reply);
-	
-	$("#replyMenu").append("<div id='ex2' class='modal'  style='max-width: 100%; width: auto;height:auto; display: table;'>"
-								+"<button type='button' id='deletReply' class='btn modalBtn' onclick='deleteReply("+user+","+reply+")'>삭제하기</button><br>"
-							+"</div> ");
-}
-
-function deleteReply(user,  reply){
-	console.log(user +"," + reply);
-	 location.href="deleteReply.do?user_seq="+user + "&reply_seq=" + reply + "&post_seq=" + $("#post_seq").val();
-}
-
-
-
-
-/*  댓글 추가 부분 */
-function addComment(){
-
-	let len =$.trim($('#comment').val()).length;
-	
-	if( $("#comment").val() == null || $("#comment").val() == "" || len == 0 ){
-		$("#comment").val("");
-		$("#comment").focus();
-	}else{
-			$.ajax({
-			url:"addReply.do",
-			type: "get",
-			data: {"post_seq":$("#post_seq").val(), "user_seq":$("#user_seq").val(), "reply_content":  $("#comment").val() },
-			async:true,
-			success:function(data){
-			//	console.log(data)
-				$("#comment").val("");
-				location.reload(true);
-				location.href = location.href;
-
-				history.go(0);
-			},
-			error:function(){
-
-			}
-		});
-	}
-}
-/* 유저 프로필로 이동 */
-function profile(user_seq){
-	location.href = "mypage?user_seq=" + user_seq;
-}
-
-let Honoff = 0;
-let HclsName = "far fa-heart";
-
-
-$(document).ready(function(){
-	
-
-	$("#heart").on("click",function(){
-		if(Honoff == 0) Honoff = 1;
-		else		    Honoff = 0;
-
-		$("#heart").removeClass(HclsName);
-
-		if(Honoff == 1){
-			HclsName = "fas fa-heart";
-		}else{
-			HclsName = "far fa-heart";
-		}
-
-		$.ajax({
-			url:"addLike.do",
-			type:"get",
-			async:true,
-			data: {"post_seq" : $("#post_seq").val(), "user_seq":$("#user_seq").val()},
-			success:function(msg){
-				/*msg가 NO일 경우 북마크에 추가됨*/
-				
-				if(msg == 'NO'){
-					$("#heart").attr("class", HclsName);
-
-				}else{
-					$("#heart").attr("class", HclsName);
-				}
-
-				location.reload(true);
-				location.href = location.href;
-
-				history.go(0);
-			},
-			error:function(){
-				alert("error");
-	
-			}
-		});
-	});
-
-	$.ajax({
-		url:"countLikeAll.do",
-		type:"get",
-		data:{"post_seq": $("#post_seq").val()},
-		async: false,
-		success:function(data){
-
-			if(data == '0'){
-				$("#heartCount").html("");
-			}else{
-				$("#heartCount").html(data + "명이 좋아합니다.");
-			}
-
-			
-		},
-		error:function(){
-			alert("error");
-	
-		}
-	});
-
-}); 
-
-
-let Bonoff = 0;
-let BclsName = "far fa-bookmark";
-
-$(document).ready(function(){
-	
-	$("#addBookmark").on("click",function(){
-
-		if(Bonoff == 0) Bonoff = 1;
-		else		   Bonoff = 0;
-
-		$.ajax({
-			url:"addBookmark.do",
-			type:"get",
-			async:true,
-			data: {"post_seq" : $("#post_seq").val(), "user_seq":$("#user_seq").val()},
-			success:function(msg){
-				/*msg가 NO일 경우 북마크에 추가됨*/
-
-				$("#addBookmark").removeClass(BclsName);
-				if(Bonoff == 1){
-					BclsName = "fas fa-bookmark";
-				}else{
-					BclsName = "far fa-bookmark";
-				}
-				
-				if(msg == 'NO'){
-					$("#addBookmark").attr("class", BclsName);
-
-				}else{
-					$("#addBookmark").attr("class", BclsName);
-				}
-				
-			},
-			error:function(){
-				alert("error");
-	
-			}
-		});
-	});
-
-
-	$("#followBtn").on("click",function(){
-		/* if($("#followBtn").val() == 'Unfollow'){
-			location.href='follow.do?follower='+${post.user_seq}+'&following='+21;
-		}else{
-			location.href='unfollow.do?follower='+${post.user_seq}+'&following='+21;
-		} */
-
-		$.ajax({
-			url:'follow.do',
-			data:{"following": ${post.user_seq}, "work": $("#followBtn").val()},
-			success:function(data){
-				$(this).html("Unfollow");
-
-				location.reload(true);
-				location.href = location.href;
-
-				history.go(0);
-			},
-			error:function(){
-				alert('에러');
-			}
-		});
-	});
-	
-});
-
-
-
-
-
-
-// 링크 복사 소스코드
-$(document).on("click", "#sh-link", function(e) { 
-	// 링크복사 시 화면 크기 고정 
-	$('html').find('meta[name=viewport]').attr('content', 'width=device-width,initial-scale=1.0,minimum-scale=1.0,maximum-scale=1.0,user-scalable=no'); 
-	var html = "<input id='clip_target' type='text' value='' style='position:absolute;top:-9999em;'/>"; 
-	$(this).append(html); 
-
-	var input_clip = document.getElementById("clip_target");
-		//현재 url 가져오기 
-		var _url = $(location).attr('href'); 
-	$("#clip_target").val(_url);
-	if (navigator.userAgent.match(/(iPod|iPhone|iPad)/)) { 
-
-		var editable = input_clip.contentEditable; 
-		var readOnly = input_clip.readOnly; 
-	
-		input_clip.contentEditable = true; 
-		input_clip.readOnly = false; 
-
-	 	var range = document.createRange();
-	   	range.selectNodeContents(input_clip);
-
-		var selection = window.getSelection(); 
-	    selection.removeAllRanges(); 
-	    selection.addRange(range);
-	    input_clip.setSelectionRange(0, 999999); 
-
-		input_clip.contentEditable = editable; 
-	    input_clip.readOnly = readOnly;
-	} else { 
-		input_clip.select(); 
-	}
-	try { 
-		var successful = document.execCommand('copy');
-		input_clip.blur();
-
-		if (successful) {
-			alert("URL이 복사 되었습니다. 원하시는 곳에 붙여넣기 해 주세요.");
-			// 링크 복사 시 화면 크기 고정 
-			$('html').find('meta[name=viewport]').attr('content', 'width=device-width,initial-scale=1.0,minimum-scale=1.0,maximum-scale=1.0,user-scalable=yes');
-		} else { 
-			alert('이 브라우저는 지원하지 않습니다.'); 
-		} 
-	} catch (err) { 
-		alert('이 브라우저는 지원하지 않습니다.'); 
-		}
-	 }); //클립보드 복사
-
-
-</script>
-
-
-
-
-
-
-<script src="<%=request.getContextPath() %>/js/detail/detail.js"></script>
+<script src="./js/detail/detail.js"></script>
 
 
 

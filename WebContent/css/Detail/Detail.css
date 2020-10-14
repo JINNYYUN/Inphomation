@@ -2,7 +2,7 @@
 
 .frm {
 	position: relative;
-	width: 900px;
+	width: 850px;
 	height: 50%;
 	margin-top: auto; 
 	box-shadow: 2px 2px 2px 2px #E6E6E6;
@@ -12,6 +12,8 @@
 	position: relative;
 	padding-top: 100px;
 	margin-top: 0px;
+	background-color: #ffffff;
+    margin-left: 20%;
 }
 
 .proflBox {
@@ -113,8 +115,9 @@
     margin-left: 10px;
 }
 .modalMenu {
-	float: right;
-	margin-right: 5%;
+	margin-left: 89%;
+    margin-bottom: -20px;
+    margin-top: 7px;
 }
 
 .replyTbl {
@@ -142,7 +145,7 @@
     word-wrap:normal;
     word-break:break-all;
     resize: none;
-    height: 60px;
+    height: 45px;
     font-family: "Noto Sans KR", sans-serif;
 }
 .btn-reply{
@@ -150,6 +153,7 @@
 	color: #F25C05;
     border: 0px solid #F25C05;
     margin-right: 4%;
+    font-family: "Noto Sans KR", sans-serif;
 }
 
 /* .cmtBox{

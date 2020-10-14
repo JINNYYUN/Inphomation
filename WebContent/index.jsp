@@ -10,11 +10,11 @@
 <h1>index이동</h1>
 
 <br><br>
-<a href="detail.do?post_seq=2&user_seq=2">디테일 이동</a><br>
+<a href="detail.do?post_seq=2">디테일 이동</a><br>
 <a href="map">지도페이지 이동</a><br>
 <a href="mypage?user_seq=1"><button>mypage</button></a>
 <a href="main">메인페이지로</a>
-
+<a href="post">글쓰기페이지</a>
 <i class="fas fa-star"></i>
 
 </body>

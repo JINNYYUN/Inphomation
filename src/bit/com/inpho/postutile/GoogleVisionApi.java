@@ -1,10 +1,9 @@
-package postutile;
+package bit.com.inpho.postutile;
 
 import java.io.FileInputStream;
 import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
-
 import org.springframework.stereotype.Service;
 import com.google.cloud.vision.v1.AnnotateImageRequest;
 import com.google.cloud.vision.v1.AnnotateImageResponse;
@@ -18,8 +17,9 @@ import com.google.protobuf.ByteString;
 
 @Service
 public class GoogleVisionApi {
-
-	public void detectLabels(String filePath) throws Exception {
+	
+	List<String> hashTaglist=new ArrayList<>();
+	public List<String> detectLabels(String filePath) throws Exception {
 
 		List<AnnotateImageRequest> requests = new ArrayList<>();
 
@@ -36,19 +36,25 @@ public class GoogleVisionApi {
 			for (AnnotateImageResponse res : responses) {
 				if (res.hasError()) {
 					System.out.println("Error: " + res.getError().getMessage());
-					return;
+					
 				}
 
-				// For full list of available annotations, see http://g.co/cloud/vision/doc
-
+				
 				for (EntityAnnotation annotation : res.getLabelAnnotationsList()) {
 					annotation.getAllFields().forEach((k, v) -> System.out.println(k + " : " + v.toString()));
-
-					System.out.println("해쉬태그 검색 : " + annotation.getDescription());
-					// 상품만을가져오기위해 디스크립션을 사용한다.
+					hashTaglist.add(annotation.getDescription());
+					String[] hashTag = new String[hashTaglist.size()];
+					hashTag=hashTaglist.toArray(hashTag);
+					// 해쉬태그리스트를 출력합니다.
+					for (String s : hashTag) {
+						System.out.println("해쉬태그 정보들 : " +s);
+					}
 				}
 			}
 		}
+			
+		
+		return hashTaglist;
 	}
 
 	private static Image getImage(String filePath) throws IOException {

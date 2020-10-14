@@ -5,25 +5,37 @@
 <head>
 <meta charset="UTF-8">
 <title>hello</title>
+<script src="https://cdn.jsdelivr.net/npm/exif-js"></script>
 <script
 	src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
-<script src="https://cdn.jsdelivr.net/npm/exif-js"></script>
-
-
+<script src="https://code.jquery.com/jquery-3.5.1.min.js"></script>
+<link href="css/mdb.css" rel="stylesheet">
+<link rel="stylesheet"
+	href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.0/css/bootstrap.min.css">
+<!-- Bootstrap JS -->
+<script
+	src="https://cdn.jsdelivr.net/npm/popper.js@1.16.0/dist/umd/popper.min.js"></script>
+<script
+	src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.0/js/bootstrap.min.js"></script>
 
 <style type="text/css">
+#thumbnailImg {
+	width: 400px;
+	height: 300px;
+	background-repeat: no-repeat;
+}
+
 .content {
 	outline: 2px dashed #92b0b3;
 	outline-offset: -10px;
 	text-align: center;
 	transition: all .15s ease-in-out;
 	width: 100%;
-	background-color: gray;
+	background-color: F2F2F2;
 }
 
-
 div {
-	border-color: gray;
+	border-color: F2F2F2;
 	border-size: 2px;
 }
 
@@ -38,39 +50,8 @@ html {
 	font-family: sans-serif;
 }
 
-form {
-	width: 600px;
-	background: #ccc;
-	margin: 0 auto;
-	padding: 20px;
-	border: 1px solid black;
-}
-
-form ol {
-	padding-left: 0;
-}
-
-form li, div>p {
-	background: #eee;
-	display: flex;
-	justify-content: space-between;
-	margin-bottom: 10px;
-	list-style-type: none;
-	border: 1px solid black;
-}
-
-form img {
-	height: 64px;
-	order: 1;
-}
-
-form p {
-	line-height: 32px;
-	padding-left: 10px;
-}
-
-form label, form button {
-	background-color: #7F9CCB;
+button {
+	background-color: #F27405;
 	padding: 5px 10px;
 	border-radius: 5px;
 	border: 1px ridge black;
@@ -78,13 +59,14 @@ form label, form button {
 	height: auto;
 }
 
-form label:hover, form button:hover {
-	background-color: #2D5BA3;
+button:hover {
+	background-color: #25C05;
 	color: white;
 }
 
-form label:active, form button:active {
-	background-color: #0D3F8F;
+,
+button:active {
+	background-color: #D3F8F;
 	color: white;
 }
 
@@ -94,74 +76,168 @@ form label:active, form button:active {
 	left: 43%;
 }
 
+.my-5 {
+	margin-top: 5rem !important;
+	background-color: #F2F2F2F2;
+}
 
+.text-weight-medium {
+	background-color: #F2F2F2F2;
+}
+/* image hover */
+#photo-gallery {
+	padding: 40px 0px 40px;
+}
+
+#photo-gallery .state-thumb {
+	max-height: 170px;
+	overflow: hidden;
+	border-radius: 10px;
+}
+
+#photo-gallery .state-thumb img {
+	width: 100%;
+	transition: 0.5s;
+}
+
+#photo-gallery .photo-frame:hover img {
+	transform: scale(1.3, 1.3);
+}
+
+#photo-gallery h4 {
+	margin: 10px 0px 0px;
+	text-align: right;
+}
+
+#photo-gallery h4 a {
+	color: #9c27b0;
+	font-size: 20px;
+}
+
+#photo-gallery .photo-frame {
+	border: 1px solid #cecece;
+	padding: 15px;
+	margin-bottom: 30px;
+	border-radius: 10px;
+	transition: 0.3s;
+	background-color: #fff;
+}
+
+#photo-gallery .photo-frame:hover {
+	box-shadow: 0px 0px 15px 0px #d0d0d0;
+	border-color: #9c27b0;
+}
 </style>
 </head>
 <body>
-	<div class="container">
-		<div id="thumbnailUrl"></div>
-		<!-- Heading Row -->
-		<div class="row align-items-center my-5">
-			<div class="">
-				<div class="content rounded mb-4 mb-lg-0" id="mylmg">
-					<br> <label for="upImgFile">이미지를 드래그 하거나 여기를 클릭하여 파일을
-						선택해주세요! (PNG, JPG,JEPG)</label> <input type="file" class="imagehide"
-						id="upImgFile" name="upImgFile" accept=".jpg, .jpeg, .png"
-						multiple onChange="uploadImgPreview()">
-					<div class="preview">
-						<label class="label">NOT FOUND FILE</label>
+
+	<form method="POST" action="fileUpload" enctype="multipart/form-data">
+		<div class="container">
+			<div id="thumbnailUrl"></div>
+			<!-- Heading Row -->
+			<div class="row align-items-center my-5">
+				<div class="">
+					<div class="content rounded mb-4 mb-lg-0" id="mylmg">
+
+						<br> <label for="upImgFile">이미지를 드래그 하거나 여기를 클릭하여 파일을
+							선택해주세요! (PNG, JPG,JEPG)</label> <input type="file" class="imagehide"
+							id="upImgFile" name="upImgFile" accept=".jpg, .jpeg, .png"
+							multiple>
+						<div class="preview">
+							<label class="label"><%=request.getRealPath("/")%></label>
+						</div>
+					</div>
+					<div id="thumbnailImg"
+						class="photo-gallery content rounded mb-4 mb-lg-0" src="#">
 					</div>
 				</div>
-					
-				<img id="thumbnailImg"class="content rounded mb-4 mb-lg-0"
-					src="https://storage.googleapis.com/boomkit/mypic.jpg" alt="not">
-					<i class="fas fa-eye markup"></i>
-					<i class="fas fa-expand-arrows-alt markup"></i>
-					
-			</div>
-		
-			<div class="mb-5">
-				<div class="card h-100">
-					<div class="card-body">
-						<h2 class="card-title">PostWrite</h2>
 
-						<form name="frm" action="postUpdate.do" method="post"
-							enctype="multipart/form-data">
+				<div class="mb-5">
+					<div class="card h-100">
+
+						<div class="card-body">
+
+							<div class="postwrite">
+								<h2 class="text fas text-weight-medium">
+									<i class="fas fa-pencil-alt text"></i>게시글 작성
+								</h2>
+							</div>
 
 
-							<div>
-								<span>장소는 어디서 찍으셧나요? <input type="text" id="space"
-									name="space" readonly>
-								</span> <br> <span>카메라 기종을 입력해주세요 <input type="text"
-									id="camara" name="camara" readonly>
-								</span> <br> <span>나만의 해쉬태그를 만들어봅니다 <input type="text"
-									id="hashtag" name="hashtag" readonly>
-								</span> <br> <span> <a href="#none" id="btnwrite"
-									title="저장"> </a>
-								</span>
+							<div class="md-form">
+								<input type="text" id="inputLGEx"
+									class="form-control form-control-lg" placeholder="자신을 소개해 주세요!">
+								<label for="inputLGEx"></label>
+							</div>
+							<div class="md-form">
+								<input type="text" id="inputLGEx"
+									class="form-control form-control-lg"> <label
+									for="inputLGEx">촬영장소를 작성 해주세요!</label>
+							</div>
+							<div class="md-form">
+								<input type="text" id="inputLGEx"
+									class="form-control form-control-lg"> <label
+									for="inputLGEx">나만의 해쉬 태그 입력해주세요!</label>
+							</div>
+							<div class="md-form">
+								<input type="text" id="inputLGEx"
+									class="form-control form-control-lg"> <label
+									class="text" for="inputLGEx">촬영기기는 어떻게 되나요?</label>
 							</div>
 
 
 
+
 							<a href="#" class="btn btn-primary btn-sm">More Info</a> <input
-								class="btn btn-primary btn-sm" type="submit" value="글쓰기">
-						</form>
+								id="done" class="btn btn-primary btn-sm" type="submit"
+								value="글쓰기">
+						</div>
 					</div>
 				</div>
 			</div>
-		 </div>
-	</div>
-	
 
+		</div>
+	</form>
 
+	<section id="photo-gallery">
+		<div class="container">
+			<div class="row">
+				<div class="col-md-6 col-lg-4">
+					<div class="photo-frame">
+						<div class="state-thumb">
+							<img id="thumbnailImg1" src="#" class="img-fluid">
+						</div>
+						<h4>
+							<a href="#">#fillDragon</a> <a href="#">#bitcamp</a> <a href="#">#null</a>
+							<a href="#">#hashtag</a>
+						</h4>
+					</div>
+				</div>
+			</div>
+		</div>
+	</section>
 
 	<script type="text/javascript">
-		// upload file GPSLongitude/GPSLongitudeRef
 		let files;
-
+		let reader;
+		let fileInfo;
 		var input = document.querySelector('input');
 		var preview = document.querySelector('.preview');
 		input.style.opacity = 0;
+
+		function EXIFutil() {
+			EXIF.getData(files[0], function() {
+				var exifLong = EXIF.getTag(files[0], "GPSLongitude");
+				var exifLat = EXIF.getTag(files[0], "GPSLatitude");
+				var exifLongRef = EXIF.getTag(files[0], "GPSLongitudeRef");
+				var exifLatRef = EXIF.getTag(files[0], "GPSLatitudeRef");
+
+				console.log("E:" + exifLong[2])
+				console.log("N:" + exifLat[2])
+
+			});
+
+		}
 
 		$(".content").on("dragover", dragOver).on("dragleave", dragOver).on(
 				"drop", dragFiles);
@@ -193,11 +269,11 @@ form label:active, form button:active {
 
 			files = e.target.files || e.dataTransfer.files;
 			if (files.length > 1) {
-				console.log("하나만 올려");
+				arlert("하나만 올려");
 				return;
 			}
 			if (files[0].type.match(/image.*/)) {
-				$(e.target).css(
+				$(e.currentTarget).css(
 						{
 							"background-image" : "url("
 									+ window.URL.createObjectURL(files[0])
@@ -210,44 +286,79 @@ form label:active, form button:active {
 				console.log("not image!");
 				return;
 			}
-			console.log("파일 내용" + files.EXIF);
+			console.log("파일 이름" + files[0].name);
+			EXIFutil();
 
-			EXIF.getData(files[0], function() {
-				var exifLong = EXIF.getTag(files[0], "GPSLongitude");
-				var exifLat = EXIF.getTag(files[0], "GPSLatitude");
-				var exifLongRef = EXIF.getTag(files[0], "GPSLongitudeRef");
-				var exifLatRef = EXIF.getTag(files[0], "GPSLatitudeRef");
-
-				console.log("E:" + exifLong[2])
-				console.log("N:" + exifLat[2])
-
-			});
 		}
-		$("#btnwrite").click(function() {
-			$(".frm").attr({
-				"target" : "self",
-				"action" : "postUpdate.do"
-			}).submit();
+		$(function() {
+			$(".imagehide").change(
+					function(e) {
+						files = e.target.files || e.dataTransfer.files;
+						$('#thumbnailImg').css(
+								{
+									"background-image" : "url("
+											+ window.URL
+													.createObjectURL(files[0])
+											+ ")",
+									"outline" : "none",
+									"background-size" : "100% 100%"
+								});
+						EXIFutil();
+
+						/* alert($('input[type=file]')[0].files[0].name); //파일이름
+						  alert($("#m_file")[0].files[0].type); // 파일 타임
+						  alert($("#m_file")[0].files[0].size); // 파일 크기 */
+						//  $('input[type=file]')[0].files[0].name;
+						//  $("#imgUpload")[0].files[0].type;
+						//  $("#imgUpload")[0].files[0].size;
+					});
 
 		});
+		/*  function uploadImgPreview() {
+			fileInfo = document.querySelector(".imagehide");
+			reader = new FileReader();
 
-		function uploadImgPreview() {
-			let fileInfo = document.getElementById("upImgFile").files[0];
-			let reader = new FileReader();
+			reader.onload = function() { */
+		/* document.getElementById("thumbnailImg").src = reader.result; */
+		/* document.getElementById("thumbnailImg").style.background-image='url('+reader.result+')'; */
+		/* 
+		$('#thumbnailImg').css({
+		    "background-image": "url(" + reader.result + ")",
+		    "outline": "none",
+		    "background-size": "100% 100%"
+		});
+			
+		
+		
 
-			reader.onload = function() {
+		};
 
-				document.getElementById("thumbnailImg").src = reader.result;
-				document.getElementById("thumbnailUrl").innerText = reader.result;
-				};
-
-			if (fileInfo) {
-
-				reader.readAsDataURL(fileInfo);
-
-			}
+		if (fileInfo) {
+		reader.readAsDataURL(fileInfo)
+		EXIFutil();
 
 		}
+
+		}
+
+		 *//* $("#done").click(function() {
+			$.ajax({
+				url : "imageUpload",
+				type : "post",
+				data : {
+					"imagePath" : 
+				},
+				processData: false,
+				contentType: false,
+				success : function(camlist) {
+					alert('success');
+
+				},
+				error : function() {
+					alert('error');
+				}
+			});
+		});  */
 	</script>
 </body>
 </html>
