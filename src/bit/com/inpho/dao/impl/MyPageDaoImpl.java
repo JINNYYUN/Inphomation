@@ -13,6 +13,7 @@ import bit.com.inpho.dto.DetailPostDto;
 import bit.com.inpho.dto.MyPageCameraDto;
 import bit.com.inpho.dto.MyPageCameraParam;
 import bit.com.inpho.dto.MyPageMemberDto;
+import bit.com.inpho.dto.MyPagePostDto;
 
 @Repository
 public class MyPageDaoImpl implements MyPageDao {
@@ -110,7 +111,7 @@ public class MyPageDaoImpl implements MyPageDao {
 	@Override
 	public boolean isFollowing(HashMap<String, Integer> map) {
 		
-		System.out.println("map size = "+ map.size());
+		//System.out.println("map size = "+ map.size());
 		
 		sqlSession.selectOne(ns + "isFollowing", map);
 		boolean b = false;
@@ -118,7 +119,6 @@ public class MyPageDaoImpl implements MyPageDao {
 		if(sqlSession.selectOne(ns + "isFollowing", map) != null) {
 			b = true;
 		}
-		System.out.println("B: " + b);
 		
 		return b;
 	}
@@ -147,11 +147,36 @@ public class MyPageDaoImpl implements MyPageDao {
 	}
 
 	@Override
-	public List<DetailPostDto> getPost(int user_seq) {
-		return sqlSession.selectList(ns + "getPost", user_seq);
+	public List<MyPagePostDto> getPost(int user_seq, String work) {
+		
+		if(work.equals("post")) {
+			return sqlSession.selectList(ns + "getPost", user_seq);
+		}else {
+			return sqlSession.selectList(ns + "getBookPost", user_seq);
+		}
+		
 	}
-	
-	
+
+	@Override
+	public boolean doLike(HashMap<String, Integer> map) {
+		
+		boolean b = false;
+		if(sqlSession.selectOne(ns + "doLike", map) != null) {
+			b = true;
+		}
+		
+		return b;
+	}
+
+	@Override
+	public boolean doBookmark(HashMap<String, Integer> map) {
+		boolean b = false;
+		if(sqlSession.selectOne(ns + "doBookmark", map) != null) {
+			b = true;
+		}
+		
+		return b;
+	}
 	
 	
 }

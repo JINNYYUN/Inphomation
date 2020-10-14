@@ -9,6 +9,7 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.ResponseBody;
 
 import bit.com.inpho.dto.LocationDTO;
+import bit.com.inpho.dto.MapInfoDTO;
 import bit.com.inpho.service.MapService;
 
 @Controller
@@ -64,5 +65,7 @@ public class MapController {
 		String infoEast = infoArray[3]; //동쪽 경도 좌표
 		
 		System.out.println(infoNorth+"+"+infoWest+"+"+infoSouth+"+"+infoEast);
+		
+		MapInfoDTO mapInfoDTO = new MapInfoDTO(infoNorth, infoWest, infoSouth, infoEast);
 	}
 }

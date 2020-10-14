@@ -22,9 +22,12 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.multipart.MultipartFile;
 
+import bit.com.inpho.dto.DetailCountAllDto;
 import bit.com.inpho.dto.DetailPostDto;
 import bit.com.inpho.dto.MyPageCameraDto;
 import bit.com.inpho.dto.MyPageMemberDto;
+import bit.com.inpho.dto.MyPagePostDto;
+import bit.com.inpho.service.DetailService;
 import bit.com.inpho.service.MyPageService;
 
 @Controller
@@ -32,6 +35,9 @@ public class MyPageController {
 	
 	@Autowired
 	MyPageService service;
+	
+	@Autowired
+	DetailService detailService;
 	
 	@RequestMapping(value = "mypage", method = RequestMethod.GET)
 	public String mypage( Model model, int user_seq, HttpServletRequest req ) {
@@ -143,15 +149,64 @@ public class MyPageController {
 	// 게시글 가져오기 ajax
 	@ResponseBody
 	@RequestMapping(value = "getPost", method = RequestMethod.POST)
-	public List<DetailPostDto> getPost( int user_seq ) {
+	public List<MyPagePostDto> getPost( int user_seq, String work, HttpServletRequest req ) {
+		System.out.println("work:" + work);
 		
-		List<DetailPostDto> list = service.getPost(user_seq);
- 
+		List<MyPagePostDto> list = service.getPost(user_seq, work);
+		for (int i = 0; i < list.size(); i++) {
+			System.out.println(list.get(i).toString());		
+			}
+		if(list.size() == 0) {
+			System.out.println("널널널");
+		}
+		
+		// 좋아요/북마크 여부 가져오기
+		MyPageMemberDto login = (MyPageMemberDto)req.getSession().getAttribute("login");
+		
+		for (int i = 0; i < list.size(); i++) {
+			HashMap<String, Integer> hashmap = new HashMap<String, Integer>();
+			hashmap.put("post_seq", list.get(i).getPost_seq());
+			hashmap.put("login_user_seq", login.getUser_seq());
+			
+			boolean like = service.doLike(hashmap);
+			boolean bookmark = service.doBookmark(hashmap);
+			
+			list.get(i).setDolike(like);
+			list.get(i).setDobookmark(bookmark);
+		}
+		
 		return list;
 	}
 	
-	//게시글 좋아요 & 북마크
+	//좋아요 추가/삭제
+	@RequestMapping(value = "addLike", method = {RequestMethod.GET, RequestMethod.POST})
+	public void addLike (boolean dolike, int post_seq, HttpServletRequest req) throws Exception {
+		MyPageMemberDto login = (MyPageMemberDto)req.getSession().getAttribute("login");
+		DetailCountAllDto dto = new DetailCountAllDto(post_seq, login.getUser_seq());
+		
+		if(!dolike) {
+			detailService.addLike(dto);
+		}else {
+			detailService.deleteLike(dto);
+		}
+		
+	}
 	
+	// 북마크 추가/삭제
+	@ResponseBody
+	@RequestMapping(value = "addBookmark", method = {RequestMethod.GET, RequestMethod.POST})
+	public void addBookmark (boolean dobook, int post_seq, HttpServletRequest req) throws Exception {
+		MyPageMemberDto login = (MyPageMemberDto)req.getSession().getAttribute("login");
+		DetailCountAllDto dto = new DetailCountAllDto(post_seq, login.getUser_seq());
+		
+		if(!dobook) {
+			detailService.addBookmark(dto);
+		}else {
+			detailService.deleteBookmark(dto);
+		}
+		
+	}
+		
 	
 	
 	

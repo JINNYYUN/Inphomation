@@ -84,7 +84,10 @@ hr{
     border-color: #F28705;
     margin-right: 5px;
 }
-
+.fa-images{
+	font-size: 200px;
+    color: lightgrey;
+}
 /* 게시글 이미지 영역*/
 .main-container {
   position: relative;
@@ -177,12 +180,13 @@ hr{
 .main-container .main-back-ground::after {
   content: '';
 }
-.bottom-icon-bar .far{
+.bottom-icon-bar .far, .bottom-icon-bar .fas{
 font-size: 12px;
 }
 
 .fa-heart{
 margin-left: 210px;
+
 }
 /* The Modal (background) */
 .modal {

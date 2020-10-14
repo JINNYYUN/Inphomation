@@ -6,6 +6,7 @@ import java.util.List;
 import bit.com.inpho.dto.DetailPostDto;
 import bit.com.inpho.dto.MyPageCameraDto;
 import bit.com.inpho.dto.MyPageMemberDto;
+import bit.com.inpho.dto.MyPagePostDto;
 
 public interface MyPageDao {
 
@@ -37,6 +38,10 @@ public interface MyPageDao {
 	
 	boolean updatePwd(MyPageMemberDto mem);
 	
-	List<DetailPostDto> getPost(int user_seq);
+	List<MyPagePostDto> getPost(int user_seq, String work);
+	
+	boolean doLike(HashMap<String, Integer> map);
+	
+	boolean doBookmark(HashMap<String, Integer> map);
 	
 	}

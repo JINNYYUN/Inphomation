@@ -6,7 +6,9 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import bit.com.inpho.dao.MapDao;
+import bit.com.inpho.dto.DetailPostDto;
 import bit.com.inpho.dto.LocationDTO;
+import bit.com.inpho.dto.MapInfoDTO;
 import bit.com.inpho.service.MapService;
 
 @Service
@@ -20,5 +22,12 @@ public class MapServiceImpl implements MapService {
 		// TODO Auto-generated method stub
 		return mapDao.getMapLocation();
 	}
+
+	@Override
+	public List<DetailPostDto> getMapInfo(MapInfoDTO mapInfoDTO) {
+		// TODO Auto-generated method stub
+		return null;
+	}
+
 
 }

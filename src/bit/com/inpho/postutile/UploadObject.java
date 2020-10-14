@@ -16,25 +16,23 @@ import com.google.cloud.Identity;
 import com.google.cloud.Policy;
 import com.google.cloud.storage.StorageRoles;
 import java.util.HashMap;
-import java.util.List;
 import java.util.Map;
 @Service
 public class UploadObject {
-	private List<String> hashTag;
 	@Autowired
 	private fileUploadService fie;
 	@Autowired
 	private GoogleVisionApi googleObj;
 	
-	public List<String> storageUploadObject(String projectId, String bucketName, String objectName, String filePath)
+	public void storageUploadObject(String projectId, String bucketName, String objectName, String filePath)
 			throws IOException {
 		System.out.println(filePath);
-//		try {
-//			hashTag=googleObj.detectLabels(filePath);
-//		} catch (Exception e) {
+		try {
+			googleObj.detectLabels(filePath);
+		} catch (Exception e) {
 			// TODO Auto-generated catch block
-		//	e.printStackTrace();
-	//	}
+			e.printStackTrace();
+		}
 		String extName= objectName.substring(objectName.lastIndexOf("."), objectName.length());
 		String saveFileName =  fie.genSaveFileName(extName);
 		
@@ -66,7 +64,6 @@ public class UploadObject {
 
 		    System.out.println(
 		        "Updated custom metadata for object " + saveFileName + " in bucket " + bucketName);
-		    return hashTag;
 	}
 
 }

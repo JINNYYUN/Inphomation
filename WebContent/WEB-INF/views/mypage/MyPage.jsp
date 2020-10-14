@@ -92,17 +92,15 @@ MyPageMemberDto login = (MyPageMemberDto)request.getSession().getAttribute("logi
 		<hr>
 		<table class="mynav-table">
 			<tr>
-				<td id="nav_post" onclick="getPost()" ><i class="fas fa-camera"> 게시글</i></td>
-				<td id="nav_bookmark"><i class="far fa-bookmark"> 북마크</i></td>
-				<td id="nav_profile"><i class="far fa-user-circle"> 프로필</i></td>
+				<td id="nav_post" onclick="getPost('post')" ><i class="fas fa-camera"></i> 게시글</td>
+				<td id="nav_bookmark" onclick="getPost('bmk')"><i class="far fa-bookmark"></i> 북마크</td>
+				<td id="nav_profile"><i class="far fa-user-circle"></i> 프로필</td>
 			</tr>
 		</table>
 	</div>
 	
 	<div class="content-detail">
 	<hr>
-		<!-- 디폴트값 게시글로 -->
-		
 
 	</div>
 	</div>
@@ -116,7 +114,7 @@ MyPageMemberDto login = (MyPageMemberDto)request.getSession().getAttribute("logi
 $("#editProfile").click( function(){
 	location.href="mypageedit?user_seq=" + ${mem.user_seq};
 });
-
+// 비밀번호 변경 이동
 $("#editMember").click( function(){
 	location.href="editMem?user_seq=" + ${mem.user_seq};
 });
@@ -143,9 +141,7 @@ $("#followBtn").click( function(){
 	}); 
 	
 });
-
 </script>
-
 
 <!-- 팔로잉  Modal -->
 <script>
@@ -213,46 +209,66 @@ $(".modal-detail2").load("getFollower?user_seq=" + ${mem.user_seq});
 <!-- ① 게시글 & 북마크 구현 -->
 <script type="text/javascript">
 //ajax로 post 불러오는 함수
-function getPost(){
+function getPost(work){
 	$.ajax({
 		url:"getPost",
 		type:"post",
-		data:{"user_seq":<%=mem.getUser_seq()%>},
+		data:{"user_seq":<%=mem.getUser_seq()%>, "work":work},
+		async: false,
 		success:function(postlist){
 			//alert('success');
-
-			let content = '<div class="main-container">'
-						+ '<div class="grid">';
-
-			$.each(postlist, function(i, post) {
-				content += '<div class="item">'
-				+ '<img src="https://storage.googleapis.com/boomkit/' + post.post_filepath +'">'
-					+ '<div class="white-circle">'
-					+ '<i class="fas fa-bars menu" onclick="test();"></i>'
-					+ '</div>'
-				+ '<div class="bottom-icon-bar icon-absoulte">'
-				+ '<h4><i class="far fa-heart" onclick="clickLike(this,1);"> 0</i></h4>'
-				+ '<h4><i class="far fa-bookmark" onclick="clickBookMark(this,1);"> 0</i></h4>'
-				+ '</div>'
-				+ '</div>';
-			});
+			let content = '';
+			if(postlist.length == 0){
+				content = `<div class="profile">
+					 	   		<i class="far fa-images" align="center"></i>
+					 			<p>게시글이 없습니다</p>
+					 		</div>`;
+			}else{
 				
-			content += '</div></div>';
+				content += '<div class="main-container">'
+							+ '<div class="grid">';
+	
+				$.each(postlist, function(i, post) {
+					content += '<div class="item">'
+					+ '<img src="https://storage.googleapis.com/boomkit/' + post.post_filepath +'">'
+						+ '<div class="white-circle">'
+						+ '<i class="fas fa-bars menu" onclick="test();"></i>'
+						+ '</div>'
+					+ '<div class="bottom-icon-bar icon-absoulte">';
+
+					// 좋아요 여부
+					if(post.dolike){
+						content += '<h4><i class="fas fa-heart" onclick="clickLike('+i+', 1,'+post.post_seq+');" id="like'+i+'">' +post.count_like+ '</i></h4>';
+					}else{
+						content += '<h4><i class="far fa-heart" onclick="clickLike('+i+', 0,'+post.post_seq+');" id="like'+i+'">' +post.count_like+ '</i></h4>';
+					}
+					// 북마크 여부
+					if(post.dobookmark){
+						content+= '<h4><i class="fas fa-bookmark" onclick="clickBookmark('+i+', 1,'+post.post_seq+');" id="bookmark'+i+'">' +post.count_book+'</i></h4>';
+					}else{
+						content+= '<h4><i class="far fa-bookmark" onclick="clickBookmark('+i+', 0,'+post.post_seq+');" id="bookmark'+i+'">' +post.count_book+'</i></h4>';
+					}
+					content+= '</div>'
+					+ '</div>';
+				});
+					
+				content += '</div></div>';
+				}
 			
 			$(".main-container").remove();
 			$(".profile").remove();
 			$(".content-detail").append(content);
-
-			SetGridItemHeight();
+			
 		},
 		error:function(){
 			alert('error');
 		}
 	});
+	SetGridItemHeight();
 }
 
 //페이지 시작 시 함수 실행
-getPost();
+getPost('post');
 
 //grid layout 설정
 function SetGridItemHeight() {
@@ -267,8 +283,70 @@ function SetGridItemHeight() {
 		item[i].style.gridRowEnd = `span ` + a
 	}
 }
-window.addEventListener("load", SetGridItemHeight);
-window.addEventListener("resize", SetGridItemHeight);
+//window.addEventListener("load", SetGridItemHeight);
+//window.addEventListener("resize", SetGridItemHeight);
+
+// 좋아요 클릭 함수
+function clickLike(num, dolike, post_seq){
+
+	$.ajax({
+		url:"addLike",
+		type:"post",
+		data:{"post_seq":post_seq, "dolike":dolike},
+		success:function(){
+			//alert('success');
+			var likeid = "#like"+num;
+			if(dolike==0){
+				let count = Number($(likeid).html())+1;
+				$(likeid).html( count);
+				$(likeid).attr("onclick", "clickLike(" + num + ", 1)");
+				$(likeid).removeClass();
+				$(likeid).addClass("fas fa-heart"); 
+			}else{
+				let count = Number($(likeid).html())-1;
+				$(likeid).html( count);
+				$(likeid).attr("onclick", "clickLike(" + num + ", 0)");
+				$(likeid).removeClass();
+				$(likeid).addClass("far fa-heart"); 
+			}
+		},
+		error:function(){
+			alert('error');
+		}
+	});
+}
+
+//북마크 클릭 함수
+function clickBookmark(num, dobook, post_seq){
+
+	$.ajax({
+		url:"addBookmark",
+		type:"post",
+		data:{"post_seq":post_seq, "dobook":dobook},
+		success:function(){
+			
+			var bookid = "#bookmark"+num;
+			if(dobook==0){
+				let count = Number($(bookid).html())+1;
+				$(bookid).html( count);
+				$(bookid).attr("onclick", "clickBookmark(" + num + ", 1)");
+				$(bookid).removeClass();
+				$(bookid).addClass("fas fa-bookmark"); 
+			}
+			else{
+				let count = Number($(bookid).html())-1;
+				$(bookid).html( count);
+				$(bookid).attr("onclick", "clickBookmark(" + num + ", 0)");
+				$(bookid).removeClass();
+				$(bookid).addClass("far fa-bookmark"); 
+			}
+		},
+		error:function(){
+			alert('error');
+		}
+	});
+	
+}
 </script>
 
 <!-- ② 프로필 구현 -->
@@ -281,13 +359,13 @@ $("#nav_profile").click(function(){
 		data:{"user_seq":<%=mem.getUser_seq()%>},
 		success:function(camlist){
 			//alert('success');
-			let content = '<div class="profile">'
-				+ '<p class="prf-text">ABOUT ME</p><div class="box">${mem.mypage_introduce}</div>'
-				+ '<p class="prf-text">CAMERA</p>'
-				+ '<div class="box">';
+			let content = `<div class="profile">
+				<p class="prf-text">ABOUT ME</p><div class="box">${mem.mypage_introduce}</div>
+				<p class="prf-text">CAMERA</p>
+				<div class="box">`;
 				
 			$.each(camlist, function(i, cam) {
-					content += '<span class="btn btn-cam">' + cam.camera_serial + '</span>';
+					content += `<span class="btn btn-cam">${'${cam.camera_serial}'}</span>`;
 			});
 			$(".main-container").remove();
 			$(".profile").remove();
