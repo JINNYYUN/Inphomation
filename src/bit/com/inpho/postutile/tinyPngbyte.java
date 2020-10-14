@@ -14,8 +14,10 @@ import org.springframework.stereotype.Service;
 import com.tinify.Options;
 import com.tinify.Source;
 import com.tinify.Tinify;
-@Service
+
+//@Service
 public class tinyPngbyte {
+	
 	static Source source;
 // 티니 API 구글  클라우드 api  메타/압축/업로드 메서드 
 	public void tinyUpload(String beforeImagePath,String afterFileName){	

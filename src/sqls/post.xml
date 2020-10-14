@@ -5,8 +5,8 @@
   
 <mapper namespace="postwrite">
 
-<select id="getName" parameterType="int" resultType="String">
+<!-- <select id="getName" parameterType="int" resultType="String">
 	
-</select>
+</select> -->
 
 </mapper>

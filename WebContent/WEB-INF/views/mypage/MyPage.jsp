@@ -220,8 +220,10 @@ function getPost(work){
 			let content = '';
 			if(postlist.length == 0){
 				content = `<div class="profile">
-					 	   		<i class="far fa-images" align="center"></i>
-					 			<p>게시글이 없습니다</p>
+								<div class="notice" align="center">
+					 	   			<i class="far fa-images" align="center"></i>
+					 				<p>게시글이 없습니다</p>
+					 			</div
 					 		</div>`;
 			}else{
 				
@@ -238,15 +240,15 @@ function getPost(work){
 
 					// 좋아요 여부
 					if(post.dolike){
-						content += '<h4><i class="fas fa-heart" onclick="clickLike('+i+', 1,'+post.post_seq+');" id="like'+i+'">' +post.count_like+ '</i></h4>';
+						content += '<h4><i class="fas fa-heart" onclick="clickLike('+i+', 1,'+post.post_seq+');" id="like'+i+'"> ' +post.count_like+ '</i></h4>';
 					}else{
-						content += '<h4><i class="far fa-heart" onclick="clickLike('+i+', 0,'+post.post_seq+');" id="like'+i+'">' +post.count_like+ '</i></h4>';
+						content += '<h4><i class="far fa-heart" onclick="clickLike('+i+', 0,'+post.post_seq+');" id="like'+i+'"> ' +post.count_like+ '</i></h4>';
 					}
 					// 북마크 여부
 					if(post.dobookmark){
-						content+= '<h4><i class="fas fa-bookmark" onclick="clickBookmark('+i+', 1,'+post.post_seq+');" id="bookmark'+i+'">' +post.count_book+'</i></h4>';
+						content+= '<h4><i class="fas fa-bookmark" onclick="clickBookmark('+i+', 1,'+post.post_seq+');" id="bookmark'+i+'"> ' +post.count_book+'</i></h4>';
 					}else{
-						content+= '<h4><i class="far fa-bookmark" onclick="clickBookmark('+i+', 0,'+post.post_seq+');" id="bookmark'+i+'">' +post.count_book+'</i></h4>';
+						content+= '<h4><i class="far fa-bookmark" onclick="clickBookmark('+i+', 0,'+post.post_seq+');" id="bookmark'+i+'"> ' +post.count_book+'</i></h4>';
 					}
 					content+= '</div>'
 					+ '</div>';
@@ -283,8 +285,8 @@ function SetGridItemHeight() {
 		item[i].style.gridRowEnd = `span ` + a
 	}
 }
-//window.addEventListener("load", SetGridItemHeight);
-//window.addEventListener("resize", SetGridItemHeight);
+window.addEventListener("load", SetGridItemHeight);
+window.addEventListener("resize", SetGridItemHeight);
 
 // 좋아요 클릭 함수
 function clickLike(num, dolike, post_seq){
@@ -298,14 +300,14 @@ function clickLike(num, dolike, post_seq){
 			var likeid = "#like"+num;
 			if(dolike==0){
 				let count = Number($(likeid).html())+1;
-				$(likeid).html( count);
-				$(likeid).attr("onclick", "clickLike(" + num + ", 1)");
+				$(likeid).html(' ' + count);
+				$(likeid).attr("onclick", "clickLike(" + num + ", 1, " + post_seq + ")");
 				$(likeid).removeClass();
 				$(likeid).addClass("fas fa-heart"); 
 			}else{
 				let count = Number($(likeid).html())-1;
-				$(likeid).html( count);
-				$(likeid).attr("onclick", "clickLike(" + num + ", 0)");
+				$(likeid).html(' ' + count);
+				$(likeid).attr("onclick", "clickLike(" + num + ", 0, " + post_seq + ")");
 				$(likeid).removeClass();
 				$(likeid).addClass("far fa-heart"); 
 			}
@@ -328,15 +330,15 @@ function clickBookmark(num, dobook, post_seq){
 			var bookid = "#bookmark"+num;
 			if(dobook==0){
 				let count = Number($(bookid).html())+1;
-				$(bookid).html( count);
-				$(bookid).attr("onclick", "clickBookmark(" + num + ", 1)");
+				$(bookid).html(' ' + count);
+				$(bookid).attr("onclick", "clickBookmark(" + num + ", 1, " + post_seq + ")");
 				$(bookid).removeClass();
 				$(bookid).addClass("fas fa-bookmark"); 
-			}
+			}//onclick="clickBookmark('+i+', 1,'+post.post_seq+')
 			else{
 				let count = Number($(bookid).html())-1;
-				$(bookid).html( count);
-				$(bookid).attr("onclick", "clickBookmark(" + num + ", 0)");
+				$(bookid).html(' ' + count);
+				$(bookid).attr("onclick", "clickBookmark(" + num + ", 0, " + post_seq + ")");
 				$(bookid).removeClass();
 				$(bookid).addClass("far fa-bookmark"); 
 			}

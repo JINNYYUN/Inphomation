@@ -17,6 +17,6 @@
 <a href="main">메인페이지로</a>
 <a href="post">글쓰기페이지</a>
 <i class="fas fa-star"></i>
-
+<a href="goChat">채팅</a>
 </body>
 </html>

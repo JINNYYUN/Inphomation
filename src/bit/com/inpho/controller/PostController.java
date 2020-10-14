@@ -35,8 +35,9 @@ import bit.com.inpho.postutile.fileUploadService;
 public class PostController {
 	private static final Logger logger = LoggerFactory.getLogger(PostController.class);
 	
-	@Autowired
-	private tinyPngbyte uploadobj;
+	//@Autowired
+	//private tinyPngbyte uploadobj;
+	
 	@Autowired
 	private GoogleVisionApi gcpobj;
 	@Autowired
