@@ -1,0 +1,25 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper
+  PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+  "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+  
+<mapper namespace="Member">
+
+	<select id="confirmId" parameterType="bit.com.inpho.dto.MemberDto" resultType="bit.com.inpho.dto.MemberDto">
+		SELECT USER_EMAIL,AUTH FROM MEMBER WHERE USER_EMAIL = #{user_email}
+	</select>
+	
+	<select id="userLogin" parameterType="bit.com.inpho.dto.MemberDto" resultType="bit.com.inpho.dto.MemberDto">
+		SELECT USER_SEQ, USER_EMAIL, AUTH, USER_NICKNAME,PROFILE_IMAGE FROM MEMBER WHERE USER_EMAIL=#{user_email} AND USER_PASSWORD=#{user_password}
+	</select>
+</mapper>
+
+
+
+
+
+
+
+
+
+
