@@ -31,6 +31,11 @@
 	   <put-attribute name="main" value="/WEB-INF/views/mypage/MyPageFollow.jsp"/>   
 	</definition>
 	
+	<definition name="MyPageEditMem.tiles" extends="mypage.tiles">
+	   <put-attribute name="main" value="/WEB-INF/views/mypage/MyPageEditMem.jsp"/>   
+	</definition>
+	
+	
 	<definition name="detail.tiles" template="/WEB-INF/views/layouts-tiles.jsp">
 	   <put-attribute name="header" value="/WEB-INF/views/commons/header.jsp"/>
 	   <put-attribute name="global_navigation" value="/WEB-INF/views/commons/navigation.jsp"/>

@@ -20,9 +20,12 @@
 	AND PH.POST_SEQ = #{post_seq}
 </select>
 
-<delete id="deleteDetail" parameterType="java.lang.String">
-	DELETE FROM 
-</delete>
+<update id="deleteDetail" parameterType="java.lang.Integer">
+	UPDATE POST SET DEL = '1'
+	WHERE POST_SEQ = ${post_seq} 
+</update>
+
+
 
 <insert id="addBookmark" parameterType="bit.com.inpho.dto.DetailCountAllDto">
 	INSERT INTO POST_BOOKMARK

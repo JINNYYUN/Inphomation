@@ -1,6 +1,8 @@
+<%@page import="io.opencensus.common.ServerStatsFieldEnums.Size"%>
 <%@ page language="java" contentType="text/html; charset=UTF-8"
 	pageEncoding="UTF-8"%>
 <!DOCTYPE html>
+
 <html>
 <head>
 <meta charset="UTF-8">
@@ -9,7 +11,7 @@
 <script
 	src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
 <script src="https://code.jquery.com/jquery-3.5.1.min.js"></script>
-<link href="css/mdb.css" rel="stylesheet">
+<script type="text/javascript" src="js/ajaxForm/jquery.form.min.js"></script>
 <link rel="stylesheet"
 	href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.0/css/bootstrap.min.css">
 <!-- Bootstrap JS -->
@@ -19,9 +21,22 @@
 	src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.0/js/bootstrap.min.js"></script>
 
 <style type="text/css">
+.hashtag {
+	  width:  100%;
+	height:  100%;
+	    margin-left:  auto;     margin-right :  auto;
+	    padding:  5px;
+	    text-align:  center;
+	    line-height:  300px;
+	vertical-align: middle;
+}
+
+.btn-primary {
+	margin-top: 30%;
+}
+
 #thumbnailImg {
-	width: 400px;
-	height: 300px;
+	height: 450px;
 	background-repeat: no-repeat;
 }
 
@@ -32,11 +47,7 @@
 	transition: all .15s ease-in-out;
 	width: 100%;
 	background-color: F2F2F2;
-}
-
-div {
-	border-color: F2F2F2;
-	border-size: 2px;
+	padding-top: 5%;
 }
 
 .row {
@@ -44,19 +55,6 @@ div {
 	flex-wrap: nowrap;
 	margin-right: -16px;
 	margin-left: -16px;
-}
-
-html {
-	font-family: sans-serif;
-}
-
-button {
-	background-color: #F27405;
-	padding: 5px 10px;
-	border-radius: 5px;
-	border: 1px ridge black;
-	font-size: 0.8rem;
-	height: auto;
 }
 
 button:hover {
@@ -77,7 +75,7 @@ button:active {
 }
 
 .my-5 {
-	margin-top: 5rem !important;
+	margin-top: 4rem !important;
 	background-color: #F2F2F2F2;
 }
 
@@ -86,11 +84,10 @@ button:active {
 }
 /* image hover */
 #photo-gallery {
-	padding: 40px 0px 40px;
+	padding: 20px 0px 40px;
 }
 
 #photo-gallery .state-thumb {
-	max-height: 170px;
 	overflow: hidden;
 	border-radius: 10px;
 }
@@ -115,6 +112,7 @@ button:active {
 }
 
 #photo-gallery .photo-frame {
+	height: 600px;
 	border: 1px solid #cecece;
 	padding: 15px;
 	margin-bottom: 30px;
@@ -131,91 +129,101 @@ button:active {
 </head>
 <body>
 
-	<form method="POST" action="fileUpload" enctype="multipart/form-data">
-		<div class="container">
-			<div id="thumbnailUrl"></div>
-			<!-- Heading Row -->
-			<div class="row align-items-center my-5">
-				<div class="">
-					<div class="content rounded mb-4 mb-lg-0" id="mylmg">
+	<div class="container">
+		<br>
+		<div id="thumbnailUrl"></div>
+		<!-- Heading Row -->
+		<div class="row align-items-center my-5">
+			<form id="frm" method="POST" action="fileUpload"
+				style="margin-bottom: 249px; height: 455px;"
+				encType="multipart/form-data">
 
-						<br> <label for="upImgFile">이미지를 드래그 하거나 여기를 클릭하여 파일을
-							선택해주세요! (PNG, JPG,JEPG)</label> <input type="file" class="imagehide"
-							id="upImgFile" name="upImgFile" accept=".jpg, .jpeg, .png"
-							multiple>
-						<div class="preview">
-							<label class="label"><%=request.getRealPath("/")%></label>
-						</div>
+				<div class="content rounded mb-4 mb-lg-0" id="mylmg">
+
+					<label for="upImgFile">이미지를 드래그 하거나 여기를 클릭하여 파일을 선택해주세요!
+						(PNG, JPG,JEPG)</label> <input type="file" class="imagehide"
+						id="upImgFile" name="upImgFile" accept=".jpg, .jpeg, .png"
+						multiple="multiple">
+					<div class="preview">
+						<label class="label"></label>
 					</div>
-					<div id="thumbnailImg"
+				</div>
+				<%-- <div id="thumbnailImg"
 						class="photo-gallery content rounded mb-4 mb-lg-0" src="#">
-					</div>
-				</div>
+						<input class="hashtag" type="text" value='${ tag }'>
+					</div> --%>
+				<section id="photo-gallery">
 
-				<div class="mb-5">
-					<div class="card h-100">
-
-						<div class="card-body">
-
-							<div class="postwrite">
-								<h2 class="text fas text-weight-medium">
-									<i class="fas fa-pencil-alt text"></i>게시글 작성
-								</h2>
-							</div>
-
-
-							<div class="md-form">
-								<input type="text" id="inputLGEx"
-									class="form-control form-control-lg" placeholder="자신을 소개해 주세요!">
-								<label for="inputLGEx"></label>
-							</div>
-							<div class="md-form">
-								<input type="text" id="inputLGEx"
-									class="form-control form-control-lg"> <label
-									for="inputLGEx">촬영장소를 작성 해주세요!</label>
-							</div>
-							<div class="md-form">
-								<input type="text" id="inputLGEx"
-									class="form-control form-control-lg"> <label
-									for="inputLGEx">나만의 해쉬 태그 입력해주세요!</label>
-							</div>
-							<div class="md-form">
-								<input type="text" id="inputLGEx"
-									class="form-control form-control-lg"> <label
-									class="text" for="inputLGEx">촬영기기는 어떻게 되나요?</label>
-							</div>
-
-
-
-
-							<a href="#" class="btn btn-primary btn-sm">More Info</a> <input
-								id="done" class="btn btn-primary btn-sm" type="submit"
-								value="글쓰기">
-						</div>
-					</div>
-				</div>
-			</div>
-
-		</div>
-	</form>
-
-	<section id="photo-gallery">
-		<div class="container">
-			<div class="row">
-				<div class="col-md-6 col-lg-4">
 					<div class="photo-frame">
 						<div class="state-thumb">
-							<img id="thumbnailImg1" src="#" class="img-fluid">
+							<div id="thumbnailImg" src="#" class="photo-frame img-fluid"
+								style="height: 566px;"></div>
 						</div>
 						<h4>
-							<a href="#">#fillDragon</a> <a href="#">#bitcamp</a> <a href="#">#null</a>
-							<a href="#">#hashtag</a>
+
+							<a id="warp" href="#">${tag}</a>
 						</h4>
+
+					</div>
+				</section>
+
+			</form>
+			<div class="mr-1">
+				<div class="card h-100">
+
+					<div class="card-body">
+
+						<div class="postwrite">
+							<h2 class="text fas text-weight-medium">
+								<i class="fas fa-pencil-alt text"></i>게시글 작성게시글 작성게시글 작성
+							</h2>
+						</div>
+
+
+						<div class="md-form">
+							<label class="text" for="inputLGEx">자신을 소개해 주세요!</label>
+							<textarea id="inputLGEx" class="form-control form-control-lg"></textarea>
+							<label for="inputLGEx"></label>
+						</div>
+						<div class="md-form">
+							<label class="text" for="inputLGEx">촬영장소를 작성 해주세요!</label>
+						</div>
+						<div class="md-form">
+							<input type="text" id="inputLGEx"
+								class="form-control form-control-lg"> <label
+								class="text" for="inputLGEx">나만의 해쉬 태그 입력해주세요!</label>
+						</div>
+						<div class="md-form">
+							<input type="text" id="inputLGEx" value="${tag}"
+								class="form-control form-control-lg"> <label
+								class="text" for="inputLGEx">촬영기기는 어떻게 되나요?</label>
+						</div>
+						<div class="md-form">
+							<input type="text" id="inputLGEx"
+								class="form-control form-control-lg"> <label
+								class="text" for="inputLGEx">촬영기기는 어떻게 되나요?</label>
+						</div>
+						<div class="md-form">
+							<input type="text" id="inputLGEx"
+								class="form-control form-control-lg"> <label
+								class="text" for="inputLGEx">촬영기기는 어떻게 되나요?</label>
+						</div>
+						<div class="float-right">
+							<input id="done" class="btn btn-primary btn-sm" type="submit"
+								value="Write">
+						</div>
+
+
+
 					</div>
 				</div>
 			</div>
+			<!-- </form> -->
 		</div>
-	</section>
+
+	</div>
+
+
 
 	<script type="text/javascript">
 		let files;
@@ -273,7 +281,7 @@ button:active {
 				return;
 			}
 			if (files[0].type.match(/image.*/)) {
-				$(e.currentTarget).css(
+				$('#thumbnailImg').css(
 						{
 							"background-image" : "url("
 									+ window.URL.createObjectURL(files[0])
@@ -341,24 +349,47 @@ button:active {
 
 		}
 
-		 *//* $("#done").click(function() {
+		 *//*  $("#done").click(function() {
+											 
+											$.ajax({
+												url : "imageUpload",
+												type : "post",
+												data : {
+													"imagePath" : 
+												},
+												processData: false,
+												contentType: false,
+												success : function(camlist) {
+													alert('success');
+
+												},
+												error : function() {
+													alert('error');
+												}
+											});
+										});  */
+
+		$("#upImgFile").on("change", function(e) {
+			$("#contentList").html('')
 			$.ajax({
-				url : "imageUpload",
-				type : "post",
-				data : {
-					"imagePath" : 
-				},
-				processData: false,
-				contentType: false,
-				success : function(camlist) {
-					alert('success');
+				url : "beforeImg",
+				type : "POST",
+				data : new FormData($("#frm")[0]),
+				enctype : 'multipart/form-data',
+				processData : false,
+				contentType : false,
+				cache : false,
+				success : function(data) {
+					console.log(data);
 
 				},
 				error : function() {
-					alert('error');
+
 				}
 			});
-		});  */
+
+		});
 	</script>
+
 </body>
 </html>

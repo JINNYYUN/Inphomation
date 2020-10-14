@@ -26,7 +26,7 @@ boolean isFollowing = (boolean)request.getAttribute("isFollowing");
 MyPageMemberDto login = (MyPageMemberDto)request.getSession().getAttribute("login");
 %>
 
-<div class="container">
+<div class="">
 
 	<!-- The Modal Following -->
 	<div id="myModal" class="modal">
@@ -53,6 +53,7 @@ MyPageMemberDto login = (MyPageMemberDto)request.getSession().getAttribute("logi
 		if(mem.getUser_seq() == login.getUser_seq()){
 		%>
 			<button class="btn follow-btn" id="editProfile">프로필 수정</button>
+			<button id="editMember">설정</button>
 		<%	
 		}else{
 		%>
@@ -72,18 +73,7 @@ MyPageMemberDto login = (MyPageMemberDto)request.getSession().getAttribute("logi
 		%>
 
 		<div class="profile-img">
-			<%
-			if(mem.getProfile_image() == null || mem.getProfile_image().equals("")){
-			%>
-				<img alt="" src="./image/2017070900603_4.jpg">
-			<%	
-			}else{ 
-			%>
-				<img src="http://localhost:8090/Inphomation/upload/profileImage/${mem.profile_image}">
-			<%	
-			}
-			%>
-
+			<img src="https://storage.googleapis.com/boomkit/${mem.profile_image}">
 		</div>
 		<div class="top-detail" align="center">
 			<span class="nickname">${mem.user_nickname}</span>
@@ -102,33 +92,37 @@ MyPageMemberDto login = (MyPageMemberDto)request.getSession().getAttribute("logi
 		<hr>
 		<table class="mynav-table">
 			<tr>
-				<td id="nav_photo"><i class="fas fa-camera"> 게시글</i></td>
-				<td id="nav_bookmark"><i class="far fa-bookmark"> 북마크</i></td>
-				<td id="nav_profile"><i class="far fa-user-circle"> 프로필</i></td>
+				<td id="nav_post" onclick="getPost('post')" ><i class="fas fa-camera"></i> 게시글</td>
+				<td id="nav_bookmark" onclick="getPost('bmk')"><i class="far fa-bookmark"></i> 북마크</td>
+				<td id="nav_profile"><i class="far fa-user-circle"></i> 프로필</td>
 			</tr>
 		</table>
 	</div>
 	
 	<div class="content-detail">
 	<hr>
-	<!-- 디폴트값 게시글로 -->
-		
+
 	</div>
-</div>
+	</div>
 
 </div>
+
+
 
 <script type="text/javascript">
 // 프로필 수정 이동
 $("#editProfile").click( function(){
 	location.href="mypageedit?user_seq=" + ${mem.user_seq};
 });
+// 비밀번호 변경 이동
+$("#editMember").click( function(){
+	location.href="editMem?user_seq=" + ${mem.user_seq};
+});
 
 // 팔로우/언팔로우 함수
 $("#followBtn").click( function(){
 
 	var value = $(this).val();
-	
 	  $.ajax({
 		url:'follow?user_seq=' + ${mem.user_seq},
 		type:'post',
@@ -147,9 +141,7 @@ $("#followBtn").click( function(){
 	}); 
 	
 });
-
 </script>
-
 
 <!-- 팔로잉  Modal -->
 <script>
@@ -216,28 +208,166 @@ $(".modal-detail2").load("getFollower?user_seq=" + ${mem.user_seq});
 <!-- 하단 nav bar ajax -->
 <!-- ① 게시글 & 북마크 구현 -->
 <script type="text/javascript">
+//ajax로 post 불러오는 함수
+function getPost(work){
+	$.ajax({
+		url:"getPost",
+		type:"post",
+		data:{"user_seq":<%=mem.getUser_seq()%>, "work":work},
+		async: false,
+		success:function(postlist){
+			//alert('success');
+			let content = '';
+			if(postlist.length == 0){
+				content = `<div class="profile">
+					 	   		<i class="far fa-images" align="center"></i>
+					 			<p>게시글이 없습니다</p>
+					 		</div>`;
+			}else{
+				
+				content += '<div class="main-container">'
+							+ '<div class="grid">';
+	
+				$.each(postlist, function(i, post) {
+					content += '<div class="item">'
+					+ '<img src="https://storage.googleapis.com/boomkit/' + post.post_filepath +'">'
+						+ '<div class="white-circle">'
+						+ '<i class="fas fa-bars menu" onclick="test();"></i>'
+						+ '</div>'
+					+ '<div class="bottom-icon-bar icon-absoulte">';
 
+					// 좋아요 여부
+					if(post.dolike){
+						content += '<h4><i class="fas fa-heart" onclick="clickLike('+i+', 1,'+post.post_seq+');" id="like'+i+'">' +post.count_like+ '</i></h4>';
+					}else{
+						content += '<h4><i class="far fa-heart" onclick="clickLike('+i+', 0,'+post.post_seq+');" id="like'+i+'">' +post.count_like+ '</i></h4>';
+					}
+					// 북마크 여부
+					if(post.dobookmark){
+						content+= '<h4><i class="fas fa-bookmark" onclick="clickBookmark('+i+', 1,'+post.post_seq+');" id="bookmark'+i+'">' +post.count_book+'</i></h4>';
+					}else{
+						content+= '<h4><i class="far fa-bookmark" onclick="clickBookmark('+i+', 0,'+post.post_seq+');" id="bookmark'+i+'">' +post.count_book+'</i></h4>';
+					}
+					content+= '</div>'
+					+ '</div>';
+				});
+					
+				content += '</div></div>';
+				}
+			
+			$(".main-container").remove();
+			$(".profile").remove();
+			$(".content-detail").append(content);
+			
+		},
+		error:function(){
+			alert('error');
+		}
+	});
+	SetGridItemHeight();
+}
+
+//페이지 시작 시 함수 실행
+getPost('post');
+
+//grid layout 설정
+function SetGridItemHeight() {
+	let grid = document.getElementsByClassName('grid')[0];
+	let rowHeight = parseInt(window.getComputedStyle(grid).getPropertyValue('grid-auto-rows'));
+	let rowGap = parseInt(window.getComputedStyle(grid).getPropertyValue('grid-row-gap'));
+
+	let item = grid.getElementsByClassName('item');
+	for (let i = 0; i < item.length; ++i) {
+		let a = Math.floor((item[i].children[0].offsetHeight) / 25)
+		//item[i].style.gridRowEnd = `span ${Math.floor((item[i].children[0].offsetHeight) / 25)}`
+		item[i].style.gridRowEnd = `span ` + a
+	}
+}
+//window.addEventListener("load", SetGridItemHeight);
+//window.addEventListener("resize", SetGridItemHeight);
+
+// 좋아요 클릭 함수
+function clickLike(num, dolike, post_seq){
+
+	$.ajax({
+		url:"addLike",
+		type:"post",
+		data:{"post_seq":post_seq, "dolike":dolike},
+		success:function(){
+			//alert('success');
+			var likeid = "#like"+num;
+			if(dolike==0){
+				let count = Number($(likeid).html())+1;
+				$(likeid).html( count);
+				$(likeid).attr("onclick", "clickLike(" + num + ", 1)");
+				$(likeid).removeClass();
+				$(likeid).addClass("fas fa-heart"); 
+			}else{
+				let count = Number($(likeid).html())-1;
+				$(likeid).html( count);
+				$(likeid).attr("onclick", "clickLike(" + num + ", 0)");
+				$(likeid).removeClass();
+				$(likeid).addClass("far fa-heart"); 
+			}
+		},
+		error:function(){
+			alert('error');
+		}
+	});
+}
+
+//북마크 클릭 함수
+function clickBookmark(num, dobook, post_seq){
+
+	$.ajax({
+		url:"addBookmark",
+		type:"post",
+		data:{"post_seq":post_seq, "dobook":dobook},
+		success:function(){
+			
+			var bookid = "#bookmark"+num;
+			if(dobook==0){
+				let count = Number($(bookid).html())+1;
+				$(bookid).html( count);
+				$(bookid).attr("onclick", "clickBookmark(" + num + ", 1)");
+				$(bookid).removeClass();
+				$(bookid).addClass("fas fa-bookmark"); 
+			}
+			else{
+				let count = Number($(bookid).html())-1;
+				$(bookid).html( count);
+				$(bookid).attr("onclick", "clickBookmark(" + num + ", 0)");
+				$(bookid).removeClass();
+				$(bookid).addClass("far fa-bookmark"); 
+			}
+		},
+		error:function(){
+			alert('error');
+		}
+	});
+	
+}
 </script>
 
 <!-- ② 프로필 구현 -->
 <script type="text/javascript">
-$("#nav_profile").click(function(){
 
+$("#nav_profile").click(function(){
 	$.ajax({
 		url:"getMyCamera",
 		type:"post",
 		data:{"user_seq":<%=mem.getUser_seq()%>},
 		success:function(camlist){
 			//alert('success');
-			let content = '<div class="profile">'
-				+ '<p class="prf-text">ABOUT ME</p><div class="box">${mem.mypage_introduce}</div>'
-				+ '<p class="prf-text">CAMERA</p>'
-				+ '<div class="box">';
+			let content = `<div class="profile">
+				<p class="prf-text">ABOUT ME</p><div class="box">${mem.mypage_introduce}</div>
+				<p class="prf-text">CAMERA</p>
+				<div class="box">`;
 				
 			$.each(camlist, function(i, cam) {
-					content += '<span class="btn btn-cam">' + cam.camera_serial + '</span>';
+					content += `<span class="btn btn-cam">${'${cam.camera_serial}'}</span>`;
 			});
-			
+			$(".main-container").remove();
 			$(".profile").remove();
 			$(".content-detail").append(content);
 		},
