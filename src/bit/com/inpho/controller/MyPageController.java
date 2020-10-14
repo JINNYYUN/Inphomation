@@ -3,6 +3,7 @@ package bit.com.inpho.controller;
 import java.io.File;
 import java.io.IOException;
 import java.io.PrintWriter;
+import java.util.ArrayList;
 import java.util.Date;
 import java.util.HashMap;
 import java.util.List;
@@ -21,8 +22,12 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.multipart.MultipartFile;
 
+import bit.com.inpho.dto.DetailCountAllDto;
+import bit.com.inpho.dto.DetailPostDto;
 import bit.com.inpho.dto.MyPageCameraDto;
 import bit.com.inpho.dto.MyPageMemberDto;
+import bit.com.inpho.dto.MyPagePostDto;
+import bit.com.inpho.service.DetailService;
 import bit.com.inpho.service.MyPageService;
 
 @Controller
@@ -30,6 +35,9 @@ public class MyPageController {
 	
 	@Autowired
 	MyPageService service;
+	
+	@Autowired
+	DetailService detailService;
 	
 	@RequestMapping(value = "mypage", method = RequestMethod.GET)
 	public String mypage( Model model, int user_seq, HttpServletRequest req ) {
@@ -138,132 +146,67 @@ public class MyPageController {
 		return camlist;
 	}
 	
-	// 프로필 수정 페이지 이동
-	@RequestMapping(value = "mypageedit", method = RequestMethod.GET)
-	public String mypageedit( Model model ) {
-		Map<String, Object> map = new HashMap<String, Object>();
-
-		// 회원정보 가져오기 (user_seq)
-		MyPageMemberDto mem = service.getProfile(1);		
-		map.put("mem", mem);
-		
-		System.out.println(mem.toString());
-		
-		// 카메라 정보 가져오기
-		List<MyPageCameraDto> camList = service.getCamera(1);
-		map.put("camlist", camList);
-		
-		model.addAttribute("map", map);
-		
-		return "mypageedit.tiles";
-	}
-	
-	// 프로필 수정 카메라 리스트 불러오기
+	// 게시글 가져오기 ajax
 	@ResponseBody
-	@RequestMapping(value = "getCam", method = RequestMethod.POST)
-	public List<String> getCam( Model model, String keyWord ) {
-		List<String> allcamlist = service.getAllCam();
-		//System.out.println("camlist" + allcamlist.get(0).toString());
-		return allcamlist;
+	@RequestMapping(value = "getPost", method = RequestMethod.POST)
+	public List<MyPagePostDto> getPost( int user_seq, String work, HttpServletRequest req ) {
+		System.out.println("work:" + work);
+		
+		List<MyPagePostDto> list = service.getPost(user_seq, work);
+		for (int i = 0; i < list.size(); i++) {
+			System.out.println(list.get(i).toString());		
+			}
+		if(list.size() == 0) {
+			System.out.println("널널널");
+		}
+		
+		// 좋아요/북마크 여부 가져오기
+		MyPageMemberDto login = (MyPageMemberDto)req.getSession().getAttribute("login");
+		
+		for (int i = 0; i < list.size(); i++) {
+			HashMap<String, Integer> hashmap = new HashMap<String, Integer>();
+			hashmap.put("post_seq", list.get(i).getPost_seq());
+			hashmap.put("login_user_seq", login.getUser_seq());
+			
+			boolean like = service.doLike(hashmap);
+			boolean bookmark = service.doBookmark(hashmap);
+			
+			list.get(i).setDolike(like);
+			list.get(i).setDobookmark(bookmark);
+		}
+		
+		return list;
 	}
 	
-	// 프로필 업로드창 이동
-	@RequestMapping(value = "MyPageUpload", method = RequestMethod.GET)
-	public String MyPageUpload() {
-		System.out.println("mypageupload");
-		return "MyPageUpload.tiles";
-	}
-	
-	//프로필 이미지 업로드
-	@RequestMapping(value = "MyPageUploadAf", method = {RequestMethod.GET, RequestMethod.POST})
-	public void pdsupload( @RequestParam(value = "fileload", required = false)MultipartFile fileload, 
-					HttpServletRequest req, HttpServletResponse resp) throws Exception{
+	//좋아요 추가/삭제
+	@RequestMapping(value = "addLike", method = {RequestMethod.GET, RequestMethod.POST})
+	public void addLike (boolean dolike, int post_seq, HttpServletRequest req) throws Exception {
+		MyPageMemberDto login = (MyPageMemberDto)req.getSession().getAttribute("login");
+		DetailCountAllDto dto = new DetailCountAllDto(post_seq, login.getUser_seq());
 		
-		// filename 취득
-		String filename = fileload.getOriginalFilename();
-		//pdsdto.setOldfilename(filename);
-		
-		// upload 경로 설정
-		// server
-		String fupload = req.getSession().getServletContext().getRealPath("/upload/profileImage");
-		
-		// 폴더
-		//String fupload = "d:\\inphoimg";
-		
-		System.out.println("fupload:" + fupload);
-		
-		// file명을 취득
-		//String f = pdsdto.getOldfilename();
-		String newfilename = getNewFileName( filename );	// 324324324324.txt
-		
-		// session
-		MyPageMemberDto mem = (MyPageMemberDto)req.getSession().getAttribute("login");
-
-		mem.setProfile_image(newfilename);
-		//pdsdto.setFilename(newfilename);
-		
-		File file = new File(fupload + "/" + newfilename);
-		boolean b = true;
-		
-		try {
-			// 실제로 파일이 업로드되는 부분
-			FileUtils.writeByteArrayToFile(file, fileload.getBytes());
-			
-			// db에 저장
-			b = service.uploadProfile(mem);
-			
-		} catch (IOException e) {
-			e.printStackTrace();
-		}	 
-		
-		resp.setContentType("text/html; charset=UTF-8");
-		 
-		PrintWriter out = resp.getWriter();
-		if(b) {
-			out.println("<script>alert('등록되었습니다'); opener.document.location.reload();" + 
-					"self.close();</script>");
+		if(!dolike) {
+			detailService.addLike(dto);
 		}else {
-			out.println("<script>alert('등록에 실패했습니다'); location.href='MyPageUpload.tiles';</script>");
+			detailService.deleteLike(dto);
 		}
-		out.flush();		
+		
 	}
 	
-	public static String getNewFileName(String f) {
-		String filename = "";
-		String fpost = "";
+	// 북마크 추가/삭제
+	@ResponseBody
+	@RequestMapping(value = "addBookmark", method = {RequestMethod.GET, RequestMethod.POST})
+	public void addBookmark (boolean dobook, int post_seq, HttpServletRequest req) throws Exception {
+		MyPageMemberDto login = (MyPageMemberDto)req.getSession().getAttribute("login");
+		DetailCountAllDto dto = new DetailCountAllDto(post_seq, login.getUser_seq());
 		
-		if(f.indexOf('.') >= 0) {	// 확장자명이 있음
-			fpost = f.substring( f.indexOf('.') );	// .txt
-			filename = new Date().getTime() + fpost;	// 43325432243.txt
+		if(!dobook) {
+			detailService.addBookmark(dto);
+		}else {
+			detailService.deleteBookmark(dto);
 		}
-		else {
-			filename = new Date().getTime() + ".back";
-		}
 		
-		
-		return filename;
 	}
-	
-	// 프로필 수정 
-	@RequestMapping(value = "myPageEditAf", method = RequestMethod.POST)
-	public String myPageEditAf( MyPageMemberDto mem, String[] camera_serial ) {
 		
-		System.out.println("controller" + mem.toString());
-		
-		//닉네임 & 자기소개 수정
-		service.updateProfile(mem);
-		
-		//카메라 수정
-		//전체 카메라 리스트에 추가
-		List<String> allcam = service.getAllCam();
-		service.addAllCam(allcam, camera_serial);
-		
-		// 내 카메라 리스트에 추가
-		allcam = service.getAllCam();
-		service.addMyCam(allcam, camera_serial, mem.getUser_seq());
-		
-		return "redirect:/mypage?user_seq=" + mem.getUser_seq();
-	}
 	
 	
 	

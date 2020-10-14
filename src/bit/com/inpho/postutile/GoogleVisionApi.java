@@ -41,14 +41,14 @@ public class GoogleVisionApi {
 
 				
 				for (EntityAnnotation annotation : res.getLabelAnnotationsList()) {
-					annotation.getAllFields().forEach((k, v) -> System.out.println(k + " : " + v.toString()));
+					//annotation.getAllFields().forEach((k, v) -> System.out.println(k + " : " + v.toString()));
 					hashTaglist.add(annotation.getDescription());
 					String[] hashTag = new String[hashTaglist.size()];
 					hashTag=hashTaglist.toArray(hashTag);
 					// 해쉬태그리스트를 출력합니다.
-					for (String s : hashTag) {
-						System.out.println("해쉬태그 정보들 : " +s);
-					}
+					//for (String s : hashTag) {
+					//System.out.println("해쉬태그 정보들 : " +s);
+					//}
 				}
 			}
 		}
@@ -73,4 +73,3 @@ public class GoogleVisionApi {
 
 
 	}
-

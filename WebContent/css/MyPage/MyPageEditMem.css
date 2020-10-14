@@ -1,0 +1,29 @@
+@charset "UTF-8";
+.container{
+	margin-top: 90px;
+}
+.content{
+	line-height: 100px;
+}
+
+.title{
+	margin: 40px;
+}
+.table{
+	width: 0;
+}
+.table td{
+	height: 100px;
+	vertical-align: middle;
+	text-align: center;
+}
+.table .form-control-lg{
+	width: 600px;
+}
+.btn-outline-danger{
+	float: center;
+	color: #F57A00;
+    border-color: #F57A00;
+    width: 100px;
+
+}
