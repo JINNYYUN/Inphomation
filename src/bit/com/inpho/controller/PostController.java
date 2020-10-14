@@ -2,8 +2,10 @@ package bit.com.inpho.controller;
 
 import java.io.File;
 import java.io.IOException;
+import java.util.ArrayList;
 import java.util.Date;
 import java.util.HashMap;
+import java.util.Iterator;
 import java.util.List;
 import java.util.Map;
 import java.util.stream.Collectors;
@@ -34,10 +36,11 @@ public class PostController {
 	private static final Logger logger = LoggerFactory.getLogger(PostController.class);
 	private String aftertag = "";
 	private Map<String, String> map = new HashMap<>();
+	private List<String> hashTag = new ArrayList<String>();
 	@Autowired
 	private tinyPngbyte uploadobj;
 	@Autowired
-	private GoogleVisionApi gcpobj;
+	private GoogleVisionApi googleObj;
 	@Autowired
 	private UploadObject obj;
 	@Autowired
@@ -68,22 +71,7 @@ public class PostController {
 		return "PostPage";
 
 	}
-// 	@RequestMapping(value = "imageUpload",method = {RequestMethod.POST})
-// 	public String getimagepath(byte[] imagePath) {
 
-// 		System.out.println(imagePath);
-// 		try {
-
-// 			//uploadobj.getBaseDecode(imagePath);
-// 			//uploadobj.tinyUpload(imagePath,"테스트입니다..ㅎ");
-// 			//obj.storageUploadObject("thermal-well-290414", "boomkit", "examples", imagePath);
-// 		} catch (Exception e) {
-// 			// TODO Auto-generated catch block
-// 			e.printStackTrace();
-// 		}
-
-// 		return "detail.tiles";
-// 	}
 	// 실제업로드
 	@RequestMapping(value = "fileUpload", method = { RequestMethod.POST })
 	public ModelAndView fileUpload(HttpServletRequest req, @RequestParam(value = "upImgFile") MultipartFile file)
@@ -134,31 +122,47 @@ public class PostController {
 		return mv;
 
 	}
-
-	@RequestMapping(value = "/multipartUpload.do", method = RequestMethod.POST) 
-	public @ResponseBody void multipartUpload(MultipartHttpServletRequest request) throws Exception {
-		String originFileName = "";
+// 비전api는 form 양식에 멀티파트 타입 없애고 ajax 통신시에 타입을 끼워주자
+	@RequestMapping(value = "beforeImg", method = RequestMethod.POST) 
+		@ResponseBody public String[] getHashTag(HttpServletRequest req, @RequestParam(value = "upImgFile") MultipartFile file)	throws IOException {
 		
-	 List<MultipartFile> fileList = request.getFiles("file"); 
-	 String root = request.getSession().getServletContext().getRealPath("upload/postImage");
-	  File fileDir = new File(root);
-	   if (!fileDir.exists()) { 
-	   fileDir.mkdirs();
-	    } 
-	    long time = System.currentTimeMillis();
-	     for (MultipartFile fm : fileList){
-	    	
-	     originFileName = fm.getOriginalFilename(); 
-	     String saveFileName=String.format("%d_%s",time,originFileName); 
-	     try {
-	    	 fm.transferTo(new File(root, saveFileName));
-	    	 
-	     }catch(Exception e) {
-	    	 e.printStackTrace();
-	     }
-	     
-	     }
-	     
-	     
-	   } 
+		System.out.println("ImgUPUP : " + file);
+		System.out.println("파일의 사이즈 : " + file.getSize());
+		System.out.println("업로드된 파일명 : " + file.getOriginalFilename());
+		System.out.println("파일의 파라미터명 : " + file.getName());
+
+		// getRealPath()..
+		String root = req.getSession().getServletContext().getRealPath("upload/postImage");
+		
+		System.out.println("path :: " + root);
+
+		// File은 디렉토리 + 파일명
+		File copyFile = new File(root + "/" + file.getOriginalFilename());
+		// 원래 업로드한 파일이 지정한 path 위치로 이동...이때 카피본이 이동
+		file.transferTo(copyFile);
+		hashTag.removeAll(hashTag); 
+		System.out.println(hashTag.toString());
+		
+			try {
+				hashTag = googleObj.detectLabels(root + "/" + file.getOriginalFilename());
+			} catch (Exception e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			}
+		
+		
+		System.out.println("toString" + hashTag.toString());
+		System.out.println("orignal" + hashTag);
+
+		String result = hashTag.stream().map(n -> String.valueOf(n)).collect(Collectors.joining("#"));
+
+		String[] before = result.split("\\#");
+		for (int i = 0; i < before.length; i++) {
+			before[i] = "#" + before[i];
+		}
+	
+		System.out.println("after" + before.toString());
+
+		return before;
+	}
 }

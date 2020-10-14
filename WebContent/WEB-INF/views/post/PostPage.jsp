@@ -22,21 +22,21 @@
 
 <style type="text/css">
 .hashtag {
-    width:  100%;
+	  width:  100%;
 	height:  100%;
-    margin-left:  auto;
-    margin-right:  auto;
-    padding:  5px;
-    text-align:  center;
-    line-height:  300px;
+	    margin-left:  auto;     margin-right :  auto;
+	    padding:  5px;
+	    text-align:  center;
+	    line-height:  300px;
 	vertical-align: middle;
 }
-.btn-primary{
+
+.btn-primary {
 	margin-top: 30%;
 }
+
 #thumbnailImg {
-	
-    height: 420px;
+	height: 450px;
 	background-repeat: no-repeat;
 }
 
@@ -47,8 +47,8 @@
 	transition: all .15s ease-in-out;
 	width: 100%;
 	background-color: F2F2F2;
+	padding-top: 5%;
 }
-
 
 .row {
 	display: flex;
@@ -56,7 +56,6 @@
 	margin-right: -16px;
 	margin-left: -16px;
 }
-
 
 button:hover {
 	background-color: #25C05;
@@ -89,7 +88,6 @@ button:active {
 }
 
 #photo-gallery .state-thumb {
-	
 	overflow: hidden;
 	border-radius: 10px;
 }
@@ -114,67 +112,63 @@ button:active {
 }
 
 #photo-gallery .photo-frame {
-	width: 710px;
+	height: 600px;
 	border: 1px solid #cecece;
 	padding: 15px;
 	margin-bottom: 30px;
 	border-radius: 10px;
 	transition: 0.3s;
 	background-color: #fff;
-	
-	
 }
 
 #photo-gallery .photo-frame:hover {
 	box-shadow: 0px 0px 15px 0px #d0d0d0;
 	border-color: #9c27b0;
 }
-
 </style>
 </head>
 <body>
 
-	<div class="container">	
+	<div class="container">
 		<br>
 		<div id="thumbnailUrl"></div>
 		<!-- Heading Row -->
 		<div class="row align-items-center my-5">
-			<form id="frm" method="POST" action="fileUpload"style="margin-bottom: 249px;height: 455px;"
-			encType="multipart/form-data">
-				
-					<div class="content rounded mb-4 mb-lg-0" id="mylmg">
+			<form id="frm" method="POST" action="fileUpload"
+				style="margin-bottom: 249px; height: 455px;"
+				encType="multipart/form-data">
 
-						 <label for="upImgFile">이미지를 드래그 하거나 여기를 클릭하여 파일을
-							선택해주세요! (PNG, JPG,JEPG)</label> <input type="file" class="imagehide"
-							id="upImgFile" name="upImgFile" accept=".jpg, .jpeg, .png"
-							multiple="multiple">
-						<div class="preview">
-							<label class="label"></label>
-						</div>
+				<div class="content rounded mb-4 mb-lg-0" id="mylmg">
+
+					<label for="upImgFile">이미지를 드래그 하거나 여기를 클릭하여 파일을 선택해주세요!
+						(PNG, JPG,JEPG)</label> <input type="file" class="imagehide"
+						id="upImgFile" name="upImgFile" accept=".jpg, .jpeg, .png"
+						multiple="multiple">
+					<div class="preview">
+						<label class="label"></label>
 					</div>
-					<%-- <div id="thumbnailImg"
+				</div>
+				<%-- <div id="thumbnailImg"
 						class="photo-gallery content rounded mb-4 mb-lg-0" src="#">
 						<input class="hashtag" type="text" value='${ tag }'>
 					</div> --%>
-					<section id="photo-gallery">
-			
-					<div class="photo-frame" src="#">
-						<div class="state-thumb" src="#">
-							<div id="thumbnailImg" src="#" class="photo-frame img-fluid"></div>
+				<section id="photo-gallery">
+
+					<div class="photo-frame" >
+						<div class="state-thumb" >
+							<div id="thumbnailImg" src="#" class="photo-frame img-fluid"
+								style="height: 566px;"></div>
 						</div>
 						<h4>
-						
-							<a href="#">${tag}</a>
+
+							<a id="warp" href="#">${tag}</a>
 						</h4>
-						 <div class="float-right">
-						 <input
-						id="done" class="btn btn-primary btn-sm" type="submit" value="Upload">
-						</div> 
+
 					</div>
-				
-			
-	</section>
-				
+
+
+				</section>
+
 			</form>
 			<div class="mr-1">
 				<div class="card h-100">
@@ -189,20 +183,17 @@ button:active {
 
 
 						<div class="md-form">
-						<label class="text"
-								for="inputLGEx">자신을 소개해 주세요!</label>
-							<textarea  id="inputLGEx"
-								class="form-control form-control-lg" ></textarea>
+							<label class="text" for="inputLGEx">자신을 소개해 주세요!</label>
+							<textarea id="inputLGEx" class="form-control form-control-lg"></textarea>
 							<label for="inputLGEx"></label>
 						</div>
 						<div class="md-form">
-							 <label class="text"
-								for="inputLGEx">촬영장소를 작성 해주세요!</label>
+							<label class="text" for="inputLGEx">촬영장소를 작성 해주세요!</label>
 						</div>
 						<div class="md-form">
 							<input type="text" id="inputLGEx"
-								class="form-control form-control-lg"> <label class="text"
-								for="inputLGEx">나만의 해쉬 태그 입력해주세요!</label>
+								class="form-control form-control-lg"> <label
+								class="text" for="inputLGEx">나만의 해쉬 태그 입력해주세요!</label>
 						</div>
 						<div class="md-form">
 							<input type="text" id="inputLGEx" value="${tag}"
@@ -220,8 +211,8 @@ button:active {
 								class="text" for="inputLGEx">촬영기기는 어떻게 되나요?</label>
 						</div>
 						<div class="float-right">
-						 <input
-						id="done" class="btn btn-primary btn-sm" type="submit" value="Write">
+							<input id="done" class="btn btn-primary btn-sm" type="submit"
+								value="Write">
 						</div>
 
 
@@ -234,7 +225,7 @@ button:active {
 	</div>
 
 
-	
+
 	<script type="text/javascript">
 		let files;
 		let reader;
@@ -360,45 +351,47 @@ button:active {
 		}
 
 		 *//*  $("#done").click(function() {
-							 
-							$.ajax({
-								url : "imageUpload",
-								type : "post",
-								data : {
-									"imagePath" : 
-								},
-								processData: false,
-								contentType: false,
-								success : function(camlist) {
-									alert('success');
+									 
+									$.ajax({
+										url : "imageUpload",
+										type : "post",
+										data : {
+											"imagePath" : 
+										},
+										processData: false,
+										contentType: false,
+										success : function(camlist) {
+											alert('success');
 
-								},
-								error : function() {
-									alert('error');
-								}
-							});
-						});  */
-		
-		/* $("#upImgFile").on("change", function(e){
-			 $.ajax({
-				    url: "fileUpload",
-				    type: "POST",
-				    data: new FormData($("#frm")[0]),
-				    enctype: 'multipart/form-data',
-				    processData: false,
-				    contentType: false,
-				    cache: false,
-				    success: function (result) {
-				      console.log(${tag});
-				    },
-				    error: function () {
-				    	console.log("tr");
-				      
-				    }
-				  });
-	 	
-		}); */
+										},
+										error : function() {
+											alert('error');
+										}
+									});
+								});  */
+
+		$("#upImgFile").on("change", function(e) {
+			$("#contentList").html('')
+			$.ajax({
+				url : "beforeImg",
+				type : "POST",
+				data : new FormData($("#frm")[0]),
+				enctype : 'multipart/form-data',
+				processData : false,
+				contentType : false,
+				cache : false,
+				success : function(data) {
+					var w = data;
+					
+
+				},
+				error : function() {
+
+				}
+			});
+
+		});
 	</script>
-	
+
 </body>
 </html>

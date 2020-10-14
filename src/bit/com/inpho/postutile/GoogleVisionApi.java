@@ -41,7 +41,7 @@ public class GoogleVisionApi {
 
 				
 				for (EntityAnnotation annotation : res.getLabelAnnotationsList()) {
-					annotation.getAllFields().forEach((k, v) -> System.out.println(k + " : " + v.toString()));
+					//annotation.getAllFields().forEach((k, v) -> System.out.println(k + " : " + v.toString()));
 					hashTaglist.add(annotation.getDescription());
 					String[] hashTag = new String[hashTaglist.size()];
 					hashTag=hashTaglist.toArray(hashTag);
