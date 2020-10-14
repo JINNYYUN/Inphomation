@@ -6,19 +6,21 @@ public class MapDetailDTO {
 	private String post_content;
 	private String post_filepath;
 	private String post_position_name;
+	private String camera_serial;
 	
 	public MapDetailDTO() {
-		
+	
 	}
 	
 	public MapDetailDTO(int post_seq, String user_nickname, String post_content, String post_filepath,
-			String post_position_name) {
+			String post_position_name, String camera_serial) {
 		super();
 		this.post_seq = post_seq;
 		this.user_nickname = user_nickname;
 		this.post_content = post_content;
 		this.post_filepath = post_filepath;
 		this.post_position_name = post_position_name;
+		this.camera_serial = camera_serial;
 	}
 
 	public int getPost_seq() {
@@ -61,10 +63,18 @@ public class MapDetailDTO {
 		this.post_position_name = post_position_name;
 	}
 
+	public String getCamera_serial() {
+		return camera_serial;
+	}
+
+	public void setCamera_serial(String camera_serial) {
+		this.camera_serial = camera_serial;
+	}
+
 	@Override
 	public String toString() {
 		return "MapDetailDTO [post_seq=" + post_seq + ", user_nickname=" + user_nickname + ", post_content="
 				+ post_content + ", post_filepath=" + post_filepath + ", post_position_name=" + post_position_name
-				+ "]";
+				+ ", camera_serial=" + camera_serial + "]";
 	}
 }

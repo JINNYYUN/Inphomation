@@ -18,10 +18,17 @@
 	.map-container{
 		display: flex;
 	    min-width: 1280px;
-	    height: calc(100% - 134px);
+	    height: 100vh;
+	    /*height: calc(100% - 134px);*/
 	    position: relative;
 	}
 
+	.map{
+		position: relative;
+		width : 100%;
+		height:100vh;
+	}
+	
 	<!--  -->
 	.map-info-wrapper{
 		position: relative;
@@ -29,19 +36,103 @@
 	    width: 512px;
 	    height: 100vh;
 	    border-right: 1px solid rgb(205, 205, 205);
-	    overflow: hidden;
 	}
 	
 	.map-info-nav{
-		padding : 25px 20px;
+		position: relative;
+		padding : 30px 30px;
+		display : flex;
 		border-bottom: 1px solid rgb(225, 225, 225);
 	}
 	
-	.map{
-		position: relative;
-		width : 100%;
-		height:100vh;
+	.map-card-wrapper{
+		height: calc(100vh - 82.5px);
+		overflow:scroll;
 	}
+	
+	.map-card-box{
+		cursor: pointer;
+		border : 1px solid rgb(225, 225, 225);
+		border-radius: 3px;
+		position: relative;
+		padding : 10px;
+		margin : 30px;
+		overflow: hidden;
+	}
+	
+	.map-card-image-wrapper{
+		position: relative;
+		cursor: pointer;
+		overflow: hidden;
+		width : 100%;
+   		backface-visibility: hidden;
+	}
+	
+	.map-info-image{
+		width : 100%;
+	}
+	
+	.map-card-content-wrapper{
+		padding-top : 10px;
+	}
+	
+	.map-card-box p{
+		width: 100%;
+		margin-top : 0.3em;
+		white-space: nowrap;
+		overflow: hidden;
+		text-overflow: ellipsis;
+		
+		white-space: normal;
+		max-height : 3em;
+		text-align: left;
+		word-wrap: break-word;
+		display: -webkit-box;
+		-webkit-line-clamp: 2;
+		-webkit-box-orient: vertical;
+	}
+	
+	.nocard-alert-wrapper{
+		margin : 30px;
+	}
+	
+	.alert-primary{
+		color: #CC3B49;
+		background-color: #FFF3F4;
+		border-color: #FA5F6E;
+	}
+	
+	.nocard-alert-message{
+		display: flex;
+		align-items: center;
+		justify-content: space-between;
+		padding: 12px 12px;
+	}
+	
+	.nocard-alert-message .close{
+		color: #CC3B49;
+		font-size: inherit;
+	}
+	
+	.nocard-alert-message span{
+		margin-left: 5px;
+	}
+	
+	.map-search{
+		width: 100%;
+	    height: 100%;
+	    color: rgb(34, 34, 34);
+	    font-size: 25px;
+	    border: none;
+	    background-color: transparent;
+	    outline: none;
+	}
+	
+	.map-search-icon{
+		position: relative;
+		
+	}
+	
 	
 </style>
 </head>
@@ -51,18 +142,33 @@
 		<div class="map-container">
 			<div class="map-info-wrapper">
 				<nav class="map-info-nav">
-					<h3 class="text text-weight-regular">이 지역 사진 보기</h3>
+					<input placeholder="신논현역" autocomplete="off" type="text" name="keyword" class="map-search" id="map-search-input">
+					<svg width="30" height="30" viewBox="0 0 18 18" class="map-search-icon" id="map-search-icon">
+						<g fill="none" fill-rule="evenodd" stroke="#222">
+							<circle cx="7.5" cy="7.5" r="6.5"></circle>
+							<path d="M12 12l5 5"></path>
+						</g>
+					</svg>
 				</nav>
+				<div class="map-card-wrapper">
+					
+				</div>
 			</div>
 			<div id="map" class="map"></div>
 		</div>
 	</div>
-	
-	
-	<script src="https://code.jquery.com/jquery-3.5.1.min.js"></script>
+
+	<script src="https://code.jquery.com/jquery-3.5.1.slim.min.js" integrity="sha384-DfXdz2htPH0lsSSs5nCTpuj/zy4C+OGpamoFVy38MVBnE+IbbVYUew+OrCXaRkfj" crossorigin="anonymous"></script>
+	<script src="https://cdn.jsdelivr.net/npm/popper.js@1.16.1/dist/umd/popper.min.js" integrity="sha384-9/reFTGAW83EW2RDu2S0VKaIzap3H66lZH81PoYlFhbGU+6BZp6G7niu735Sk7lN" crossorigin="anonymous"></script>
+	<script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js" integrity="sha384-B4gt1jrGC7Jh4AgTPSdUtOBvfO8shuf57BaghqFfPlYxofvL8/KUEfYiJOMMV+rV" crossorigin="anonymous"></script>
+		
 	<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+		
+	<!-- kakao map -->
+	<script type="text/javascript" src="//dapi.kakao.com/v2/maps/sdk.js?appkey=d4c98224a9eaf1ce4016decd3afe2f45&libraries=clusterer,services"></script>
 	
-	<script type="text/javascript" src="//dapi.kakao.com/v2/maps/sdk.js?appkey=d4c98224a9eaf1ce4016decd3afe2f45&libraries=clusterer"></script>
+	
+	<!-- 지도 불러오기 -->
 	<script>
 		var container = document.getElementById('map'); // 지도를 표시할 div 
 		var options = {
@@ -81,12 +187,11 @@
 	    });
 		
 	    $(document).ready(function() {
-	    	
 	    	console.log("페이지 로딩");
 	    	
 	    	$.ajax({
 				url:"getMapLocation",
-				type:"get",
+				type:"post",
 				success:function( data ){
 					console.log(data);
 					
@@ -113,17 +218,12 @@
 	    	
 	        console.log(bounds);
 	        
-	        
 	        getMapInfo(bounds);
-	        /*
-	        setTimeout(function () {
-	        	 getMapInfo(bounds);
-	        }, 3000);
-	        */
 	    });
-		
-		
-		 
+
+		 /*
+			현재 지도에 보여지고 있는 위치에 대한 사진 정보를 가져온다.
+		 */
 		 function getMapInfo(bounds) {
 						 
 			 $.ajax({
@@ -133,14 +233,100 @@
 					/* contentType: 'application/json', */
 					data : { "mapInfo" : bounds.toString()},
 					success:function( data ){
-						console.log(data);
+						
+						$(".map-card-box").remove();
+						$(".nocard-alert-message").remove();
+						
+						if(data.length!=0){
+							let content = '';
+							$.each(data, function(i, val){
+								content = `<div class="map-card-box" onclick="location.href='../detail.do?post_seq=${'${val.post_seq}'}'">
+												<div class="map-card-image-wrapper">
+													<img class="map-info-image" src="https://storage.googleapis.com/boomkit/${'${val.post_filepath}'}"}/>
+												</div>
+												<div class="map-card-content-wrapper">
+													<span class="badge badge-neutral">${'${val.camera_serial}'}</span>
+													<h4 class="text text-color-gray100 text-weight-medium">${'${val.post_position_name}'}</h4>
+													<p class="text">${'${val.post_content}'}</p>
+												</div>
+											</div`;
+											
+								
+								$(".map-card-wrapper").append(content);
+								
+							});
+						}else{
+							content = `<div class="bs-component nocard-alert-wrapper">
+										<div class="alert alert-primary nocard-alert-message">
+					            			<p class="text text-weight-regular">검색한 위치에 사진이 존재하지 않습니다.😭 </p>
+											<button type="button" class="close" data-dismiss="alert">×</button>\n
+										</div>
+										</div>`;
+						
+							$(".map-card-wrapper").append(content);
+						}
+						
 					},
 					error:function(){
 						alert("error");
 					}			
 				});
 		 }
-
+		
+		/*검색 버튼 클릭 시*/
+		 document.getElementById('map-search-icon').addEventListener("click",function (){
+			 alert("클릭"); 
+			 let searchMapKeyword = getSearchKeyword();
+			 searchMapLocation(searchMapKeyword);
+		 });
+		
+		/*검색 창에서 enter 클릭 시*/
+		document.getElementById('map-search-input').addEventListener("keypress", function (){
+	        if(event.keyCode == 13){
+	        	let searchMapKeyword = getSearchKeyword();
+				searchMapLocation(searchMapKeyword);
+	        }
+		});
+		
+		function getSearchKeyword(){
+			//검색 키워드 가져오기
+			 let searchMapKeyword = document.getElementById('map-search-input').value;
+			 if(searchMapKeyword==""){
+				searchMapKeyword="신논현역";
+			 }
+			 console.log("검색 키워드 : "+searchMapKeyword);
+			 
+			return searchMapKeyword;
+		}
+		
+		/* 지도 내 검색 */
+		
+		function searchMapLocation(searchMapKeyword) {
+			// 장소 검색 객체를 생성합니다
+			var ps = new kakao.maps.services.Places(); 
+			
+			// 키워드로 장소를 검색합니다
+			 ps.keywordSearch(searchMapKeyword, placesSearchCB); 
+	
+			 // 키워드 검색 완료 시 호출되는 콜백함수 입니다
+			 function placesSearchCB (data, status, pagination) {
+				alert("이 함수 호출되나 혹쉬~?");
+			     if (status === kakao.maps.services.Status.OK) {
+	
+			         // 검색된 장소 위치를 기준으로 지도 범위를 재설정하기위해
+			         // LatLngBounds 객체에 좌표를 추가합니다
+			         var bounds = new kakao.maps.LatLngBounds();
+	
+			         for (var i=0; i<data.length; i++) {
+			             //displayMarker(data[i]);  지도에 마커를 표시하는 함수 > 지도에 클러스터를 표시하는 함수로 변경 예정
+			             bounds.extend(new kakao.maps.LatLng(data[i].y, data[i].x));
+			         }       
+	
+			         // 검색된 장소 위치를 기준으로 지도 범위를 재설정합니다
+			         map.setBounds(bounds);
+			     } 
+			 }
+		}
 	</script>
 </body>
 </html>

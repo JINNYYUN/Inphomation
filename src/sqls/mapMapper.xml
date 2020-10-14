@@ -10,5 +10,15 @@
 	FROM POST_LOCATION
 </select>
 
+<select id="getMapInfo" parameterType="bit.com.inpho.dto.MapInfoDTO" resultType="bit.com.inpho.dto.MapDetailDTO">
+	SELECT P.POST_SEQ, M.USER_NICKNAME, P.POST_CONTENT,
+        	P.POST_FILEPATH, P.POST_POSITION_NAME, IC.CAMERA_SERIAL
+	FROM POST P, POST_LOCATION PC, MEMBER M, INFO_CAMERA IC
+	WHERE P.USER_SEQ = M.USER_SEQ AND P.POST_SEQ = PC.POST_SEQ AND P.CAMERA_SEQ = IC.CAMERA_SEQ
+	AND (PC.LATITUDE BETWEEN #{infoSouth} AND #{infoNorth})
+	AND (PC.LONGITUDE BETWEEN #{infoWest} AND #{infoEast})
+</select>
+
+
 </mapper>
   

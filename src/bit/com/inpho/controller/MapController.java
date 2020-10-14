@@ -34,7 +34,7 @@ public class MapController {
 	 * @return
 	 */
 	@ResponseBody
-	@RequestMapping(value = "getMapLocation", method = RequestMethod.GET)
+	@RequestMapping(value = "getMapLocation", method = RequestMethod.POST)
 	public List<LocationDTO> getMapLocation() {
 		System.out.println("MapController getMapLocation()");
 		
