@@ -48,6 +48,7 @@
 	.map-card-wrapper{
 		height: calc(100vh - 82.5px);
 		overflow:scroll;
+		padding : 0 30px;
 	}
 	
 	.map-card-box{
@@ -56,7 +57,7 @@
 		border-radius: 3px;
 		position: relative;
 		padding : 10px;
-		margin : 30px;
+		margin-bottom : 20px;
 		overflow: hidden;
 	}
 	
@@ -93,7 +94,7 @@
 	}
 	
 	.nocard-alert-wrapper{
-		margin : 30px;
+		
 	}
 	
 	.alert-primary{
@@ -133,6 +134,9 @@
 		
 	}
 	
+	.map-result-message{
+		margin : 25px 0;
+	}
 	
 </style>
 </head>
@@ -235,12 +239,17 @@
 					success:function( data ){
 						
 						$(".map-card-box").remove();
+						$(".map-result-message").remove();
 						$(".nocard-alert-message").remove();
 						
 						if(data.length!=0){
-							let content = '';
+							let result = `<div class="map-result-message text h4 text-color-gray100 text-weight-regular">
+    										이 지역에 <b class="text text-color-orange text-weight-bold">${'${data.length}'}개</b>의 사진이 있습니다
+						                   </div> `;
+							$(".map-card-wrapper").append(result);
+							
 							$.each(data, function(i, val){
-								content = `<div class="map-card-box" onclick="location.href='../detail.do?post_seq=${'${val.post_seq}'}'">
+								let content = `<div class="map-card-box" onclick="location.href='../detail.do?post_seq=${'${val.post_seq}'}'">
 												<div class="map-card-image-wrapper">
 													<img class="map-info-image" src="https://storage.googleapis.com/boomkit/${'${val.post_filepath}'}"}/>
 												</div>
@@ -256,14 +265,19 @@
 								
 							});
 						}else{
+							/*
 							content = `<div class="bs-component nocard-alert-wrapper">
 										<div class="alert alert-primary nocard-alert-message">
 					            			<p class="text text-weight-regular">검색한 위치에 사진이 존재하지 않습니다.😭 </p>
-											<button type="button" class="close" data-dismiss="alert">×</button>\n
+											<button type="button" class="close" data-dismiss="alert">×</button>
 										</div>
 										</div>`;
-						
-							$(".map-card-wrapper").append(content);
+							*/
+							let result = `<div class="map-result-message text h4 text-color-gray100 text-weight-regular">
+											이 지역에 <b class="text text-color-orange text-weight-bold"> 0개</b>의 사진이 있습니다😭
+						                  </div>`;
+			                   
+							$(".map-card-wrapper").append(result);
 						}
 						
 					},

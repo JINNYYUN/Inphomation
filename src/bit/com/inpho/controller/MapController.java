@@ -78,4 +78,17 @@ public class MapController {
 		
 		return info;
 	}
+	
+	/**
+	 * 지도로 보는 디테일 페이지 접속
+	 * @return
+	 */
+	@RequestMapping(value = "detail/map", method = RequestMethod.GET)
+	public String showDetailMap() {
+		System.out.println("MapController showDetailMap()");
+		
+		
+		
+		return "detailMap.tiles";
+	}
 }
