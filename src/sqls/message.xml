@@ -1,0 +1,33 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper 
+  PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+  "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+  
+<mapper namespace="Message">
+  
+<insert id="sendMsg" parameterType="bit.com.inpho.dto.MessageDto">
+	INSERT INTO MESSAGE
+	VALUES( SEQ_MSG.NEXTVAL, #{user_sender}, #{user_target}, #{msg_content}, SYSDATE, NULL )
+</insert> 
+  
+<select id="getLastMsg" parameterType="bit.com.inpho.dto.MessageDto" resultType="bit.com.inpho.dto.MessageDto">
+   	SELECT MSG_SEQ, USER_SENDER, USER_TARGET, MSG_CONTENT, MSG_SEND, MSG_OPEN FROM 
+ 		(
+ 		SELECT * FROM MESSAGE
+ 		WHERE (USER_SENDER = #{user_sender} AND USER_TARGET = #{user_target}) 
+ 		OR (USER_SENDER = #{user_target} AND USER_TARGET = #{user_sender})
+ 		ORDER BY MSG_SEQ DESC )A
+	WHERE ROWNUM = 1;
+</select>
+  
+<select id="getMsg" parameterType="bit.com.inpho.dto.MessageDto" resultType="bit.com.inpho.dto.MessageDto">
+  	SELECT * FROM MESSAGE
+  	WHERE (USER_SENDER = #{user_sender} AND USER_TARGET = #{user_target}) 
+  	OR (USER_SENDER = #{user_target} AND USER_TARGET = #{user_sender})
+  	ORDER BY MSG_SEQ
+</select>
+
+
+  
+  
+</mapper>

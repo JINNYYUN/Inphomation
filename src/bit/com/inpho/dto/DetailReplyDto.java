@@ -11,24 +11,36 @@ public class DetailReplyDto implements Serializable {
 	private int reply_seq;
 	
 	private String user_nickname;
+	private String profile_image;
 	
 	public DetailReplyDto() {}
 
 	
 
-	public DetailReplyDto(int post_seq, int user_seq, String reply_content, String reply_date, int reply_seq) {
+	public DetailReplyDto(int post_seq, int user_seq, int reply_seq, String profile_image) {
+		super();
+		this.post_seq = post_seq;
+		this.user_seq = user_seq;
+		this.reply_seq = reply_seq;
+		this.profile_image = profile_image;
+	}
+
+
+
+	public DetailReplyDto(int post_seq, int user_seq, String reply_content, String reply_date, int reply_seq, String profile_image) {
 		super();
 		this.post_seq = post_seq;
 		this.user_seq = user_seq;
 		this.reply_content = reply_content;
 		this.reply_date = reply_date;
 		this.reply_seq = reply_seq;
+		this.profile_image = profile_image;
 	}
 
 
 
 	public DetailReplyDto(int post_seq, int user_seq, String reply_content, String reply_date, int reply_seq,
-			String user_nickname) {
+			String user_nickname, String profile_image) {
 		super();
 		this.post_seq = post_seq;
 		this.user_seq = user_seq;
@@ -36,8 +48,21 @@ public class DetailReplyDto implements Serializable {
 		this.reply_date = reply_date;
 		this.user_nickname = user_nickname;
 		this.reply_seq = reply_seq;
+		this.profile_image = profile_image;
 	}
 
+
+
+
+	public String getProfile_image() {
+		return profile_image;
+	}
+
+
+
+	public void setProfile_image(String profile_image) {
+		this.profile_image = profile_image;
+	}
 
 
 

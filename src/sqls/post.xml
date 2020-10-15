@@ -4,6 +4,7 @@
   "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
   
 <mapper namespace="postwrite">
+
 <insert id="setpost" parameterType="PostDto">
 	INSERT INTO POST (POST_SEQ,USER_SEQ,CAMERA_SEQ,POST_CONTENT,POST_WDATE,POST_FILEPATH,POST_READCOUNT,POST_POSITION_NAME)
 	VALUES(POST_SEQ.NEXTVAL,USER_SEQ.NEXTVAL,CAMERA_SEQ.NEXTVAL,#{post_content},SYSDATE,#{post_filepath},#{post_readcount},#{post_position_name})

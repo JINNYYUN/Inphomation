@@ -76,5 +76,10 @@ public class DetailServiceImpl implements DetailService {
 		return dao.getHashTag(post_seq);
 	}
 
+	@Override
+	public void deleteDetail(int post_seq) {
+		dao.deleteDetail(post_seq);
+	}
+
 
 }

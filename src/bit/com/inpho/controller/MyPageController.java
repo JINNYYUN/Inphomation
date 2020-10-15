@@ -179,6 +179,7 @@ public class MyPageController {
 	}
 	
 	//좋아요 추가/삭제
+	@ResponseBody
 	@RequestMapping(value = "addLike", method = {RequestMethod.GET, RequestMethod.POST})
 	public void addLike (boolean dolike, int post_seq, HttpServletRequest req) throws Exception {
 		MyPageMemberDto login = (MyPageMemberDto)req.getSession().getAttribute("login");
