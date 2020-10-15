@@ -1,5 +1,10 @@
 package bit.com.inpho.service.impl;
 
-public class PostLocationServiceImpl {
+import org.springframework.stereotype.Service;
+
+import bit.com.inpho.service.PostLocationService;
+
+@Service
+public class PostLocationServiceImpl implements PostLocationService{
 
 }

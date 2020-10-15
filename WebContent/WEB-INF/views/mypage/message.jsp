@@ -1,19 +1,17 @@
+<%@page import="bit.com.inpho.dto.MemberDto"%>
 <%@page import="bit.com.inpho.dto.MyPageMemberDto"%>
 <%@ page language="java" contentType="text/html; charset=UTF-8"
 	pageEncoding="UTF-8"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
 
-<!DOCTYPE html>
-<html>
-<head>
-<meta charset="UTF-8">
+
 <script src="http://cdnjs.cloudflare.com/ajax/libs/jquery/3.2.1/jquery.js"></script>
 <script type="text/javascript"
 	src="https://cdnjs.cloudflare.com/ajax/libs/sockjs-client/1.1.5/sockjs.min.js"></script>
-</head>
+
 <body>
 <%
-MyPageMemberDto login = (MyPageMemberDto)request.getSession().getAttribute("login");
+MemberDto login = (MemberDto)request.getSession().getAttribute("login");
 %>
 	<div style="margin-top: 100px">
 	<img src="${target.profile_image}">
@@ -72,4 +70,3 @@ MyPageMemberDto login = (MyPageMemberDto)request.getSession().getAttribute("logi
 
 	}
 </script>
-</html>

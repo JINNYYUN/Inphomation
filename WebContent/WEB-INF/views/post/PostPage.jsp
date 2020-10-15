@@ -21,6 +21,84 @@
 	src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.0/js/bootstrap.min.js"></script>
 
 <style type="text/css">
+a{
+
+    display: none;
+}
+   #team {
+    padding: 60px 0;
+    text-align: center;
+    background-color: #6f85ff;
+    color: #fff;
+}
+#team h2 {
+    position: relative;
+    padding: 0px 0px 15px;
+}
+#team p {
+    font-size: 15px;
+    font-style: italic;
+    padding: 0px;
+    margin: 25px 0px 40px;
+}
+#team h2::after {
+    content: '';
+    border-bottom: 2px solid #fff;
+    position: absolute;
+    bottom: 0px;
+    right: 0px;
+    left: 0px;
+    width: 90px;
+    margin: 0 auto;
+    display: block;
+}
+#team .member {
+    margin-bottom: 20px;
+    position: relative;
+    overflow: hidden;
+    background-color: #ffffff;
+    padding: 10px;
+    border-radius: 15px 0px 15px 0px;
+    box-shadow: 0px 1px 6px 0px rgba(0, 0, 0, 0.4);
+}
+#team .member .member-info {
+    display: block;
+    position: absolute;
+    bottom: 0px;
+    left: -200px;
+    transition: 0.4s;
+    padding: 15px 0;
+    background: rgba(0, 0, 0, 0.4);
+}
+#team .member:hover .member-info {
+    left: 0px;
+    right: 0px;
+}
+#team .member h4 {
+    font-weight: 700;
+    margin-bottom: 2px;
+    font-size: 18px;
+    color: #fff;
+}
+#team .member span {
+    font-style: italic;
+    display: block;
+    font-size: 13px;
+}
+#team .member .social-links {
+    margin-top: 15px;
+}
+#team .member .social-links a {
+    transition: none;
+    color: #fff;
+}
+#team .member .social-links a:hover {
+    color: #ffc107;
+}
+#team .member .social-links i {
+    font-size: 18px;
+    margin: 0 2px;
+}
 .hashtag {
 	  width:  100%;
 	height:  100%;
@@ -36,7 +114,7 @@
 }
 
 #thumbnailImg {
-	height: 450px;
+	height: 566px;
 	background-repeat: no-repeat;
 }
 
@@ -82,6 +160,12 @@ button:active {
 .text-weight-medium {
 	background-color: #F2F2F2F2;
 }
+.frmst{
+	margin-bottom: 249px;
+	height: 455px;
+}
+
+
 /* image hover */
 #photo-gallery {
 	padding: 20px 0px 40px;
@@ -112,10 +196,10 @@ button:active {
 }
 
 #photo-gallery .photo-frame {
-	height: 600px;
+	
 	border: 1px solid #cecece;
 	padding: 15px;
-	margin-bottom: 30px;
+	
 	border-radius: 10px;
 	transition: 0.3s;
 	background-color: #fff;
@@ -125,6 +209,7 @@ button:active {
 	box-shadow: 0px 0px 15px 0px #d0d0d0;
 	border-color: #9c27b0;
 }
+
 </style>
 </head>
 <body>
@@ -134,10 +219,8 @@ button:active {
 		<div id="thumbnailUrl"></div>
 		<!-- Heading Row -->
 		<div class="row align-items-center my-5">
-			<form id="frm" method="POST" action="fileUpload"
-				style="margin-bottom: 249px; height: 455px;"
-				encType="multipart/form-data">
-
+			<form id="frm"class="frmst"method="POST" action="fileUpload"
+					encType="multipart/form-data">
 				<div class="content rounded mb-4 mb-lg-0" id="mylmg">
 
 					<label for="upImgFile">이미지를 드래그 하거나 여기를 클릭하여 파일을 선택해주세요!
@@ -156,8 +239,18 @@ button:active {
 
 					<div class="photo-frame">
 						<div class="state-thumb">
-							<div id="thumbnailImg" src="#" class="photo-frame img-fluid"
-								style="height: 566px;"></div>
+							<div id="thumbnailImg" src="#" class="photo-frame img-fluid">
+							 <div class="member-info">
+                            <div class="hashtag">
+                                <a href="#">#해쉬태그</a>
+                                <a href="#">#해쉬태그</a>
+                                <a href="#">#해쉬태그</a>
+                                <a href="#">#해쉬태그</a>
+                                <a href="#">#해쉬태그</a>
+                            </div>
+                        </div>
+							
+							</div>
 						</div>
 						<h4>
 
@@ -168,6 +261,7 @@ button:active {
 				</section>
 
 			</form>
+			<form>
 			<div class="mr-1">
 				<div class="card h-100">
 
@@ -178,8 +272,8 @@ button:active {
 								<i class="fas fa-pencil-alt text"></i>게시글 작성게시글 작성게시글 작성
 							</h2>
 						</div>
-
-
+				
+						
 						<div class="md-form">
 							<label class="text" for="inputLGEx">자신을 소개해 주세요!</label>
 							<textarea id="inputLGEx" class="form-control form-control-lg"></textarea>
@@ -218,11 +312,11 @@ button:active {
 					</div>
 				</div>
 			</div>
-			<!-- </form> -->
+			</form>
 		</div>
 
 	</div>
-
+	
 
 
 	<script type="text/javascript">
