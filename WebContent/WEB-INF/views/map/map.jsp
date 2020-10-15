@@ -134,8 +134,11 @@
 		
 	}
 	
-	.map-result-message{
+	.map-result-wrapper{
 		margin : 25px 0;
+		display : flex;
+		align-items: center;
+    	justify-content: space-between;
 	}
 	
 </style>
@@ -155,6 +158,19 @@
 					</svg>
 				</nav>
 				<div class="map-card-wrapper">
+					<div class = "map-result-wrapper" id="map-result-wrapper">
+						<div id = "map-result-message"></div>
+						<div class="dropdown">
+	                        <div class="header-profile-wrap" data-toggle="dropdown">
+	                            <div id="header-profile" class="text text-color-gray200">인기순</div>
+	                            <i for="header-profile" class="icon_caret-down profile-drop-button"></i>
+	                        </div>
+	                        <div class="dropdown-menu dropdown-menu-right" aria-labelledby="dropdownMenuButton">
+	                            <a class="dropdown-item" href="/mypage">인기순</a>
+	                            <a class="dropdown-item" href="/member/logout">최신순</a>
+	                        </div>
+	                    </div>
+					</div>
 					
 				</div>
 			</div>
@@ -239,14 +255,14 @@
 					success:function( data ){
 						
 						$(".map-card-box").remove();
-						$(".map-result-message").remove();
+						$(".map-result-message-component").remove();
 						$(".nocard-alert-message").remove();
 						
 						if(data.length!=0){
-							let result = `<div class="map-result-message text h4 text-color-gray100 text-weight-regular">
+							let result = `<div class="map-result-message-component text h4 text-color-gray100 text-weight-regular">
     										이 지역에 <b class="text text-color-orange text-weight-bold">${'${data.length}'}개</b>의 사진이 있습니다
 						                   </div> `;
-							$(".map-card-wrapper").append(result);
+							$('#map-result-message').append(result);
 							
 							$.each(data, function(i, val){
 								let content = `<div class="map-card-box" onclick="location.href='../detail.do?post_seq=${'${val.post_seq}'}'">
@@ -273,11 +289,11 @@
 										</div>
 										</div>`;
 							*/
-							let result = `<div class="map-result-message text h4 text-color-gray100 text-weight-regular">
+							let result = `<div class="map-result-message-component text h4 text-color-gray100 text-weight-regular">
 											이 지역에 <b class="text text-color-orange text-weight-bold"> 0개</b>의 사진이 있습니다😭
 						                  </div>`;
 			                   
-							$(".map-card-wrapper").append(result);
+							$("#map-result-message").append(result);
 						}
 						
 					},
@@ -289,16 +305,24 @@
 		
 		/*검색 버튼 클릭 시*/
 		 document.getElementById('map-search-icon').addEventListener("click",function (){
-			 alert("클릭"); 
 			 let searchMapKeyword = getSearchKeyword();
 			 searchMapLocation(searchMapKeyword);
+			 
+			//div 영역 스크롤 올리기
+			$( '.map-card-wrapper' ).scrollTop(0);
+			
 		 });
 		
 		/*검색 창에서 enter 클릭 시*/
 		document.getElementById('map-search-input').addEventListener("keypress", function (){
 	        if(event.keyCode == 13){
+	        	
 	        	let searchMapKeyword = getSearchKeyword();
 				searchMapLocation(searchMapKeyword);
+				
+				//div 영역 스크롤 올리기
+				$( '.map-card-wrapper' ).scrollTop(0);
+				
 	        }
 		});
 		
@@ -308,13 +332,11 @@
 			 if(searchMapKeyword==""){
 				searchMapKeyword="신논현역";
 			 }
-			 console.log("검색 키워드 : "+searchMapKeyword);
 			 
 			return searchMapKeyword;
 		}
 		
 		/* 지도 내 검색 */
-		
 		function searchMapLocation(searchMapKeyword) {
 			// 장소 검색 객체를 생성합니다
 			var ps = new kakao.maps.services.Places(); 
@@ -324,7 +346,7 @@
 	
 			 // 키워드 검색 완료 시 호출되는 콜백함수 입니다
 			 function placesSearchCB (data, status, pagination) {
-				alert("이 함수 호출되나 혹쉬~?");
+				//alert("이 함수 호출되나 혹쉬~?");
 			     if (status === kakao.maps.services.Status.OK) {
 	
 			         // 검색된 장소 위치를 기준으로 지도 범위를 재설정하기위해
