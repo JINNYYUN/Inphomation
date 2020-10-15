@@ -44,6 +44,13 @@
   	<listener-class>org.springframework.web.context.ContextLoaderListener</listener-class>
   </listener>
   
+  
+  <!-- 세션저장시간 24시간으로 해둠 -->
+  <session-config>
+  	<session-timeout>1440</session-timeout>
+  </session-config>
+  
+  
   <!-- filter : 중간처리  A -> B -->
   <!-- 한글 설정-->
   <filter>

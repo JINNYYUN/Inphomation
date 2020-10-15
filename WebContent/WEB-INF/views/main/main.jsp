@@ -16,9 +16,7 @@
 <div class="screen-up" id="screen-up"><i class="fas fa-angle-up"></i></div>
 <div class="main-back-ground" id="back-img">
 	  <!-- 로그인이 안되있으면 실행되는 로직 추가하기 -->
-	  <div class="login" onclick="goImgLogin();">
-	  	<!-- 로그인 넣기  -->
-	  </div>
+
 
       <div class="search-bar" style="position:relative;top:200px;width:50%;margin:0 auto;min-width:250px;">
         <input type="text" name="searchKeyword" id="main-search-keyword" style="width:100%;" />

@@ -7,6 +7,7 @@ import org.json.simple.parser.JSONParser;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
+import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
@@ -21,14 +22,11 @@ import bit.com.inpho.service.MemberService;
 @Controller
 public class memberController {
 	
-	
 	private NaverController naver;
 	private String apiResult = null;
 	
 	@Autowired
 	private MemberService memberService;
-	
-	
 	@Autowired
 	private void setNaverLoginController(NaverController naver) {
 		this.naver = naver;
@@ -51,17 +49,21 @@ public class memberController {
 	@PostMapping("/confirmId")
 	public boolean doPageLogin(MemberDto member) {
 		//중복 확인하기
-		
 		return memberService.confirmId(member);
 	}
 	@ResponseBody
 	@PostMapping("/login")
 	public boolean doLogin(MemberDto member, HttpSession session) {
-		//doLogin
-		//true ==정보가 있슴 false는 정보가 없슴
-		boolean result = memberService.doLogin(member, session);
-		return result;
+		//로그인 실행         true ==정보가 있슴 false는 정보가 없슴
+		return memberService.doLogin(member, session);
 	}
+	
+	@ResponseBody
+	@GetMapping("/logout")
+	public void logout(HttpSession session) {
+		session.removeAttribute("login");
+	}
+	
 	
 	@ResponseBody
 	@RequestMapping(value="/getNaverLink",method= {RequestMethod.GET})
@@ -97,10 +99,9 @@ public class memberController {
 		return "naverLogin.tiles";
 	}
 	
-	@RequestMapping(value="/logout",method= {RequestMethod.GET})
-	public String logout(HttpSession session)throws Exception{
-		session.invalidate();
-		
-		return "redirect:/main";
+	@GetMapping("/goLogin")
+	public String goLoginPage() { //로그인서비스가 필요한 사이트 이용시에
+		return "loginPage.tiles";
 	}
+	
 }

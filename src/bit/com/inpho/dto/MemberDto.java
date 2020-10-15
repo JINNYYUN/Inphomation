@@ -80,6 +80,14 @@ public class MemberDto {
 	public void setProvider(String provider) {
 		this.provider = provider;
 	}
+
+	@Override
+	public String toString() {
+		return "MemberDto [user_seq=" + user_seq + ", auth=" + auth + ", user_email=" + user_email + ", user_password="
+				+ user_password + ", user_nickname=" + user_nickname + ", user_create=" + user_create
+				+ ", profile_image=" + profile_image + ", mypage_introduce=" + mypage_introduce + ", provider="
+				+ provider + "]";
+	}
 	
 	
 	
