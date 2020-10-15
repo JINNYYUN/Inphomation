@@ -32,7 +32,7 @@ MyPageMemberDto mem = (MyPageMemberDto)map.get("mem");
 	<div class="top">
 		<div class="top-wrap">
 			<div class="profile-img" align="center">
-				<img src="https://storage.googleapis.com/boomkit/<%=mem.getProfile_image()%>">
+				<img src="<%=mem.getProfile_image()%>">
 				<i class="fas fa-pen fa-2x" id="faPen"></i>
 			</div>
 		</div>
