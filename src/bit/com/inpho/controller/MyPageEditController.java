@@ -21,6 +21,7 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.multipart.MultipartFile;
 
+import bit.com.inpho.dto.MemberDto;
 import bit.com.inpho.dto.MyPageCameraDto;
 import bit.com.inpho.dto.MyPageMemberDto;
 import bit.com.inpho.postutile.UploadObjectMyPage;
@@ -40,17 +41,15 @@ public class MyPageEditController {
 	
 	// 프로필 수정 페이지 이동
 	@RequestMapping(value = "mypageedit", method = RequestMethod.GET)
-	public String mypageedit( Model model ) {
+	public String mypageedit( Model model, int user_seq ) {
 		Map<String, Object> map = new HashMap<String, Object>();
 
 		// 회원정보 가져오기 (user_seq)
-		MyPageMemberDto mem = service.getProfile(1);		
+		MyPageMemberDto mem = service.getProfile(user_seq);		
 		map.put("mem", mem);
 		
-		System.out.println(mem.toString());
-		
 		// 카메라 정보 가져오기
-		List<MyPageCameraDto> camList = service.getCamera(1);
+		List<MyPageCameraDto> camList = service.getCamera(user_seq);
 		map.put("camlist", camList);
 		
 		model.addAttribute("map", map);
@@ -63,14 +62,14 @@ public class MyPageEditController {
 	@RequestMapping(value = "getCam", method = RequestMethod.POST)
 	public List<String> getCam( Model model, String keyWord ) {
 		List<String> allcamlist = service.getAllCam();
-		//System.out.println("camlist" + allcamlist.get(0).toString());
+
 		return allcamlist;
 	}
 	
 	// 프로필 업로드창 이동
 	@RequestMapping(value = "MyPageUpload", method = RequestMethod.GET)
 	public String MyPageUpload() {
-		System.out.println("mypageupload");
+		//System.out.println("mypageupload");
 		return "MyPageUpload.tiles";
 	}
 	
@@ -95,10 +94,11 @@ public class MyPageEditController {
 		// file명을 취득
 		//String f = pdsdto.getOldfilename();
 		String newfilename = getNewFileName( filename );	// 324324324324.txt
-		
-		// session
-		MyPageMemberDto mem = (MyPageMemberDto)req.getSession().getAttribute("login");
 
+		// session
+		MemberDto login = (MemberDto)req.getSession().getAttribute("login");
+		MyPageMemberDto mem = service.getProfile(login.getUser_seq());
+		
 		mem.setProfile_image(newfilename);
 		//pdsdto.setFilename(newfilename);
 		
@@ -169,9 +169,10 @@ public class MyPageEditController {
 	    String newfilename = obj.storageUploadObject("thermal-well-290414", "boomkit", fileload.getOriginalFilename(), root + "/" + fileload.getOriginalFilename());
 	    
 	    // session
- 		MyPageMemberDto mem = (MyPageMemberDto)req.getSession().getAttribute("login");
- 		mem.setProfile_image(newfilename);
-	    
+ 		MemberDto login = (MemberDto)req.getSession().getAttribute("login");
+ 		MyPageMemberDto mem = service.getProfile(login.getUser_seq());
+ 		mem.setProfile_image("https://storage.googleapis.com/boomkit/" + newfilename);
+	    System.out.println("root:" + root);
  		//DB에 저장
  		boolean b = service.uploadProfile(mem);
  		
@@ -192,8 +193,7 @@ public class MyPageEditController {
 	@RequestMapping(value = "myPageEditAf", method = RequestMethod.POST)
 	public String myPageEditAf( MyPageMemberDto mem, String[] camera_serial ) {
 		
-		System.out.println("controller" + mem.toString());
-		
+		//System.out.println("controller" + mem.toString());
 		//닉네임 & 자기소개 수정
 		service.updateProfile(mem);
 		
@@ -223,7 +223,7 @@ public class MyPageEditController {
 	@ResponseBody
 	@RequestMapping(value = "checkPwd", method = RequestMethod.POST)
 	public String checkPwd(MyPageMemberDto mem, String newPwd) {
-		System.out.println(mem.toString());
+		//System.out.println(mem.toString());
 		MyPageMemberDto checkMem = service.pwdCheck(mem);
 		
 		if(checkMem != null && checkMem.getUser_seq() != 0 ) {
