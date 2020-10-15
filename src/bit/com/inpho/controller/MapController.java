@@ -9,6 +9,7 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.ResponseBody;
 
 import bit.com.inpho.dto.LocationDTO;
+import bit.com.inpho.dto.MapDetailDTO;
 import bit.com.inpho.dto.MapInfoDTO;
 import bit.com.inpho.service.MapService;
 
@@ -33,7 +34,7 @@ public class MapController {
 	 * @return
 	 */
 	@ResponseBody
-	@RequestMapping(value = "getMapLocation", method = RequestMethod.GET)
+	@RequestMapping(value = "getMapLocation", method = RequestMethod.POST)
 	public List<LocationDTO> getMapLocation() {
 		System.out.println("MapController getMapLocation()");
 		
@@ -44,10 +45,11 @@ public class MapController {
 	/**
 	 * 지도 경도, 위도 안에 있는 데이터 가져오기
 	 * @param mapInfo, 지도 위치 문자 정보 
+	 * @return
 	 */
 	@ResponseBody
 	@RequestMapping(value = "getMapInfo", method = RequestMethod.POST)
-	public void getMapInfo(String mapInfo) {
+	public List<MapDetailDTO> getMapInfo(String mapInfo) {
 		System.out.println("MapController getMapInfo()");
 		System.out.println(mapInfo);
 		
@@ -59,13 +61,34 @@ public class MapController {
 		//문자열에서 데이터 추출하기
 		String infoArray[] = infoString.split(",");
 		
-		String infoNorth = infoArray[0]; //북쪽 위도 좌표
+		String infoSouth = infoArray[0]; //남쪽 위도 좌표
 		String infoWest = infoArray[1];	//서쪽 경도 좌표
-		String infoSouth = infoArray[2]; //남쪽 위도 좌표
+		String infoNorth = infoArray[2]; //북쪽 위도 좌표
 		String infoEast = infoArray[3]; //동쪽 경도 좌표
 		
-		System.out.println(infoNorth+"+"+infoWest+"+"+infoSouth+"+"+infoEast);
+		System.out.println(infoSouth+"+"+infoWest+"+"+infoNorth+"+"+infoEast);
 		
-		MapInfoDTO mapInfoDTO = new MapInfoDTO(infoNorth, infoWest, infoSouth, infoEast);
+		MapInfoDTO mapInfoDTO = new MapInfoDTO(infoSouth, infoWest, infoNorth, infoEast);
+		
+		List<MapDetailDTO> info = mapService.getMapInfo(mapInfoDTO);
+		
+		for(MapDetailDTO i : info){
+		    System.out.println(i.toString());
+		}
+		
+		return info;
+	}
+	
+	/**
+	 * 지도로 보는 디테일 페이지 접속
+	 * @return
+	 */
+	@RequestMapping(value = "detail/map", method = RequestMethod.GET)
+	public String showDetailMap() {
+		System.out.println("MapController showDetailMap()");
+		
+		
+		
+		return "detailMap.tiles";
 	}
 }
