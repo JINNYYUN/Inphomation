@@ -10,7 +10,6 @@
 <script src="http://cdnjs.cloudflare.com/ajax/libs/jquery/3.2.1/jquery.js"></script>
 <script type="text/javascript"
 	src="https://cdnjs.cloudflare.com/ajax/libs/sockjs-client/1.1.5/sockjs.min.js"></script>
-
 </head>
 <body>
 <%
@@ -19,6 +18,17 @@ MyPageMemberDto login = (MyPageMemberDto)request.getSession().getAttribute("logi
 	<div style="margin-top: 100px">
 	<img src="${target.profile_image}">
 	${target.user_nickname}
+	
+	<c:forEach items="${msglist}" var="msg" varStatus="status">
+		<c:choose>
+		    <c:when test="${msg.user_target eq target.user_seq}">
+		    	<div>보낸 메시지:${msg.msg_content}</div>
+		    </c:when>
+		    <c:otherwise>
+		    	<div>받은 메시지:${msg.msg_content}</div>
+		    </c:otherwise>
+		</c:choose>
+	</c:forEach> 
 	
 	<input type="text" id="message" />
 	<input type="button" id="sendBtn" value="submit"/>

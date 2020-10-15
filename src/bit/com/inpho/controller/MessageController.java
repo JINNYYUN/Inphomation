@@ -31,10 +31,15 @@ public class MessageController {
 		// 대화한 유저 list
 		
 		// 대화내용
-		//List<MessageDto> list = service.getMsg(msg);
+		MyPageMemberDto login = (MyPageMemberDto)req.getSession().getAttribute("login");
+		MessageDto msg = new MessageDto(login.getUser_seq(), user_target);
+		
+		List<MessageDto> list = service.getMsg(msg);
 		
 		// 타깃 유저 seq
 		MyPageMemberDto target = mypageService.getProfile(user_target);
+		
+		model.addAttribute("msglist", list);
 		model.addAttribute("target", target);
 		
 		return "goMessage.tiles";
