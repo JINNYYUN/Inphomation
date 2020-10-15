@@ -72,7 +72,7 @@
 	</definition>
 	
 	<!-- chat -->
-	<definition name="goChat.tiles" extends="mypage.tiles">
-	   <put-attribute name="main" value="/WEB-INF/views/mypage/chat.jsp"/>   
+	<definition name="goMessage.tiles" extends="mypage.tiles">
+	   <put-attribute name="main" value="/WEB-INF/views/mypage/message.jsp"/>   
 	</definition>
 </tiles-definitions>

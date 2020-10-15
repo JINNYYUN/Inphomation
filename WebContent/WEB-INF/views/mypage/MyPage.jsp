@@ -73,7 +73,7 @@ MyPageMemberDto login = (MyPageMemberDto)request.getSession().getAttribute("logi
 		%>
 
 		<div class="profile-img">
-			<img src="https://storage.googleapis.com/boomkit/${mem.profile_image}">
+			<img src="${mem.profile_image}">
 		</div>
 		<div class="top-detail" align="center">
 			<span class="nickname">${mem.user_nickname}</span>
