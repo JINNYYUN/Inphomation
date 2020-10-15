@@ -4,7 +4,7 @@
 <html>
 <head>
 <meta charset="UTF-8">
-<title>Insert title here</title>
+<title>인포메이션 : index</title>
 </head>
 <body>
 <h1>index이동</h1>
