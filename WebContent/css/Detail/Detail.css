@@ -13,7 +13,7 @@
 	padding-top: 100px;
 	margin-top: 0px;
 	background-color: #ffffff;
-    margin-left: 20%;
+    margin-left: 25%;
 }
 
 .proflBox {
@@ -135,6 +135,7 @@
 	border-color: #F25C05;
 	padding: 3px;
 	size: 10pt;
+	font-family: "Noto Sans KR", sans-serif;
 }
 
 .comment {

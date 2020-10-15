@@ -7,7 +7,7 @@
 
 <select id="getPost" parameterType="java.lang.Integer" resultType="bit.com.inpho.dto.DetailPostDto">
 	SELECT P.POST_SEQ, P.USER_SEQ, P.POST_CONTENT, P.POST_WDATE,
-        	P.POST_FILEPATH, P.POST_POSITION_NAME, IC.CAMERA_SERIAL
+        	P.POST_FILEPATH, P.POST_POSITION_NAME, IC.CAMERA_SERIAL, P.DEL
 	FROM POST P, INFO_CAMERA IC
 	WHERE P.CAMERA_SEQ = IC.CAMERA_SEQ
 	AND P.POST_SEQ = #{post_seq}
@@ -24,7 +24,6 @@
 	UPDATE POST SET DEL = '1'
 	WHERE POST_SEQ = ${post_seq} 
 </update>
-
 
 
 <insert id="addBookmark" parameterType="bit.com.inpho.dto.DetailCountAllDto">

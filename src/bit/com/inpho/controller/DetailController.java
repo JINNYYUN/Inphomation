@@ -29,12 +29,14 @@ public class DetailController {
 	MyPageService MyService;
 	
 	
-	@RequestMapping(value = "detail.do", method = RequestMethod.GET)
+	@RequestMapping(value = "detail.do", method = {RequestMethod.GET, RequestMethod.POST})
 	public String detail(Model model,int post_seq, DetailCountAllDto count, HttpServletRequest req) throws Exception {
 		
-		MyPageMemberDto login = new MyPageMemberDto(22, null, 0, null, null, null, null, null);
+		
+		MyPageMemberDto login = new MyPageMemberDto(2, null, 0, null, null, null,null, null);
 		
 		req.getSession().setAttribute("ologin", login);
+		
 		
 		MyPageMemberDto user = (MyPageMemberDto)req.getSession().getAttribute("ologin");
 		
@@ -75,7 +77,11 @@ public class DetailController {
 			hMap.put("following", postList.getUser_seq());
 			hMap.put("follower", user.getUser_seq());
 			
+			System.out.println("post: " + postList.getUser_seq() + "user: " + user.getUser_seq());
+			
 			DetailCountAllDto dto = new DetailCountAllDto(post_seq, user.getUser_seq());
+			
+			System.out.println("post: " + dto.getPost_seq() + "user: " + dto.getUser_seq());
 			
 			boolean b = MyService.isFollowing(hMap);
 			
@@ -99,49 +105,6 @@ public class DetailController {
 		
 		return "detail.tiles";
 	}
-/*
-	@ResponseBody
-	@RequestMapping(value = "addBookmark.do", method = {RequestMethod.GET, RequestMethod.POST})
-	public String addBookmark(DetailCountAllDto dto, Model model) throws Exception {
-		/* bookmark 테이블에 해당 유저의 데이터가 몇 개 있는지 확인하기 위함
-		int n = service.countBookmark(dto);
-		System.out.println("countBookmark: "+n);
-		
-		model.addAttribute("count", n);
-		
-		String msg = "";
-		if (n == 0) {
-			boolean add = service.addBookmark(dto);
-			System.out.println(add);
-			msg = "NO";
-		}else {
-			boolean del = service.deleteBookmark(dto); 
-			System.out.println("del: " + del);
-			msg = "YES";
-		}
-		return msg;
-	}
-	
-
-	@ResponseBody
-	@RequestMapping(value = "addLike.do", method = {RequestMethod.GET, RequestMethod.POST})
-	public String addLike (DetailCountAllDto dto, Model model) throws Exception {
-		int n = service.countLike(dto);
-		System.out.println(n);
-		
-		String msg = "";
-		if (n == 0) {
-			boolean add = service.addLike(dto);
-			System.out.println(add);
-			msg = "NO";
-		}else {
-			boolean del = service.deleteLike(dto); 
-			System.out.println("del: " + del);
-			msg = "YES";
-		}
-		return msg;
-	}
-	*/
 
 	@RequestMapping(value = "addLikeBook.do", method = {RequestMethod.GET, RequestMethod.POST})
 	public String addLikeBook(DetailCountAllDto dto, String word, Model model, HttpServletRequest req) throws Exception {
@@ -184,6 +147,7 @@ public class DetailController {
 			
 		}
 		
+		model.addAttribute("login", user);
 		model.addAttribute("post_seq", dto.getPost_seq());		
 		
 		return "redirect:detail.do";
@@ -245,13 +209,14 @@ public class DetailController {
 	
 	@ResponseBody
 	@RequestMapping(value = "follow.do", method = {RequestMethod.GET, RequestMethod.POST})
-	public String follow(int following, String work, Model model) {
+	public String follow(int following, String work, Model model, HttpServletRequest req) {
 		System.out.println(following + "," + work);
+		MyPageMemberDto user = (MyPageMemberDto)req.getSession().getAttribute("ologin");
 		
 		HashMap<String, Integer> map = new HashMap<String, Integer>();
 		
 		map.put("following", following);
-		map.put("follower", 2);
+		map.put("follower", user.getUser_seq());
 		
 		MyService.follow(map, work);
 		
@@ -261,6 +226,9 @@ public class DetailController {
 	@RequestMapping(value = "deleteDetail.do", method = {RequestMethod.GET, RequestMethod.POST})
 	public String deleteDetail(int post_seq) {
 		System.out.println("deleteDetail; " + post_seq);
+		
+		service.deleteDetail(post_seq);
+		
 		return "main.tiles";
 	}
 	

@@ -61,12 +61,12 @@
 					<div>
 						<div>
 							<c:if test="${follow eq true }">
-								<button type="button" id="followBtn" class="btn followBtn" value="Unfollow">
+								<button type="button" id="followBtn" class="text btn followBtn" value="Unfollow">
 									Following
 								</button>
 							</c:if>
 							<c:if test="${follow eq false  }">
-								<button type="button" id="followBtn" class="btn followBtn" value="Follow">
+								<button type="button" id="followBtn" class="text btn followBtn" value="Follow">
 									Follow
 								</button>
 							</c:if>
@@ -180,7 +180,7 @@
 			<hr>
 			<div class="cmtBox">
 				<textarea id="comment" class="text post body1 comment" onKeypress="if(event.keyCode==13) {addComment()}" placeholder="댓글 달기"></textarea>
-				<input type="button" id="addCmt" onclick="addComment()" class="btn btn-reply" value="입력">
+				<input type="button" id="addCmt" onclick="addComment()" class="text btn btn-reply" value="입력">
 			</div>
 		</div>
 		</div>
