@@ -43,6 +43,8 @@
 	</websocket:handlers>
     
 	<bean id="echoHandler" class="bit.com.inpho.controller.EchoHandler"></bean> 
+
+	<bean class="bit.com.inpho.controller.NaverController" />
 	 
 	 <!-- java 공통 패키지 설정 -->
 	<context:component-scan base-package="bit.com.inpho"/>

@@ -90,4 +90,9 @@ public class DetailDaoImpl implements DetailDao {
 		return list;
 	}
 
+	@Override
+	public void deleteDetail(int post_seq) {
+		sqlSession.update(ns + "deleteDetail", post_seq);
+	}
+
 }

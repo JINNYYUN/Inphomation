@@ -104,6 +104,16 @@
 		goLogin()
 	}
 
+	//비밀번호 보이고 숨기기
+	function lookPw(e){
+		$('.form-group .user-pwd').toggleClass('active'); 
+		if( $('.form-group .user-pwd').hasClass('active') == true ){ 
+			$(e).parents('.form-group').find('.user-pwd').attr('type',"text") 
+		} else{ 
+			$(e).parents('.form-group').find('.user-pwd').attr('type',"password") 
+		}
+	}
+	
 	
 	/*
 		Modal의 버튼이 어떤 버튼인지 구분하고 그에따른 form파일을 가져오기 위한
