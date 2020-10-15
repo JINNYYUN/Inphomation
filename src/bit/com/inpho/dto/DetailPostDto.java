@@ -10,6 +10,7 @@ public class DetailPostDto implements Serializable {
 	private String post_wdate;
 	private String post_filepath;
 	private String post_position_name;
+	private int del;
 	
 	private int tag_seq;
 	private String hashtag;
@@ -19,7 +20,7 @@ public class DetailPostDto implements Serializable {
 	public DetailPostDto() {}
 
 	public DetailPostDto(int post_seq, int user_seq, String post_content, String post_wdate, String post_filepath,
-			String post_position_name, int tag_seq, String hashtag, String camera_serial) {
+			String post_position_name, int tag_seq, String hashtag, String camera_serial, int del) {
 		super();
 		this.post_seq = post_seq;
 		this.user_seq = user_seq;
@@ -30,6 +31,15 @@ public class DetailPostDto implements Serializable {
 		this.tag_seq = tag_seq;
 		this.hashtag = hashtag;
 		this.camera_serial = camera_serial;
+		this.del = del;
+	}
+
+	public int getDel() {
+		return del;
+	}
+
+	public void setDel(int del) {
+		this.del = del;
 	}
 
 	public int getPost_seq() {
