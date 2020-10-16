@@ -6,8 +6,10 @@
 <meta charset="UTF-8">
 <title>인포메이션 : 지도로 보기</title>
 
+
 <link rel="stylesheet" href="${pageContext.request.contextPath}/css/default.css">
 <link rel="stylesheet" href="${pageContext.request.contextPath}/css/bootstrap.css">
+<script src="https://kit.fontawesome.com/6ac784f4b9.js" crossorigin="anonymous"></script>
 
 <style>
 	.root{
@@ -71,15 +73,33 @@
 	
 	.map-info-image{
 		width : 100%;
+		transform: scale(1);
+		 -webkit-transform: scale(1);
+		 -moz-transform: scale(1);
+		 -ms-transform: scale(1);
+		 -o-transform: scale(1);
+		 transition: all 0.3s ease-in-out;   /* 부드러운 모션을 위해 추가*/
+	}
+	
+	.map-info-image:hover{
+		transform: scale(1.1);
+		-webkit-transform: scale(1.1);
+		-moz-transform: scale(1.1);
+		-ms-transform: scale(1.1);
+		-o-transform: scale(1.1);
 	}
 	
 	.map-card-content-wrapper{
 		padding-top : 10px;
 	}
 	
+	.map-card-content-wrapper h4{
+		margin-top : 0.05em;
+		margin-bottom : 0.3em;
+	}
+	
 	.map-card-box p{
 		width: 100%;
-		margin-top : 0.3em;
 		white-space: nowrap;
 		overflow: hidden;
 		text-overflow: ellipsis;
@@ -141,6 +161,33 @@
     	justify-content: space-between;
 	}
 	
+	/*sorting*/
+	.map-dropdown-menu{
+		min-width : 0;
+	}
+	
+	.map-sorting-wrap{
+	    display: flex;
+    	align-items: center;
+    	cursor : pointer;
+	}
+	
+	.map-sorting{
+		margin-right : 5px;
+	}
+	
+	.map-sorting-list{
+		
+	}
+	
+	.map-dropdown-menu li{
+		cursor : pointer;
+	}
+	
+	.map-camera-info:hover{
+		color: white;
+   	 	background: #F27405;
+	}
 </style>
 </head>
 
@@ -161,14 +208,14 @@
 					<div class = "map-result-wrapper" id="map-result-wrapper">
 						<div id = "map-result-message"></div>
 						<div class="dropdown">
-	                        <div class="header-profile-wrap" data-toggle="dropdown">
-	                            <div id="header-profile" class="text text-color-gray200">인기순</div>
-	                            <i for="header-profile" class="icon_caret-down profile-drop-button"></i>
+	                        <div class="map-sorting-wrap" data-toggle="dropdown">
+	                            <div id="map-sorting" class="text text-color-gray200 map-sorting">인기순</div>
+	                            <i for="map-sorting" class="fas fa-caret-down map-sorting-button"></i>
 	                        </div>
-	                        <div class="dropdown-menu dropdown-menu-right" aria-labelledby="dropdownMenuButton">
-	                            <a class="dropdown-item" href="/mypage">인기순</a>
-	                            <a class="dropdown-item" href="/member/logout">최신순</a>
-	                        </div>
+	                        <ul class="dropdown-menu dropdown-menu-right map-dropdown-menu" aria-labelledby="dropdownMenuButton">
+	                            <li class="dropdown-item map-sorting-list">인기순</li>
+	                            <li class="dropdown-item map-sorting-list">최신순</li>
+	                        </ul>
 	                    </div>
 					</div>
 					
@@ -234,24 +281,38 @@
 		// 지도가 이동, 확대, 축소로 인해 지도영역이 변경되면 이벤트 발생 
 	    kakao.maps.event.addListener(map, 'tilesloaded', function() {
 	        // 지도 영역정보를 얻어옵니다 
-	        var bounds = map.getBounds();
+	        var mapInfo = map.getBounds();
 	    	
-	        console.log(bounds);
-	        
-	        getMapInfo(bounds);
+	        //정렬 순서의 정보를 가져온다
+	        let sortingOption = $("#map-sorting").text();
+	        	
+	        //console.log(bounds);
+	        getMapInfo(mapInfo, sortingOption);
 	    });
+		
+	    /* 정도 가져오기 셀렉트 박스 옵션 선택 */
+		$(".map-sorting-list").on("click", function () {
+		  	let sortingOption = $(this).html();
+		    console.log("셀렉트 바 확인 : " + sortingOption);
+		    $("#map-sorting").html(sortingOption);
+		    $("#consultation-state-ul").toggle();
+		    
+			 // 지도 영역정보를 얻어옵니다 
+	        var mapInfo = map.getBounds();
+		    getMapInfo(mapInfo, sortingOption);
+		})
 
 		 /*
 			현재 지도에 보여지고 있는 위치에 대한 사진 정보를 가져온다.
 		 */
-		 function getMapInfo(bounds) {
+		 function getMapInfo(bounds, sortingOption) {
 						 
 			 $.ajax({
 					url:"getMapInfo",
 					type:"post",
 					async : false,
-					/* contentType: 'application/json', */
-					data : { "mapInfo" : bounds.toString()},
+					/*contentType: 'application/json',*/
+					data : { "mapInfo" : bounds.toString(), "sortingOption" : sortingOption},
 					success:function( data ){
 						
 						$(".map-card-box").remove();
@@ -270,7 +331,7 @@
 													<img class="map-info-image" src="https://storage.googleapis.com/boomkit/${'${val.post_filepath}'}"}/>
 												</div>
 												<div class="map-card-content-wrapper">
-													<span class="badge badge-neutral">${'${val.camera_serial}'}</span>
+													<span class="badge badge-neutral map-camera-info">${'${val.camera_serial}'}</span>
 													<h4 class="text text-color-gray100 text-weight-medium">${'${val.post_position_name}'}</h4>
 													<p class="text">${'${val.post_content}'}</p>
 												</div>
