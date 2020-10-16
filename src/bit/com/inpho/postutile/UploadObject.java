@@ -23,18 +23,12 @@ public class UploadObject {
 	private List<String> hashTag;
 	@Autowired
 	private fileUploadService fie;
-	@Autowired
-	private GoogleVisionApi googleObj;
+	
 	
 	public List<String> storageUploadObject(String projectId, String bucketName, String objectName, String filePath)
 			throws IOException {
-		System.out.println(filePath);
-		try {
-			hashTag=googleObj.detectLabels(filePath);
-		} catch (Exception e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
-		}
+		
+		
 		String extName= objectName.substring(objectName.lastIndexOf("."), objectName.length());
 		String saveFileName =  fie.genSaveFileName(extName);
 		

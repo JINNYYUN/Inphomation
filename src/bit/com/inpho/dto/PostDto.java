@@ -7,30 +7,33 @@ public class PostDto  {
 	private int post_seq;
 	private int camera_seq;
 	private int user_seq;
-	private String post_content;
-	private String post_wdate;
-	private String post_filepath;
-	private int post_readcount;
-	private String post_position_name;
+	private String content;
+	private String wdate;// sysdate
+	private String filepath;
+	private int readcount;
+	private String location;
+	private String hashtag;
 	private int del;
+	private String camera;
+	
 	public PostDto() {
 		
 	}
-	
-	public PostDto(int post_seq, int camera_seq, int user_seq, String post_content, String post_wdate,
-			String post_filepath, int post_readcount, String post_position_name, int del) {
+	public PostDto(int post_seq, int camera_seq, int user_seq, String content, String wdate, String filepath,
+			int readcount, String location, String hashtag, int del, String camera) {
 		super();
 		this.post_seq = post_seq;
 		this.camera_seq = camera_seq;
 		this.user_seq = user_seq;
-		this.post_content = post_content;
-		this.post_wdate = post_wdate;
-		this.post_filepath = post_filepath;
-		this.post_readcount = post_readcount;
-		this.post_position_name = post_position_name;
+		this.content = content;
+		this.wdate = wdate;
+		this.filepath = filepath;
+		this.readcount = readcount;
+		this.location = location;
+		this.hashtag = hashtag;
 		this.del = del;
+		this.camera = camera;
 	}
-
 	public int getPost_seq() {
 		return post_seq;
 	}
@@ -49,35 +52,41 @@ public class PostDto  {
 	public void setUser_seq(int user_seq) {
 		this.user_seq = user_seq;
 	}
-	public String getPost_content() {
-		return post_content;
+	public String getContent() {
+		return content;
 	}
-	public void setPost_content(String post_content) {
-		this.post_content = post_content;
+	public void setContent(String content) {
+		this.content = content;
 	}
-	public String getPost_wdate() {
-		return post_wdate;
+	public String getWdate() {
+		return wdate;
 	}
-	public void setPost_wdate(String post_wdate) {
-		this.post_wdate = post_wdate;
+	public void setWdate(String wdate) {
+		this.wdate = wdate;
 	}
-	public String getPost_filepath() {
-		return post_filepath;
+	public String getFilepath() {
+		return filepath;
 	}
-	public void setPost_filepath(String post_filepath) {
-		this.post_filepath = post_filepath;
+	public void setFilepath(String filepath) {
+		this.filepath = filepath;
 	}
-	public int getPost_readcount() {
-		return post_readcount;
+	public int getReadcount() {
+		return readcount;
 	}
-	public void setPost_readcount(int post_readcount) {
-		this.post_readcount = post_readcount;
+	public void setReadcount(int readcount) {
+		this.readcount = readcount;
 	}
-	public String getPost_position_name() {
-		return post_position_name;
+	public String getLocation() {
+		return location;
 	}
-	public void setPost_position_name(String post_position_name) {
-		this.post_position_name = post_position_name;
+	public void setLocation(String location) {
+		this.location = location;
+	}
+	public String getHashtag() {
+		return hashtag;
+	}
+	public void setHashtag(String hashtag) {
+		this.hashtag = hashtag;
 	}
 	public int getDel() {
 		return del;
@@ -85,6 +94,20 @@ public class PostDto  {
 	public void setDel(int del) {
 		this.del = del;
 	}
+	public String getCamera() {
+		return camera;
+	}
+	public void setCamera(String camera) {
+		this.camera = camera;
+	}
+	
+	@Override
+	public String toString() {
+		return "PostDto [post_seq=" + post_seq + ", camera_seq=" + camera_seq + ", user_seq=" + user_seq + ", content="
+				+ content + ", wdate=" + wdate + ", filepath=" + filepath + ", readcount=" + readcount + ", location="
+				+ location + ", hashtag=" + hashtag + ", del=" + del + ", camera=" + camera + "]";
+	}
+
 	
 	
 }
