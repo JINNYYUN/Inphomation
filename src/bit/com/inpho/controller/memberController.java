@@ -18,6 +18,7 @@ import com.github.scribejava.core.model.OAuth2AccessToken;
 
 import bit.com.inpho.dto.MemberDto;
 import bit.com.inpho.service.MemberService;
+import bit.com.inpho.util.MemberUtil;
 
 @Controller
 public class memberController {
@@ -27,48 +28,50 @@ public class memberController {
 	
 	@Autowired
 	private MemberService memberService;
+	
 	@Autowired
 	private void setNaverLoginController(NaverController naver) {
-		this.naver = naver;
+		this.naver = naver; //naver 서비스생성
 	}
 	
-	@RequestMapping(value="/loginModal",method= {RequestMethod.GET})
-	public String getModal(){
-		return "modal.tiles";
+	@ResponseBody
+	@PostMapping("/socialLogin")
+	public boolean socialLogin(MemberDto member, HttpSession session) {
+		member.setUser_password(MemberUtil.makePassword(10));
+		System.out.println(member.toString());
+		return memberService.socialLogin(member, session);
 	}
-	@RequestMapping(value="/loginForm",method= {RequestMethod.GET})
-	public String getLoginForm(){
-		return "getLogin.tiles";
+	@ResponseBody
+	@PostMapping("/register")
+	public boolean regeisterMember(MemberDto member, HttpSession session) {
+		System.out.println(member.toString());
+		//회원가입 실패 유무를 반환
+		return memberService.regeisterMember(member, session);
 	}
-	@RequestMapping(value="/regiForm",method= {RequestMethod.GET})
-	public String getRegiForm(){
-		return "getRegi.tiles";
-	}
-	
 	@ResponseBody
 	@PostMapping("/confirmId")
 	public boolean doPageLogin(MemberDto member) {
-		//중복 확인하기
+		//회원가입 email 중복
 		return memberService.confirmId(member);
 	}
+	
 	@ResponseBody
-	@PostMapping("/login")
+	@PostMapping("/login") //로그인정보 일치시
 	public boolean doLogin(MemberDto member, HttpSession session) {
-		//로그인 실행         true ==정보가 있슴 false는 정보가 없슴
+		//로그인 실행         true ==정보가 있슴(성공) false는 정보가 없슴(실패)
 		return memberService.doLogin(member, session);
 	}
 	
 	@ResponseBody
 	@GetMapping("/logout")
-	public void logout(HttpSession session) {
+	public void logout(HttpSession session) { //로그인한 세션을 삭제
 		session.removeAttribute("login");
 	}
-	
 	
 	@ResponseBody
 	@RequestMapping(value="/getNaverLink",method= {RequestMethod.GET})
 	public String getNaverLoginLink(Model model, HttpSession session) {
-		//네이버 인증페이지로 이동을 위한 링크생성
+		//네이버 인증페이지로 이동을 위한 링크생성하는 ajax
 		String naverAuthUrl = naver.getAuthorizationUrl(session);
 		System.out.println("CreateGoNaverUrl : " + naverAuthUrl);
 		
@@ -77,6 +80,8 @@ public class memberController {
 		
 	@RequestMapping(value="/naverLogin",method= {RequestMethod.GET})
 	public String naverCallBack(Model model, HttpSession session, @RequestParam String code, @RequestParam String state) throws Exception {
+		//naver로 보낸요청을 다시 받아오는 부분
+		
 		OAuth2AccessToken oauthToken;
 		oauthToken = naver.getAccessToken(session, code, state);
 		
@@ -102,6 +107,19 @@ public class memberController {
 	@GetMapping("/goLogin")
 	public String goLoginPage() { //로그인서비스가 필요한 사이트 이용시에
 		return "loginPage.tiles";
+	}
+	
+	@RequestMapping(value="/loginModal",method= {RequestMethod.GET})
+	public String getModal(){ //로그인 모달창 html 호출
+		return "modal.tiles";
+	}
+	@RequestMapping(value="/loginForm",method= {RequestMethod.GET})
+	public String getLoginForm(){ //로그인 폼 html 호출
+		return "getLogin.tiles";
+	}
+	@RequestMapping(value="/regiForm",method= {RequestMethod.GET})
+	public String getRegiForm(){ //회원가입 폼 html 호출
+		return "getRegi.tiles";
 	}
 	
 }

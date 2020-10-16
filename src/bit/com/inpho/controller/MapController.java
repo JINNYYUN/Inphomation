@@ -49,7 +49,7 @@ public class MapController {
 	 */
 	@ResponseBody
 	@RequestMapping(value = "getMapInfo", method = RequestMethod.POST)
-	public List<MapDetailDTO> getMapInfo(String mapInfo) {
+	public List<MapDetailDTO> getMapInfo(String mapInfo, String sortingOption) {
 		System.out.println("MapController getMapInfo()");
 		System.out.println(mapInfo);
 		
@@ -68,7 +68,7 @@ public class MapController {
 		
 		System.out.println(infoSouth+"+"+infoWest+"+"+infoNorth+"+"+infoEast);
 		
-		MapInfoDTO mapInfoDTO = new MapInfoDTO(infoSouth, infoWest, infoNorth, infoEast);
+		MapInfoDTO mapInfoDTO = new MapInfoDTO(infoSouth, infoWest, infoNorth, infoEast, sortingOption);
 		
 		List<MapDetailDTO> info = mapService.getMapInfo(mapInfoDTO);
 		
