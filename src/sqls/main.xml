@@ -1,0 +1,56 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper
+  PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+  "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="Main">
+<!-- 	<select id="newFeedList">
+		SELECT LIST.*,HASH.*  FROM 
+	        (SELECT ROWNUM AS RNUM, PO.POST_SEQ , ME.USER_SEQ AS "USERSEQ", ME.USER_NICKNAME AS "USERNICKNAME", POST_WDATE, PO.DEL AS "DEL",
+	            (SELECT COUNT(A.USER_SEQ) FROM POST_LIKE A WHERE A.POST_SEQ = PO.POST_SEQ) AS "LIKE", 
+	            (SELECT COUNT(A.USER_SEQ) FROM POST_BOOKMARK A WHERE A.POST_SEQ = PO.POST_SEQ) AS "BOOKMARK", 
+	            (SELECT COUNT(A.USER_SEQ) FROM POST_REPLY A WHERE A.POST_SEQ = PO.POST_SEQ) AS "REPLY"
+	                FROM
+	                    POST PO,
+	                    MEMBER ME
+	                WHERE PO.USER_SEQ = ME.USER_SEQ
+	                AND DEL = 0
+	                ORDER BY PO.POST_WDATE DESC) LIST, 
+	            (SELECT PH.POST_SEQ, IF.HASHTAG 
+	                FROM POST_HASHTAG PH, INFO_HASHTAG IF
+	                WHERE PH.TAG_SEQ = IF.TAG_SEQ) HASH
+	    WHERE LIST.POST_SEQ = HASH.POST_SEQ(+)
+	        ORDER BY RNUM
+	</select> -->
+	<resultMap type="bit.com.inpho.dto.MainPostDto" id="newFeedListTotal">
+		<result property="postSeq" column="POSTSEQ"/>
+		<result property="userSeq" column="USERSEQ"/>
+		<result property="userNickName" column="NICKNAME"/>
+		<result property="wdate" column="WDATE"/>
+		<result property="postLike" column="LIKE"/>
+		<result property="postBookmark" column="BOOKMARK"/>
+		<result property="postReply" column="REPLY"/>
+		<result property="filePath" column="POST_FILEPATH"/>
+		<collection property="hashtag" column="POSTSEQ" javaType="java.util.ArrayList" ofType="java.lang.String" select="getFeedHashTag" />
+	</resultMap>
+	
+	<select id="newFeedList" resultMap="newFeedListTotal">
+		SELECT * FROM(
+			SELECT ROWNUM RNUM, PO.POST_SEQ AS "POSTSEQ" , ME.USER_SEQ AS "USERSEQ", ME.USER_NICKNAME AS "NICKNAME", POST_WDATE AS "WDATE", PO.DEL AS "DEL",
+		            (SELECT COUNT(A.USER_SEQ) FROM POST_LIKE A WHERE A.POST_SEQ = PO.POST_SEQ) AS "LIKE", 
+		            (SELECT COUNT(A.USER_SEQ) FROM POST_BOOKMARK A WHERE A.POST_SEQ = PO.POST_SEQ) AS "BOOKMARK", 
+		            (SELECT COUNT(A.USER_SEQ) FROM POST_REPLY A WHERE A.POST_SEQ = PO.POST_SEQ) AS "REPLY",
+		            PO.POST_FILEPATH
+	         FROM POST PO, MEMBER ME
+	         WHERE PO.USER_SEQ = ME.USER_SEQ
+	         AND DEL = 0
+	         ORDER BY PO.POST_SEQ DESC
+	    ) WHERE RNUM BETWEEN 1 AND 30
+	</select>
+	
+	<select id="getFeedHashTag" resultType="java.lang.String">
+		SELECT IF.HASHTAG 
+        FROM POST_HASHTAG PH, INFO_HASHTAG IF
+	    WHERE PH.TAG_SEQ = IF.TAG_SEQ AND  PH.POST_SEQ = #{postSeq}
+	</select>
+</mapper>
