@@ -1,3 +1,4 @@
+<%@page import="bit.com.inpho.dto.MemberDto"%>
 <%@page import="bit.com.inpho.dto.MyPageMemberDto"%>
 <%@page import="java.util.Map"%>
 <%@page import="bit.com.inpho.dto.MyPageCameraDto"%>
@@ -23,7 +24,7 @@ MyPageMemberDto mem = (MyPageMemberDto)request.getAttribute("mem");
 boolean isFollowing = (boolean)request.getAttribute("isFollowing");
 
 //session 정보
-MyPageMemberDto login = (MyPageMemberDto)request.getSession().getAttribute("login");
+MemberDto login = (MemberDto)request.getSession().getAttribute("login");
 %>
 
 <div class="">
@@ -50,25 +51,23 @@ MyPageMemberDto login = (MyPageMemberDto)request.getSession().getAttribute("logi
 	<div class="top-wrap">
 		
 		<%
-		if(mem.getUser_seq() == login.getUser_seq()){
-		%>
-			<button class="btn follow-btn" id="editProfile">프로필 수정</button>
-			<button id="editMember">설정</button>
-		<%	
-		}else{
-		%>
-			<%
-			if(isFollowing){
+		if(login != null){
+			if(mem.getUser_seq() == login.getUser_seq()){
 			%>
-				<input type="button" class="btn follow-btn" id="followBtn" value="Unfollow">
+				<button class="btn follow-btn" id="editProfile">프로필 수정</button>
+				<button id="editMember">설정</button>
 			<%	
 			}else{
-			%>
-				<input type="button" class="btn follow-btn" id="followBtn" value="Follow">
-			<%	
+				if(isFollowing){
+				%>
+					<input type="button" class="btn follow-btn" id="followBtn" value="Unfollow">
+				<%	
+				}else{
+				%>
+					<input type="button" class="btn follow-btn" id="followBtn" value="Follow">
+				<%	
+				}
 			}
-			%>
-		<%		
 		}
 		%>
 

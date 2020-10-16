@@ -47,8 +47,9 @@ pageEncoding="UTF-8"%>
 	      <div class="dropbox" id="drop-menu">
 	      	<h3><%=member.getUser_nickname() %></h3><!-- 로그인 백엔드 구현하고 정보 받아오면 수정하기 -->
 	      	<ul>
-	      		<li class="body1"><a href="/profile">내 프로필</a></li>
-	      		<li class="body1"><a href="/bookmark">북마크 게시물</a></li>
+	      		<li class="body1"><a href="<%=request.getContextPath() %>/mypage">내 프로필</a></li>
+	      		<li class="body1"><a href="<%=request.getContextPath() %>/bookmark">북마크 게시물</a></li>
+	      		<li class="body1"><a href="<%=request.getContextPath() %>/mypageedit">개인정보수정</a></li>
 	      		<li class="body1"><a href="javascript:doLogout();">로그아웃</a></li>	
 	      	</ul>
 	      </div>      
@@ -57,10 +58,11 @@ pageEncoding="UTF-8"%>
     </div>
   </div>
 </nav>
-<script src="<%=request.getContextPath() %>/js/navigation.js"></script>
+<script src="<%=request.getContextPath() %>/js/navigation.js" ></script>
 <%if(member==null){ %>
-<script src="<%=request.getContextPath() %>/js/member.js"></script>
+<script src="<%=request.getContextPath() %>/js/member.js" ></script>
 <%}else{ %>
-<script src="<%=request.getContextPath() %>/js/login.js"></script>
+<script src="<%=request.getContextPath() %>/js/login.js" ></script>
 <%} %>
+
 

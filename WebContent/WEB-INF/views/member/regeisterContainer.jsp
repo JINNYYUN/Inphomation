@@ -4,7 +4,7 @@ pageEncoding="UTF-8"%>
   <form action="#" method="post" id="modal-form">
     <div class="form-group">
       <i class="fa fa-user"></i>
-      <input type="email" class="form-control" placeholder="email" id="regi-id" required="required" />
+      <input type="email" class="form-control" placeholder="email" id="regi-id" required="required" onblur="confirmId(this);"/>
     </div>
     <div class="form-group">
       <i class="fa fa-lock"></i>
@@ -19,8 +19,8 @@ pageEncoding="UTF-8"%>
       <span class="result-msg"></span>
     </div>
     <div class="form-group btn-group">
-      <input type="button" value="Cancel" class="cancel-btn btn btn-danger" id="cancel-btn">
-      <input type="button" value="Regeister" class="regeister-btn btn btn-primary" id="regeister-btn" onclick="submitRegi();">
+      <input type="button" value="Cancel" class="cancel-btn btn btn-danger" id="cancel-btn" onclick="modalClose()"> 
+      <input type="button" value="Regeister" class="regeister-btn btn btn-primary" id="regeister-btn" disabled onclick="submitRegi();">
     </div>
   </form>
   

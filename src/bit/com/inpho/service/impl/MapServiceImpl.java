@@ -26,9 +26,8 @@ public class MapServiceImpl implements MapService {
 	@Override
 	public List<MapDetailDTO> getMapInfo(MapInfoDTO mapInfoDTO) {
 		System.out.println("MapServiceImpl getMapInfo");
+		
 		// TODO Auto-generated method stub
 		return mapDao.getMapInfo(mapInfoDTO);
 	}
-
-
 }

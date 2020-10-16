@@ -7,6 +7,21 @@
 <head>
 <meta charset="UTF-8">
 <title>hello</title>
+<<<<<<< HEAD
+=======
+<script src="https://cdn.jsdelivr.net/npm/exif-js"></script>
+<script
+	src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+<script src="https://code.jquery.com/jquery-3.5.1.min.js"></script>
+<script type="text/javascript" src="${pageContext.request.contextPath}/js/ajaxForm/jquery.form.min.js"></script>
+<link rel="stylesheet"
+	href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.0/css/bootstrap.min.css">
+<!-- Bootstrap JS -->
+<script
+	src="https://cdn.jsdelivr.net/npm/popper.js@1.16.0/dist/umd/popper.min.js"></script>
+<script
+	src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.0/js/bootstrap.min.js"></script>
+>>>>>>> 9a6afa00239a83f6bcb712cd679ebce0891c1871
 
 <style type="text/css">
 a{
