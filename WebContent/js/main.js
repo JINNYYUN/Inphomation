@@ -141,3 +141,7 @@ function searchKeywordMain() {
 		location.href = 'http://' + location.host + "/Inphomation/keywordSearch?keyworld=" + keyword
 	}
 }
+
+function moveUserPage(e){
+	location.href = 'http://' + location.host + "/Inphomation/mypage?user_seq="+e
+}
