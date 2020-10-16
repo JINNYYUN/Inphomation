@@ -1,6 +1,8 @@
 package bit.com.inpho.controller;
 
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 import javax.servlet.http.HttpServletRequest;
 
@@ -11,7 +13,9 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.ResponseBody;
 
+import bit.com.inpho.dto.MemberDto;
 import bit.com.inpho.dto.MessageDto;
+import bit.com.inpho.dto.MessageUserDto;
 import bit.com.inpho.dto.MyPageMemberDto;
 import bit.com.inpho.service.MessageService;
 import bit.com.inpho.service.MyPageService;
@@ -26,23 +30,33 @@ public class MessageController {
 	MyPageService mypageService;
 	
 	@RequestMapping(value = "goMessage", method = RequestMethod.GET)
-	public String goChat(Model model, int user_target, HttpServletRequest req) {
+	public String goMessage(Model model, HttpServletRequest req) {
+		
+		MemberDto login = (MemberDto)req.getSession().getAttribute("login");
 		
 		// 대화한 유저 list
+		List<MessageUserDto> userlist =  service.getUserList(login.getUser_seq());		
 		
-		// 대화내용
-		MyPageMemberDto login = (MyPageMemberDto)req.getSession().getAttribute("login");
-		MessageDto msg = new MessageDto(login.getUser_seq(), user_target);
-		
-		List<MessageDto> list = service.getMsg(msg);
-		
-		// 타깃 유저 seq
-		MyPageMemberDto target = mypageService.getProfile(user_target);
-		
-		model.addAttribute("msglist", list);
-		model.addAttribute("target", target);
+		model.addAttribute("userlist", userlist);
 		
 		return "goMessage.tiles";
+	}
+	
+	@ResponseBody
+	@RequestMapping(value = "getMsg", method = RequestMethod.POST)
+	public Map<String, Object> getMsg(MessageDto msg) {
+		
+		Map<String, Object> map = new HashMap();
+		
+		// 타깃 프로필
+		MyPageMemberDto target = mypageService.getProfile(msg.getUser_target());
+		
+		// 대화내용
+		List<MessageDto> msglist = service.getMsg(msg);
+		
+		map.put("target", target);
+		map.put("msglist", msglist);
+		return map;
 	}
 	
 	@ResponseBody
