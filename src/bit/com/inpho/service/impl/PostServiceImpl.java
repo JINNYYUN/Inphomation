@@ -33,5 +33,10 @@ public class PostServiceImpl implements PostService{
 	@Override
 	public void setPost(PostDto dto) {		
 	}
+	@Override
+	public void setcam(PostDto cdto) {
+		// TODO Auto-generated method stub
+		
+	}
 	
 }

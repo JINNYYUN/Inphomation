@@ -33,7 +33,7 @@ public class PostDaoImpl implements PostDao{
 	}
 	@Override
 	public void setHashTag(int postseq, int hashtagseq) {
-		sqlSession.insert(ns+"setmap",hashtagseq);
+		sqlSession.insert(ns+"sethashtag",hashtagseq);
 	}
 	
 	

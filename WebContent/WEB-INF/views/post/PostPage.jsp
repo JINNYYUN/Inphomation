@@ -203,22 +203,18 @@ button:active {
 </head>
 <body>
 <script src="https://cdn.jsdelivr.net/npm/exif-js"></script>
-<script
-	src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
 <script src="https://code.jquery.com/jquery-3.5.1.min.js"></script>
 <script type="text/javascript" src="js/ajaxForm/jquery.form.min.js"></script>
-<!-- Bootstrap JS -->
-<script
-	src="https://cdn.jsdelivr.net/npm/popper.js@1.16.0/dist/umd/popper.min.js"></script>
-<script
-	src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.0/js/bootstrap.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/popper.js@1.16.0/dist/umd/popper.min.js"></script>
+<script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.0/js/bootstrap.min.js"></script>
 
 	<div class="container">
 		<br>
 		<div id="thumbnailUrl"></div>
 		<!-- Heading Row -->
 		<div class="row align-items-center my-5">
-			<form id="frm"class="frmst"method="POST" action="fileUpload"
+			<form id="frm"class="frmst"method="POST" action="Upload"
 					encType="multipart/form-data">
 				<div class="content rounded mb-4 mb-lg-0" id="mylmg">
 
@@ -230,10 +226,7 @@ button:active {
 						<label class="label"></label>
 					</div>
 				</div>
-				<%-- <div id="thumbnailImg"
-						class="photo-gallery content rounded mb-4 mb-lg-0" src="#">
-						<input class="hashtag" type="text" value='${ tag }'>
-					</div> --%>
+				
 				<section id="photo-gallery">
 
 					<div class="photo-frame">
@@ -241,11 +234,7 @@ button:active {
 							<div id="thumbnailImg" src="#" class="photo-frame img-fluid">
 							 <div class="member-info">
                             <div class="hashtag">
-                                <a href="#">#해쉬태그</a>
-                                <a href="#">#해쉬태그</a>
-                                <a href="#">#해쉬태그</a>
-                                <a href="#">#해쉬태그</a>
-                                <a href="#">#해쉬태그</a>
+                              
                             </div>
                         </div>
 							
@@ -267,32 +256,35 @@ button:active {
 					<div class="card-body">
 
 						<div class="postwrite">
-							<h2 class="text fas text-weight-medium">
-								<i class="fas fa-pencil-alt text"></i>게시글 작성게시글 작성게시글 작성
-							</h2>
+							
 						</div>
-				
+						<div class="md-form">
 						
+						<input class="form-control form-control-lg"id="hashtag" value="">
+						</div>
+						<div>
+						<input  id="location" value="${location}" />
+						<label>${cam}</label>
+						</div>
 						<div class="md-form">
 							<label class="text" for="inputLGEx" >자신을 소개해 주세요!</label>
 							<textarea id="conent" name="content" value="${content}"class="form-control form-control-lg"></textarea>
 						</div>
 						<div class="md-form">
 							<label class="text" for="inputLGEx" >촬영기기를 알려주세요!</label>
-							<input id="cam" name="camera" value="${cam}"class="form-control form-control-lg">
+							<input id="cam" name="camera" value="${camera}"class="form-control form-control-lg">
 						</div>
 						<div class="md-form">
 							<label class="text" for="inputLGEx" >촬영장소를 알려주세요!</label>
-							<input id="location" name="location" value="${location}"class="form-control form-control-lg">
+							<input id="place" name="place" value="${place}"class="form-control form-control-lg">
 						</div>
 						<div class="md-form">
 							<label class="text" for="inputLGEx">나만의 해쉬태그를 보여주세요.</label>
-							<input id="hashtag" name="hashtag" value="${tag}"class="form-control form-control-lg">
+							<input id="hashtags" name="hashtag" value="${hashtag}"class="form-control form-control-lg">
 						</div>
-						
 						<div class="float-right">
-							<input id="done" class="btn btn-primary btn-sm" type="submit"
-								value="Write">
+							<input id="done" class="btn btn-primary btn-sm" type="button"
+							value="Write">
 						</div>
 
 
@@ -310,19 +302,21 @@ button:active {
 	<script type="text/javascript">
 		var exifLat;
 		var exifLong;
+		
 		let files;
 		let reader;
 		let fileInfo;
 		var input = document.querySelector('input');
 		var preview = document.querySelector('.preview');
 		input.style.opacity = 0;
-
+		var latestLocaction;
 		function EXIFutil() {
 			EXIF.getData(files[0], function() {
 				exifLong = EXIF.getTag(files[0], "GPSLongitude");
 				exifLat = EXIF.getTag(files[0], "GPSLatitude");
-				console.log("E:" + exifLong[2])
-				console.log("N:" + exifLat[2])
+				console.log("E:" + exifLong[2]);
+				console.log("N:" + exifLat[2]);
+				
 			});
 
 		}
@@ -392,7 +386,7 @@ button:active {
 									"background-size" : "100% 100%"
 								});
 						EXIFutil();
-
+						//드래그 관련 
 						/* alert($('input[type=file]')[0].files[0].name); //파일이름
 						  alert($("#m_file")[0].files[0].type); // 파일 타임
 						  alert($("#m_file")[0].files[0].size); // 파일 크기 */
@@ -402,78 +396,31 @@ button:active {
 					});
 
 		});
-		/*  function uploadImgPreview() {
-			fileInfo = document.querySelector(".imagehide");
-			reader = new FileReader();
-
-			reader.onload = function() { */
-		/* document.getElementById("thumbnailImg").src = reader.result; */
-		/* document.getElementById("thumbnailImg").style.background-image='url('+reader.result+')'; */
-		/* 
-		$('#thumbnailImg').css({
-		    "background-image": "url(" + reader.result + ")",
-		    "outline": "none",
-		    "background-size": "100% 100%"
-		});
+		  $("#done").on("click",function(e){
+			 
 			
-		
-		
+			 var formm = new FormData($("#frm")[0]);
+			 e.preventDefault();
+			 formm.append("exifLat", exifLat);
+			 formm.append("exifLong", exifLong);
+				$.ajax({
+					url : "Upload",
+					type : "POST",
+					enctype : 'multipart/form-data',
+					data : formm,
+					processData : false,
+					contentType : false,
+					cache : false,
+					datatype : "json",
+					success : function(data) {
+					
+						
+					},
+					error : function() {
 
-		};
-
-		if (fileInfo) {
-		reader.readAsDataURL(fileInfo)
-		EXIFutil();
-
-		}
-
-		}
-
-		 *//*  $("#done").click(function() {
-											 
-											$.ajax({
-												url : "imageUpload",
-												type : "post",
-												data : {
-													"imagePath" : 
-												},
-												processData: false,
-												contentType: false,
-												success : function(camlist) {
-													alert('success');
-
-												},
-												error : function() {
-													alert('error');
-												}
-											});
-										});  */
-		$("#done").on("click",function(e){
-			document
-			  var form = {
-		                latitude: exifLat,
-		                longitude: exifLong,
-					  	content: $('content').val,
-						filepath: files,
-			  			location: $('location').val,
-			  			hashtag: $('hashtag').val,
-			  			camera: $('camera').val
-		        }
-			$.ajax({
-				url : "fileUpload",
-				type : "POST",
-				data : form,
-				datatype :"json",
-				success : function(data) {
-					console.log(data);
-
-				},
-				error : function() {
-					console.log("실패");
-				}
-			});
-		});
-										
+					}
+				});
+		  });
 
 		$("#upImgFile").on("change", function(e) {
 			e.preventDefault();
@@ -493,8 +440,7 @@ button:active {
 						data
 					} ;
 					console.log(tags);
-					/* Array[0] = document.getElementById("a").value; // 자바스크립트
-					Array[0] = $("#a").val(); // 제이쿼리 */
+					
 
 				},
 				error : function() {

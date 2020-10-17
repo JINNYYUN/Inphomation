@@ -20,12 +20,12 @@ import java.util.List;
 import java.util.Map;
 @Service
 public class UploadObject {
-	private List<String> hashTag;
+	
 	@Autowired
 	private fileUploadService fie;
 	
 	
-	public List<String> storageUploadObject(String projectId, String bucketName, String objectName, String filePath)
+	public String storageUploadObject(String projectId, String bucketName, String objectName, String filePath)
 			throws IOException {
 		
 		
@@ -60,7 +60,7 @@ public class UploadObject {
 
 		    System.out.println(
 		        "Updated custom metadata for object " + saveFileName + " in bucket " + bucketName);
-		    return hashTag;
+		    return saveFileName;
 	}
 
 }

@@ -37,10 +37,7 @@ import bit.com.inpho.service.PostService;
 @Controller
 public class PostController {
 	private static final Logger logger = LoggerFactory.getLogger(PostController.class);
-	private String aftertag = "";
-//	private Map<String, String> map = new HashMap<>();
-	
-	private PostDto dto=new PostDto();
+	PostDto dto = new PostDto();
 	@Autowired
 	private UploadObject obj;
 	@Autowired
@@ -68,50 +65,54 @@ public class PostController {
 
 	// 실제업로드
 	@ResponseBody
-	@RequestMapping(value = "fileUpload", method = { RequestMethod.POST })
-	public ModelAndView fileUpload(HttpServletRequest req, @RequestParam(value = "upImgFile") MultipartFile file,@ModelAttribute("post") PostDto dto)
+	@RequestMapping(value = "Upload", method = { RequestMethod.POST })
+	public ModelAndView fileUpload(HttpServletRequest req, @RequestParam(value = "upImgFile") MultipartFile file,PostDto dto)
 			throws IOException {
-		
+			
 		
 		// jspform에서 MultipartFile을 받아온다...
 		System.out.println("데이터야들어와라얍!"+dto.toString());
-		System.out.println("MultipartFile : " + file);
-		System.out.println("파일의 사이즈 : " + file.getSize());
-		System.out.println("업로드된 파일명 : " + file.getOriginalFilename());
-		System.out.println("파일의 파라미터명 : " + file.getName());
 
 		// getRealPath()..
 		String root = req.getSession().getServletContext().getRealPath("upload/postImage");
-
-		System.out.println("path :: " + root);
-
+		//실제 루트경로
+		
+		//System.out.println("path :: " + root);
+	
 		// File은 디렉토리 + 파일명
 		File copyFile = new File(root + "/" + file.getOriginalFilename());
-
+		
 		// 원래 업로드한 파일이 지정한 path 위치로 이동...이때 카피본이 이동
 		file.transferTo(copyFile);
-		obj.storageUploadObject("thermal-well-290414", "boomkit", file.getOriginalFilename(),
+
+		String exifLong= req.getParameter("exifLong");
+		String exifLat= req.getParameter("exifLat");
+		String exifLongResult = exifLong.substring(exifLong.lastIndexOf(",")+1);
+		String exifLatResult = exifLat.substring(exifLat.lastIndexOf(",")+1);
+		String fileName=obj.storageUploadObject("thermal-well-290414", "boomkit", file.getOriginalFilename(),
 				root + "/" + file.getOriginalFilename());
+		System.out.println(exifLongResult);
+		System.out.println(exifLatResult);
+		System.out.println(fileName);
 		ModelAndView mv = new ModelAndView();
 		service.setPost(dto);
-		service.getTag(1,1);
 		
-		
-		mv.addObject("tag", aftertag);
 		mv.setViewName("PostPage");
-		System.out.println("after" + aftertag);
+		
 		
 		
 		return mv;
 		
 	} 
 	//테스트입니당
-	@ResponseBody
-	@RequestMapping(value = "#", method = { RequestMethod.GET})
-	public String getHashTag(@ModelAttribute("post") PostDto dto) {
 	
-		List<MyPageCameraDto> camlist  =  service.getCam(dto);
-		List<PostHashTagInfoDto> taglist  =  service.getTag(1,1);
+	@RequestMapping(value = "#", method = { RequestMethod.GET,RequestMethod.POST})
+	public String setHashTag(Model model) {
+	
+		System.out.println("dto 드루와"+model.getAttribute("post"));
+		
+//		List<MyPageCameraDto> camlist  =  service.getCam(dto);
+//		List<PostHashTagInfoDto> taglist  =  service.getTag(1,1);
 		return "PostPage";
 	}
 }

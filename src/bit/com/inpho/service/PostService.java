@@ -13,4 +13,5 @@ public interface PostService {
 	List<MyPageCameraDto> getCam(PostDto dto);
 	void setmap(PostLocationDto mdto);
 	void setPost(PostDto dto);
+	void setcam(PostDto cdto);
 }

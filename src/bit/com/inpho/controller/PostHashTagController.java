@@ -28,10 +28,10 @@ public class PostHashTagController {
 	@RequestMapping(value = "beforeImg", method = RequestMethod.POST) 
 	 public String[] getHashTag(HttpServletRequest req, @RequestParam(value = "upImgFile") MultipartFile file)	throws IOException {
 	
-	System.out.println("ImgUPUP : " + file);
-	System.out.println("파일의 사이즈 : " + file.getSize());
-	System.out.println("업로드된 파일명 : " + file.getOriginalFilename());
-	System.out.println("파일의 파라미터명 : " + file.getName());
+	//	System.out.println("ImgUPUP : " + file);
+	//	System.out.println("파일의 사이즈 : " + file.getSize());
+	//	System.out.println("업로드된 파일명 : " + file.getOriginalFilename());
+	//	System.out.println("파일의 파라미터명 : " + file.getName());
 	
 	// getRealPath()..
 	String root = req.getSession().getServletContext().getRealPath("upload/postImage");
@@ -43,7 +43,7 @@ public class PostHashTagController {
 	// 원래 업로드한 파일이 지정한 path 위치로 이동...이때 카피본이 이동
 	file.transferTo(copyFile);
 	hashTag.removeAll(hashTag); 
-	System.out.println(hashTag.toString());
+	//		System.out.println(hashTag.toString());
 	
 		try {
 			hashTag = googleObj.detectLabels(root + "/" + file.getOriginalFilename());
@@ -53,8 +53,8 @@ public class PostHashTagController {
 		}
 	
 	
-	System.out.println("toString" + hashTag.toString());
-	System.out.println("orignal" + hashTag);
+		//	System.out.println("toString" + hashTag.toString());
+		//	System.out.println("orignal" + hashTag);
 	
 	String result = hashTag.stream().map(n -> String.valueOf(n)).collect(Collectors.joining("#"));
 
@@ -62,7 +62,7 @@ public class PostHashTagController {
 	for (int i = 0; i < before.length; i++) {
 		before[i] = "#" + before[i];
 	}
-	System.out.println("after" + before.toString());
+	//	System.out.println("after" + before.toString());
 	
 	return before;
 	}
