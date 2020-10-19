@@ -33,20 +33,34 @@ public class memberController {
 	private void setNaverLoginController(NaverController naver) {
 		this.naver = naver; //naver 서비스생성
 	}
+	@GetMapping("/noHaveAuth")
+	public String noHaveAuth() {
+		//유저 계정이 활성화가 안되어있는 경우에 이동하는 페이지
+		return "loginPage.tiles";
+	}
+	@GetMapping("/authKeyId")
+	public String confirmId(MemberDto member,HttpSession session) {
+		//회원가입후에 계정 인증을 하려고 할 경우
+		if(memberService.idActive(member,session)) {
+			return "redirect:/main";
+		}
+		return "failAuthKey.tiles";
+	}
 	
 	@ResponseBody
 	@PostMapping("/socialLogin")
 	public boolean socialLogin(MemberDto member, HttpSession session) {
+		//소셜로그인을 하려하는경우 (+회원이아니면 회원가입까지 진행함)
 		member.setUser_password(MemberUtil.makePassword(10));
 		System.out.println(member.toString());
 		return memberService.socialLogin(member, session);
 	}
 	@ResponseBody
 	@PostMapping("/register")
-	public boolean regeisterMember(MemberDto member, HttpSession session) {
+	public boolean regeisterMember(MemberDto member) {
 		System.out.println(member.toString());
 		//회원가입 실패 유무를 반환
-		return memberService.regeisterMember(member, session);
+		return memberService.regeisterMember(member);
 	}
 	@ResponseBody
 	@PostMapping("/confirmId")
@@ -57,7 +71,7 @@ public class memberController {
 	
 	@ResponseBody
 	@PostMapping("/login") //로그인정보 일치시
-	public boolean doLogin(MemberDto member, HttpSession session) {
+	public String doLogin(MemberDto member, HttpSession session) {
 		//로그인 실행         true ==정보가 있슴(성공) false는 정보가 없슴(실패)
 		return memberService.doLogin(member, session);
 	}
@@ -73,7 +87,6 @@ public class memberController {
 	public String getNaverLoginLink(Model model, HttpSession session) {
 		//네이버 인증페이지로 이동을 위한 링크생성하는 ajax
 		String naverAuthUrl = naver.getAuthorizationUrl(session);
-		System.out.println("CreateGoNaverUrl : " + naverAuthUrl);
 		
 		return naverAuthUrl;
 	}
@@ -96,9 +109,6 @@ public class memberController {
 		//json안의 response파싱
 		JSONObject responseObj = (JSONObject)jsonObj.get("response");
 		String nickname = (String)responseObj.get("nickname");
-		
-		System.out.println("nickname");
-		
 		model.addAttribute("result",apiResult);
 		
 		return "naverLogin.tiles";
