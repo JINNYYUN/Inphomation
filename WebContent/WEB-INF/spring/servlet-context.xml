@@ -12,7 +12,6 @@
 	<!-- spring MVC annotation (주석문, 지시문)을 사용하기 위한 설정 -->
 	<context:annotation-config />
 
-
 	<!-- tiles 설정 -->
 	<bean id="tilesConfigurer" class="org.springframework.web.servlet.view.tiles3.TilesConfigurer">
 		<property name="definitions">
@@ -45,6 +44,17 @@
 	<bean id="echoHandler" class="bit.com.inpho.controller.EchoHandler"></bean> 
 
 	<bean class="bit.com.inpho.controller.NaverController" />
+	
+	<bean id="AopInterceptor" class="bit.com.inpho.aop.Interceptor"/>
+	 <mvc:interceptors>
+	 	<mvc:interceptor>
+	 		<mvc:mapping path="/post"/>
+	 		<mvc:mapping path="/mypage"/>
+	 		<mvc:mapping path="/mypageedit"/>
+	 		<ref bean="AopInterceptor" />
+	 	</mvc:interceptor>
+	 </mvc:interceptors>
+	 
 	 
 	 <!-- java 공통 패키지 설정 -->
 	<context:component-scan base-package="bit.com.inpho"/>
@@ -54,5 +64,5 @@
 	
 	<!-- spring에서 처리할 수 없는 요청은 tomcat에 위임 -->
 	<mvc:default-servlet-handler/>
-	
+		
 </beans>
