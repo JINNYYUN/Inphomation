@@ -16,6 +16,6 @@
 <a href="main">메인페이지로</a><br>
 <a href="post?user_seq=1">글쓰기페이지</a>
 <i class="fas fa-star"></i>
-<a href="goMessage?user_target=2">채팅</a>
+<a href="goMessage">채팅</a>
 </body>
 </html>

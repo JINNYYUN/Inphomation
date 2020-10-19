@@ -25,6 +25,12 @@ public class MessageDto implements Serializable {
 		this.msg_open = msg_open;
 	}
 
+	public MessageDto(int user_sender, int user_target) {
+		super();
+		this.user_sender = user_sender;
+		this.user_target = user_target;
+	}
+
 	public int getMsg_seq() {
 		return msg_seq;
 	}

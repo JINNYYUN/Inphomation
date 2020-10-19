@@ -38,8 +38,11 @@
 	
 	<!-- websocket -->
 	<websocket:handlers>
-		<websocket:mapping handler="echoHandler" path="/echo" />
-		<websocket:sockjs />
+		<websocket:mapping handler="echoHandler" path="/echo.do" />
+		<websocket:handshake-interceptors>
+			<bean class="org.springframework.web.socket.server.support.HttpSessionHandshakeInterceptor" />
+		</websocket:handshake-interceptors>
+		<websocket:sockjs/>
 	</websocket:handlers>
     
 	<bean id="echoHandler" class="bit.com.inpho.controller.EchoHandler"></bean> 
