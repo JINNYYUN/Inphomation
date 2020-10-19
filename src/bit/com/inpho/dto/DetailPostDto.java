@@ -43,6 +43,12 @@ public class DetailPostDto implements Serializable {
 		this.post_filepath = post_filepath;
 		this.camera_serial = camera_serial;
 	}
+	
+	public DetailPostDto(int post_seq, String camera_serial) {
+		super();
+		this.post_seq = post_seq;
+		this.camera_serial = camera_serial;
+	}
 
 	public int getDel() {
 		return del;
