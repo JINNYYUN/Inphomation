@@ -16,9 +16,9 @@
 <body>
 
 <div>
-<%-- 	<div>
+ 	<div>
 		<tiles:insertAttribute name="global_navigation" />
-	</div> --%>
+	</div> 
 	
 	<div>	
 		<tiles:insertAttribute name="main"/>	
