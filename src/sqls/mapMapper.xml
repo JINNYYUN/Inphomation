@@ -12,11 +12,22 @@
 
 <select id="getMapInfo" parameterType="bit.com.inpho.dto.MapInfoDTO" resultType="bit.com.inpho.dto.MapDetailDTO">
 	SELECT P.POST_SEQ, M.USER_NICKNAME, P.POST_CONTENT,
-        	P.POST_FILEPATH, P.POST_POSITION_NAME, IC.CAMERA_SERIAL
-	FROM POST P, POST_LOCATION PC, MEMBER M, INFO_CAMERA IC
-	WHERE P.USER_SEQ = M.USER_SEQ AND P.POST_SEQ = PC.POST_SEQ AND P.CAMERA_SEQ = IC.CAMERA_SEQ
+        P.POST_FILEPATH, P.POST_POSITION_NAME, IC.CAMERA_SERIAL, P.POST_READCOUNT, LIKE_TABLE.LIKE_COUNT
+	FROM POST P,
+			POST_LOCATION PC,
+				MEMBER M,
+					INFO_CAMERA IC,
+				        (SELECT po.post_seq, (select count(a.user_seq) from post_like a where a.post_seq = po.post_seq) as like_count
+				        from post po) LIKE_TABLE
+	WHERE P.USER_SEQ = M.USER_SEQ AND P.POST_SEQ = PC.POST_SEQ AND P.CAMERA_SEQ = IC.CAMERA_SEQ AND P.POST_SEQ = LIKE_TABLE.POST_SEQ
 	AND (PC.LATITUDE BETWEEN #{infoSouth} AND #{infoNorth})
 	AND (PC.LONGITUDE BETWEEN #{infoWest} AND #{infoEast})
+	<if test="sortingOption == '인기순'">
+		ORDER BY LIKE_TABLE.LIKE_COUNT DESC, P.POST_READCOUNT DESC
+     </if>
+     <if test="sortingOption == '최신순' ">
+         ORDER BY P.POST_WDATE DESC
+     </if>
 </select>
 
 

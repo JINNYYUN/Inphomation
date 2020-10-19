@@ -4,6 +4,7 @@ public class PostHashTagInfoDto {
 	private int tag_seq;
 	private String hashtag;
 	
+	
 	public PostHashTagInfoDto() {
 		
 	}

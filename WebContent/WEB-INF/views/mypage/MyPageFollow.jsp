@@ -1,3 +1,4 @@
+<%@page import="bit.com.inpho.dto.MemberDto"%>
 <%@page import="bit.com.inpho.dto.MyPageMemberDto"%>
 <%@page import="java.util.List"%>
 <%@ page language="java" contentType="text/html; charset=UTF-8"
@@ -6,7 +7,7 @@
 <%
 List<MyPageMemberDto> list = (List<MyPageMemberDto>)request.getAttribute("list");
 boolean[] follow = (boolean[])request.getAttribute("follow");
-MyPageMemberDto login = (MyPageMemberDto)request.getSession().getAttribute("login");
+MemberDto login = (MemberDto)request.getSession().getAttribute("login");
 %>
 <div class="container">
 	<%
@@ -14,19 +15,26 @@ MyPageMemberDto login = (MyPageMemberDto)request.getSession().getAttribute("logi
 	%>
 	<div class="list">
 			
-		<img src="https://storage.googleapis.com/boomkit/<%=list.get(i).getProfile_image()%>"
+		<img src="<%=list.get(i).getProfile_image()%>"
 			onclick="goMyPage(<%=list.get(i).getUser_seq()%>)">
 		
 		<span onclick="goMyPage(<%=list.get(i).getUser_seq()%>)"><%=list.get(i).getUser_nickname() %></span>
-		<%if(list.get(i).getUser_seq() != login.getUser_seq()){
-			if(follow[i]){
-			%>
-				<input type="button" class="btn modal-btn" value="Unfollow" onclick="goFollow(<%=follow[i]%>, <%=list.get(i).getUser_seq()%>)" id="f<%=list.get(i).getUser_seq()%>">
-			<%	
-			}else{
-			%>
-				<input type="button" class="btn modal-btn" value="Follow" onclick="goFollow(<%=follow[i]%>, <%=list.get(i).getUser_seq()%>)" id="f<%=list.get(i).getUser_seq()%>">
-			<%	
+		<%
+		if(login == null){
+		%>
+			<input type="button" class="btn modal-btn" value="follow" onclick="goLogin();">
+		<%	
+		}else{
+			if(list.get(i).getUser_seq() != login.getUser_seq()){
+				if(follow[i]){
+				%>
+					<input type="button" class="btn modal-btn" value="Unfollow" onclick="goFollow(<%=follow[i]%>, <%=list.get(i).getUser_seq()%>)" id="f<%=list.get(i).getUser_seq()%>">
+				<%	
+				}else{
+				%>
+					<input type="button" class="btn modal-btn" value="Follow" onclick="goFollow(<%=follow[i]%>, <%=list.get(i).getUser_seq()%>)" id="f<%=list.get(i).getUser_seq()%>">
+				<%	
+				}
 			}
 		}
 		%>

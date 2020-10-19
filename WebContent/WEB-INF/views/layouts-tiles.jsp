@@ -4,6 +4,7 @@
 <%@ taglib prefix="tiles" uri="http://tiles.apache.org/tags-tiles"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 
+
 <html>
 <head>
 <meta charset="UTF-8">
@@ -15,9 +16,9 @@
 <body>
 
 <div>
-	<div>
+<%-- 	<div>
 		<tiles:insertAttribute name="global_navigation" />
-	</div>
+	</div> --%>
 	
 	<div>	
 		<tiles:insertAttribute name="main"/>	

@@ -70,8 +70,17 @@
 		<put-attribute name="main" value="/WEB-INF/views/post/PostPage.jsp"/>	
 		<put-attribute name="footer" value="/WEB-INF/views/commons/footer.jsp"/>
 	</definition>
+	
+	<!-- chat -->
+	<definition name="goMessage.tiles" extends="mypage.tiles">
+	   <put-attribute name="main" value="/WEB-INF/views/mypage/message.jsp"/>   
+	</definition>
 
 	<definition name="naverLogin.tiles" template="/WEB-INF/views/contain.jsp">
 	   <put-attribute name="content" value="/WEB-INF/views/member/naver/login.jsp" />
+	</definition>
+	
+	<definition name="loginPage.tiles" template="/WEB-INF/views/contain.jsp"> <!-- 오로지 로그인폼만 있는 페이지로 이동 -->
+	   <put-attribute name="content" value="/WEB-INF/views/member/loginPage.jsp" />
 	</definition>
 </tiles-definitions>
