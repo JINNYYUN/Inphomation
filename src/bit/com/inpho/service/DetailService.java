@@ -20,6 +20,8 @@ public interface DetailService {
 	int countLike(DetailCountAllDto dto);
 	boolean deleteLike(DetailCountAllDto dto);
 	int countLikeAll(int post_seq);
+	List<DetailReplyDto> likeList(int post_seq);
+	
 	
 	boolean addReply(DetailReplyDto dto);
 	List<DetailReplyDto> replyList(int post_seq);

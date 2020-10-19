@@ -29,7 +29,7 @@ public class DetailController {
 	MyPageService MyService;
 	
 	
-	@RequestMapping(value = "detail.do", method = {RequestMethod.GET, RequestMethod.POST})
+	@RequestMapping(value = "detail", method = {RequestMethod.GET, RequestMethod.POST})
 	public String detail(Model model,int post_seq, DetailCountAllDto count, HttpServletRequest req) throws Exception {
 		
 		
@@ -40,8 +40,6 @@ public class DetailController {
 		
 		MyPageMemberDto user = (MyPageMemberDto)req.getSession().getAttribute("ologin");
 		
-		System.out.println("seq: " +user.getUser_seq()); 
-		
 		/* 작성자 프로필 */
 		MyPageMemberDto myPage = MyService.getProfile(post_seq);
 		
@@ -49,6 +47,11 @@ public class DetailController {
 		DetailPostDto postList = service.getPost(post_seq);
 		List<DetailPostDto> tagList = service.getHashTag(post_seq);
 		List<DetailReplyDto> reply = service.replyList(post_seq);
+		
+		/* 좋아요 리스트 가져오기 */
+		List<DetailReplyDto> likeList = service.likeList(post_seq);
+
+		
 		
 		/* date format */
 		String _date = null;
@@ -67,7 +70,6 @@ public class DetailController {
 		/* user_seq 가 0일 때	*/
 		if(user.getUser_seq() == 1) {
 			
-			System.out.println("seq == " +user.getUser_seq()); 
 			model.addAttribute("user_seq", 0);
 		
 		}else{
@@ -77,16 +79,13 @@ public class DetailController {
 			hMap.put("following", postList.getUser_seq());
 			hMap.put("follower", user.getUser_seq());
 			
-			System.out.println("post: " + postList.getUser_seq() + "user: " + user.getUser_seq());
 			
 			DetailCountAllDto dto = new DetailCountAllDto(post_seq, user.getUser_seq());
 			
-			System.out.println("post: " + dto.getPost_seq() + "user: " + dto.getUser_seq());
 			
 			boolean b = MyService.isFollowing(hMap);
 			
 			int cLike = service.countLike(dto);
-			System.out.println("cLike == " +count.getUser_seq()); 
 			int cBook = service.countBookmark(dto);
 
 			model.addAttribute("user_seq", user.getUser_seq());
@@ -97,6 +96,7 @@ public class DetailController {
 		
 
 		
+		model.addAttribute("likeList", likeList);
 		model.addAttribute("post", postList);
 		model.addAttribute("reply", reply);
 		model.addAttribute("date", date);
@@ -106,42 +106,34 @@ public class DetailController {
 		return "detail.tiles";
 	}
 
-	@RequestMapping(value = "addLikeBook.do", method = {RequestMethod.GET, RequestMethod.POST})
+	@RequestMapping(value = "addLikeBook", method = {RequestMethod.GET, RequestMethod.POST})
 	public String addLikeBook(DetailCountAllDto dto, String word, Model model, HttpServletRequest req) throws Exception {
-		System.out.println("addLikeBook:"+word);
 		MyPageMemberDto user = (MyPageMemberDto)req.getSession().getAttribute("ologin");
 		
 		if(word.equals("heart")) {
-			System.out.println("하트");
 			
 			int n = service.countLike(dto);
 			
 			if (n == 0) {
 				
-				boolean add = service.addLike(dto);
-				System.out.println(add);
+				service.addLike(dto);
 				
 			}else {
-				boolean del = service.deleteLike(dto); 
-				System.out.println("del: " + del);
+				service.deleteLike(dto); 
 			}
 			
 		}else {
-			System.out.println("저장");
 			
 			int n = service.countBookmark(dto);
-			System.out.println("countBookmark: "+n);
 			
 			model.addAttribute("count", n);
 			
 			
 			if (n == 0) {
-				boolean add = service.addBookmark(dto);
-				System.out.println(add);
+				service.addBookmark(dto);
 				
 			}else {
-				boolean del = service.deleteBookmark(dto); 
-				System.out.println("del: " + del);
+				service.deleteBookmark(dto); 
 				
 			}
 			
@@ -150,27 +142,22 @@ public class DetailController {
 		model.addAttribute("login", user);
 		model.addAttribute("post_seq", dto.getPost_seq());		
 		
-		return "redirect:detail.do";
+		return "redirect:detail";
 	}
 	
 	
 	@ResponseBody
-	@RequestMapping(value = "countLikeAll.do", method = {RequestMethod.GET, RequestMethod.POST})
+	@RequestMapping(value = "countLikeAll", method = {RequestMethod.GET, RequestMethod.POST})
 	public String countLikeAll (int post_seq) throws Exception {
 		int count = service.countLikeAll(post_seq);
-		
-		System.out.println("count: " + count);
 		
 		return count + "";
 	}
 	
 	@ResponseBody
-	@RequestMapping(value = "addReply.do", method = {RequestMethod.GET, RequestMethod.POST})
+	@RequestMapping(value = "addReply", method = {RequestMethod.GET, RequestMethod.POST})
 	public String addReply (DetailReplyDto dto, Model model) throws Exception {
-	
-		System.out.println("dto: " + dto.getPost_seq());
-		System.out.println("dto: " + dto.getUser_seq());
-				
+			
 		boolean n = service.addReply(dto);
 		
 		if(n) {
@@ -180,37 +167,21 @@ public class DetailController {
 		}
 	}
 
-	
-	@ResponseBody
-	@RequestMapping(value = "replyList.do", method = {RequestMethod.GET,RequestMethod.POST}) 
-	public List<DetailReplyDto> replyList (int post_seq, Model model) throws Exception {
-	
-	
-		List<DetailReplyDto> list = service.replyList(post_seq);
-		
-		System.out.println("list: " + list);
-		
-		return list;
-		
-	}
-	
-	@RequestMapping(value = "deleteReply.do", method = {RequestMethod.GET, RequestMethod.POST})
+	@RequestMapping(value = "deleteReply", method = {RequestMethod.GET, RequestMethod.POST})
 	public String deletReply(DetailReplyDto dto, Model model)  throws Exception{
-		System.out.println("deleteReply: " + dto.getReply_seq());
 		
 		model.addAttribute("post_seq", dto.getPost_seq());		
 		model.addAttribute("user_seq", dto.getUser_seq());		
 		
 		service.deleteReply(dto);
 	
-		return "redirect:detail.do";
+		return "redirect:detail";
 				
 	}
 	
 	@ResponseBody
-	@RequestMapping(value = "follow.do", method = {RequestMethod.GET, RequestMethod.POST})
+	@RequestMapping(value = "follow", method = {RequestMethod.GET, RequestMethod.POST})
 	public String follow(int following, String work, Model model, HttpServletRequest req) {
-		System.out.println(following + "," + work);
 		MyPageMemberDto user = (MyPageMemberDto)req.getSession().getAttribute("ologin");
 		
 		HashMap<String, Integer> map = new HashMap<String, Integer>();
@@ -223,14 +194,14 @@ public class DetailController {
 		return "YES";
 	}
 	
-	@RequestMapping(value = "deleteDetail.do", method = {RequestMethod.GET, RequestMethod.POST})
+	@RequestMapping(value = "deleteDetail", method = {RequestMethod.GET, RequestMethod.POST})
 	public String deleteDetail(int post_seq) {
-		System.out.println("deleteDetail; " + post_seq);
 		
 		service.deleteDetail(post_seq);
 		
 		return "main.tiles";
 	}
+	
 	
 }
 

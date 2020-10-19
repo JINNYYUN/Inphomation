@@ -12,14 +12,18 @@ public interface DetailDao {
 	List<DetailPostDto> getHashTag(int post_seq);
 	void deleteDetail(int post_seq);
 	
+	
 	boolean addBookmark(DetailCountAllDto dto);
 	int countBookmark(DetailCountAllDto dto);
 	boolean deleteBookmark(DetailCountAllDto dto);
+	
 	
 	boolean addLike(DetailCountAllDto dto);
 	int countLike(DetailCountAllDto dto);
 	boolean deleteLike(DetailCountAllDto dto);
 	int countLikeAll(int post_seq);
+	List<DetailReplyDto> likeList(int post_seq);
+	
 	
 	boolean addReply(DetailReplyDto dto);
 	List<DetailReplyDto> replyList(int post_seq);

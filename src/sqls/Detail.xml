@@ -70,6 +70,13 @@
 	WHERE POST_SEQ = #{post_seq}
 </select>
 
+<select id="likeList" parameterType="java.lang.Integer" resultType="bit.com.inpho.dto.DetailReplyDto">
+	SELECT M.USER_NICKNAME, M.PROFILE_IMAGE, M.USER_SEQ
+	FROM POST_LIKE PL, MEMBER M
+	WHERE PL.USER_SEQ = M.USER_SEQ
+	AND POST_SEQ = #{post_seq}
+</select>
+
 
 
 

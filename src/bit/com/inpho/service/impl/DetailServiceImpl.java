@@ -81,5 +81,10 @@ public class DetailServiceImpl implements DetailService {
 		dao.deleteDetail(post_seq);
 	}
 
+	@Override
+	public List<DetailReplyDto> likeList(int post_seq) {
+		return dao.likeList(post_seq);
+	}
+
 
 }
