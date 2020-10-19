@@ -1,3 +1,4 @@
+<%@page import="bit.com.inpho.dto.MessageUserDto"%>
 <%@page import="bit.com.inpho.dto.MemberDto"%>
 <%@page import="bit.com.inpho.dto.MyPageMemberDto"%>
 <%@ page language="java" contentType="text/html; charset=UTF-8"
@@ -13,8 +14,9 @@
 <body>
 <%
 MemberDto login = (MemberDto)request.getSession().getAttribute("login");
+MessageUserDto msgUser = (MessageUserDto)request.getSession().getAttribute("msgUser");
 %>
-	<div style="margin-top: 100px">
+	<div class="container" style="margin-top: 100px">
 		<div class="left-list" id="leftList">
 		</div>
 		<div class="right-msg" id="rightMsg">
@@ -30,28 +32,43 @@ function getUsers(){
 	$.ajax({
 		url:"getUsers",
 		type:"post",
+		async:false,
 		success:function(userlist){
 			//alert('success');
 			let content = '';
 			content += `<div class="left-users" id="leftUsers">`;
+				
+				if("${msgUser.msg_seq}" != ""){
 
+					if("${msgUser.msg_seq}" == "0"){
+						content += `<div class="user" id="tempUser" onclick="getmsg(${msgUser.user_target})">
+						<div class="profile"><div class="frame"><img src="${msgUser.profile_image}"></div></div>
+						<div>${msgUser.user_nickname}</div>
+						<div>${msgUser.msg_content}</div>
+						</div>`;
+					}
+					getmsg(${msgUser.user_target})
+				}
+				
 			$.each(userlist, function(i, user) {
+				
+				
 				if(user.isSend ==1 && user.msg_open == 0){
 					content+= '<div class="user unread" onclick="getmsg(' + user.user_target + ')" id="lastMsg' + user.user_target + '">';
 				}else{
 					content+= '<div class="user" onclick="getmsg(' + user.user_target + ')" id="lastMsg' + user.user_target + '">';
 				}
 
-				content += '<img src="' + user.profile_image + '">'
-						+ user.user_nickname + '<br>'
-						+ user.msg_content
+				content += '<div class="profile"><div class="frame"><img src="' + user.profile_image + '"></div></div>'
+						+ '<div>' + user.user_nickname + '</div>'
+						+ '<div>' + user.msg_content + '</div>'
 						+ '</div>';
 			})
 			content += `</div>`;
 
 			$("#leftUsers").remove();
 			$("#leftList").append(content);
-				
+			
 		},
 		error:function(){
 			alert('error');
@@ -198,7 +215,7 @@ function setOpen(user_target){
 
 	//페이지가 로딩되면 connect 실행
  	$(function() {
-		connect();
+		//connect();
 		getUsers();
 		// 메시지 전송 시
 		$(document).on("click", "#sendBtn", function(){
@@ -226,8 +243,11 @@ function setOpen(user_target){
 			$("#msgData").append('<div class="msg send">' + chat + '</div>')
 			//$("#lastMsg" + $("#targetSeq").val()).html(chat)
 			$("#message").val("")
-
-			getUsers();
+			//$("#tempUser").remove()
+			
+			getUsers()
+			$("#tempUser").remove()
+			
 		});
 	}); 
 

@@ -108,6 +108,17 @@ public class MessageDaoImpl implements MessageDao {
 	}
 
 	@Override
+	public boolean checkList(MessageDto msg) {
+		List<MessageDto> list = sqlSession.selectList(ns + "checkList", msg);
+		
+		boolean b = true;
+		if(list.size()==0) {
+			b = false;
+		}
+		return b;
+	}
+
+	@Override
 	public int setOpen(MessageDto msg) {
 		return sqlSession.update(ns + "setOpen", msg);
 	}
