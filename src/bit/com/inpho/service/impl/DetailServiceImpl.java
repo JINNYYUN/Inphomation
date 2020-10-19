@@ -86,5 +86,10 @@ public class DetailServiceImpl implements DetailService {
 		return dao.likeList(post_seq);
 	}
 
+	@Override
+	public List<DetailPostDto> getAllPost(int user_seq) {
+		return dao.getAllPost(user_seq);
+	}
+
 
 }

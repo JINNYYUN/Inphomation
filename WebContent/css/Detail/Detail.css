@@ -57,6 +57,27 @@
 	float: left;
 }
 
+/* 좋아요 리스트 프로필 사진 */
+td .replyImgBox {
+	width: 40px;
+	height: 40px;
+	background-image: url("배경이미지경로");
+	border-radius: 150px; /* 레이어 반크기만큼 반경을 잡기*/
+	display: table-cell;
+	vertical-align: middle;
+	color: #ffffff;
+	font-weight: bold;
+	/*     text-align: center; */
+	float: left;
+}
+
+td .replyImg {
+	width: 40px;
+	height: 40px;
+	border-radius: 50px;
+	float: left;
+}
+
 .photoBox {
 	width: 50%;
 	max-height: 100%;
@@ -69,13 +90,13 @@
 	overflow: hidden;
    	float:left;
    	position: relative;
-	width: 500px;
+	width: 600px;
 	height: 100%;
    
 }
 .likeList{
-	height: 50%;
-	width: 335px;
+	height: 29%;
+	width: 400px;
 }
 .like-table{
 	width: 290px;
@@ -85,9 +106,14 @@
 }
 .rightTbl {
 	position: relative;
-	width: 385px;
+	width: 372px;
 	max-height: 100%;
 	float: right;
+}
+.nothing{
+	margin-left: 250%;
+	width: 100%;
+	color: black;
 }
 .innerRightBox{
 	white-space: inherit;
@@ -99,7 +125,7 @@
 }
 .postPhoto {
 	position:relative;
-	width: 500px;
+	width: 600px;
 	height: 100%;
 	object-fit:contain;
 }
@@ -274,4 +300,38 @@ input:focus {
 hr{
 	margin-bottom: 1px;
 	margin-top: 1px;
+}
+.main-container {
+  position: relative;
+}
+
+.main-container .grid {
+  display: grid;
+  max-width: 1600px;
+  width: 90%;
+  min-width: 770px;
+  margin: 0px auto;
+  min-height: 400px;
+  grid-template-columns: repeat(auto-fill, minmax(250px, 1fr));
+  grid-auto-rows: 20px;
+  grid-gap: 5px;
+}
+
+.main-container .grid .item {
+  width: 100%;
+  overflow: hidden;
+  position: relative;
+}
+
+.main-container .grid .item>img {
+  width: 100%;
+  position: absolute;
+  left: 50%;
+  top: 50%;
+  transform: translate(-50%, -50%);
+  z-index: 1;
+}
+
+.main-container .grid .item>img:hover {
+  opacity: 0.8;
 }

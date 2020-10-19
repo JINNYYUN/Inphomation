@@ -13,6 +13,15 @@
 	AND P.POST_SEQ = #{post_seq}
 </select>
 
+<select id="getAllPost" parameterType="java.lang.Integer" resultType="bit.com.inpho.dto.DetailPostDto">
+	SELECT P.POST_SEQ, P.USER_SEQ, P.POST_FILEPATH, IC.CAMERA_SERIAL
+	FROM POST P, INFO_CAMERA IC
+	WHERE P.CAMERA_SEQ = IC.CAMERA_SEQ
+	AND P.CAMERA_SEQ = #{post_seq}
+</select>
+
+
+
 <select id="getHashTag" parameterType="java.lang.Integer" resultType="bit.com.inpho.dto.DetailPostDto">
 	SELECT IH.TAG_SEQ, IH.HASHTAG, PH.POST_SEQ 
 	FROM INFO_HASHTAG IH, POST_HASHTAG PH

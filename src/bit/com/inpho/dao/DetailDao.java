@@ -11,7 +11,7 @@ public interface DetailDao {
 	DetailPostDto getPost(int post_seq);
 	List<DetailPostDto> getHashTag(int post_seq);
 	void deleteDetail(int post_seq);
-	
+	List<DetailPostDto> getAllPost(int user_seq);
 	
 	boolean addBookmark(DetailCountAllDto dto);
 	int countBookmark(DetailCountAllDto dto);

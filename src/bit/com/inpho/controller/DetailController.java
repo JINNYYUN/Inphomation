@@ -15,6 +15,7 @@ import org.springframework.web.bind.annotation.ResponseBody;
 import bit.com.inpho.dto.DetailCountAllDto;
 import bit.com.inpho.dto.DetailPostDto;
 import bit.com.inpho.dto.DetailReplyDto;
+import bit.com.inpho.dto.MemberDto;
 import bit.com.inpho.dto.MyPageMemberDto;
 import bit.com.inpho.service.DetailService;
 import bit.com.inpho.service.MyPageService;
@@ -41,7 +42,7 @@ public class DetailController {
 		MyPageMemberDto user = (MyPageMemberDto)req.getSession().getAttribute("ologin");
 		
 		/* 작성자 프로필 */
-		MyPageMemberDto myPage = MyService.getProfile(post_seq);
+		MyPageMemberDto myPage = MyService.getProfile(user.getUser_seq());
 		
 		/* 디테일 세부 내용 불러오기 */
 		DetailPostDto postList = service.getPost(post_seq);
@@ -51,7 +52,8 @@ public class DetailController {
 		/* 좋아요 리스트 가져오기 */
 		List<DetailReplyDto> likeList = service.likeList(post_seq);
 
-		
+		/* 작성자 글 가져오기 */
+		List<DetailPostDto> getAllPost = service.getAllPost(post_seq);
 		
 		/* date format */
 		String _date = null;
@@ -79,11 +81,10 @@ public class DetailController {
 			hMap.put("following", postList.getUser_seq());
 			hMap.put("follower", user.getUser_seq());
 			
-			
+
 			DetailCountAllDto dto = new DetailCountAllDto(post_seq, user.getUser_seq());
 			
-			
-			boolean b = MyService.isFollowing(hMap);
+			boolean follow = MyService.isFollowing(hMap);
 			
 			int cLike = service.countLike(dto);
 			int cBook = service.countBookmark(dto);
@@ -91,11 +92,12 @@ public class DetailController {
 			model.addAttribute("user_seq", user.getUser_seq());
 			model.addAttribute("cLike", cLike);
 			model.addAttribute("cBook", cBook);
-			model.addAttribute("follow", b);
+			model.addAttribute("follow", follow);
 		}
 		
 
 		
+		model.addAttribute("postList", getAllPost);
 		model.addAttribute("likeList", likeList);
 		model.addAttribute("post", postList);
 		model.addAttribute("reply", reply);
