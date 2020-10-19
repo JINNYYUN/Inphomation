@@ -39,13 +39,13 @@ public class DetailController {
 		
 		MemberDto user = (MemberDto)req.getSession().getAttribute("login");
 		
-		/* 작성자 프로필 */
-		MyPageMemberDto myPage = MyService.getProfile(post_seq);
-		
 		/* 디테일 세부 내용 불러오기 */
 		DetailPostDto postList = service.getPost(post_seq);
 		List<DetailPostDto> tagList = service.getHashTag(post_seq);
 		List<DetailReplyDto> reply = service.replyList(post_seq);
+		
+		/* 작성자 프로필 */
+		MyPageMemberDto myPage = MyService.getProfile(postList.getUser_seq());
 		
 		/* 좋아요 리스트 가져오기 */
 		List<DetailReplyDto> likeList = service.likeList(post_seq);
