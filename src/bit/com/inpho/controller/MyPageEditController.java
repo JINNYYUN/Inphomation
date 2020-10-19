@@ -41,15 +41,17 @@ public class MyPageEditController {
 	
 	// 프로필 수정 페이지 이동
 	@RequestMapping(value = "mypageedit", method = RequestMethod.GET)
-	public String mypageedit( Model model, int user_seq ) {
+	public String mypageedit( Model model, HttpServletRequest req ) {
 		Map<String, Object> map = new HashMap<String, Object>();
 
+		MemberDto login = (MemberDto)req.getSession().getAttribute("login");
+		
 		// 회원정보 가져오기 (user_seq)
-		MyPageMemberDto mem = service.getProfile(user_seq);		
+		MyPageMemberDto mem = service.getProfile(login.getUser_seq());		
 		map.put("mem", mem);
 		
 		// 카메라 정보 가져오기
-		List<MyPageCameraDto> camList = service.getCamera(user_seq);
+		List<MyPageCameraDto> camList = service.getCamera(login.getUser_seq());
 		map.put("camlist", camList);
 		
 		model.addAttribute("map", map);
@@ -211,9 +213,10 @@ public class MyPageEditController {
 
 	//정보수정 페이지 이동
 	@RequestMapping(value = "editMem", method = RequestMethod.GET)
-	public String editMem(int user_seq, Model model) {
+	public String editMem(Model model, HttpServletRequest req) {
 		
-		MyPageMemberDto mem = service.getProfile(user_seq);
+		MemberDto mem = (MemberDto)req.getSession().getAttribute("login");
+		
 		model.addAttribute("mem", mem);
 		
 		return "MyPageEditMem.tiles";

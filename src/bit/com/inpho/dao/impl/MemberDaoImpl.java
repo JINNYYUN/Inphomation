@@ -46,6 +46,28 @@ public class MemberDaoImpl implements MemberDao{
 		return sql.insert(ns+"registerNoImageMember",member);
 	}
 
-	
+	@Override
+	public int registerAuthKey(MemberDto member) {
+		//인증키넣는 부분
+		System.out.println("authKey : "+member.toString());
+		return sql.insert(ns+"registerAuthKey",member);
+	}
+
+	@Override
+	public MemberDto selectAuthKey(String authKey) {
+		return sql.selectOne(ns+"searchAuthKey",authKey);
+	}
+
+	public int deleteAuthKey(String authKey) {
+		return sql.delete(ns+"authKey", authKey);
+	}
+	public MemberDto doAuthLogin(MemberDto member) {
+		return sql.selectOne(ns+"userAuthLogin", member);
+	}
+
+	@Override
+	public MemberDto authKeyLogin(MemberDto reqAuthMember) {
+		return sql.selectOne(ns+"userAuthLogin", reqAuthMember);
+	}
 
 }

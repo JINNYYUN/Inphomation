@@ -7,7 +7,7 @@
   
 <insert id="sendMsg" parameterType="bit.com.inpho.dto.MessageDto">
 	INSERT INTO MESSAGE
-	VALUES( SEQ_MSG.NEXTVAL, #{user_sender}, #{user_target}, #{msg_content}, SYSDATE, NULL )
+	VALUES( SEQ_MSG.NEXTVAL, #{user_sender}, #{user_target}, #{msg_content}, SYSDATE, 0 )
 </insert> 
   
 <select id="getLastMsg" parameterType="bit.com.inpho.dto.MessageDto" resultType="bit.com.inpho.dto.MessageDto">
@@ -17,7 +17,7 @@
  		WHERE (USER_SENDER = #{user_sender} AND USER_TARGET = #{user_target}) 
  		OR (USER_SENDER = #{user_target} AND USER_TARGET = #{user_sender})
  		ORDER BY MSG_SEQ DESC )A
-	WHERE ROWNUM = 1;
+	WHERE ROWNUM = 1
 </select>
   
 <select id="getMsg" parameterType="bit.com.inpho.dto.MessageDto" resultType="bit.com.inpho.dto.MessageDto">
@@ -27,7 +27,40 @@
   	ORDER BY MSG_SEQ
 </select>
 
+<select id="getListOne" parameterType="java.lang.Integer" resultType="java.lang.Integer">
+	SELECT USER_TARGET FROM 
+		(
+		SELECT DISTINCT USER_SENDER, USER_TARGET FROM MESSAGE
+		WHERE USER_SENDER = #{user_seq} OR USER_TARGET = #{user_seq})A
+	WHERE USER_SENDER = #{user_seq}
+</select>
 
-  
-  
+<select id="getListTwo" parameterType="java.lang.Integer" resultType="java.lang.Integer">
+	SELECT USER_SENDER FROM 
+		(
+		SELECT DISTINCT USER_SENDER, USER_TARGET FROM MESSAGE
+		WHERE USER_SENDER = #{user_seq} OR USER_TARGET = #{user_seq})A
+	WHERE USER_TARGET = #{user_seq}
+</select>
+
+<select id="getUserListTarget" parameterType="bit.com.inpho.dto.MessageDto" resultType="bit.com.inpho.dto.MessageUserDto">
+	SELECT A.MSG_SEQ, A.USER_SENDER, A.USER_TARGET, A.MSG_CONTENT, A.MSG_SEND, A.MSG_OPEN,
+			B.USER_NICKNAME, B.PROFILE_IMAGE
+	FROM MESSAGE A, MEMBER B 
+	WHERE A.USER_TARGET = B.USER_SEQ AND A.MSG_SEQ = #{msg_seq}
+</select>
+
+<select id="getUserListSend" parameterType="bit.com.inpho.dto.MessageDto" resultType="bit.com.inpho.dto.MessageUserDto">
+	SELECT A.MSG_SEQ, A.USER_SENDER, A.USER_TARGET, A.MSG_CONTENT, A.MSG_SEND, A.MSG_OPEN,
+			B.USER_NICKNAME, B.PROFILE_IMAGE
+	FROM MESSAGE A, MEMBER B 
+	WHERE A.USER_SENDER = B.USER_SEQ AND A.MSG_SEQ = #{msg_seq}
+</select>
+
+<update id="setOpen" parameterType="bit.com.inpho.dto.MessageDto">
+	UPDATE MESSAGE
+	SET MSG_OPEN = 1
+	WHERE USER_SENDER = #{user_sender} AND USER_TARGET = #{user_target} AND MSG_OPEN = 0
+</update>
+
 </mapper>

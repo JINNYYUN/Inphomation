@@ -21,12 +21,15 @@ function ajaxLogin(id,pw){
 			user_password:pw
 		},
 		success:function(result){
-			if(result){
+			console.log(result)
+			if(result=='success'){
 				//로그인성공
 				window.location.reload()
-			}else{
+			}else if(result=='fail'){
 				//실패알람 html에 실패알람 넣기
 				console.log('fail')
+			}else{
+				location.href='http://'+location.host+'/Inphomation/noHaveAuth'
 			}
 		},
 		error:function(){
