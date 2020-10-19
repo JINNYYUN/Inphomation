@@ -21,8 +21,6 @@ public class EchoHandler extends TextWebSocketHandler{
 	private Map<String, Object> userMap;
 	
 	public EchoHandler() {
-		System.out.println("EchoHandler EchoHandler()~~~~~~~~~~~~~~~~~~~~~~");
-		
 		users= new ArrayList<WebSocketSession>();
 		userMap = new HashMap<String,Object>();
 	}
