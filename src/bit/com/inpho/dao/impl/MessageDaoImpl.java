@@ -111,8 +111,19 @@ public class MessageDaoImpl implements MessageDao {
 	public int setOpen(MessageDto msg) {
 		return sqlSession.update(ns + "setOpen", msg);
 	}
-	
-	
-	
+
+	@Override
+	public boolean getUnread(int user_seq) {
+		
+		List<MessageDto> list = sqlSession.selectList(ns + "getUnread", user_seq);
+		
+		boolean b = true;
+		if(list.size()==0) {
+			b = false;
+		}
+		return b;
+	}
+
+
 	
 }

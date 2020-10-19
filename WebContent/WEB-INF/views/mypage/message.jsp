@@ -152,7 +152,9 @@ function setOpen(user_target){
 	
 	// 메시지 수신
 	function addMsg(msg) { //원래 채팅 메시지에 방금 받은 메시지 더해서 설정하기
-
+		// 알림 표시
+		$('.fa-circle').css('display','inline');
+		
 		// 유저리스트 새로고침
 		getUsers()
 

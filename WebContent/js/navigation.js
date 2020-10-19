@@ -12,7 +12,6 @@ function goFollow(){
 	location.href='http://'+location.host+"/Inphomation/main#"
 }
 
-
 /* 검색function */
 function searchKeyword(){
 	//1.get으로 보내기
@@ -67,6 +66,7 @@ function searchKeyword(){
 	}
 	
 	function addMsg(data){
+		$('.fa-circle').css('display','inline');
 	}
 
 

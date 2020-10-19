@@ -35,6 +35,11 @@ public class MessageServiceImpl implements MessageService{
 	public int setOpen(MessageDto msg) {
 		return dao.setOpen(msg);
 	}
+
+	@Override
+	public boolean getUnread(int user_seq) {
+		return dao.getUnread(user_seq);
+	}
 	
 	
 	

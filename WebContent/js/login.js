@@ -1,6 +1,7 @@
 //로그인을 했을때만 실행함
 //웹소켓 연결
 connect()
+checkMsg()
 
 /*글쓰기로 이동 인자값 노필요	*/
 	function goWrite(){
@@ -32,3 +33,23 @@ connect()
 		})
 	
 	}
+/* 안읽은 메시지 확인 */
+function checkMsg(){
+	$.ajax({
+		url:"getUnread",
+		type:"post",
+		success:function(hasMsg){
+			if(hasMsg){
+				$('.fa-circle').css('display','inline');
+			}
+		},
+		error:function(){
+			alert('error');
+		}
+	});
+}	
+	
+/* 메시지 페이지로 이동*/
+function goMsg(){
+	location.href="goMessage"
+}
