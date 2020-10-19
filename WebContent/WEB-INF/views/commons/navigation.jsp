@@ -39,6 +39,8 @@ pageEncoding="UTF-8"%>
       <!-- admin login -->
       <div class="loginMode">
 	      <h1>
+	      	<a href="goMessage"><i class="far fa-envelope"></i></a>
+	      	<i class="fas fa-circle"></i>
 	        <i class="fas fa-pencil-alt text" onclick="goWrite();"></i>
 	        <i class="fas fa-user text" id="drop-btn"></i><!-- 이미지로 나중에 변경할 예정 -->
 	      </h1>
@@ -52,6 +54,7 @@ pageEncoding="UTF-8"%>
 	      		<li class="body1"><a href="<%=request.getContextPath() %>/mypageedit">개인정보수정</a></li>
 	      		<li class="body1"><a href="javascript:doLogout();">로그아웃</a></li>	
 	      	</ul>
+	      	<input type="hidden" value="<%=member.getUser_email()%>" id="userEmail">
 	      </div>      
       </div>
 	<%} %>
