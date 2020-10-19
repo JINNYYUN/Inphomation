@@ -30,6 +30,10 @@
      </if>
 </select>
 
-
+<select id="getPostLocation" parameterType="java.lang.Integer" resultType="bit.com.inpho.dto.LocationDTO">
+	SELECT PL.LATITUDE, PL.LONGITUDE, P.POST_POSITION_NAME
+	FROM POST P, POST_LOCATION PL
+	WHERE P.POST_SEQ = PL.POST_SEQ AND P.POST_SEQ = #{POST_SEQ}
+</select>
 </mapper>
   

@@ -1,0 +1,24 @@
+@charset "UTF-8";
+
+.detailMap-root{
+	width : 100%;
+	height: 100vh;
+}
+
+.detailMap-container{
+	display: flex;
+    min-width: 1280px;
+    margin-top : 50px;
+    height: 100vh;
+    position: relative;
+}
+
+.map{
+	position: relative;
+	width : 100%;
+	height:100vh;
+}
+	
+.detailMap-container{
+	
+}

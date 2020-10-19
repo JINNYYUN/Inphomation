@@ -19,15 +19,21 @@ public class MapServiceImpl implements MapService {
 
 	@Override
 	public List<LocationDTO> getMapLocation() {
-		// TODO Auto-generated method stub
+		
 		return mapDao.getMapLocation();
+		
 	}
 
 	@Override
 	public List<MapDetailDTO> getMapInfo(MapInfoDTO mapInfoDTO) {
 		System.out.println("MapServiceImpl getMapInfo");
 		
-		// TODO Auto-generated method stub
 		return mapDao.getMapInfo(mapInfoDTO);
+	}
+
+	@Override
+	public LocationDTO getPostLocation(int post_seq) {
+		// TODO Auto-generated method stub
+		return mapDao.getPostLocation(post_seq);
 	}
 }

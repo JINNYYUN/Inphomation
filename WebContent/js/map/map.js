@@ -1,64 +1,5 @@
-<%@ page language="java" contentType="text/html; charset=UTF-8"
-    pageEncoding="UTF-8"%>
-<!DOCTYPE html>
-<html>
-<head>
-<meta charset="UTF-8">
-<title>인포메이션 : 지도로 보기</title>
-
-<link rel="stylesheet" href="${pageContext.request.contextPath}/css/default.css">
-<link rel="stylesheet" href="${pageContext.request.contextPath}/css/bootstrap.css">
-
-<script src="https://kit.fontawesome.com/6ac784f4b9.js" crossorigin="anonymous"></script>
-<link rel="stylesheet" type="text/css" href="${pageContext.request.contextPath}/css/map/map.css">
-</head>
-
-<body>
-	<div class="root">
-		<div class="map-container">
-			<div class="map-info-wrapper">
-				<nav class="map-info-nav">
-					<input placeholder="신논현역" autocomplete="off" type="text" name="keyword" class="map-search" id="map-search-input">
-					<svg width="30" height="30" viewBox="0 0 18 18" class="map-search-icon" id="map-search-icon">
-						<g fill="none" fill-rule="evenodd" stroke="#222">
-							<circle cx="7.5" cy="7.5" r="6.5"></circle>
-							<path d="M12 12l5 5"></path>
-						</g>
-					</svg>
-				</nav>
-				<div class="map-card-wrapper">
-					<div class = "map-result-wrapper" id="map-result-wrapper">
-						<div id = "map-result-message"></div>
-						<div class="dropdown">
-	                        <div class="map-sorting-wrap" data-toggle="dropdown">
-	                            <div id="map-sorting" class="text text-color-gray200 map-sorting">인기순</div>
-	                            <i for="map-sorting" class="fas fa-caret-down map-sorting-button"></i>
-	                        </div>
-	                        <ul class="dropdown-menu dropdown-menu-right map-dropdown-menu" aria-labelledby="dropdownMenuButton">
-	                            <li class="dropdown-item map-sorting-list">인기순</li>
-	                            <li class="dropdown-item map-sorting-list">최신순</li>
-	                        </ul>
-	                    </div>
-					</div>
-					
-				</div>
-			</div>
-			<div id="map" class="map"></div>
-		</div>
-	</div>
-
-	<script src="https://code.jquery.com/jquery-3.5.1.slim.min.js" integrity="sha384-DfXdz2htPH0lsSSs5nCTpuj/zy4C+OGpamoFVy38MVBnE+IbbVYUew+OrCXaRkfj" crossorigin="anonymous"></script>
-	<script src="https://cdn.jsdelivr.net/npm/popper.js@1.16.1/dist/umd/popper.min.js" integrity="sha384-9/reFTGAW83EW2RDu2S0VKaIzap3H66lZH81PoYlFhbGU+6BZp6G7niu735Sk7lN" crossorigin="anonymous"></script>
-	<script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js" integrity="sha384-B4gt1jrGC7Jh4AgTPSdUtOBvfO8shuf57BaghqFfPlYxofvL8/KUEfYiJOMMV+rV" crossorigin="anonymous"></script>
 		
-	<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
 		
-	<!-- kakao map -->
-	<script type="text/javascript" src="//dapi.kakao.com/v2/maps/sdk.js?appkey=d4c98224a9eaf1ce4016decd3afe2f45&libraries=clusterer,services"></script>
-	
-	
-	<!-- 지도 불러오기 -->
-	<script>
 		var container = document.getElementById('map'); // 지도를 표시할 div 
 		var options = {
 			center: new kakao.maps.LatLng(37.504801,127.025369), // 지도의 중심좌표
@@ -103,38 +44,24 @@
 		// 지도가 이동, 확대, 축소로 인해 지도영역이 변경되면 이벤트 발생 
 	    kakao.maps.event.addListener(map, 'tilesloaded', function() {
 	        // 지도 영역정보를 얻어옵니다 
-	        var mapInfo = map.getBounds();
+	        var bounds = map.getBounds();
 	    	
-	        //정렬 순서의 정보를 가져온다
-	        let sortingOption = $("#map-sorting").text();
-	        	
-	        //console.log(bounds);
-	        getMapInfo(mapInfo, sortingOption);
+	        console.log(bounds);
+	        
+	        getMapInfo(bounds);
 	    });
-		
-	    /* 정도 가져오기 셀렉트 박스 옵션 선택 */
-		$(".map-sorting-list").on("click", function () {
-		  	let sortingOption = $(this).html();
-		    console.log("셀렉트 바 확인 : " + sortingOption);
-		    $("#map-sorting").html(sortingOption);
-		    $("#consultation-state-ul").toggle();
-		    
-			 // 지도 영역정보를 얻어옵니다 
-	        var mapInfo = map.getBounds();
-		    getMapInfo(mapInfo, sortingOption);
-		})
 
 		 /*
 			현재 지도에 보여지고 있는 위치에 대한 사진 정보를 가져온다.
 		 */
-		 function getMapInfo(bounds, sortingOption) {
+		 function getMapInfo(bounds) {
 						 
 			 $.ajax({
 					url:"getMapInfo",
 					type:"post",
 					async : false,
-					/*contentType: 'application/json',*/
-					data : { "mapInfo" : bounds.toString(), "sortingOption" : sortingOption},
+					/* contentType: 'application/json', */
+					data : { "mapInfo" : bounds.toString()},
 					success:function( data ){
 						
 						$(".map-card-box").remove();
@@ -153,7 +80,7 @@
 													<img class="map-info-image" src="https://storage.googleapis.com/boomkit/${'${val.post_filepath}'}"}/>
 												</div>
 												<div class="map-card-content-wrapper">
-													<span class="badge badge-neutral map-camera-info">${'${val.camera_serial}'}</span>
+													<span class="badge badge-neutral">${'${val.camera_serial}'}</span>
 													<h4 class="text text-color-gray100 text-weight-medium">${'${val.post_position_name}'}</h4>
 													<p class="text">${'${val.post_content}'}</p>
 												</div>
@@ -246,6 +173,3 @@
 			     } 
 			 }
 		}
-	</script>
-</body>
-</html>

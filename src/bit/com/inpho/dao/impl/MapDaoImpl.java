@@ -33,7 +33,13 @@ public class MapDaoImpl implements MapDao {
 		System.out.println("mapInfoDTO의 getInfoSouth : " + mapInfoDTO.getInfoSouth());
 		System.out.println("mapInfoDTO의 getInfoWest  : " + mapInfoDTO.getInfoWest());
 		*/
-		// TODO Auto-generated method stub
+		
 		return sqlSession.selectList(ns + "getMapInfo", mapInfoDTO);
+	}
+
+	@Override
+	public LocationDTO getPostLocation(int post_seq) {
+
+		return sqlSession.selectOne(ns + "getPostLocation", post_seq);
 	}
 }

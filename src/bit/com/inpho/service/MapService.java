@@ -11,4 +11,6 @@ public interface MapService {
 	List<LocationDTO> getMapLocation();
 	
 	List<MapDetailDTO> getMapInfo(MapInfoDTO mapInfoDTO);
+	
+	LocationDTO getPostLocation(int post_seq);
 }

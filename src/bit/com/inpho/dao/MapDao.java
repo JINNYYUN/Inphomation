@@ -12,4 +12,6 @@ public interface MapDao {
 	List<LocationDTO> getMapLocation();
 	
 	List<MapDetailDTO> getMapInfo(MapInfoDTO mapInfoDTO);
+	
+	LocationDTO getPostLocation(int post_seq);
 }

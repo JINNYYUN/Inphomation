@@ -4,8 +4,10 @@ import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
+import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 
 import bit.com.inpho.dto.LocationDTO;
@@ -84,10 +86,13 @@ public class MapController {
 	 * @return
 	 */
 	@RequestMapping(value = "detail/map", method = RequestMethod.GET)
-	public String showDetailMap() {
+	public String showDetailMap(Model model, int post_seq) {
 		System.out.println("MapController showDetailMap()");
 		
+		LocationDTO locationInfo = mapService.getPostLocation(post_seq);
 		
+		System.out.println(locationInfo.toString());
+		model.addAttribute("postLocationInfo", locationInfo);
 		
 		return "detailMap.tiles";
 	}
