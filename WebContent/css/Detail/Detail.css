@@ -2,8 +2,8 @@
 
 .frm {
 	position: relative;
-	width: 850px;
-	height: 50%;
+	width: 1000px;
+	height: 70%;
 	margin-top: auto; 
 	box-shadow: 2px 2px 2px 2px #E6E6E6;
 }
@@ -11,9 +11,9 @@
 .all {
 	position: relative;
 	padding-top: 100px;
-	margin-top: 0px;
+	margin-top: 15px;
 	background-color: #ffffff;
-    margin-left: 25%;
+    margin-left: 23%;
 }
 
 .proflBox {
@@ -57,6 +57,27 @@
 	float: left;
 }
 
+/* 좋아요 리스트 프로필 사진 */
+td .replyImgBox {
+	width: 40px;
+	height: 40px;
+	background-image: url("배경이미지경로");
+	border-radius: 150px; /* 레이어 반크기만큼 반경을 잡기*/
+	display: table-cell;
+	vertical-align: middle;
+	color: #ffffff;
+	font-weight: bold;
+	/*     text-align: center; */
+	float: left;
+}
+
+td .replyImg {
+	width: 40px;
+	height: 40px;
+	border-radius: 50px;
+	float: left;
+}
+
 .photoBox {
 	width: 50%;
 	max-height: 100%;
@@ -69,26 +90,42 @@
 	overflow: hidden;
    	float:left;
    	position: relative;
-	width: 500px;
+	width: 600px;
 	height: 100%;
    
 }
-
+.likeList{
+	height: 29%;
+	width: 400px;
+}
+.like-table{
+	width: 290px;
+}
+.modalLike{
+	margin-top: 5px;
+}
 .rightTbl {
 	position: relative;
-	width: 350px;
-	max-height: 1px;
+	width: 372px;
+	max-height: 100%;
 	float: right;
+}
+.nothing{
+	margin-left: 250%;
+	width: 100%;
+	color: black;
 }
 .innerRightBox{
 	white-space: inherit;
+	max-height: 100%;
+    height: 600px;
 }
 .nickLoca{
 	margin-left: 20%; 
 }
 .postPhoto {
 	position:relative;
-	width: 500px;
+	width: 600px;
 	height: 100%;
 	object-fit:contain;
 }
@@ -101,17 +138,16 @@
 .tableProfile {
 	/* margin-left: 5%; */
     position: relative;
-    height: 14%;
+    height: 11%;
     margin-top: 8%;
 }
 
 .content {
 	max-height: 100%;
-	/* margin-left: 5%; */
 }
 .contHash{
 	margin-top: 10px;
-    margin-right: 10px;
+    margin-right: 52px;
     margin-left: 10px;
 }
 .modalMenu {
@@ -119,25 +155,34 @@
     margin-bottom: -20px;
     margin-top: 7px;
 }
-
+.likeModal{
+	margin-left: 24px;
+}
 .replyTbl {
 	width: 100px;
 }
 
-.followBtn {
+.followBtn,
+.unfollowBtn {
 	float: right;
 	margin-right: 5%;
-}
-
-.followBtn {
-	color: #fff;
-	background-color: #F25C05;
 	border-color: #F25C05;
 	padding: 3px;
 	size: 10pt;
 	font-family: "Noto Sans KR", sans-serif;
 }
 
+.followBtn {
+	background-color: #F25C05;
+	color: #fff;
+}
+.unfollowBtn{
+	background-color: #FFFFFF;
+	color: #F25C05;
+}
+.camera{
+	height: 60px;
+}
 .comment {
 	width: 270px;
     border: none;
@@ -146,7 +191,7 @@
     word-wrap:normal;
     word-break:break-all;
     resize: none;
-    height: 45px;
+    height: 28px;
     font-family: "Noto Sans KR", sans-serif;
 }
 .btn-reply{
@@ -163,17 +208,22 @@
 .cmtCls {
 	margin-left: 5px;
 	padding-right: 20px;
+    overflow: auto; 
+    height: 365px; 
+    width: 100%;
 }
 
+.likeList::-webkit-scrollbar,
 .cmtCls::-webkit-scrollbar {
 	width: 0px;
 }
-
+.likeList::-webkit-scrollbar-thumb,
 .cmtCls::-webkit-scrollbar-thumb {
 	background-color: #401E01;
 	border-radius: 10px;
 }
 
+.likeList::-webkit-scrollbar-track,
 .cmtCls::-webkit-scrollbar-track {
 	background-color: #F2F2F2;
 	border-radius: 10px;
@@ -184,23 +234,28 @@
 	border-color: black;
 	color: red;
 	float: left;
+	margin-left: 5px;
+	margin-right: 8px;
 }
 
 .fa-bookmark {
 	border-color: black;
 	color: black;
 	float: right;
-	margin-right: 15px;
+	margin-right: 30px;
 }
 .fa-bookmark,
 .fa-heart{
+	font-size: 21px;
 	margin-top: 5px;
 }
 .fa-arrow-alt-circle-left {
 	color: black;
 	size: auto;
 }
-
+.heartBook{
+	margin-top: 5px;
+}
 .close-modal {
 	visibility: hidden;
 }
@@ -214,7 +269,7 @@ a:hover {
 }
 
 .cmtTbl{
-	margin-top: 5px;
+	margin-top: 25px;
 }
 .reply{
 	margin-top: 5px;
@@ -245,4 +300,38 @@ input:focus {
 hr{
 	margin-bottom: 1px;
 	margin-top: 1px;
+}
+.main-container {
+  position: relative;
+}
+
+.main-container .grid {
+  display: grid;
+  max-width: 1600px;
+  width: 90%;
+  min-width: 770px;
+  margin: 0px auto;
+  min-height: 400px;
+  grid-template-columns: repeat(auto-fill, minmax(250px, 1fr));
+  grid-auto-rows: 20px;
+  grid-gap: 5px;
+}
+
+.main-container .grid .item {
+  width: 100%;
+  overflow: hidden;
+  position: relative;
+}
+
+.main-container .grid .item>img {
+  width: 100%;
+  position: absolute;
+  left: 50%;
+  top: 50%;
+  transform: translate(-50%, -50%);
+  z-index: 1;
+}
+
+.main-container .grid .item>img:hover {
+  opacity: 0.8;
 }
