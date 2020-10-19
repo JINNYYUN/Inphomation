@@ -14,7 +14,7 @@
 <a href="map">지도페이지 이동</a><br>
 <a href="mypage?user_seq=1"><button>mypage</button></a>
 <a href="main">메인페이지로</a><br>
-<a href="post">글쓰기페이지</a>
+<a href="post?user_seq=1">글쓰기페이지</a>
 <i class="fas fa-star"></i>
 <a href="goMessage">채팅</a>
 </body>
