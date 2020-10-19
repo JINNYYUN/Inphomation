@@ -34,12 +34,13 @@ function test() {
 */
 $(window).scroll(function (e) {
 	var window = $(this).scrollTop()
+	/*
 	if (300 >= window) {
 		$('.navbar').css('display', 'none')
 	}else {
 		$('.navbar').css('display', 'block')
 	}
-	
+	*/
 	//우측 하단의 상단방향 화살표가 400px이상 내려가면 화살표가 보이고 이하로 내려가면 안보이게 하는 역할 
 	if(400 >= window){
 		$('#screen-up').css('display','none')

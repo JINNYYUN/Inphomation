@@ -15,5 +15,10 @@ public interface MemberDao {
 	//소셜 회원가입
 	public int regeisterSocialMember(MemberDto member);
 	public int regeisterNoImageSocialMember(MemberDto member);
+	public int registerAuthKey(MemberDto member);
+	public MemberDto selectAuthKey(String authKey);
+	public int deleteAuthKey(String authKey);
+	public MemberDto doAuthLogin(MemberDto member);
+	public MemberDto authKeyLogin(MemberDto reqAuthMember);
 	
 }
