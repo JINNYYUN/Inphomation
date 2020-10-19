@@ -20,5 +20,5 @@ public interface MemberDao {
 	public int deleteAuthKey(String authKey);
 	public MemberDto doAuthLogin(MemberDto member);
 	public MemberDto authKeyLogin(MemberDto reqAuthMember);
-	
+	public int activeId(MemberDto member);
 }
