@@ -4,8 +4,6 @@ import javax.servlet.http.HttpSession;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
-import org.springframework.web.bind.annotation.ResponseBody;
-
 import bit.com.inpho.dao.MemberDao;
 import bit.com.inpho.dto.MemberDto;
 import bit.com.inpho.service.MemberService;
@@ -24,7 +22,7 @@ public class MemberServiceImpl implements MemberService{
 	@Override
 	public String doLogin(MemberDto member,HttpSession session) {
 		MemberDto result = memberDao.doLogin(member);
-		System.out.println(result.toString());
+		
 		session.setMaxInactiveInterval(24*3600);
 		if(result!=null) {
 			//로그인 성공시에 loginFail 세션은 전부다 초기화가 된다
@@ -93,6 +91,7 @@ public class MemberServiceImpl implements MemberService{
 		MemberDto reqAuthMember = memberDao.selectAuthKey(member.getAuthKey());
 		if(reqAuthMember!=null) {
 			memberDao.deleteAuthKey(member.getAuthKey());
+			memberDao.activeId(reqAuthMember);
 			reqAuthMember = memberDao.authKeyLogin(reqAuthMember);
 			System.out.println(reqAuthMember.toString());
 			session.setMaxInactiveInterval(24*3600);

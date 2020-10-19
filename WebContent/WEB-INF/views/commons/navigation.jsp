@@ -25,7 +25,7 @@ pageEncoding="UTF-8"%>
         <i class="fas fa-search text" onclick="searchKeyword();"></i>
       </div>
     </div>
-
+	<div id="modal-container"></div>
     <div class="user-content">
       <!-- Guest -->
      <%if(member==null){%>
@@ -33,7 +33,6 @@ pageEncoding="UTF-8"%>
         <h1>
           <i class="fas fa-sign-in-alt text" onclick="goLogin();"></i>
         </h1>
-        <div id="modal-container"></div>
       </div>
       <%}else if(member!=null && member.getAuth()==0){ %>
       <!-- user login -->
