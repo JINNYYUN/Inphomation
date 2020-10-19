@@ -16,9 +16,15 @@
 <body>
 
 <div>
+
  	<div>
 		<tiles:insertAttribute name="global_navigation" />
 	</div> 
+
+	<div>
+		<tiles:insertAttribute name="global_navigation" />
+	</div>
+
 	
 	<div>	
 		<tiles:insertAttribute name="main"/>	

@@ -1,0 +1,30 @@
+@charset "UTF-8";
+.left-list{
+	float: left;
+    width: 400px;
+    height: 500px;
+}
+.right-msg{
+	height: 500px;
+    border: 1px solid black;
+    width: 700px;
+    float: left;
+}
+img{
+	width: 70px;
+}
+.msgData{
+	margin: 30px;
+	overflow: auto;
+	height: 380px;
+}
+.msg{
+	background-color: lightgrey;
+	
+}
+.msg.send{
+	text-align: right;
+}
+.user.unread{
+	color: red;
+}

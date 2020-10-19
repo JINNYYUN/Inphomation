@@ -1,6 +1,7 @@
 <%@page import="bit.com.inpho.dto.MemberDto"%>
 <%@ page language="java" contentType="text/html; charset=UTF-8"
 pageEncoding="UTF-8"%>
+
 <%
 	MemberDto member = null;
 	member = (MemberDto)session.getAttribute("login");
@@ -39,6 +40,8 @@ pageEncoding="UTF-8"%>
       <!-- admin login -->
       <div class="loginMode">
 	      <h1>
+	      	<i class="far fa-envelope text" onclick="goMsg()"></i>
+	      	<i class="fas fa-circle text"></i>
 	        <i class="fas fa-pencil-alt text" onclick="goWrite();"></i>
 	        <i class="fas fa-user text" id="drop-btn"></i><!-- 이미지로 나중에 변경할 예정 -->
 	      </h1>
@@ -52,6 +55,7 @@ pageEncoding="UTF-8"%>
 	      		<li class="body1"><a href="<%=request.getContextPath() %>/mypageedit">개인정보수정</a></li>
 	      		<li class="body1"><a href="javascript:doLogout();">로그아웃</a></li>	
 	      	</ul>
+	      	<input type="hidden" value="<%=member.getUser_email()%>" id="userEmail">
 	      </div>      
       </div>
 	<%} %>
@@ -64,5 +68,3 @@ pageEncoding="UTF-8"%>
 <%}else{ %>
 <script src="<%=request.getContextPath() %>/js/login.js" ></script>
 <%} %>
-
-
