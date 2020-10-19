@@ -213,9 +213,10 @@ public class MyPageEditController {
 
 	//정보수정 페이지 이동
 	@RequestMapping(value = "editMem", method = RequestMethod.GET)
-	public String editMem(int user_seq, Model model) {
+	public String editMem(Model model, HttpServletRequest req) {
 		
-		MyPageMemberDto mem = service.getProfile(user_seq);
+		MemberDto mem = (MemberDto)req.getSession().getAttribute("login");
+		
 		model.addAttribute("mem", mem);
 		
 		return "MyPageEditMem.tiles";

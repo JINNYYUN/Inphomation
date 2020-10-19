@@ -7,7 +7,7 @@
   
 <insert id="sendMsg" parameterType="bit.com.inpho.dto.MessageDto">
 	INSERT INTO MESSAGE
-	VALUES( SEQ_MSG.NEXTVAL, #{user_sender}, #{user_target}, #{msg_content}, SYSDATE, NULL )
+	VALUES( SEQ_MSG.NEXTVAL, #{user_sender}, #{user_target}, #{msg_content}, SYSDATE, 0 )
 </insert> 
   
 <select id="getLastMsg" parameterType="bit.com.inpho.dto.MessageDto" resultType="bit.com.inpho.dto.MessageDto">
@@ -56,5 +56,11 @@
 	FROM MESSAGE A, MEMBER B 
 	WHERE A.USER_SENDER = B.USER_SEQ AND A.MSG_SEQ = #{msg_seq}
 </select>
+
+<update id="setOpen" parameterType="bit.com.inpho.dto.MessageDto">
+	UPDATE MESSAGE
+	SET MSG_OPEN = 1
+	WHERE USER_SENDER = #{user_sender} AND USER_TARGET = #{user_target} AND MSG_OPEN = 0
+</update>
 
 </mapper>

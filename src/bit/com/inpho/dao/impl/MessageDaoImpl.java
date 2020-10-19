@@ -60,6 +60,7 @@ public class MessageDaoImpl implements MessageDao {
         tempint.addAll(hashSet);		
        
         // 유저까지 포함한 최신 메시지 리스트
+        MessageUserDto[] arr = new MessageUserDto[tempint.size()];
         List<MessageUserDto> userList = new ArrayList<MessageUserDto>();
         
         for (int i = 0; i < tempint.size(); i++) {
@@ -79,20 +80,44 @@ public class MessageDaoImpl implements MessageDao {
         	 }
 
         	// System.out.println("들어가기전:" + last.toString());
-        	 
-        	 
+        	  
         	 // user_send 세션 값으로 , user_target 메시지 상대방으로 다 정하기
         	 user.setUser_sender(user_seq);
         	 user.setUser_target(tempint.get(i));
         	 
         	 // 보낸/받은 메시지 구분값 넣기
         	 user.setIsSend(isSend);
-        	 userList.add(user);
+        	//userList.add(user);
         	 
-        	 System.out.println("라스트:" + user.toString());
+        	 arr[i] = user;
+        	 
+        	 //System.out.println("라스트:" + user.toString());
 		}
         
+     // 정렬
+ 		MessageUserDto temp;
+ 		for (int i = 0; i < arr.length - 1; i++) {			
+ 			for (int j = i + 1; j < arr.length; j++) {
+ 				
+ 					if(arr[i].getMsg_seq() < arr[j].getMsg_seq()) {
+ 						temp = arr[i];
+ 						arr[i] = arr[j];
+ 						arr[j] = temp;
+ 					}
+ 				}				
+ 			}
+ 		
+ 		for (int i = 0; i < arr.length; i++) {
+			userList.add(arr[i]);
+		}
+
+        
 		return userList;
+	}
+
+	@Override
+	public int setOpen(MessageDto msg) {
+		return sqlSession.update(ns + "setOpen", msg);
 	}
 	
 	

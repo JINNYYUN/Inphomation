@@ -12,5 +12,7 @@ public interface MessageService {
 	List<MessageDto> getMsg(MessageDto msg);
 	
 	List<MessageUserDto> getUserList(int user_seq);
+	
+	int setOpen(MessageDto msg);
 }
 

@@ -35,11 +35,23 @@ public class MessageController {
 		MemberDto login = (MemberDto)req.getSession().getAttribute("login");
 		
 		// 대화한 유저 list
-		List<MessageUserDto> userlist =  service.getUserList(login.getUser_seq());		
+		//List<MessageUserDto> userlist =  service.getUserList(login.getUser_seq());		
 		
-		model.addAttribute("userlist", userlist);
+		//model.addAttribute("userlist", userlist);
 		
 		return "goMessage.tiles";
+	}
+	
+	@ResponseBody
+	@RequestMapping(value = "getUsers", method = RequestMethod.POST)
+	public List<MessageUserDto> getUsers(HttpServletRequest req) {
+		
+		MemberDto login = (MemberDto)req.getSession().getAttribute("login");
+		
+		// 대화한 유저 list
+		List<MessageUserDto> userlist =  service.getUserList(login.getUser_seq());		
+		
+		return userlist;
 	}
 	
 	@ResponseBody
@@ -64,6 +76,13 @@ public class MessageController {
 	public void sendMsg(MessageDto msg) {
 		int n = service.sendMsg(msg);
 		System.out.println(n>0?"메시지 저장성공":"메시지 저장실패");
+	}
+	
+	@ResponseBody
+	@RequestMapping(value = "setOpen", method = RequestMethod.POST)
+	public void setOpen(MessageDto msg) {
+		int n = service.setOpen(msg);
+		System.out.println(n>0?"메시지 읽음 처리":"메시지 읽음 처리 실패");
 	}
 
 		

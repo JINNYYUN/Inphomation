@@ -9,7 +9,7 @@ public class MessageUserDto implements Serializable {
 	private int user_target;
 	private String msg_content;
 	private String msg_send;
-	private String msg_open;
+	private int msg_open;
 	
 	private String user_nickname;
 	private String profile_image;
@@ -20,7 +20,7 @@ public class MessageUserDto implements Serializable {
 	}
 	
 	public MessageUserDto(int msg_seq, int user_sender, int user_target, String msg_content, String msg_send,
-			String msg_open, String user_nickname, String profile_image, int isSend) {
+			int msg_open, String user_nickname, String profile_image, int isSend) {
 		super();
 		this.msg_seq = msg_seq;
 		this.user_sender = user_sender;
@@ -73,11 +73,11 @@ public class MessageUserDto implements Serializable {
 		this.msg_send = msg_send;
 	}
 
-	public String getMsg_open() {
+	public int getMsg_open() {
 		return msg_open;
 	}
 
-	public void setMsg_open(String msg_open) {
+	public void setMsg_open(int msg_open) {
 		this.msg_open = msg_open;
 	}
 

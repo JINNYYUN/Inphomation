@@ -112,7 +112,7 @@ $("#editProfile").click( function(){
 });
 // 비밀번호 변경 이동
 $("#editMember").click( function(){
-	location.href="editMem?user_seq=" + ${mem.user_seq};
+	location.href="editMem"
 });
 
 // 팔로우/언팔로우 함수

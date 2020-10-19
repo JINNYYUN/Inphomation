@@ -30,6 +30,11 @@ public class MessageServiceImpl implements MessageService{
 	public List<MessageUserDto> getUserList(int user_seq) {
 		return dao.getUserList(user_seq);
 	}
+
+	@Override
+	public int setOpen(MessageDto msg) {
+		return dao.setOpen(msg);
+	}
 	
 	
 	
