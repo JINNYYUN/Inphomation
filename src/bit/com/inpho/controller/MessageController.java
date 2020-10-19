@@ -84,6 +84,16 @@ public class MessageController {
 		int n = service.setOpen(msg);
 		System.out.println(n>0?"메시지 읽음 처리":"메시지 읽음 처리 실패");
 	}
+	
+	@ResponseBody
+	@RequestMapping(value = "getUnread", method = RequestMethod.POST)
+	public boolean getUnread(HttpServletRequest req) {
+		
+		MemberDto mem = (MemberDto)req.getSession().getAttribute("login");
+		System.out.println("불린값:" + service.getUnread(mem.getUser_seq()));
+		return service.getUnread(mem.getUser_seq());
+		
+	}
 
 		
 	

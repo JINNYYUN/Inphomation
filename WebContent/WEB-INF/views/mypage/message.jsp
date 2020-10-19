@@ -117,7 +117,7 @@ function setOpen(user_target){
 	}
 
 	// WEBSOCKET 설정 ========================================
-	var ws;
+	<%-- var ws;
 	var userid = "<%=login.getUser_email()%>"; //파라미터로 넘겨서 설정할 (내) 아이디
 
 	function connect() {
@@ -144,7 +144,7 @@ function setOpen(user_target){
 			//console.log('연결 끊김');
 			alert('연결 끊김');
 		};
-	}
+	} --%>
 
 	function onOpen(){
 		alert('연결 생성');
@@ -152,7 +152,9 @@ function setOpen(user_target){
 	
 	// 메시지 수신
 	function addMsg(msg) { //원래 채팅 메시지에 방금 받은 메시지 더해서 설정하기
-
+		// 알림 표시
+		$('.fa-circle').css('display','inline');
+		
 		// 유저리스트 새로고침
 		getUsers()
 
@@ -175,13 +177,13 @@ function setOpen(user_target){
 		
 	}
 
-	function register() { //메시지 수신을 위한 서버에 id 등록하기
+	<%-- function register() { //메시지 수신을 위한 서버에 id 등록하기
 		var msg = {
 			type : "register", //메시지 구분하는 구분자 - 상대방 아이디와 메시지 포함해서 보냄
 			userid : "<%=login.getUser_email()%>"
 		};
 		ws.send(JSON.stringify(msg));
-	}
+	} --%>
 
 	function sendMsg() {
 		

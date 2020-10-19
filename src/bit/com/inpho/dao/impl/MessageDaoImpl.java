@@ -37,14 +37,6 @@ public class MessageDaoImpl implements MessageDao {
 		// 이전 대화 상대들 불러오기
 		List<Integer> target1 = sqlSession.selectList(ns + "getListOne", user_seq);
 		List<Integer> target2 = sqlSession.selectList(ns + "getListTwo", user_seq);
-
-		for (int i = 0; i < target1.size(); i++) {
-			System.out.println("t1" + target1.get(i));
-		}
-		
-		for (int i = 0; i < target2.size(); i++) {
-			System.out.println("t2" + target2.get(i));
-		}
 		
 		// HashSet으로 대화상대 중복 제거
 		HashSet<Integer> hashSet = new HashSet<>();
@@ -119,8 +111,19 @@ public class MessageDaoImpl implements MessageDao {
 	public int setOpen(MessageDto msg) {
 		return sqlSession.update(ns + "setOpen", msg);
 	}
-	
-	
-	
+
+	@Override
+	public boolean getUnread(int user_seq) {
+		
+		List<MessageDto> list = sqlSession.selectList(ns + "getUnread", user_seq);
+		
+		boolean b = true;
+		if(list.size()==0) {
+			b = false;
+		}
+		return b;
+	}
+
+
 	
 }

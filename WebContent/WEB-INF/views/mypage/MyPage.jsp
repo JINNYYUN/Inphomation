@@ -286,7 +286,13 @@ window.addEventListener("resize", SetGridItemHeight);
 
 // 좋아요 클릭 함수
 function clickLike(num, dolike, post_seq){
-
+	<%
+	if ( login == null){
+	%>
+		goLogin();
+		return
+	<%	
+	}%>
 	$.ajax({
 		url:"addLike",
 		type:"post",
@@ -317,6 +323,13 @@ function clickLike(num, dolike, post_seq){
 //북마크 클릭 함수
 function clickBookmark(num, dobook, post_seq){
 
+	<%
+	if ( login == null){
+	%>
+		goLogin();
+		return
+	<%	
+	}%>
 	$.ajax({
 		url:"addBookmark",
 		type:"post",

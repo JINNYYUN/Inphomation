@@ -14,4 +14,6 @@ public interface MessageDao {
 	List<MessageUserDto> getUserList(int user_seq);
 	
 	int setOpen(MessageDto msg);
+	
+	boolean getUnread(int user_seq);
 }

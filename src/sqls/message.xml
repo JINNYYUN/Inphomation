@@ -63,4 +63,8 @@
 	WHERE USER_SENDER = #{user_sender} AND USER_TARGET = #{user_target} AND MSG_OPEN = 0
 </update>
 
+<select id="getUnread" parameterType="java.lang.Integer" resultType="bit.com.inpho.dto.MessageUserDto">
+	SELECT * FROM MESSAGE
+	WHERE USER_TARGET = #{user_seq} AND MSG_OPEN = 0
+</select>
 </mapper>
