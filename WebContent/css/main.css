@@ -103,10 +103,6 @@
   content: '';
 }
 
-.navbar {
-  display: none;
-}
-
 .screen-up {
   position: fixed;
   bottom: 5px;

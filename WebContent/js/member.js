@@ -1,4 +1,5 @@
 
+
 //로그인확인
 function submitLogin(){
 	let id=$("#login-id")
@@ -20,13 +21,15 @@ function ajaxLogin(id,pw){
 			user_password:pw
 		},
 		success:function(result){
-			if(result){
-				//로그인성공으로 이동시키기
-				console.log('success')
+			console.log(result)
+			if(result=='success'){
+				//로그인성공
 				window.location.reload()
-			}else{
-				//실패알람
+			}else if(result=='fail'){
+				//실패알람 html에 실패알람 넣기
 				console.log('fail')
+			}else{
+				location.href='http://'+location.host+'/Inphomation/noHaveAuth'
 			}
 		},
 		error:function(){
@@ -40,9 +43,7 @@ function ajaxLogin(id,pw){
 //회원가입
 function submitRegi(){
 	let id=$("#regi-id")
-	if(!isEmail(id.val())){
-		return id.focus()
-	}
+	
 	let pw=$("#regi-pw")
 	if(!isPassword(pw.val())){
 		return pw.focus()
@@ -52,9 +53,59 @@ function submitRegi(){
 		return name.focus()
 	}
 	
+	$.ajax({
+		url:"register",
+		type:"post",
+		data:{
+			user_email:id.val().trim(),
+			user_password:pw.val().trim(),
+			user_nickname:name.val().trim(),
+			provider:"homepage"
+		},
+		success:function(data){
+			//회원가입 성공
+			if(data){
+				alert('regiSuccess')
+				window.location.reload()
+			}else{
+				alert('fail')
+			}
+		},
+		error:function(){
+			//회원가입 실패 알람 html 출력
+			alert('exception')
+		}
+	})
+}
+//아이디 중복 확인
 
-	$("#modal-form").submit()
-	
+function confirmId(e){
+	let inputId =  document.getElementById('regi-id')
+	let result = isEmail(inputId.value.trim())
+	if (result){
+		$.ajax({
+			url:"confirmId",
+			type:"post",
+			data:{
+				user_email:inputId.value.trim()
+			},
+			success:function(data){
+				console.log('confirmid:'+data)
+				if(data){
+					console.log('안중복')
+					document.getElementById('regeister-btn').disabled = false
+					$('.form-group .result-msg').text('이미 가입된 이메일 입니다')
+				}else{
+					console.log('중복')
+					document.getElementById('regeister-btn').disabled = true
+				} 
+			},error:function(){
+				alert('exception')
+			}
+		})
+	}else{
+		$('.form-group .result-msg').text('아이디를 정상적으로 입력해 주세요')
+	}
 }
 //패스워드확인
 function isPassword(asValue) {
@@ -66,24 +117,40 @@ function isEmail(asValue) {
 	var regExp = /^[0-9a-zA-Z]([-_\.]?[0-9a-zA-Z])*@[0-9a-zA-Z]([-_\.]?[0-9a-zA-Z])*\.[a-zA-Z]{2,3}$/i
 	return regExp.test(asValue) // email정규식 맞으면 true
 }
-//kakao
+//kakao 로그인 처리
 function loginWithKakao() {
 	var access_token=''
     Kakao.init('146852e4936968362989a8647123c65d')
     Kakao.Auth.login({
       success: function(authObj) {
-        console.log(authObj)
-        console.log(authObj.access_token)
         access_token = authObj.access_token
-        
         Kakao.Auth.setAccessToken(access_token)
 	    Kakao.API.request({
 	      url: '/v2/user/me',
 	      success:function(obj){
 	        console.log(obj)
-	        /*
-	        access token refresh_token db저장은안하고 바로 다받아와서 db로 쏘면 될듯?
-	        */
+	        $.ajax({
+	        	url:"socialLogin",
+	        	type:"post",
+	        	/*data:{
+	        		user_email:obj.id,
+	        		user_nickname:obj.properties.nickname,
+	        		profile_image:obj.properties.profile_image,
+	        		provider:"Kakao"
+	        	},*/
+	        	data:makeKakaoData(obj),
+	        	success:function(data){
+	        		if(data){
+	        			window.location.reload()
+	        		}else{
+	        			alert('로그인실패')
+	        		}
+	        	},
+	        	error:function(){
+	        		alert('err')
+	        	}
+	        })
+	        
 	      },
 	      fail:function(){
 	        console.log('kakao err')
@@ -97,7 +164,25 @@ function loginWithKakao() {
       }
     })
   }
-  
+ function makeKakaoData(obj){
+ 	if(!obj.properties.profile_image){
+	 	console.log('empty')
+	 	let data = {
+	 		user_email:obj.id,
+			user_nickname:obj.properties.nickname,
+			provider:"Kakao"
+	 	}
+	 	console.log('empty ho')
+ 		return data
+ 	}else{
+ 		let data = {
+	 		user_email:obj.id,
+			user_nickname:obj.properties.nickname,
+			provider:"Kakao"
+	 	}
+	 	return data
+ 	}
+ }
 //naver로그인
 function loginWithNaver(){
 	$.ajax({
@@ -131,8 +216,8 @@ function goLogin(){
 		type:'GET',
 		dataType:'html',
 		success:function(data){
-			modal.innerHTML=data
-			$('#myModal').modal();
+			document.getElementById('modal-container').innerHTML=data
+			$('#myModal').modal('show');
 			$('.modal-backdrop').css('z-index',2)
 		},
 		error:function(){
@@ -202,4 +287,7 @@ function modalAjax(url){
 			alert('삐뽀삐뽀')
 		}
 	})
+}
+function  modalClose(){
+	$('#myModal').modal('hide');
 }

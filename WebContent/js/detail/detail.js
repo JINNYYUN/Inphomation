@@ -1,29 +1,8 @@
 $(document).ready(function(){
 
-	$.ajax({
-		url:"countLikeAll.do",
-		type:"get",
-		data:{"post_seq": $("#post_seq").val()},
-		async: false,
-		success:function(data){
-
-			if(data == '0'){
-				$("#heartCount").html("");
-			}else{
-				$("#heartCount").html(data + "명이 좋아합니다.");
-			}
-
-			
-		},
-		error:function(){
-			alert("error");
-	
-		}
-	});
-	
 	$("#followBtn").on("click",function(){
 		$.ajax({
-		url:'follow.do',
+		url:'follow',
 			data:{
 			"following": $("#writer").val(), 
 			"work": $("#followBtn").val()},
@@ -43,6 +22,14 @@ $(document).ready(function(){
 	
 	
 });
+
+function follow(user_seq){
+	
+	location.href='follow?user_seq='+user_seq;
+	
+	location.reload(true);
+	location.href = location.href;
+}
 
 /* 게시글 모달 사이즈 */
 document.getElementById('ex1').style.height = '180px';
@@ -89,7 +76,7 @@ function replyMenu(user, reply){
 /* 댓글 삭제 */
 function deleteReply(user,  reply){
 	console.log(user +"," + reply);
-	 location.href="deleteReply.do?user_seq="+user + "&reply_seq=" + reply + "&post_seq=" + $("#post_seq").val();
+	 location.href="deleteReply?user_seq="+user + "&reply_seq=" + reply + "&post_seq=" + $("#post_seq").val();
 }
 
 
@@ -109,7 +96,7 @@ function addComment(){
 			$("#comment").focus();
 		}else{
 				$.ajax({
-				url:"addReply.do",
+				url:"addReply",
 				type: "get",
 				data: {"post_seq":$("#post_seq").val(), "user_seq":$("#user_seq").val(), "reply_content":  $("#comment").val() },
 				async:true,
@@ -137,12 +124,12 @@ function profile(user_seq){
 /* 글 수정 */
 function editDetail(){
 	console.log("edit");
-	/* location.href="editDetail.do?"; */
+	/* location.href="editDetail?"; */
 }
 /* 글 삭제 */
 function deleteDetail(){
 	console.log("delete");
-	location.href="deleteDetail.do?post_seq="+$("#post_seq").val();
+	location.href="deleteDetail?post_seq="+$("#post_seq").val();
 }
 
 /* 좋아요, 북마크 */
@@ -153,7 +140,7 @@ function addLikeBook(id){
 	}else{
 
 		$.ajax({
-			url:"addLikeBook.do",
+			url:"addLikeBook",
 			data: {"post_seq": $("#post_seq").val(),
 					"user_seq": $("#user_seq").val(),
 					"word":id},

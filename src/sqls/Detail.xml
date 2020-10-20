@@ -13,6 +13,16 @@
 	AND P.POST_SEQ = #{post_seq}
 </select>
 
+<select id="getAllPost" parameterType="bit.com.inpho.dto.DetailPostDto" resultType="bit.com.inpho.dto.DetailPostDto">
+	SELECT P.POST_SEQ, P.USER_SEQ, P.POST_FILEPATH, IC.CAMERA_SERIAL
+	FROM POST P, INFO_CAMERA IC
+	WHERE P.CAMERA_SEQ = IC.CAMERA_SEQ
+	AND IC.CAMERA_SERIAL = #{camera_serial}
+	AND P.POST_SEQ != #{post_seq }
+</select>
+
+
+
 <select id="getHashTag" parameterType="java.lang.Integer" resultType="bit.com.inpho.dto.DetailPostDto">
 	SELECT IH.TAG_SEQ, IH.HASHTAG, PH.POST_SEQ 
 	FROM INFO_HASHTAG IH, POST_HASHTAG PH
@@ -68,6 +78,13 @@
 	SELECT NVL(COUNT(*),0)
 	FROM POST_LIKE
 	WHERE POST_SEQ = #{post_seq}
+</select>
+
+<select id="likeList" parameterType="java.lang.Integer" resultType="bit.com.inpho.dto.DetailReplyDto">
+	SELECT M.USER_NICKNAME, M.PROFILE_IMAGE, M.USER_SEQ
+	FROM POST_LIKE PL, MEMBER M
+	WHERE PL.USER_SEQ = M.USER_SEQ
+	AND POST_SEQ = #{post_seq}
 </select>
 
 

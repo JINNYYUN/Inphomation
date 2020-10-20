@@ -7,6 +7,6 @@
 <title>Insert title here</title>
 </head>
 <body>
-	로그인 페이지
+	권한이 없습니다.
 </body>
 </html>

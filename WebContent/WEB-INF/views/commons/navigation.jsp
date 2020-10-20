@@ -1,6 +1,7 @@
 <%@page import="bit.com.inpho.dto.MemberDto"%>
 <%@ page language="java" contentType="text/html; charset=UTF-8"
 pageEncoding="UTF-8"%>
+
 <%
 	MemberDto member = null;
 	member = (MemberDto)session.getAttribute("login");
@@ -24,7 +25,7 @@ pageEncoding="UTF-8"%>
         <i class="fas fa-search text" onclick="searchKeyword();"></i>
       </div>
     </div>
-
+	<div id="modal-container"></div>
     <div class="user-content">
       <!-- Guest -->
      <%if(member==null){%>
@@ -32,13 +33,14 @@ pageEncoding="UTF-8"%>
         <h1>
           <i class="fas fa-sign-in-alt text" onclick="goLogin();"></i>
         </h1>
-        <div id="modal-container"></div>
       </div>
       <%}else if(member!=null && member.getAuth()==0){ %>
       <!-- user login -->
       <!-- admin login -->
       <div class="loginMode">
 	      <h1>
+	      	<i class="far fa-envelope text" onclick="goMsg()"></i>
+	      	<i class="fas fa-circle text"></i>
 	        <i class="fas fa-pencil-alt text" onclick="goWrite();"></i>
 	        <i class="fas fa-user text" id="drop-btn"></i><!-- 이미지로 나중에 변경할 예정 -->
 	      </h1>
@@ -47,20 +49,21 @@ pageEncoding="UTF-8"%>
 	      <div class="dropbox" id="drop-menu">
 	      	<h3><%=member.getUser_nickname() %></h3><!-- 로그인 백엔드 구현하고 정보 받아오면 수정하기 -->
 	      	<ul>
-	      		<li class="body1"><a href="/profile">내 프로필</a></li>
-	      		<li class="body1"><a href="/bookmark">북마크 게시물</a></li>
+	      		<li class="body1"><a href="<%=request.getContextPath() %>/mypage">내 프로필</a></li>
+	      		<li class="body1"><a href="<%=request.getContextPath() %>/bookmark">북마크 게시물</a></li>
+	      		<li class="body1"><a href="<%=request.getContextPath() %>/mypageedit">개인정보수정</a></li>
 	      		<li class="body1"><a href="javascript:doLogout();">로그아웃</a></li>	
 	      	</ul>
+	      	<input type="hidden" value="<%=member.getUser_email()%>" id="userEmail">
 	      </div>      
       </div>
 	<%} %>
     </div>
   </div>
 </nav>
-<script src="<%=request.getContextPath() %>/js/navigation.js"></script>
+<script src="<%=request.getContextPath() %>/js/navigation.js" ></script>
 <%if(member==null){ %>
-<script src="<%=request.getContextPath() %>/js/member.js"></script>
+<script src="<%=request.getContextPath() %>/js/member.js" ></script>
 <%}else{ %>
-<script src="<%=request.getContextPath() %>/js/login.js"></script>
+<script src="<%=request.getContextPath() %>/js/login.js" ></script>
 <%} %>
-

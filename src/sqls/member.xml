@@ -5,21 +5,46 @@
   
 <mapper namespace="Member">
 
+	<!-- 홈페이지 가입관련 -->
+		<!-- EMAIL중복 확인 -->
 	<select id="confirmId" parameterType="bit.com.inpho.dto.MemberDto" resultType="bit.com.inpho.dto.MemberDto">
 		SELECT USER_EMAIL,AUTH FROM MEMBER WHERE USER_EMAIL = #{user_email}
 	</select>
-	
-	<select id="userLogin" parameterType="bit.com.inpho.dto.MemberDto" resultType="bit.com.inpho.dto.MemberDto">
-		SELECT USER_SEQ, USER_EMAIL, AUTH, USER_NICKNAME,PROFILE_IMAGE FROM MEMBER WHERE USER_EMAIL=#{user_email} AND USER_PASSWORD=#{user_password}
+	<!-- 회원가입 -->
+	<insert id="registerMemberHomePage" parameterType="bit.com.inpho.dto.MemberDto">
+		INSERT INTO MEMBER VALUES(SEQ_USER.NEXTVAL, #{user_email}, 0, #{user_password}, #{user_nickname}, SYSDATE, '', '', #{provider}, 0, 0)
+	</insert>
+	<insert id="registerAuthKey" parameterType="bit.com.inpho.dto.MemberDto">
+		INSERT INTO MEMBER_AUTH(USER_EMAIL, AUTHKEY) VALUES( #{user_email}, #{authKey})
+	</insert>
+	<!-- 인증키의 중복 확인 -->
+	<select id="searchAuthKey" parameterType="java.lang.String" resultType="bit.com.inpho.dto.MemberDto" >
+		SELECT USER_EMAIL, AUTHKEY FROM MEMBER_AUTH WHERE AUTHKEY = #{authKey}
 	</select>
+	
+	<!-- 인증시에 authKey테이블에서의 데이터 삭제 -->	
+	<delete id="authKey" parameterType="java.lang.String">
+		DELETE FROM MEMBER_AUTH WHERE AUTHKEY = #{authKey}
+	</delete>
+	<!-- 계정활성화 -->
+	<update id="activeId" parameterType="bit.com.inpho.dto.MemberDto">
+		UPDATE MEMBER SET AUTH_ENABLED = 1, AUTH_ACTIVE = 1 WHERE USER_EMAIL = #{user_email} 
+	</update>
+	<!-- 유저로그인 -->
+	<select id="userLogin" parameterType="bit.com.inpho.dto.MemberDto" resultType="bit.com.inpho.dto.MemberDto">
+		SELECT USER_SEQ, USER_EMAIL, AUTH, USER_NICKNAME, USER_CREATE, PROFILE_IMAGE, PROVIDER, AUTH_ENABLED, AUTH_ACTIVE FROM MEMBER WHERE USER_EMAIL=#{user_email} AND USER_PASSWORD=#{user_password}
+	</select>
+	<!-- 인증로그인 -->
+	<select id="userAuthLogin" parameterType="bit.com.inpho.dto.MemberDto" resultType="bit.com.inpho.dto.MemberDto">
+		SELECT USER_SEQ, USER_EMAIL, AUTH, USER_NICKNAME, USER_CREATE, PROFILE_IMAGE, PROVIDER, AUTH_ENABLED, AUTH_ACTIVE FROM MEMBER WHERE USER_EMAIL=#{user_email}
+	</select>
+	
+	<!-- 소셜계정관련 -->
+	<select id="userSocialLogin" parameterType="bit.com.inpho.dto.MemberDto" resultType="bit.com.inpho.dto.MemberDto">
+		SELECT USER_SEQ, USER_EMAIL, AUTH, USER_NICKNAME, USER_CREATE, PROFILE_IMAGE, PROVIDER,AUTH_ENABLED, AUTH_ACTIVE FROM MEMBER WHERE USER_EMAIL=#{user_email} AND PROVIDER=#{provider}
+	</select>
+	
+	<insert id="registerSocialMember" parameterType="bit.com.inpho.dto.MemberDto">
+		INSERT INTO MEMBER VALUES(SEQ_USER.NEXTVAL, #{user_email}, 0, #{user_password}, #{user_nickname},SYSDATE, #{profile_image},'', #{provider}, 1, 1)
+	</insert>
 </mapper>
-
-
-
-
-
-
-
-
-
-

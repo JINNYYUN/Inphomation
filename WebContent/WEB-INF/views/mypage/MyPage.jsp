@@ -5,15 +5,12 @@
 <%@page import="java.util.List"%>
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
-<!DOCTYPE html>
-<html>
-<head>
+
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
 
 <link rel="stylesheet" type="text/css" href="css/MyPage/MyPage.css">
 
-</head>
 <body>
 
 <%
@@ -58,6 +55,9 @@ MemberDto login = (MemberDto)request.getSession().getAttribute("login");
 				<button id="editMember">설정</button>
 			<%	
 			}else{
+				%>
+				<i class="far fa-envelope text" onclick="goMypageMsg()"></i>
+				<%
 				if(isFollowing){
 				%>
 					<input type="button" class="btn follow-btn" id="followBtn" value="Unfollow">
@@ -115,7 +115,7 @@ $("#editProfile").click( function(){
 });
 // 비밀번호 변경 이동
 $("#editMember").click( function(){
-	location.href="editMem?user_seq=" + ${mem.user_seq};
+	location.href="editMem"
 });
 
 // 팔로우/언팔로우 함수
@@ -289,7 +289,13 @@ window.addEventListener("resize", SetGridItemHeight);
 
 // 좋아요 클릭 함수
 function clickLike(num, dolike, post_seq){
-
+	<%
+	if ( login == null){
+	%>
+		goLogin();
+		return
+	<%	
+	}%>
 	$.ajax({
 		url:"addLike",
 		type:"post",
@@ -320,6 +326,13 @@ function clickLike(num, dolike, post_seq){
 //북마크 클릭 함수
 function clickBookmark(num, dobook, post_seq){
 
+	<%
+	if ( login == null){
+	%>
+		goLogin();
+		return
+	<%	
+	}%>
 	$.ajax({
 		url:"addBookmark",
 		type:"post",
@@ -378,8 +391,10 @@ $("#nav_profile").click(function(){
 	});
 });
 
+function goMypageMsg(){
+	location.href="mypageMessage?user_target=" + ${mem.user_seq};
+}
 </script>
 
 
 </body>
-</html>
