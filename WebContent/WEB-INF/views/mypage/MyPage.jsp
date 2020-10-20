@@ -55,6 +55,9 @@ MemberDto login = (MemberDto)request.getSession().getAttribute("login");
 				<button id="editMember">설정</button>
 			<%	
 			}else{
+				%>
+				<i class="far fa-envelope text" onclick="goMypageMsg()"></i>
+				<%
 				if(isFollowing){
 				%>
 					<input type="button" class="btn follow-btn" id="followBtn" value="Unfollow">
@@ -388,6 +391,9 @@ $("#nav_profile").click(function(){
 	});
 });
 
+function goMypageMsg(){
+	location.href="mypageMessage?user_target=" + ${mem.user_seq};
+}
 </script>
 
 

@@ -1,10 +1,8 @@
 package bit.com.inpho.dto;
 
-import java.util.Arrays;
 
 
 public class PostDto {
-
 	private int post_seq;
 	private int camera_seq;
 	private int user_seq;
@@ -14,16 +12,15 @@ public class PostDto {
 	private String wdate;
 	private String filepath;
 	private String location;
-	private String camera;
-	private String[] hashtag;
-	private String place;
-
+	private String camera_serial;
+	private String hashtag;
+	
 	public PostDto() {
-
+		// TODO Auto-generated constructor stub
 	}
 
 	public PostDto(int post_seq, int camera_seq, int user_seq, int readcount, int del, String content, String wdate,
-			String filepath, String location, String camera, String[] hashtag, String place) {
+			String filepath, String location, String camera_serial, String hashtag) {
 		super();
 		this.post_seq = post_seq;
 		this.camera_seq = camera_seq;
@@ -34,9 +31,8 @@ public class PostDto {
 		this.wdate = wdate;
 		this.filepath = filepath;
 		this.location = location;
-		this.camera = camera;
+		this.camera_serial = camera_serial;
 		this.hashtag = hashtag;
-		this.place = place;
 	}
 
 	public int getPost_seq() {
@@ -111,37 +107,30 @@ public class PostDto {
 		this.location = location;
 	}
 
-	public String getCamera() {
-		return camera;
+	public String getCamera_serial() {
+		return camera_serial;
 	}
 
-	public void setCamera(String camera) {
-		this.camera = camera;
+	public void setCamera_serial(String camera_serial) {
+		this.camera_serial = camera_serial;
 	}
 
-	public String[] getHashtag() {
+	public String getHashtag() {
 		return hashtag;
 	}
 
-	public void setHashtag(String[] hashtag) {
+	public void setHashtag(String hashtag) {
 		this.hashtag = hashtag;
-	}
-
-	public String getPlace() {
-		return place;
-	}
-
-	public void setPlace(String place) {
-		this.place = place;
 	}
 
 	@Override
 	public String toString() {
 		return "PostDto [post_seq=" + post_seq + ", camera_seq=" + camera_seq + ", user_seq=" + user_seq
 				+ ", readcount=" + readcount + ", del=" + del + ", content=" + content + ", wdate=" + wdate
-				+ ", filepath=" + filepath + ", location=" + location + ", camera=" + camera + ", hashtag="
-				+ Arrays.toString(hashtag) + ", place=" + place + "]";
+				+ ", filepath=" + filepath + ", location=" + location + ", camera_serial=" + camera_serial
+				+ ", hashtag=" + hashtag + "]";
 	}
 
 
-}
+	
+	}

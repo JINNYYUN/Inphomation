@@ -57,6 +57,12 @@
 	WHERE A.USER_SENDER = B.USER_SEQ AND A.MSG_SEQ = #{msg_seq}
 </select>
 
+<select id="checkList" parameterType="bit.com.inpho.dto.MessageDto" resultType="bit.com.inpho.dto.MessageUserDto">
+	SELECT * FROM MESSAGE
+	WHERE (USER_SENDER = #{user_sender} AND USER_TARGET = #{user_target}) 
+  	OR (USER_SENDER = #{user_target} AND USER_TARGET = #{user_sender})
+</select>
+
 <update id="setOpen" parameterType="bit.com.inpho.dto.MessageDto">
 	UPDATE MESSAGE
 	SET MSG_OPEN = 1

@@ -36,7 +36,7 @@ public class memberController {
 	@GetMapping("/noHaveAuth")
 	public String noHaveAuth() {
 		//유저 계정이 활성화가 안되어있는 경우에 이동하는 페이지
-		return "loginPage.tiles";
+		return "nohaveAuth.tiles";
 	}
 	@GetMapping("/authKeyId")
 	public String confirmId(MemberDto member,HttpSession session) {

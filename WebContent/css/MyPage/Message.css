@@ -1,7 +1,7 @@
 @charset "UTF-8";
 .left-list{
 	float: left;
-    width: 400px;
+    width: 300px;
     height: 500px;
 }
 .right-msg{
@@ -10,8 +10,16 @@
     width: 700px;
     float: left;
 }
-img{
-	width: 70px;
+.frame{
+	height: 50px;
+    width: 50px;
+    overflow: hidden;
+    border-radius: 50%;
+}
+.frame img{
+	display: inline-block;
+    width: 50px;
+    min-height: 100%;
 }
 .msgData{
 	margin: 30px;
@@ -24,6 +32,10 @@ img{
 }
 .msg.send{
 	text-align: right;
+}
+.user{
+	display: flex;
+	
 }
 .user.unread{
 	color: red;

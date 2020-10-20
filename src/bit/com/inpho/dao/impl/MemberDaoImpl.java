@@ -70,4 +70,9 @@ public class MemberDaoImpl implements MemberDao{
 		return sql.selectOne(ns+"userAuthLogin", reqAuthMember);
 	}
 
+	@Override
+	public int activeId(MemberDto member) {
+		return sql.update(ns+"activeId",member);
+	}
+
 }

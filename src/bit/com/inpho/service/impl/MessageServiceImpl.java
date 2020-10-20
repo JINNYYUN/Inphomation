@@ -32,6 +32,11 @@ public class MessageServiceImpl implements MessageService{
 	}
 
 	@Override
+	public boolean checkList(MessageDto msg) {
+		return dao.checkList(msg);
+	}
+
+	@Override
 	public int setOpen(MessageDto msg) {
 		return dao.setOpen(msg);
 	}

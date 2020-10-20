@@ -43,7 +43,7 @@ public class PostHashTagController {
 	// 원래 업로드한 파일이 지정한 path 위치로 이동...이때 카피본이 이동
 	file.transferTo(copyFile);
 	hashTag.removeAll(hashTag); 
-	//		System.out.println(hashTag.toString());
+
 	
 		try {
 			hashTag = googleObj.detectLabels(root + "/" + file.getOriginalFilename());
@@ -53,16 +53,13 @@ public class PostHashTagController {
 		}
 	
 	
-		//	System.out.println("toString" + hashTag.toString());
-		//	System.out.println("orignal" + hashTag);
-	
 	String result = hashTag.stream().map(n -> String.valueOf(n)).collect(Collectors.joining("#"));
 
 	String[] before = result.split("\\#");
 	for (int i = 0; i < before.length; i++) {
 		before[i] = "#" + before[i];
 	}
-	//	System.out.println("after" + before.toString());
+	
 	
 	return before;
 	}
