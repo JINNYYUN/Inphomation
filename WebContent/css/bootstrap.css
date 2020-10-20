@@ -1945,7 +1945,7 @@ pre code {
 .form-control:focus {
     color: #2B2D36;
     background-color: #fff;
-    border-color: #29ffcd;
+    border-color: #F2B705;
     outline: 0;
     box-shadow: 0 0 0 0.2rem rgba(0, 168, 129, 0.25);
 }
@@ -2115,7 +2115,7 @@ textarea.form-control {
     font-size: 0.875rem;
     line-height: 1.75;
     color: #fff;
-    background-color: rgba(0, 168, 129, 0.9);
+    background-color: #ea6213e0;
     border-radius: 0.313rem;
 }
 
@@ -2185,8 +2185,8 @@ textarea.form-control.is-valid {
 
 .was-validated .custom-control-input:valid:checked~.custom-control-label::before,
 .custom-control-input.is-valid:checked~.custom-control-label::before {
-    border-color: #00dba8;
-    background-color: #00dba8;
+    border-color: #F29F05;
+    background-color: #F29F05;
 }
 
 .was-validated .custom-control-input:valid:focus~.custom-control-label::before,
@@ -2438,15 +2438,15 @@ fieldset:disabled a.btn {
 
 .btn-primary:hover {
     color: #fff;
-    background-color: #008264;
-    border-color: #00755a;
+    background-color: #F25C05;
+    border-color: #ea6213;
 }
 
 .btn-primary:focus,
 .btn-primary.focus {
     color: #fff;
-    background-color: #008264;
-    border-color: #00755a;
+    background-color: #F25C05;
+    border-color: #ea6213;
     box-shadow: 0 0 0 0.2rem rgba(38, 181, 148, 0.5);
 }
 
@@ -2462,8 +2462,8 @@ fieldset:disabled a.btn {
 .btn-primary:not(:disabled):not(.disabled).active,
 .show>.btn-primary.dropdown-toggle {
     color: #fff;
-    background-color: #00755a;
-    border-color: #006850;
+    background-color: #ea6213;
+    border-color: #ea6213;
 }
 
 .btn-primary:not(:disabled):not(.disabled):active:focus,
@@ -2521,15 +2521,15 @@ fieldset:disabled a.btn {
 
 .btn-success:hover {
     color: #fff;
-    background-color: #008264;
-    border-color: #00755a;
+    background-color: #F25C05;
+    border-color: #ea6213;
 }
 
 .btn-success:focus,
 .btn-success.focus {
     color: #fff;
-    background-color: #008264;
-    border-color: #00755a;
+    background-color: #F25C05;
+    border-color: #ea6213;
     box-shadow: 0 0 0 0.2rem rgba(38, 181, 148, 0.5);
 }
 
@@ -2544,8 +2544,8 @@ fieldset:disabled a.btn {
 .btn-success:not(:disabled):not(.disabled).active,
 .show>.btn-success.dropdown-toggle {
     color: #fff;
-    background-color: #00755a;
-    border-color: #006850;
+    background-color: #ea6213;
+    border-color: #ea6213;
 }
 
 .btn-success:not(:disabled):not(.disabled):active:focus,
@@ -2725,7 +2725,7 @@ fieldset:disabled a.btn {
 }
 
 .btn-tag:hover {
-    color: #008E6D;
+    color: #F27405;
     background-color: rgba(0,168,129,0.24);
 }
 
@@ -2769,14 +2769,14 @@ fieldset:disabled a.btn {
 
 .btn-tab:focus,
 .btn-tab.focus {
-    color: #008E6D;
+    color: #F27405;
     background-color: rgba(0, 168, 129, 0.20);
     box-shadow: 0 0 0 0.2rem rgba(0, 168, 129, 0.08);
 }
 
 .btn-tab.disabled,
 .btn-tab:disabled {
-    color: #008E6D;
+    color: #F27405;
     background-color: rgba(0, 168, 129, 0.16);
     opacity: 32%;
 }
@@ -2784,7 +2784,7 @@ fieldset:disabled a.btn {
 .btn-tab:not(:disabled):not(.disabled):active,
 .btn-tab:not(:disabled):not(.disabled).active,
 .show > .btn-tab.dropdown-toggle {
-    color: #008E6D;
+    color: #F27405;
     background-color: rgba(0, 168, 129, 0.16);
 }
 
@@ -2795,7 +2795,7 @@ fieldset:disabled a.btn {
 }
 
 .btn-tab.active {
-    color: #008E6D;
+    color: #F27405;
     background-color: rgba(0, 168, 129, 0.08);
 }
 
@@ -2866,25 +2866,25 @@ fieldset:disabled a.btn {
 
 /*btn-outline-primary-------------------------------------------*/
 .btn-outline-primary {
-    color: #008E6D;
+    color: #F27405;
     background: rgba(0,168,129,0.08);
     border: 1px solid #F27405;
 }
 
 .btn-outline-primary:hover {
-    color: #008E6D;
+    color: #F27405;
     background: rgba(0,168,129,0.16);
 }
 
 .btn-outline-primary:focus,
 .btn-outline-primary.focus {
-    color: #008E6D;
+    color: #F27405;
     box-shadow: 0 0 0 0.2rem rgba(0, 168, 129, 0.08);
 }
 
 .btn-outline-primary.disabled,
 .btn-outline-primary:disabled {
-    color: #008E6D;
+    color: #F27405;
     background: rgba(0,168,129,0.08);
     border: 1px solid #F27405;
     opacity: 32%;
@@ -2955,7 +2955,7 @@ fieldset:disabled a.btn {
 
 .btn-outline-success:focus,
 .btn-outline-success.focus {
-    box-shadow: 0 0 0 0.2rem rgba(0, 168, 129, 0.5);
+    box-shadow: 0 0 0 0.2rem rgb(242 116 5 / 26%);;
 }
 
 .btn-outline-success.disabled,
@@ -2975,7 +2975,7 @@ fieldset:disabled a.btn {
 .btn-outline-success:not(:disabled):not(.disabled):active:focus,
 .btn-outline-success:not(:disabled):not(.disabled).active:focus,
 .show>.btn-outline-success.dropdown-toggle:focus {
-    box-shadow: 0 0 0 0.2rem rgba(0, 168, 129, 0.5);
+    box-shadow: 0 0 0 0.2rem rgb(242 116 5 / 26%);;
 }
 
 .btn-outline-info {
@@ -3806,13 +3806,13 @@ input[type="button"].btn-block {
 }
 
 .custom-control-input:focus:not(:checked)~.custom-control-label::before {
-    border-color: #29ffcd;
+    border-color: #F2B705;
 }
 
 .custom-control-input:not(:disabled):active~.custom-control-label::before {
     color: #fff;
-    background-color: #5cffd9;
-    border-color: #5cffd9;
+    background-color: #F2B705;
+    border-color: #F2B705;
 }
 
 .custom-control-input[disabled]~.custom-control-label,
@@ -3873,11 +3873,11 @@ input[type="button"].btn-block {
 }
 
 .custom-checkbox .custom-control-input:disabled:checked~.custom-control-label::before {
-    background-color: rgba(0, 168, 129, 0.5);
+    background-color: rgb(242 116 5 / 26%);;
 }
 
 .custom-checkbox .custom-control-input:disabled:indeterminate~.custom-control-label::before {
-    background-color: rgba(0, 168, 129, 0.5);
+    background-color: rgb(242 116 5 / 26%);;
 }
 
 .custom-radio .custom-control-label::before {
@@ -3889,7 +3889,7 @@ input[type="button"].btn-block {
 }
 
 .custom-radio .custom-control-input:disabled:checked~.custom-control-label::before {
-    background-color: rgba(0, 168, 129, 0.5);
+    background-color: rgb(242 116 5 / 26%);;
 }
 
 .custom-switch {
@@ -3925,7 +3925,7 @@ input[type="button"].btn-block {
 }
 
 .custom-switch .custom-control-input:disabled:checked~.custom-control-label::before {
-    background-color: rgba(0, 168, 129, 0.5);
+    background-color: rgb(242 116 5 / 26%);;
 }
 
 .custom-select {
@@ -4008,7 +4008,7 @@ input[type="button"].btn-block {
 }
 
 .custom-file-input:focus~.custom-file-label {
-    border-color: #29ffcd;
+    border-color: #F2B705;
     box-shadow: 0 0 0 0.2rem rgba(0, 168, 129, 0.25);
 }
 
@@ -4104,7 +4104,7 @@ input[type="button"].btn-block {
 }
 
 .custom-range::-webkit-slider-thumb:active {
-    background-color: #5cffd9;
+    background-color: #F2B705;
 }
 
 .custom-range::-webkit-slider-runnable-track {
@@ -4134,7 +4134,7 @@ input[type="button"].btn-block {
 }
 
 .custom-range::-moz-range-thumb:active {
-    background-color: #5cffd9;
+    background-color: #F2B705;
 }
 
 .custom-range::-moz-range-track {
@@ -4167,7 +4167,7 @@ input[type="button"].btn-block {
 }
 
 .custom-range::-ms-thumb:active {
-    background-color: #5cffd9;
+    background-color: #F2B705;
 }
 
 .custom-range::-ms-track {
@@ -4859,7 +4859,7 @@ input[type="button"].btn-block {
 }
 
 .breadcrumb-item > a:hover {
-    color: #008E6D;
+    color: #F27405;
 }
 
 .breadcrumb-item+.breadcrumb-item {
@@ -4882,7 +4882,7 @@ input[type="button"].btn-block {
 }
 
 .breadcrumb-item.active {
-    color: #008E6D;
+    color: #F27405;
 }
 
 .pagination {
@@ -5015,12 +5015,12 @@ a.badge:focus {
 }
 
 .badge-primary {
-    color: #008E6D;
+    color: #F27405;
     background: rgba(0, 168, 129, 0.16);
 }
 
 .badge-success {
-    color: #008E6D;
+    color: #F27405;
     background: rgba(0, 168, 129, 0.16);
 }
 
@@ -6411,7 +6411,7 @@ a.bg-primary:hover,
 a.bg-primary:focus,
 button.bg-primary:hover,
 button.bg-primary:focus {
-    background-color: #00755a !important;
+    background-color: #ea6213 !important;
 }
 
 .bg-secondary {
@@ -6433,7 +6433,7 @@ a.bg-success:hover,
 a.bg-success:focus,
 button.bg-success:hover,
 button.bg-success:focus {
-    background-color: #00755a !important;
+    background-color: #ea6213 !important;
 }
 
 .bg-info {
@@ -9900,7 +9900,7 @@ h6,
     color: #FFFFFF;
 }
 .text.text-color-green{
-    color: #008E6D;
+    color: #F27405;
 }
 .text.text-color-orange{
     color: #F27405;
