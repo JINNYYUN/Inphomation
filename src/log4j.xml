@@ -10,7 +10,7 @@
 		</layout>
 	</appender>
 	
-	<!-- Application Loggers -->
+	<!-- Application Loggers --> 
 	<logger name="bit.com.inpho">
 		<level value="info" />
 	</logger>
