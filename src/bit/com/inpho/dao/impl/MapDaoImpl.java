@@ -10,6 +10,7 @@ import bit.com.inpho.dao.MapDao;
 import bit.com.inpho.dto.LocationDTO;
 import bit.com.inpho.dto.MapDetailDTO;
 import bit.com.inpho.dto.MapInfoDTO;
+import bit.com.inpho.dto.MyPagePostDto;
 
 @Repository
 public class MapDaoImpl implements MapDao {
@@ -27,12 +28,6 @@ public class MapDaoImpl implements MapDao {
 
 	@Override
 	public List<MapDetailDTO> getMapInfo(MapInfoDTO mapInfoDTO) {
-		/*
-		System.out.println("mapInfoDTO의 getInfoEast : " + mapInfoDTO.getInfoEast());
-		System.out.println("mapInfoDTO의 getInfoNorth : " + mapInfoDTO.getInfoNorth());
-		System.out.println("mapInfoDTO의 getInfoSouth : " + mapInfoDTO.getInfoSouth());
-		System.out.println("mapInfoDTO의 getInfoWest  : " + mapInfoDTO.getInfoWest());
-		*/
 		
 		return sqlSession.selectList(ns + "getMapInfo", mapInfoDTO);
 	}
@@ -41,5 +36,11 @@ public class MapDaoImpl implements MapDao {
 	public LocationDTO getPostLocation(int post_seq) {
 
 		return sqlSession.selectOne(ns + "getPostLocation", post_seq);
+	}
+
+	@Override
+	public List<MyPagePostDto> getDetailMapPost(LocationDTO locationInfo) {
+		
+		return sqlSession.selectList(ns + "getDetailMapPost", locationInfo);
 	}
 }

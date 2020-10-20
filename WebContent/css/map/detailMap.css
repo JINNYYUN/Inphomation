@@ -6,19 +6,12 @@
 }
 
 .detailMap-container{
-	display: flex;
-    min-width: 1280px;
+	position: relative;
     margin-top : 50px;
-    height: 100vh;
-    position: relative;
 }
 
-.map{
+.detail-map{
 	position: relative;
 	width : 100%;
 	height:100vh;
-}
-	
-.detailMap-container{
-	
 }

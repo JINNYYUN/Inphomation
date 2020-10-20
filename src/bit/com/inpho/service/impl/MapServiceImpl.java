@@ -9,6 +9,7 @@ import bit.com.inpho.dao.MapDao;
 import bit.com.inpho.dto.LocationDTO;
 import bit.com.inpho.dto.MapDetailDTO;
 import bit.com.inpho.dto.MapInfoDTO;
+import bit.com.inpho.dto.MyPagePostDto;
 import bit.com.inpho.service.MapService;
 
 @Service
@@ -33,7 +34,12 @@ public class MapServiceImpl implements MapService {
 
 	@Override
 	public LocationDTO getPostLocation(int post_seq) {
-		// TODO Auto-generated method stub
 		return mapDao.getPostLocation(post_seq);
+	}
+
+	@Override
+	public List<MyPagePostDto> getDetailMapPost(LocationDTO locationInfo) {
+		
+		return mapDao.getDetailMapPost(locationInfo);
 	}
 }

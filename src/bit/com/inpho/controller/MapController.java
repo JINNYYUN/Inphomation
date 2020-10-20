@@ -13,6 +13,7 @@ import org.springframework.web.bind.annotation.ResponseBody;
 import bit.com.inpho.dto.LocationDTO;
 import bit.com.inpho.dto.MapDetailDTO;
 import bit.com.inpho.dto.MapInfoDTO;
+import bit.com.inpho.dto.MyPagePostDto;
 import bit.com.inpho.service.MapService;
 
 @Controller
@@ -90,9 +91,17 @@ public class MapController {
 		System.out.println("MapController showDetailMap()");
 		
 		LocationDTO locationInfo = mapService.getPostLocation(post_seq);
-		
-		System.out.println(locationInfo.toString());
 		model.addAttribute("postLocationInfo", locationInfo);
+		System.out.println(locationInfo.toString());
+		
+		//MapInfoDTO mapInfoDTO = new MapInfoDTO(locationInfo.getLatitude()-, infoWest, locationInfo.getLatitude(), infoEast, sortingOption);
+		List<MyPagePostDto> detailMapPostList = mapService.getDetailMapPost(locationInfo);
+		model.addAttribute("detailMapPostList", detailMapPostList);
+		
+		/*확인*/
+		for(MyPagePostDto i:detailMapPostList) {
+			System.out.println(i.toString());
+		}
 		
 		return "detailMap.tiles";
 	}
