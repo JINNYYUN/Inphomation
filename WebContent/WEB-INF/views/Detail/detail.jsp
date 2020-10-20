@@ -232,7 +232,7 @@ $(function(){
 		success:function(data){
 
 			if(data == '0'){
-				$("#heartCount").html("");
+				$("#heartCount").html("&emsp;");
 			}else{
 				if(data == '1'){				
 

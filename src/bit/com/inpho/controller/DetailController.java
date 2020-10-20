@@ -51,7 +51,7 @@ public class DetailController {
 		List<DetailReplyDto> likeList = service.likeList(post_seq);
 
 		/* 같은 카메라 사용한 게시글들 가져오기 */
-		List<DetailPostDto> getAllPost = service.getAllPost(postList);
+		List<DetailPostDto> getAllPost = service.getAllPost(postList.getUser_seq());
 		
 		/* date format */
 		String _date = null;

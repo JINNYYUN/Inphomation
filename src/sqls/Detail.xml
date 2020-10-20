@@ -13,12 +13,10 @@
 	AND P.POST_SEQ = #{post_seq}
 </select>
 
-<select id="getAllPost" parameterType="bit.com.inpho.dto.DetailPostDto" resultType="bit.com.inpho.dto.DetailPostDto">
-	SELECT P.POST_SEQ, P.USER_SEQ, P.POST_FILEPATH, IC.CAMERA_SERIAL
-	FROM POST P, INFO_CAMERA IC
-	WHERE P.CAMERA_SEQ = IC.CAMERA_SEQ
-	AND IC.CAMERA_SERIAL = #{camera_serial}
-	AND P.POST_SEQ != #{post_seq }
+<select id="getAllPost" parameterType="java.lang.Integer" resultType="bit.com.inpho.dto.DetailPostDto">
+	SELECT POST_SEQ, USER_SEQ, POST_FILEPATH
+	FROM POST
+	WHERE USER_SEQ = #{user_seq }
 </select>
 
 
