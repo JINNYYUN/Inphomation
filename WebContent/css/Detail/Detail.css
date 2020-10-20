@@ -311,7 +311,7 @@ hr{
 .main-container .grid {
   display: grid;
   max-width: 1600px;
-  width: 90%;
+  width: 80%;
   min-width: 770px;
   margin: 0px auto;
   min-height: 400px;
