@@ -95,4 +95,16 @@ public class DetailDaoImpl implements DetailDao {
 		sqlSession.update(ns + "deleteDetail", post_seq);
 	}
 
+	@Override
+	public List<DetailReplyDto> likeList(int post_seq) {
+		List<DetailReplyDto> list = sqlSession.selectList(ns + "likeList", post_seq);
+		return list;
+	}
+
+	@Override
+	public List<DetailPostDto> getAllPost(DetailPostDto dto) {
+		List<DetailPostDto> list = sqlSession.selectList(ns + "getAllPost", dto);
+		return list;
+	}
+
 }

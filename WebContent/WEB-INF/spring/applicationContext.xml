@@ -34,7 +34,7 @@
 	<bean id="sqlSessionFactory" class="org.mybatis.spring.SqlSessionFactoryBean">
 		<property name="dataSource" ref="dataSource"/>
 		<property name="mapperLocations" value="classpath:sqls/*.xml"/> <!-- sqls 안의 모든 xml 파일들이 mapper가 됨 -->
-		<property name="configLocation" value="classpath:mybatisAlias/alias.xml"/>  <!-- alias 클래스 패스지정. -->
+		<!-- <property name="configLocation" value="classpath:mybatisAlias/alias.xml"/>  alias 클래스 패스지정. -->
 	</bean>
 	
 <!-- sqlSession 취득 -->

@@ -55,6 +55,9 @@ MemberDto login = (MemberDto)request.getSession().getAttribute("login");
 				<button id="editMember">설정</button>
 			<%	
 			}else{
+				%>
+				<i class="far fa-envelope text" onclick="goMypageMsg()"></i>
+				<%
 				if(isFollowing){
 				%>
 					<input type="button" class="btn follow-btn" id="followBtn" value="Unfollow">
@@ -286,7 +289,13 @@ window.addEventListener("resize", SetGridItemHeight);
 
 // 좋아요 클릭 함수
 function clickLike(num, dolike, post_seq){
-
+	<%
+	if ( login == null){
+	%>
+		goLogin();
+		return
+	<%	
+	}%>
 	$.ajax({
 		url:"addLike",
 		type:"post",
@@ -317,6 +326,13 @@ function clickLike(num, dolike, post_seq){
 //북마크 클릭 함수
 function clickBookmark(num, dobook, post_seq){
 
+	<%
+	if ( login == null){
+	%>
+		goLogin();
+		return
+	<%	
+	}%>
 	$.ajax({
 		url:"addBookmark",
 		type:"post",
@@ -375,6 +391,9 @@ $("#nav_profile").click(function(){
 	});
 });
 
+function goMypageMsg(){
+	location.href="mypageMessage?user_target=" + ${mem.user_seq};
+}
 </script>
 
 
