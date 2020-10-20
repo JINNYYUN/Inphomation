@@ -12,9 +12,6 @@
 
 
 <!-- url복사 -->
-<form name="clipboard">
-	<input type="hidden" name="shareUrl">
-</form>
 <input type="hidden" name="post_seq" id="post_seq"
 	value="${post.post_seq }">
 <input type="hidden" name="writer" id="writer" value="${post.user_seq }">
@@ -28,7 +25,7 @@
 				<div class="photoBox">
 					<img alt="no Picture"
 						src="https://storage.googleapis.com/boomkit/${post.post_filepath }"
-						class="postPhoto" onclick="zoomPhoto(this.src)">
+						class="container postPhoto" onclick="zoomPhoto(this.src)">
 				</div>
 			</div>
 			<div class="rightTbl">
@@ -47,8 +44,9 @@
 									class="btn modalBtn">삭제하기</button>
 								<hr>
 							</c:if>
-							<button type="button" id="sh-link" class="btn modalBtn">공유하기</button>
-							<hr>
+							<input type="text" id="linkShare" style="width: 440px;" class="form-control" readonly>
+							<input type="button" id="share-btn" class="btn btn-reply"value="주소 복사" onclick="copy_link()">
+
 						</div>
 					</div>
 					<!-- 프로필 -->
@@ -81,7 +79,7 @@
 									</div>
 									<div>
 										<!-- 위치 -->
-										<a href="map?post_seq=${post.post_seq }"
+										<a href="../detail/map?post_seq=${post.post_seq }"
 											class="text body2 post"> ${post.post_position_name } </a>
 									</div>
 								</div>
@@ -154,30 +152,30 @@
 					<hr>
 					<div class="heartBook">
 						<c:if test="${user_seq eq 0  }">
-							<i id="heart" class="far fa-heart" onclick="addLikeBook(this.id)"></i>
+							<i id="heart" class="far fa-thumbs-up" onclick="addLikeBook(this.id)"></i>
 						</c:if>
 						<c:if test="${cLike eq 0  }">
 							<a href="javascript:void(0)"> <i id="heart"
-								class="far fa-heart" onclick="addLikeBook(this.id)"></i>
+								class="far fa-thumbs-up" onclick="addLikeBook(this.id)"></i>
 							</a>
 						</c:if>
 						<c:if test="${cLike eq 1  }">
 							<a href="javascript:void(0)"> <i id="heart"
-								class="fas fa-heart" onclick="addLikeBook(this.id)"></i>
+								class="fas fa-thumbs-up" onclick="addLikeBook(this.id)"></i>
 							</a>
 						</c:if>
 					</div>
 					<div class="heartBook">
 						<c:if test="${user_seq eq 0  }">
-							<i id="addBookmark" class="far fa-bookmark"
+							<i id="addBookmark" class="far fa-plus-square"
 								onclick="addLikeBook(this.id)"></i>
 						</c:if>
 						<c:if test="${cBook eq 0  }">
-							<i id="addBookmark" class="far fa-bookmark"
+							<i id="addBookmark" class="far fa-plus-square"
 								onclick="addLikeBook(this.id)"></i>
 						</c:if>
 						<c:if test="${cBook eq 1  }">
-							<i id="addBookmark" class="fas fa-bookmark"
+							<i id="addBookmark" class="fas fa-plus-square"
 								onclick="addLikeBook(this.id)"></i>
 						</c:if>
 	
@@ -250,8 +248,17 @@ $(function(){
 	
 		}
 	});	
+var _url = $(location).attr('href'); 
+$("#linkShare").val(_url);
 });
 
+function copy_link(){
+	var copyText = document.getElementById("linkShare");
+	 
+    copyText.select();
+    document.execCommand("copy");
+    alert("URL이 복사 되었습니다. 원하시는 곳에 붙여넣기 해 주세요.");
+}
 </script>
 <br><br>
 <hr>

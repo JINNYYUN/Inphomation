@@ -33,11 +33,13 @@ public class DetailController {
 	@RequestMapping(value = "detail", method = {RequestMethod.GET, RequestMethod.POST})
 	public String detail(Model model,int post_seq, DetailCountAllDto count, HttpServletRequest req) throws Exception {
 		
-		String l = (String)req.getSession().getAttribute("login");
-		
-		boolean b = l == null?true:false;
-		
 		MemberDto user = (MemberDto)req.getSession().getAttribute("login");
+	    
+		boolean b;
+	      
+	      if(user==null) { b=true; }
+	      else { b=false; }
+	      
 		
 		/* 디테일 세부 내용 불러오기 */
 		DetailPostDto postList = service.getPost(post_seq);
