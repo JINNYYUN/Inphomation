@@ -2,24 +2,14 @@
     pageEncoding="UTF-8"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
 <link rel="stylesheet" type="text/css" href="<%=request.getContextPath() %>/css/main.css">
-<style>
-	.main-back-ground .login{
-		position: absolute;
-		right:30px;
-		top:20px;
-		width:32px;
-		height:32px;
-		border:none;
-		border-radius:50%;
-		background-color:#f28705;
-	}
-</style>
+
 <div class="screen-up" id="screen-up"><i class="fas fa-angle-up"></i></div>
 <div class="main-back-ground" id="back-img">
-      <div class="search-bar" style="position:relative;top:200px;width:50%;margin:0 auto;min-width:250px;">
-        <input type="text" name="searchKeyword" id="main-search-keyword" style="width:100%;" />
-        <i class="fas fa-search text" onclick="searchKeywordMain();"></i>
-      </div>
+    <div class="search-bar" style="position:relative;top:200px;width:50%;margin:0 auto;min-width:250px;">
+      <input type="text" name="searchKeyword" id="main-search-keyword" style="width:100%;" />
+      <i class="fas fa-search text" onclick="searchKeywordMain();"></i>
+    </div>
+   	<hr>
 </div>
 <div class="main-container">
 	<div class="grid">
