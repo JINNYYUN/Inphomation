@@ -83,4 +83,7 @@
 	<definition name="loginPage.tiles" template="/WEB-INF/views/contain.jsp"> <!-- 오로지 로그인폼만 있는 페이지로 이동 -->
 	   <put-attribute name="content" value="/WEB-INF/views/member/loginPage.jsp" />
 	</definition>
+	<definition name="nohaveAuth.tiles" template="/WEB-INF/views/contain.jsp"> <!-- 오로지 로그인폼만 있는 페이지로 이동 -->
+	   <put-attribute name="content" value="/WEB-INF/views/member/noHaveAuth.jsp" />
+	</definition>
 </tiles-definitions>
