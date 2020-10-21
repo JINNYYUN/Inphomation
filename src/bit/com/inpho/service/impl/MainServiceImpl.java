@@ -18,4 +18,9 @@ public class MainServiceImpl implements MainService{
 		return dao.getNewFeed();
 	}
 
+	@Override
+	public List<MainPostDto> getNewFeed(int userSeq) {
+		return dao.getNewFeed(userSeq);
+	}
+
 }
