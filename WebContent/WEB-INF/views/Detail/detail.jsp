@@ -15,6 +15,7 @@
 <input type="hidden" name="post_seq" id="post_seq"
 	value="${post.post_seq }">
 <input type="hidden" name="writer" id="writer" value="${post.user_seq }">
+<input type="hidden" name="user_seq" id="user_seq" value="${user_seq }">
 
 <div class="container all">
 	
@@ -27,7 +28,6 @@
 						class="container postPhoto" onclick="zoomPhoto(this.src)">
 				</div>
 			</div>
-<input type="text" name="user_seq" id="user_seq" value="${user_seq }">
 			<div class="rightTbl">
 				<div class="innerRightBox">
 					<!-- modal Menu -->
@@ -160,30 +160,30 @@
 					<hr>
 					<div class="heartBook">
 						<c:if test="${user_seq eq 0  }">
-							<i id="heart" class="far fa-thumbs-up" onclick="addLikeBook(this.id)"></i>
+							<i id="heart" class="far fa-heart" onclick="addLikeBook(this.id)"></i>
 						</c:if>
 						<c:if test="${cLike eq 0  }">
 							<a href="javascript:void(0)"> <i id="heart"
-								class="far fa-thumbs-up" onclick="addLikeBook(this.id)"></i>
+								class="far fa-heart" onclick="addLikeBook(this.id)"></i>
 							</a>
 						</c:if>
 						<c:if test="${cLike eq 1  }">
 							<a href="javascript:void(0)"> <i id="heart"
-								class="fas fa-thumbs-up" onclick="addLikeBook(this.id)"></i>
+								class="fas fa-heart" onclick="addLikeBook(this.id)"></i>
 							</a>
 						</c:if>
 					</div>
 					<div class="heartBook">
 						<c:if test="${user_seq eq 0  }">
-							<i id="addBookmark" class="far fa-plus-square"
+							<i id="addBookmark" class="far fa-bookmark"
 								onclick="addLikeBook(this.id)"></i>
 						</c:if>
 						<c:if test="${cBook eq 0  }">
-							<i id="addBookmark" class="far fa-plus-square"
+							<i id="addBookmark" class="far fa-bookmark"
 								onclick="addLikeBook(this.id)"></i>
 						</c:if>
 						<c:if test="${cBook eq 1  }">
-							<i id="addBookmark" class="fas fa-plus-square"
+							<i id="addBookmark" class="fas fa-bookmark"
 								onclick="addLikeBook(this.id)"></i>
 						</c:if>
 	

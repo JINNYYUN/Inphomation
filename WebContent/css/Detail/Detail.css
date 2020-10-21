@@ -246,21 +246,21 @@ td .replyImg {
 	box-shadow: inset 0px 0px 0px white;
 }
 
-.fa-thumbs-up {
+.fa-heart {
 	border-color: black;
 	float: left;
 	margin-left: 5px;
 	margin-right: 8px;
 }
 
-.fa-plus-square {
+.fa-bookmark {
 	border-color: black;
 	color: black;
 	float: right;
 	margin-right: 30px;
 }
-.fa-plus-square,
-.fa-thumbs-up{
+.fa-bookmark,
+.fa-heart{
 	font-size: 21px;
 	margin-top: 5px;
 }
