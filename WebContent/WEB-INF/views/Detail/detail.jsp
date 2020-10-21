@@ -250,7 +250,7 @@ $(function(){
 						history.go(0);
 					},
 					error:function(){
-						alert('에러');
+					
 					}
 				});
 			}else{
