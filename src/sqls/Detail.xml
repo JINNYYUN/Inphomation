@@ -11,6 +11,7 @@
 	FROM POST P, INFO_CAMERA IC
 	WHERE P.CAMERA_SEQ = IC.CAMERA_SEQ
 	AND P.POST_SEQ = #{post_seq}
+	AND DEL != '1'
 </select>
 
 <select id="getAllPost" parameterType="java.lang.Integer" resultType="bit.com.inpho.dto.DetailPostDto">

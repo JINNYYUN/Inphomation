@@ -308,7 +308,9 @@ a:hover {
 	margin-top: 3px;
 	margin-left: 110px;
 }
-
+.detail-bottom-message{
+	margin-bottom : 20px	
+}
 input:focus {
 	outline: none;
 }
@@ -323,7 +325,7 @@ hr{
 .main-container .grid {
   display: grid;
   max-width: 1600px;
-  width: 65%;
+  width: 100%;
   min-width: 770px;
   margin: 0px auto;
   min-height: 400px;
