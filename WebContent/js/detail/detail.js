@@ -1,35 +1,9 @@
+
 $(document).ready(function(){
 
-	$("#followBtn").on("click",function(){
-		$.ajax({
-		url:'follow',
-			data:{
-			"following": $("#writer").val(), 
-			"work": $("#followBtn").val()},
-			success:function(data){
-				$(this).html("Unfollow");
-
-				location.reload(true);
-				location.href = location.href;
-
-				history.go(0);
-			},
-			error:function(){
-				alert('에러');
-			}
-		});
-	});
-	
 	
 });
 
-function follow(user_seq){
-	
-	location.href='follow?user_seq='+user_seq;
-	
-	location.reload(true);
-	location.href = location.href;
-}
 
 /* 게시글 모달 사이즈 */
 document.getElementById('ex1').style.height = '180px';

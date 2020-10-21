@@ -110,7 +110,7 @@ public class DetailController {
 
 	@RequestMapping(value = "addLikeBook", method = {RequestMethod.GET, RequestMethod.POST})
 	public String addLikeBook(DetailCountAllDto dto, String word, Model model, HttpServletRequest req) throws Exception {
-		MyPageMemberDto user = (MyPageMemberDto)req.getSession().getAttribute("ologin");
+		MemberDto user = (MemberDto)req.getSession().getAttribute("login");
 		
 		if(word.equals("heart")) {
 			
@@ -183,17 +183,17 @@ public class DetailController {
 	
 	@ResponseBody
 	@RequestMapping(value = "follow", method = {RequestMethod.GET, RequestMethod.POST})
-	public String follow(int following, String work, Model model, HttpServletRequest req) {
-		MyPageMemberDto user = (MyPageMemberDto)req.getSession().getAttribute("ologin");
+	public void follow(int following, String work, int user_seq, Model model, HttpServletRequest req) {
+		
+		System.out.println("follow: ");
+		System.out.println("follow: " + user_seq);
 		
 		HashMap<String, Integer> map = new HashMap<String, Integer>();
 		
 		map.put("following", following);
-		map.put("follower", user.getUser_seq());
+		map.put("follower", user_seq);
 		
 		MyService.follow(map, work);
-		
-		return "YES";
 	}
 	
 	@RequestMapping(value = "deleteDetail", method = {RequestMethod.GET, RequestMethod.POST})

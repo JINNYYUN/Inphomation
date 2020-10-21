@@ -15,7 +15,6 @@
 <input type="hidden" name="post_seq" id="post_seq"
 	value="${post.post_seq }">
 <input type="hidden" name="writer" id="writer" value="${post.user_seq }">
-<input type="hidden" name="user_seq" id="user_seq" value="${user_seq }">
 
 <div class="container all">
 	
@@ -28,6 +27,7 @@
 						class="container postPhoto" onclick="zoomPhoto(this.src)">
 				</div>
 			</div>
+<input type="text" name="user_seq" id="user_seq" value="${user_seq }">
 			<div class="rightTbl">
 				<div class="innerRightBox">
 					<!-- modal Menu -->
@@ -57,13 +57,21 @@
 						<div>
 							<div>
 								<div>
+								<c:if test="${post.user_seq eq user_seq  }">
+									
+								</c:if>
+								<c:if test="${user_seq eq 0  }">
+										<button type="button" id="followBtn"
+										class="text btn btn-outline-primary unfollowBtn" value="Follow">
+										Follow</button>
+								</c:if>
 								<!-- follow 가 true면 팔로우 상태 한번 더 클릭하면 언팔 -->
-									<c:if test="${follow eq true }">
+									<c:if test="${follow eq true && post.user_seq ne user_seq }">
 										<button type="button" id="followBtn"
 											class="text btn btn-primary followBtn" value="Unfollow">
 											Following</button>
 									</c:if>
-									<c:if test="${follow eq false  }">
+									<c:if test="${follow eq false && post.user_seq ne user_seq  }">
 										<button type="button" id="followBtn"
 											class="text btn btn-outline-primary unfollowBtn" value="Follow">
 											Follow</button>
@@ -211,10 +219,11 @@
 				<div class="cmtBox">
 					<textarea id="comment" class="text post body1 comment"
 						onKeypress="if(event.keyCode==13) {addComment()}"
-						placeholder="댓글 달기"></textarea>
+						placeholder="댓글 달기"
+						style="border: none;"></textarea>
+				</div>
 					<input type="button" id="addCmt" onclick="addComment()"
 						class="text btn btn-reply" value="입력">
-				</div>
 			</div>
 		</div>
 	</div>
@@ -223,6 +232,35 @@
 <script type="text/javascript">
 $(function(){
 
+		$("#followBtn").on("click",function(){
+		
+			if($("#user_seq").val() != 0){
+				$.ajax({
+					url:'follow',
+					data:{
+						"following": $("#writer").val(), 
+						"work": $("#followBtn").val(),
+						"user_seq" : $("#user_seq").val()},
+					success:function(){
+						$(this).html("Unfollow");
+		
+						location.reload(true);
+						location.href = location.href;
+		
+						history.go(0);
+					},
+					error:function(){
+						alert('에러');
+					}
+				});
+			}else{
+				alert("로그인 페이지로 이동합니다");
+			}
+		});
+		
+
+
+	
 	$.ajax({
 		url:"countLikeAll",
 		type:"get",

@@ -189,18 +189,19 @@ td .replyImg {
 	height: 60px;
 }
 .comment {
-	width: 80%;
-    border: 2px #F28705 solid;
-    float: left;
-    margin-top: 6px;
-    word-wrap:normal;
-    word-break:break-all;
+    width: 300px;
+    /* border: 2px #F28705 solid; */
+    /* float: left; */
+    margin-top: 1px;
+    word-wrap: normal;
+    word-break: break-all;
     resize: none;
-    height: 6%;
+    height: 30px;
     font-family: "Noto Sans KR", sans-serif;
     border-radius: 50px;
+    /* border: 1px black solid; */
     overflow: hidden;
-    
+    margin-left: 6px;
 }
 .btn-reply{
 	float: right;
@@ -208,11 +209,18 @@ td .replyImg {
     border: 0px solid #F25C05;
     margin-right: 4%;
     font-family: "Noto Sans KR", sans-serif;
+    padding-top: 5px;
 }
 
-/* .cmtBox{
-	border-top: 2px #F2F2F2 solid;
-} */
+.cmtBox{
+	border: 2px #F28705 solid;
+    border-radius: 50px;
+    width: 80%;
+    height: 6%;
+    float: left;
+    margin-top: 4px;
+}
+
 .cmtCls {
 	margin-left: 5px;
 	padding-right: 20px;
