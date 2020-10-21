@@ -19,7 +19,7 @@ pageEncoding="UTF-8"%>
 	    		</a>
     		</h1>
   		</li>
-  		<li class="goSite"><div class="body1" onclick="goMap();">지도</div></li>
+  		<li class="goSite"><div class="body1" onclick="goMap();">지도로 보기</div></li>
   		<li class="goSite"><div class="body1" onclick="goFollow();">팔로우</div></li>
   	</ul>
     <div class="menu">
