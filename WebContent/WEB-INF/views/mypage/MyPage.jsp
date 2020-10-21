@@ -24,7 +24,7 @@ boolean isFollowing = (boolean)request.getAttribute("isFollowing");
 MemberDto login = (MemberDto)request.getSession().getAttribute("login");
 %>
 
-<div class="">
+<div class="full-container">
 
 	<!-- The Modal Following -->
 	<div id="myModal" class="modal">
@@ -52,7 +52,6 @@ MemberDto login = (MemberDto)request.getSession().getAttribute("login");
 			if(mem.getUser_seq() == login.getUser_seq()){
 			%>
 				<button class="btn follow-btn" id="editProfile">프로필 수정</button>
-				<button id="editMember">설정</button>
 			<%	
 			}else{
 				%>

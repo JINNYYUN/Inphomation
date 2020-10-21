@@ -1,6 +1,6 @@
 @charset "UTF-8";
-.container{
-	width: 100%;
+.full-container{
+	margin-top: 80px;
 }
 .top{
 	width: 100%;
