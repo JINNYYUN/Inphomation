@@ -15,7 +15,6 @@
 	padding-top: 100px;
 	margin-top: 15px;
 	background-color: #ffffff;
-    margin-left: 23%;
 }
 
 .proflBox {
@@ -161,7 +160,7 @@ td .replyImg {
 }
 .modal{	
     height: 25%;
-
+	text-align: center;
 }
 .replyTbl {
 	width: 100px;
@@ -319,7 +318,7 @@ hr{
 .main-container .grid {
   display: grid;
   max-width: 1600px;
-  width: 80%;
+  width: 65%;
   min-width: 770px;
   margin: 0px auto;
   min-height: 400px;

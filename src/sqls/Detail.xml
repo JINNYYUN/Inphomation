@@ -15,9 +15,12 @@
 
 <select id="getAllPost" parameterType="java.lang.Integer" resultType="bit.com.inpho.dto.DetailPostDto">
 	SELECT POST_SEQ, USER_SEQ, POST_FILEPATH
-	FROM POST
-	WHERE USER_SEQ = #{user_seq }
-	ORDER BY POST_WDATE DESC
+	FROM (SELECT  POST_SEQ, USER_SEQ, POST_FILEPATH
+	      FROM POST
+	      WHERE USER_SEQ = #{user_seq}
+          AND DEL != '1'
+	      ORDER BY POST_WDATE DESC )
+	WHERE ROWNUM <![CDATA[ <= ]]> 8
 </select>
 
 
@@ -31,7 +34,7 @@
 
 <update id="deleteDetail" parameterType="java.lang.Integer">
 	UPDATE POST SET DEL = '1'
-	WHERE POST_SEQ = ${post_seq} 
+	WHERE POST_SEQ = #{post_seq} 
 </update>
 
 

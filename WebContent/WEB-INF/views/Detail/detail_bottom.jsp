@@ -1,11 +1,11 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
-
+<h2 class="text" style=" margin-left: 332px; margin-bottom: 3px; ">최근 게시물</h2>
 <div class="main-container">
 	<div class="grid">
 		<c:if test="${empty postList }">
-		<h1 class="text nothing" title="take me to main page!!!" onclick="location.href='main'">NOTHING <i class="far fa-grimace"></i></h1>
+		<h1 class="text nothing" title="take me to main page!!!" onclick="location.href='main'"><a href="main">FIND MORE <i class="far fa-grimace"></i></a></h1>
 		</c:if>
 		<c:forEach items="${postList }" var="post" varStatus="i">
 			<div class="item">

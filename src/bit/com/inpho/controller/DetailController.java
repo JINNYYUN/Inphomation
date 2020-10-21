@@ -201,7 +201,7 @@ public class DetailController {
 		
 		service.deleteDetail(post_seq);
 		
-		return "main.tiles";
+		return "redirect:main";
 	}
 	
 	

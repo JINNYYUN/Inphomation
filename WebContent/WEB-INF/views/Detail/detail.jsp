@@ -37,7 +37,7 @@
 						</div>
 						<div id="ex1" class="modal">
 							<c:if test="${post.user_seq eq user_seq }">
-								<button type="button" id="editDetail" onclick="editDetail()"
+								<button type="button" id="editDetail" onclick="editDetail(${post.post_seq})" 
 									class="btn modalBtn">수정하기</button>
 								<hr>
 								<button type="button" id="deleteDetail" onclick="deleteDetail()"
@@ -300,6 +300,6 @@ function copy_link(){
 </script>
 <br><br>
 <hr>
-<br><br>
+<br>
 
 <jsp:include page="./detail_bottom.jsp"></jsp:include>
