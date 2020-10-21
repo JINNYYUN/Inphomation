@@ -46,6 +46,9 @@ img{
     line-height: 60px;
     margin-bottom: 30px;
 }
+.title{
+	padding-top: 24px;
+}
 textarea.form-control{
 	font-size: 16px;
     font-family: none;

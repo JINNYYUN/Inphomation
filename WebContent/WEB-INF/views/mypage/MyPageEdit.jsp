@@ -42,7 +42,7 @@ MyPageMemberDto mem = (MyPageMemberDto)map.get("mem");
 	<div class="contents">
 		<div class="mynav">
 		<hr>
-		<p align="center">프로필 수정</p>
+		<p class="title" align="center">프로필 수정</p>
 		</div>
 		<div class="content-detail">
 		

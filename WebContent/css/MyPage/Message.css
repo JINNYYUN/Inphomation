@@ -60,14 +60,15 @@
 	padding: 15px 30px;
 }
 li{
-    border:white solid 1px;
-    list-style:none;
-    padding: 0.7em;
-    border-radius: 14px;
+    
 }
 .msg{
 	max-width: 430px;
 	word-break: break-all;
+	border:white solid 1px;
+    list-style:none;
+    padding: 0.7em;
+    border-radius: 14px;
 }
 .msg.send{
 	float: right;
@@ -104,8 +105,8 @@ li{
 .form-control-lg{
 	width: 80%;
 }
-input:focus, input[type]:focus, .uneditable-input:focus {
-    border-color: rgba(229, 103, 23, 0.8);
+.form-control-lg:focus{
+    border-color: #ffd18d;
     box-shadow: 0 1px 1px rgba(229, 103, 23, 0.075) inset, 0 0 8px rgba(229, 103, 23, 0.6);
     outline: 0 none;
 }
