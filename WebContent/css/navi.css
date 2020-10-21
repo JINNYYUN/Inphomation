@@ -34,10 +34,12 @@
 	height:100%;
 }
 .navbar .container ul li div{
-	display:block;
+	display: inline-block;
 	height:100%;
 	line-height: 80px;
     white-space: nowrap;
+    font-size:18px;
+    font-weight:500;
 }
 .navbar .container ul li div:hover{
 	cursor:pointer;
@@ -53,6 +55,17 @@
 .navbar .container ul .main a:hover{
 	color:#f28705;
 }
+ul.moveSite li:last-child:before{
+	content:'|';
+	font-size: 15px;
+	color:gray;
+	line-height:50px;
+	margin-right:10px;
+	display: inline-block;
+	opacity: 0.5;
+}
+
+
 .navbar .container .menu {
   height: 100%;
 /*  margin:auto; */
@@ -66,7 +79,6 @@
 .navbar .container .menu .search-bar {
   height:100%;
   position:relative;
-  
 }
 
 .navbar .container .menu .search-bar input {
@@ -74,12 +86,13 @@
   padding-right: 55px;
   height: 45px;
   width:600px;
-  border: 2px solid #f28705;
+  border: 1px solid #D9D9D9;
   margin-top:17.5px;
 }
 
 .navbar .container .menu .search-bar input:focus {
   outline:none;
+  border: 1px solid #F27405;
 }
 
 .navbar .container .menu .search-bar button {
@@ -89,7 +102,7 @@
   border-radius:0;
 /*   top:50%;
   transform:translateY(-50%); */
-  height:43px;
+  height:44px;
   right:0;
   padding:2px;
   width:50px;

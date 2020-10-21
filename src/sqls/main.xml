@@ -31,6 +31,8 @@
 		<result property="postBookmark" column="BOOKMARK"/>
 		<result property="postReply" column="REPLY"/>
 		<result property="filePath" column="POST_FILEPATH"/>
+		<result property="userLike" column="USERLIKE"/>
+		<result property="userBookMark" column="USERBOOKMAKR"/>
 		<collection property="hashtag" column="POSTSEQ" javaType="java.util.ArrayList" ofType="java.lang.String" select="getFeedHashTag" />
 	</resultMap>
 	
@@ -52,5 +54,21 @@
 		SELECT IF.HASHTAG 
         FROM POST_HASHTAG PH, INFO_HASHTAG IF
 	    WHERE PH.TAG_SEQ = IF.TAG_SEQ AND  PH.POST_SEQ = #{postSeq}
+	</select>
+	
+	<select id="newFeedListLogin" resultMap="newFeedListTotal" parameterType="java.lang.Integer">
+		SELECT * FROM(
+			SELECT ROWNUM RNUM, PO.POST_SEQ AS "POSTSEQ" , ME.USER_SEQ AS "USERSEQ", ME.USER_NICKNAME AS "NICKNAME", POST_WDATE AS "WDATE", PO.DEL AS "DEL",
+		            (SELECT COUNT(A.USER_SEQ) FROM POST_LIKE A WHERE A.POST_SEQ = PO.POST_SEQ) AS "LIKE", 
+		            (SELECT COUNT(A.USER_SEQ) FROM POST_BOOKMARK A WHERE A.POST_SEQ = PO.POST_SEQ) AS "BOOKMARK", 
+		            (SELECT COUNT(A.USER_SEQ) FROM POST_REPLY A WHERE A.POST_SEQ = PO.POST_SEQ) AS "REPLY",
+                    (SELECT COUNT(A.USER_SEQ) FROM POST_LIKE A WHERE A.POST_SEQ = PO.POST_SEQ AND A.USER_SEQ=#{userseq}) AS "USERLIKE",
+                    (SELECT COUNT(A.USER_SEQ) FROM POST_BOOKMARK A WHERE A.POST_SEQ = PO.POST_SEQ AND A.USER_SEQ=#{userseq}) AS "USERBOOKMARK",
+		            PO.POST_FILEPATH
+	         FROM POST PO, MEMBER ME
+	         WHERE PO.USER_SEQ = ME.USER_SEQ
+	         AND DEL = 0
+	         ORDER BY PO.POST_SEQ DESC
+	    ) WHERE RNUM BETWEEN 1 AND 30
 	</select>
 </mapper>

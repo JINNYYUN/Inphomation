@@ -13,10 +13,11 @@ public class MainPostDto implements Serializable{
 	private int postLike;
 	private int postBookmark;
 	private int postReply;
+	private int userLike;
+	private int userBookMark;
 	private String userNickName;
 	private String wdate;
 	private String filePath;
-	
 	private List<String> hashtag;
 	
 	public MainPostDto() {}
@@ -91,11 +92,29 @@ public class MainPostDto implements Serializable{
 		this.hashtag = hashtag;
 	}
 
+	public int getUserLike() {
+		return userLike;
+	}
+
+	public void setUserLike(int userLike) {
+		this.userLike = userLike;
+	}
+
+	public int getUserBookMark() {
+		return userBookMark;
+	}
+
+	public void setUserBookMark(int userBookMark) {
+		this.userBookMark = userBookMark;
+	}
+
 	@Override
 	public String toString() {
 		return "MainPostDto [postSeq=" + postSeq + ", userSeq=" + userSeq + ", postLike=" + postLike + ", postBookmark="
-				+ postBookmark + ", postReply=" + postReply + ", userNickName=" + userNickName + ", wdate=" + wdate
-				+ ", filePath=" + filePath + ", hashtag=" + hashtag + "]";
+				+ postBookmark + ", postReply=" + postReply + ", userLike=" + userLike + ", userBookMark="
+				+ userBookMark + ", userNickName=" + userNickName + ", wdate=" + wdate + ", filePath=" + filePath
+				+ ", hashtag=" + hashtag + "]";
 	}
+	
 	
 }
