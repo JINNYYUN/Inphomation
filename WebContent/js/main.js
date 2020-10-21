@@ -18,7 +18,7 @@ window.addEventListener("load", SetGridItemHeight);
 window.addEventListener("resize", SetGridItemHeight);
 
 function movePage(seq) {
-	location.href = "/post?seq=1"
+	location.href = "http://"+location.host+"/Inphomation/detail?post_seq="+seq
 }
 
 //각종 페이지 기능들 구현하기

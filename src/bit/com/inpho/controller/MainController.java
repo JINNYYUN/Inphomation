@@ -21,7 +21,6 @@ public class MainController {
 	public String goMainPage(Model model) {
 		List<MainPostDto> list = mainService.getNewFeed();
 		model.addAttribute("postList",list);
-		System.out.println(list.toString());
 		return "main.tiles";
 	}
 	

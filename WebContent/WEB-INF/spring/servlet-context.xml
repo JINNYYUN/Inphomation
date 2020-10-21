@@ -52,12 +52,10 @@
 	 <mvc:interceptors>
 	 	<mvc:interceptor>
 	 		<mvc:mapping path="/post"/>
-	 		<mvc:mapping path="/mypage"/>
 	 		<mvc:mapping path="/mypageedit"/>
 	 		<ref bean="AopInterceptor" />
 	 	</mvc:interceptor>
 	 </mvc:interceptors>
-	 
 	 
 	 <!-- java 공통 패키지 설정 -->
 	<context:component-scan base-package="bit.com.inpho"/>

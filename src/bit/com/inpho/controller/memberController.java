@@ -57,10 +57,10 @@ public class memberController {
 	}
 	@ResponseBody
 	@PostMapping("/register")
-	public boolean regeisterMember(MemberDto member) {
+	public boolean regeisterMember(MemberDto member, HttpSession session) throws Exception {
 		System.out.println(member.toString());
 		//회원가입 실패 유무를 반환
-		return memberService.regeisterMember(member);
+		return memberService.regeisterMember(member, session);
 	}
 	@ResponseBody
 	@PostMapping("/confirmId")

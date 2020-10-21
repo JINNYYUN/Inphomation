@@ -63,10 +63,11 @@ function submitRegi(){
 			provider:"homepage"
 		},
 		success:function(data){
+			console.log(data)
 			//회원가입 성공
 			if(data){
 				alert('regiSuccess')
-				window.location.reload()
+				location.href='http://'+location.host+'/Inphomation/noHaveAuth'
 			}else{
 				alert('fail')
 			}
@@ -216,8 +217,9 @@ function goLogin(){
 		type:'GET',
 		dataType:'html',
 		success:function(data){
-			document.getElementById('modal-container').innerHTML=data
-			$('#myModal').modal('show');
+			$('#modal-container').html(data)
+			//document.getElementById('modal-container').innerHTML=data
+			$('#myModal').modal('show')
 			$('.modal-backdrop').css('z-index',2)
 		},
 		error:function(){

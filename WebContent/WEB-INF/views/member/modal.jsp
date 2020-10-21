@@ -1,7 +1,6 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
 pageEncoding="UTF-8"%>
 <link rel="stylesheet" href="<%=request.getContextPath() %>/css/modalPage.css">
-
 <!-- Modal HTML -->
 <div id="myModal" class="modal fade">
   <div class="modal-dialog modal-login">
