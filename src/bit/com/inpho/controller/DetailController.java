@@ -52,7 +52,7 @@ public class DetailController {
 		/* 좋아요 리스트 가져오기 */
 		List<DetailReplyDto> likeList = service.likeList(post_seq);
 
-		/* 같은 카메라 사용한 게시글들 가져오기 */
+		/* 작성자 게시글들 가져오기 */
 		List<DetailPostDto> getAllPost = service.getAllPost(postList.getUser_seq());
 		
 		/* date format */
