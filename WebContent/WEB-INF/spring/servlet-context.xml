@@ -52,7 +52,6 @@
 	 <mvc:interceptors>
 	 	<mvc:interceptor>
 	 		<mvc:mapping path="/post"/>
-	 		<mvc:mapping path="/mypage"/>
 	 		<mvc:mapping path="/mypageedit"/>
 	 		<ref bean="AopInterceptor" />
 	 	</mvc:interceptor>

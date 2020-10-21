@@ -12,9 +12,6 @@
 
 
 <!-- url복사 -->
-<form name="clipboard">
-	<input type="hidden" name="shareUrl">
-</form>
 <input type="hidden" name="post_seq" id="post_seq"
 	value="${post.post_seq }">
 <input type="hidden" name="writer" id="writer" value="${post.user_seq }">
@@ -28,7 +25,7 @@
 				<div class="photoBox">
 					<img alt="no Picture"
 						src="https://storage.googleapis.com/boomkit/${post.post_filepath }"
-						class="postPhoto" onclick="zoomPhoto(this.src)">
+						class="container postPhoto" onclick="zoomPhoto(this.src)">
 				</div>
 			</div>
 			<div class="rightTbl">
@@ -47,8 +44,9 @@
 									class="btn modalBtn">삭제하기</button>
 								<hr>
 							</c:if>
-							<button type="button" id="sh-link" class="btn modalBtn">공유하기</button>
-							<hr>
+							<input type="text" id="linkShare" style="width: 440px;" class="form-control" readonly>
+							<input type="button" id="share-btn" class="btn btn-reply"value="주소 복사" onclick="copy_link()">
+
 						</div>
 					</div>
 					<!-- 프로필 -->
@@ -59,13 +57,21 @@
 						<div>
 							<div>
 								<div>
+								<c:if test="${post.user_seq eq user_seq  }">
+									
+								</c:if>
+								<c:if test="${user_seq eq 0  }">
+										<button type="button" id="followBtn"
+										class="text btn btn-outline-primary unfollowBtn" value="Follow">
+										Follow</button>
+								</c:if>
 								<!-- follow 가 true면 팔로우 상태 한번 더 클릭하면 언팔 -->
-									<c:if test="${follow eq true }">
+									<c:if test="${follow eq true && post.user_seq ne user_seq }">
 										<button type="button" id="followBtn"
 											class="text btn btn-primary followBtn" value="Unfollow">
 											Following</button>
 									</c:if>
-									<c:if test="${follow eq false  }">
+									<c:if test="${follow eq false && post.user_seq ne user_seq  }">
 										<button type="button" id="followBtn"
 											class="text btn btn-outline-primary unfollowBtn" value="Follow">
 											Follow</button>
@@ -81,7 +87,7 @@
 									</div>
 									<div>
 										<!-- 위치 -->
-										<a href="map?post_seq=${post.post_seq }"
+										<a href="../detail/map?post_seq=${post.post_seq }"
 											class="text body2 post"> ${post.post_position_name } </a>
 									</div>
 								</div>
@@ -213,10 +219,11 @@
 				<div class="cmtBox">
 					<textarea id="comment" class="text post body1 comment"
 						onKeypress="if(event.keyCode==13) {addComment()}"
-						placeholder="댓글 달기"></textarea>
+						placeholder="댓글 달기"
+						style="border: none;"></textarea>
+				</div>
 					<input type="button" id="addCmt" onclick="addComment()"
 						class="text btn btn-reply" value="입력">
-				</div>
 			</div>
 		</div>
 	</div>
@@ -225,6 +232,35 @@
 <script type="text/javascript">
 $(function(){
 
+		$("#followBtn").on("click",function(){
+		
+			if($("#user_seq").val() != 0){
+				$.ajax({
+					url:'follow',
+					data:{
+						"following": $("#writer").val(), 
+						"work": $("#followBtn").val(),
+						"user_seq" : $("#user_seq").val()},
+					success:function(){
+						$(this).html("Unfollow");
+		
+						location.reload(true);
+						location.href = location.href;
+		
+						history.go(0);
+					},
+					error:function(){
+					
+					}
+				});
+			}else{
+				alert("로그인 페이지로 이동합니다");
+			}
+		});
+		
+
+
+	
 	$.ajax({
 		url:"countLikeAll",
 		type:"get",
@@ -232,7 +268,7 @@ $(function(){
 		success:function(data){
 
 			if(data == '0'){
-				$("#heartCount").html("");
+				$("#heartCount").html("&emsp;");
 			}else{
 				if(data == '1'){				
 
@@ -250,8 +286,17 @@ $(function(){
 	
 		}
 	});	
+var _url = $(location).attr('href'); 
+$("#linkShare").val(_url);
 });
 
+function copy_link(){
+	var copyText = document.getElementById("linkShare");
+	 
+    copyText.select();
+    document.execCommand("copy");
+    alert("URL이 복사 되었습니다. 원하시는 곳에 붙여넣기 해 주세요.");
+}
 </script>
 <br><br>
 <hr>

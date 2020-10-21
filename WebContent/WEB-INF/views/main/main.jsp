@@ -4,18 +4,23 @@
 <link rel="stylesheet" type="text/css" href="<%=request.getContextPath() %>/css/main.css">
 
 <div class="screen-up" id="screen-up"><i class="fas fa-angle-up"></i></div>
-<div class="main-back-ground" id="back-img">
-	<div class="sentence">
-		<p class="display-4 text-weight-regular">당신의 <span class="text display-4 text-weight-bold">소중한 순간</span>을</p>
-		<p class="display-4 text-weight-regular">간직하세요</p>
-		 
+<div class="container main-back-ground" id="back-img">
+	<div class="sentence-search-bar">
+		<div class="main-sentence">
+			<h1 class="main-text"><span class="text text-color-orange text-weight-regular">사진</span>의 정보가</h1>
+			<h1 class="main-text">궁금하신가요?</h1>
+		</div>
+		<div class="search-bar">
+	        <input type="text" name="searchKeyword" id="main-search-keyword" placeholder="위치, 카메라, 보정법"/>
+	        <svg width="25" height="25" viewBox="0 0 18 18" class="main-search-icon" id="main-search-icon">
+				<g fill="none" fill-rule="evenodd">
+					<circle cx="7.5" cy="7.5" r="6.5"></circle>
+					<path d="M12 12l5 5"></path>
+				</g>
+			</svg>
+	        <button type="button" class="btn btn-primary" onclick="searchKeyword('main');"><h4>검색</h4></button>
+   	 	</div>
 	</div>
-    <div class="search-bar">
-    	<h1><i class="fas fa-search text"></i></h1>
-        <input type="text" name="searchKeyword" id="search-keyword" />
-        <button type="button" class="btn btn-primary btn-block btn-1g" onclick="searchKeyword('main');">검색</button>
-    </div>
-   	<hr>
 </div>
 <div class="main-container">
 	<div class="grid">
@@ -43,3 +48,20 @@
 </div>
 
 <script src="<%=request.getContextPath() %>/js/main.js"></script>
+
+<script>
+
+//input 검색 박스 focus시 css변경 이벤트
+$('.search-bar').click(function(){
+	$('#main-search-keyword').focus();
+	$('.search-bar').css("border", "1px solid #F27405");
+	$('#main-search-icon g').css("stroke", "#F27405");
+	
+}); 
+
+$('#main-search-keyword').blur(function(){
+	$('.search-bar').css("border", "1px solid #D9D9D9");
+	$('#main-search-icon g').css("stroke", "#8c8c8c");
+});
+
+</script>
