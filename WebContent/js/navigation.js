@@ -36,11 +36,11 @@ function searchKeyword(){
 		//핸들러 등록(연결 생성, 메시지 수신, 연결 종료)
 
 		//url 연결할 서버의 경로
-		ws = new WebSocket('ws://192.168.0.201:8090/Inphomation/echo.do/websocket');	
+		ws = new WebSocket('ws://192.168.0.201:8090/echo.do/websocket');	
 
 		ws.onopen = function() {
 			console.log('연결 생성');
-			alert('연결 생성');
+			//alert('연결 생성');
 			register();
 		};
 				
@@ -51,7 +51,7 @@ function searchKeyword(){
 		};
 		ws.onclose = function() {
 			//console.log('연결 끊김');
-			alert('연결 끊김');
+			//alert('연결 끊김');
 		};
 	}
 
@@ -64,11 +64,7 @@ function searchKeyword(){
 		};
 		ws.send(JSON.stringify(msg));
 	}
-	
+	// 메시지 수신 시 알림 표시
 	function addMsg(data){
-		$('.fa-circle').css('display','inline');
+		$('.fa-circle').css('opacity','100');
 	}
-
-
-	
-	

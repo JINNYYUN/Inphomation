@@ -221,11 +221,13 @@ ul.moveSite li:last-child:before{
 .fa-envelope{
 	position: relative;
 }
+
 .loginMode ol li div i.fa-circle{
-	position: relative;
-	font-size: 10px;
+	position: absolute;
+    font-size: 10px;
     color: red;
-    left: -13px;
-    bottom: 19px;
-    display: none;
+    top: -8px;
+    right: 157px;
+    opacity: 0;
 }
+

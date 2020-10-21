@@ -64,7 +64,7 @@ pageEncoding="UTF-8"%>
 	      	<ul>
 	      		<li class="body1"><a href="<%=request.getContextPath() %>/mypage?user_seq=<%=member.getUser_seq()%>">내 프로필</a></li>
 	      		<li class="body1"><a href="<%=request.getContextPath() %>/bookmark">북마크 게시물</a></li>
-	      		<li class="body1"><a href="<%=request.getContextPath() %>/mypageedit">개인정보수정</a></li>
+	      		<li class="body1"><a href="<%=request.getContextPath() %>/editMem">개인정보수정</a></li>
 	      		<li class="body1"><a href="javascript:doLogout();">로그아웃</a></li>	
 	      	</ul>
 	      	<input type="hidden" value="<%=member.getUser_email()%>" id="userEmail">
