@@ -5,11 +5,16 @@
   width: 350px;
 }
 
-.modal-login .modal-content {
-  border-radius: 5px;
-  border: none;
+.modal-login .modal-content{
+	background-color: #fefefe;
+    margin: auto;
+    padding: 20px;
+    width: 400px;
+    height: 400px;
+    border-radius: 5px;
+  	border: none;
+  	top:200px;
 }
-
 .modal-login .modal-header {
   display: flex;
   border-bottom: none;
@@ -24,12 +29,11 @@
   font-weight: 600;
   width: 50%;
   color: white;
-  border-radius: 4px;
   cursor: pointer;
 }
 
 .modal-header h4.select {
-  background-color: blue;
+  background-color: #F27405;
 }
 
 .modal-header h4.select-no {
@@ -62,17 +66,14 @@
 .modal-login .form-control.pwd {
   padding-left: 40px;
   padding-right: 40px;
-}
-
-.modal-login .form-control:focus {
-  border-color: #00ce81;
+ 
 }
 
 .modal-login .form-control,
 .modal-login .btn {
   min-height: 40px;
   border-radius: 3px;
-}
+ } 
 
 .modal-login .hint-text {
   text-align: center;
@@ -91,12 +92,35 @@
   color: white;
   line-height: normal;
 }
-
+.modal-body .form-group.btn-group{
+	width:100%;
+}
 
 .modal-login .modal-footer a {
   color: #999;
 }
-
+.modal-body .social-login{
+	width:100%;
+}
+button.kakao-login{
+    width: calc(50% - 5px);
+    height: 50px;
+    color: rgb(34, 34, 34);
+    font-size: 20px;
+    font-weight: 700;
+    border: 0px;
+    background-color: rgb(247, 229, 6);
+    margin-right:5px;
+}
+button.naver-login{
+	width: calc(50% - 5px);
+	height: 50px;
+	color:white;
+    font-size: 20px;
+    font-weight: 700;
+	border: 0px;
+	background-color:rgb(4,207,92);
+}
 .trigger-btn {
   display: inline-block;
   margin: 100px auto;
