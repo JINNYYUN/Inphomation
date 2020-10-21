@@ -99,7 +99,7 @@ public class MessageController {
 	@RequestMapping(value = "sendMsg", method = RequestMethod.POST)
 	public void sendMsg(MessageDto msg) {
 		int n = service.sendMsg(msg);
-		System.out.println(n>0?"메시지 저장성공":"메시지 저장실패");
+		//System.out.println(n>0?"메시지 저장성공":"메시지 저장실패");
 	}
 	
 	@ResponseBody

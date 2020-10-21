@@ -36,7 +36,7 @@ function searchKeyword(){
 		//핸들러 등록(연결 생성, 메시지 수신, 연결 종료)
 
 		//url 연결할 서버의 경로
-		ws = new WebSocket('ws://192.168.0.201:8090/Inphomation/echo.do/websocket');	
+		ws = new WebSocket('ws://192.168.0.201:8090/echo.do/websocket');	
 
 		ws.onopen = function() {
 			console.log('연결 생성');

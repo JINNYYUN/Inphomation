@@ -36,7 +36,7 @@ checkMsg()
 /* 안읽은 메시지 확인 */
 function checkMsg(){
 	$.ajax({
-		url:"getUnread",
+		url:"/getUnread",
 		type:"post",
 		success:function(hasMsg){
 			if(hasMsg){

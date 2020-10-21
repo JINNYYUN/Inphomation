@@ -185,7 +185,7 @@ function setOpen(user_target){
 	}
 
 	function onOpen(){
-		alert('연결 생성');
+		//alert('연결 생성');
 	}
 	
 	// 메시지 수신
@@ -200,7 +200,6 @@ function setOpen(user_target){
 		//alert(from);
 		//alert($("#targetSeq").val());
 		var msgContent = msg.substring(n+1);
-		//alert(msgContent);
 
 		//지금 오픈된 대화창 상대와 같은 seq인지 확인
 		if(from == $("#targetSeq").val()){

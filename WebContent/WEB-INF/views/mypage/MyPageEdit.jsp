@@ -26,7 +26,7 @@ List<MyPageCameraDto> camlist = (List<MyPageCameraDto>)map.get("camlist");
 MyPageMemberDto mem = (MyPageMemberDto)map.get("mem");
 %>
 
-<div id="container">
+<div id="container" class="full-container">
 
 <div class="contents">
 	<div class="top">
