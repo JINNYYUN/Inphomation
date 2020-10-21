@@ -114,7 +114,7 @@ public class MessageController {
 	public boolean getUnread(HttpServletRequest req) {
 		
 		MemberDto mem = (MemberDto)req.getSession().getAttribute("login");
-		System.out.println("불린값:" + service.getUnread(mem.getUser_seq()));
+		//System.out.println("불린값:" + service.getUnread(mem.getUser_seq()));
 		return service.getUnread(mem.getUser_seq());
 		
 	}
