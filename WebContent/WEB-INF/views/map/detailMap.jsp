@@ -37,59 +37,67 @@
 }
 
 .detailMap-container .grid .item>img:hover {
-  opacity: 0.8;
-}
-
-.grid>.item>.white-circle {
-  width: 32px;
-  height: 32px;
-
-  top: 5px;
-  right: 5px;
-  text-align: center;
-
-  border-radius: 50%;
-  background-color: white;
-  display: none;
-  position: absolute;
-  z-index: 2;
-}
-
-.grid>.item:hover>.white-circle {
-  display: block;
-  opacity: 0.8;
-}
-
-.grid>.item>.white-circle i {
-  padding-top: 8px;
-  font-size: 16px;
-  display: block;
+	
 }
 
 .grid>.item:hover .bottom-icon-bar {
-  display: flex;
-  justify-content: space-between;
-  align-items: center;
-  opacity: 0.8;
+	display : block;
 }
-
 
 .grid>.item .bottom-icon-bar {
-  width: 100%;
-  height: 30px;
-  bottom: 0px;
-  left: 0px;
-  display: none;
-  position: absolute;
-  background-color: white;
-  z-index: 2;
-  text-align: center;
+	width: 100%;
+	height: 100%;
+	top: 0px;
+	left: 0px;
+	display: none;
+	position: absolute;
+	background-color: black;
+	opacity: 0.6;
+	z-index: 2;
 }
 
-.grid>.item .bottom-icon-bar h4 {
-  display: block;
-  padding: 0 10px;
+.grid>.item .map-detail-icon-wrapper{
+	display : none;
+	width: 100%;
+	height: 100%;
+	position: absolute;
+	top: 0px;
+	left: 0px;
+	z-index: 5;
 }
+
+.grid>.item:hover .map-detail-icon-wrapper{
+	display : flex;
+	justify-content : center;
+  	align-items: center;
+}
+
+.grid>.item .map-detail-icon-wrapper div{
+	display : flex;
+	align-items: center;
+	font-size : 20px;
+	color : white;
+}
+
+.map-detail-icon:nth-child(1){
+	margin-right : 5px;
+}
+
+.map-detail-icon i{
+	padding-right : 3px;
+	font-size : 22px;
+	color : white;
+}
+
+.map-detail-icon:nth-child(2) i{
+	padding-right : 5px;
+}
+
+.map-detail-icon p{
+	padding-right : 3px;
+}
+
+
 
 </style>
 
@@ -108,19 +116,17 @@
 			<c:forEach items="${detailMapPostList }" var="post" varStatus="i">
 				<div class="item" onclick="location.href='../detail?post_seq=${post.post_seq}'">
 					<img src="https://storage.googleapis.com/boomkit/${post.post_filepath }">
-					
-					<div class="white-circle">
-			            <i class="fas fa-bars menu"></i>
-			        </div>
-			        <div class="bottom-icon-bar icon-absoulte">
-			            
-			             <!-- 좋아요 일단 0 작성후 Back 구현시에  가져오기 -->
-			            <!-- 나중에 1대신에 POST_SEQ기입 -->
-			            <h4><i class="far fa-heart">${post.count_like }</i></h4>
-			
-			            <!-- BookMark 위와 동일  -->
-			            <h4><i class="far fa-star">${post.count_book }</i></h4>
-					</div>
+			        <div class="bottom-icon-bar icon-absoulte"></div>
+			        <div class="map-detail-icon-wrapper">
+			        	<div >
+				            <div class="map-detail-icon">
+				            	<i class="fas fa-heart"></i><p class="text text-weight-regular">${post.count_like }</p>
+				            </div>
+				            <div class="map-detail-icon">
+				            	<i class="fas fa-bookmark"></i><p class="text text-weight-regular">${post.count_book }</p>
+				            </div>
+			            </div>
+		            </div>
 				</div>
 			</c:forEach>
 		</div>

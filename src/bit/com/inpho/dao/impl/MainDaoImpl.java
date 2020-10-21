@@ -18,6 +18,10 @@ public class MainDaoImpl implements MainDao{
 	public List<MainPostDto> getNewFeed() {
 		return sql.selectList(ns+"newFeedList");
 	}
+	@Override
+	public List<MainPostDto> getNewFeed(int userSeq) {
+		return sql.selectList(ns+"newFeedListLogin", userSeq);
+	}
 	
 	
 }
