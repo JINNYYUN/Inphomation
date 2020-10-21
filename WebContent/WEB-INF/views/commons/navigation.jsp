@@ -40,7 +40,7 @@ pageEncoding="UTF-8"%>
       <div class="loginMode">
 	      <h1>
 	      	<i class="far fa-envelope text" onclick="goMsg()"></i>
-	      	<i class="fas fa-circle text"></i>
+	      	<!-- <i class="fas fa-circle text"></i> -->
 	        <i class="fas fa-pencil-alt text" onclick="goWrite();"></i>
 	        <i class="fas fa-user text" id="drop-btn"></i><!-- 이미지로 나중에 변경할 예정 -->
 	      </h1>
