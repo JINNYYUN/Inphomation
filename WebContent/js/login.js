@@ -40,7 +40,7 @@ function checkMsg(){
 		type:"post",
 		success:function(hasMsg){
 			if(hasMsg){
-				$('.fa-circle').css('display','inline');
+				$('.fa-circle').css('opacity','100');
 			}
 		},
 		error:function(){

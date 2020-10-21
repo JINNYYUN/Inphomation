@@ -64,11 +64,27 @@ function searchKeyword(){
 		};
 		ws.send(JSON.stringify(msg));
 	}
-	
+	// 메시지 수신 시 알림 표시
 	function addMsg(data){
-		//$('.fa-circle').css('display','inline');
+		$('.fa-circle').css('opacity','100');
 	}
 
-
+	// 읽지 않은 메시지 있는지 확인
+	function checkUnread(){
+	$.ajax({
+		url:"getUnread",
+		type:"post",
+		async:false,
+		success:function(b){
+			//alert('read success');
+			if(b){
+				$('.fa-circle').css('opacity','100');
+			}	
+		},
+		error:function(){
+			alert('error');
+		}
+	});	
+}
 	
 	
