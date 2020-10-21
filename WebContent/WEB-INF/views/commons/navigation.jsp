@@ -13,18 +13,18 @@ pageEncoding="UTF-8"%>
   <div class="container">
   	<ul class="moveSite">
   		<li class="main">
- 			<a href="<%=request.getContextPath() %>/main">
-	      		<p class="text text-weight-black">
-	      			<h1 class="text-weight-bold">Inphomation</h1>
-      			</p>
-	    	</a>
+			<h1 class="text-weight-bold">
+				<a href="<%=request.getContextPath() %>/main">
+					Inphomation
+	    		</a>
+    		</h1>
   		</li>
-  		<li class="goSite"><div class="text" onclick="goMap();">지도</div></li>
-  		<li class="goSite"><div class="text" onclick="goFollow();">팔로우</div></li>
+  		<li class="goSite"><div class="body1" onclick="goMap();">지도</div></li>
+  		<li class="goSite"><div class="body1" onclick="goFollow();">팔로우</div></li>
   	</ul>
     <div class="menu">
       <div class="search-bar">
-        <input type="text" name="searchKeyword" id="search-keyword" />
+        <input type="text" name="searchKeyword" id="navi-search-keyword" />
         <button type="button" class="btn btn-primary btn-block btn-1g" onclick="searchKeyword('navi');">검색</button>
       </div>
     </div>
@@ -34,7 +34,7 @@ pageEncoding="UTF-8"%>
      <%if(member==null){%>
       <div class="guestMode">
       	<a href="javascript:goLogin()" class="body1"> 
-  			회원가입<span style="user-select: auto;">·</span>로그인
+  			회원가입<span>·</span>로그인
       	</a>
       </div>
       <%}else if(member!=null && member.getAuth()==0){ %>
@@ -62,7 +62,7 @@ pageEncoding="UTF-8"%>
 	      <div class="dropbox" id="drop-menu">
 	      	<h3><%=member.getUser_nickname() %></h3><!-- 로그인 백엔드 구현하고 정보 받아오면 수정하기 -->
 	      	<ul>
-	      		<li class="body1"><a href="<%=request.getContextPath() %>/mypage">내 프로필</a></li>
+	      		<li class="body1"><a href="<%=request.getContextPath() %>/mypage?user_seq=<%=member.getUser_seq()%>">내 프로필</a></li>
 	      		<li class="body1"><a href="<%=request.getContextPath() %>/bookmark">북마크 게시물</a></li>
 	      		<li class="body1"><a href="<%=request.getContextPath() %>/mypageedit">개인정보수정</a></li>
 	      		<li class="body1"><a href="javascript:doLogout();">로그아웃</a></li>	
