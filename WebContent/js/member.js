@@ -63,10 +63,11 @@ function submitRegi(){
 			provider:"homepage"
 		},
 		success:function(data){
+			console.log(data)
 			//회원가입 성공
 			if(data){
 				alert('regiSuccess')
-				window.location.reload()
+				location.href='http://'+location.host+'/Inphomation/noHaveAuth'
 			}else{
 				alert('fail')
 			}
