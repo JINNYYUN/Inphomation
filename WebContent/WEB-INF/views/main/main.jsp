@@ -11,7 +11,12 @@
 		 
 	</div>
     <div class="search-bar">
-    	<h1><i class="fas fa-search text"></i></h1>
+    	<h1><svg width="30" height="30" viewBox="0 0 18 18" class="map-search-icon" id="map-search-icon">
+			<g fill="none" fill-rule="evenodd" stroke="#222">
+				<circle cx="7.5" cy="7.5" r="6.5"></circle>
+				<path d="M12 12l5 5"></path>
+			</g>
+		</svg></h1>
         <input type="text" name="searchKeyword" id="search-keyword" />
         <button type="button" class="btn btn-primary btn-block btn-1g" onclick="searchKeyword('main');">검색</button>
     </div>
