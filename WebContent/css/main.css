@@ -6,43 +6,43 @@
 
 .main-back-ground{
 	margin-top:50px;
-	top: 0;
-	width: 100%;
-	height: 400px;
-	padding: 0 200px;
-	position:relative;
 }
-.main-back-ground .sentence{
-	position: absolute;
-    top: 100px;
-    left: 50%;
-    transform: translateX(-50%);
+
+.main-back-ground .sentence-search-bar{
+	position: relative;
+	padding : 170px 0;
+	text-align: center;
 }
 
 .main-back-ground .search-bar{
-	position: absolute;
-	top:300px;
-	left:50%;
-	transform:translateX(-50%);
-	width:80%;
-	height: 60px;
-	min-width:636px;
-	max-width:1366px;
-}
-
-.main-back-ground .search-bar i{
-	position: absolute;
-	left:10px;
-	top: 50%;
-    transform: translateY(-50%);
+	position: relative;
+	height: 70px;
+	border: 1px solid #D9D9D9;
+	padding : 16px 110px 16px 65px;
 }
 
 .main-back-ground .search-bar input{
-	width:100%;
-	margin: 0 auto;
-	height:100%;
-	padding:0 80px 0 60px;
-	border: 1px solid #D9D9D9;
+	position: relative;
+    width: 100%;
+    height: 100%;
+    padding-left : 20px; 
+    color: rgb(34, 34, 34);
+    font-size: 23px;
+    border-width: 0px 0px 0px 1px;
+    border-top-style: initial;
+    border-right-style: initial;
+    border-bottom-style: initial;
+    border-top-color: initial;
+    border-right-color: initial;
+    border-bottom-color: initial;
+    border-image: initial;
+    border-left-style: solid;
+    border-left-color: rgb(221, 221, 221);
+	outline: none;
+}
+
+.main-back-ground .search-bar input::placeholder{
+	color : #adadad;
 }
 
 .main-back-ground .search-bar input:focus{
@@ -51,21 +51,10 @@
 
 .main-back-ground .search-bar button{
 	position: absolute;
-    top: 50%;
-    transform: translateY(-50%);
+    top: 8px;
     right:5px;
-    height:50px;
+    height:53px;
     width:100px;
-}
-
-.main-back-ground .sentence{
-	width: 100%;
-	text-align: center;
-}
-
-.main-back-ground .sentence p{
-	width:100%;
-	margin: 0 auto;
 }
 
 .main-back-ground hr{
@@ -191,3 +180,26 @@
   margin-top: 8px;
 }
 
+.main-text{
+	color: rgb(68, 68, 68);
+    font-size: 60px;
+    font-weight: 280;
+    line-height: 75px;
+    text-align: center;
+    letter-spacing: -1.8px;
+    position: relative;
+}
+
+.main-sentence{
+	margin-bottom : 40px;
+}
+
+.main-search-icon{
+	position: absolute;
+    left: 20;
+    top: 22;
+}
+
+.main-search-icon g{
+	stroke: #8c8c8c;
+}
