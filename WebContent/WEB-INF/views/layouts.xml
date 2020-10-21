@@ -54,8 +54,10 @@
 	<definition name="map.tiles" template="/WEB-INF/views/map/map.jsp">
 	</definition>
 	
-	<definition name="main.tiles" extends="hello.tiles">
-	   <put-attribute name="main" value="/WEB-INF/views/main/main.jsp" />
+	<definition name="main.tiles" template="/WEB-INF/views/main/noFoot-tile.jsp">
+	   <put-attribute name="header" value="/WEB-INF/views/commons/header.jsp"/>
+	   <put-attribute name="global_navigation" value="/WEB-INF/views/commons/navigation.jsp"/>
+	   <put-attribute name="main" value="/WEB-INF/views/main/main.jsp"/> 
 	</definition>
 	
 	<!-- Contain -->
