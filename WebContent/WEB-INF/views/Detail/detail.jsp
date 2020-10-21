@@ -125,7 +125,7 @@
 												class="text-weight-bold body1 post replyNick"
 												onclick="profile(${i.user_seq})"> ${i.user_nickname } </a>
 											&emsp;
-											<div class="body1 post replyCont">${i.reply_content }</div>
+											<span class="body1 post replyCont">${i.reply_content }</span>
 										</div>
 										<c:if
 											test="${i.user_seq eq user_seq || post.user_seq eq user_seq}">
