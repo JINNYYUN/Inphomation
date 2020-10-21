@@ -2,24 +2,20 @@
     pageEncoding="UTF-8"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
 <link rel="stylesheet" type="text/css" href="<%=request.getContextPath() %>/css/main.css">
-<style>
-	.main-back-ground .login{
-		position: absolute;
-		right:30px;
-		top:20px;
-		width:32px;
-		height:32px;
-		border:none;
-		border-radius:50%;
-		background-color:#f28705;
-	}
-</style>
+
 <div class="screen-up" id="screen-up"><i class="fas fa-angle-up"></i></div>
 <div class="main-back-ground" id="back-img">
-      <div class="search-bar" style="position:relative;top:200px;width:50%;margin:0 auto;min-width:250px;">
-        <input type="text" name="searchKeyword" id="main-search-keyword" style="width:100%;" />
-        <i class="fas fa-search text" onclick="searchKeywordMain();"></i>
-      </div>
+	<div class="sentence">
+		<p class="display-4 text-weight-regular">당신의 <span class="text display-4 text-weight-bold">소중한 순간</span>을</p>
+		<p class="display-4 text-weight-regular">간직하세요</p>
+		 
+	</div>
+    <div class="search-bar">
+    	<h1><i class="fas fa-search text"></i></h1>
+        <input type="text" name="searchKeyword" id="search-keyword" />
+        <button type="button" class="btn btn-primary btn-block btn-1g" onclick="searchKeyword('main');">검색</button>
+    </div>
+   	<hr>
 </div>
 <div class="main-container">
 	<div class="grid">
@@ -43,8 +39,6 @@
 				</div>
 			</div>
 		</c:forEach>
-	
-	
 	</div>
 </div>
 

@@ -11,18 +11,21 @@ pageEncoding="UTF-8"%>
 <link rel="stylesheet" href="<%=request.getContextPath() %>/css/navi.css" />
 <nav class="navbar navbar-default">
   <div class="container">
-    <a href="<%=request.getContextPath() %>/main">
-      <div class="brand-logo"></div>
-      <p class="text text-weight-black">Inphomation</p>
-    </a>
+  	<ul class="moveSite">
+  		<li class="main">
+ 			<a href="<%=request.getContextPath() %>/main">
+	      		<p class="text text-weight-black">
+	      			<h1 class="text-weight-bold">Inphomation</h1>
+      			</p>
+	    	</a>
+  		</li>
+  		<li class="goSite"><div class="text" onclick="goMap();">지도</div></li>
+  		<li class="goSite"><div class="text" onclick="goFollow();">팔로우</div></li>
+  	</ul>
     <div class="menu">
-      <h1>
-        <i class="fas fa-map-marked-alt text" onclick="goMap();"></i>
-        <i class="fas fa-user-friends text" onclick="goFollow();"></i>
-      </h1>
       <div class="search-bar">
         <input type="text" name="searchKeyword" id="search-keyword" />
-        <i class="fas fa-search text" onclick="searchKeyword();"></i>
+        <button type="button" class="btn btn-primary btn-block btn-1g" onclick="searchKeyword('navi');">검색</button>
       </div>
     </div>
 	<div id="modal-container"></div>
@@ -30,20 +33,30 @@ pageEncoding="UTF-8"%>
       <!-- Guest -->
      <%if(member==null){%>
       <div class="guestMode">
-        <h1>
-          <i class="fas fa-sign-in-alt text" onclick="goLogin();"></i>
-        </h1>
+      	<a href="javascript:goLogin()" class="body1"> 
+  			회원가입<span style="user-select: auto;">·</span>로그인
+      	</a>
       </div>
       <%}else if(member!=null && member.getAuth()==0){ %>
       <!-- user login -->
       <!-- admin login -->
       <div class="loginMode">
-	      <h1>
-	      	<i class="far fa-envelope text" onclick="goMsg()"></i>
-	      	<!-- <i class="fas fa-circle text"></i> -->
-	        <i class="fas fa-pencil-alt text" onclick="goWrite();"></i>
-	        <i class="fas fa-user text" id="drop-btn"></i><!-- 이미지로 나중에 변경할 예정 -->
-	      </h1>
+	      <ol>
+	      	<li>
+	      		<div class="text">
+		      		<i class="far fa-envelope" onclick="goMsg()"></i>
+		      		<i class="fas fa-circle"></i>
+	      		</div>
+	      	</li>
+	      	<li><div class="text" onclick="goWrite();">글 쓰기</div></li>
+	      	<li>
+	      		<%if(member.getProfile_image()==null||member.getProfile_image().equals("default")){ %>
+		        <i class="fas fa-user text" id="drop-btn"></i><!-- 이미지로 나중에 변경할 예정 -->
+		        <%}else{ %>
+		        <img src="<%=member.getProfile_image() %>" alt="UserProfileImage" id="drop-btn">
+		        <%} %>
+	      	</li>
+	      </ol>
           
           <!-- DropBox만들기 -->
 	      <div class="dropbox" id="drop-menu">
