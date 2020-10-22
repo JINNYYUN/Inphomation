@@ -8,5 +8,6 @@ import bit.com.inpho.dto.searchDto;
 public interface MainService {
 	public List<MainPostDto> getNewFeed();
 	public List<MainPostDto> getNewFeed(int userSeq);
+	public List<MainPostDto> getSearchFeed(String search);
 	public List<MainPostDto> getSearchFeed(searchDto search);
 }

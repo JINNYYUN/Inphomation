@@ -7,7 +7,6 @@ import javax.servlet.http.HttpSession;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
-import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 
@@ -28,7 +27,6 @@ public class MainController {
 			list = mainService.getNewFeed();
 		}else {
 			int userSeq = ((MemberDto)session.getAttribute("login")).getUser_seq();
-			System.out.println(userSeq);
 			list = mainService.getNewFeed(userSeq);
 		}
 		
@@ -37,22 +35,17 @@ public class MainController {
 	}
 	
 	@RequestMapping(value="/keywordSearch",method = {RequestMethod.GET})
-	public String searchList(searchDto search, Model model) {
-		System.out.println(search.toString());
+	public String searchList(searchDto search, Model model, HttpSession session) {
 		list = null;
-		
-		list = mainService.getSearchFeed(search);
-		if(list !=null) {
-			for(int i =0; i<list.size();i++) {
-				System.out.println(list.get(i).toString());
-			}
+		MemberDto member = (MemberDto)session.getAttribute("login");
+		if(member != null) {//로그인중
+			search.setUserSeq(member.getUser_seq());
+			list = mainService.getSearchFeed(search);
 		}else {
-			System.out.println("null~");
+			list = mainService.getSearchFeed(search.getKeywordId());
 		}
-		
-		
-		
+		System.out.println(list.size());
+		model.addAttribute("postList",list);
 		return "search.tiles";
 	}
-	
 }

@@ -9,5 +9,6 @@ public interface MainDao {
 	
 	public List<MainPostDto> getNewFeed();
 	public List<MainPostDto> getNewFeed(int userSeq);
+	public List<MainPostDto> getSearchList(String search);
 	public List<MainPostDto> getSearchList(searchDto search);
 }

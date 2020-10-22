@@ -24,8 +24,12 @@ public class MainDaoImpl implements MainDao{
 		return sql.selectList(ns+"newFeedListLogin", userSeq);
 	}
 	@Override
+	public List<MainPostDto> getSearchList(String search) {
+		return sql.selectList(ns+"searchKeywordList", search);
+	}
+	@Override
 	public List<MainPostDto> getSearchList(searchDto search) {
-		return sql.selectList(ns+"searchKeywordList",search);
+		return sql.selectList(ns+"searchKeywordListLogin", search);
 	}
 	
 	
