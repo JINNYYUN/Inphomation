@@ -36,11 +36,11 @@ checkMsg()
 /* 안읽은 메시지 확인 */
 function checkMsg(){
 	$.ajax({
-		url:"getUnread",
+		url:"/getUnread",
 		type:"post",
 		success:function(hasMsg){
 			if(hasMsg){
-				$('.fa-circle').css('display','inline');
+				$('.fa-circle').css('opacity','100');
 			}
 		},
 		error:function(){

@@ -18,6 +18,7 @@ MessageUserDto msgUser = (MessageUserDto)request.getSession().getAttribute("msgU
 %>
 	<div class="container" style="margin-top: 100px">
 		<div class="left-list" id="leftList">
+			<div class="title">Messages</div>
 		</div>
 		<div class="right-msg" id="rightMsg">
 			<div class="detail" id="msgDetail"></div>
@@ -34,17 +35,21 @@ function getUsers(){
 		type:"post",
 		async:false,
 		success:function(userlist){
-			//alert('success');
 			let content = '';
 			content += `<div class="left-users" id="leftUsers">`;
 				
 				if("${msgUser.msg_seq}" != ""){
-
+				// 대화내역이 없는 유저일 때
 					if("${msgUser.msg_seq}" == "0"){
 						content += `<div class="user" id="tempUser" onclick="getmsg(${msgUser.user_target})">
-						<div class="profile"><div class="frame"><img src="${msgUser.profile_image}"></div></div>
-						<div>${msgUser.user_nickname}</div>
-						<div>${msgUser.msg_content}</div>
+							<div class="profile">
+								<div class="frame"><img src="${msgUser.profile_image}">
+								</div>
+							</div>
+							<div class="profile-info">
+								<div class="user-nick">${msgUser.user_nickname}</div>
+								<div class="user-msg">${msgUser.msg_content}</div>
+							</div>
 						</div>`;
 					}
 					getmsg(${msgUser.user_target})
@@ -53,15 +58,22 @@ function getUsers(){
 			$.each(userlist, function(i, user) {
 				
 				
-				if(user.isSend ==1 && user.msg_open == 0){
-					content+= '<div class="user unread" onclick="getmsg(' + user.user_target + ')" id="lastMsg' + user.user_target + '">';
-				}else{
-					content+= '<div class="user" onclick="getmsg(' + user.user_target + ')" id="lastMsg' + user.user_target + '">';
-				}
+				content+= '<div class="user" onclick="getmsg(' + user.user_target + ')" id="lastMsg' + user.user_target + '">';
 
-				content += '<div class="profile"><div class="frame"><img src="' + user.profile_image + '"></div></div>'
-						+ '<div>' + user.user_nickname + '</div>'
-						+ '<div>' + user.msg_content + '</div>'
+				content += '<div class="profile">'
+							+ '<div class="frame"><img src="' + user.profile_image + '">'
+						 	+ '</div>'
+						 + '</div>'
+						+ '<div class="profile-info">'
+							+ '<div class="user-nick">' + user.user_nickname;
+
+				// 안 읽은 메시지가 있을 때
+				if(user.isSend ==1 && user.msg_open == 0){
+					content += `<i class="fas fa-circle text" aria-hidden="true"></i>`;
+				}
+		
+				content += '</div><div class="user-msg">' + user.msg_content + '</div>'
+						+ '</div>'
 						+ '</div>';
 			})
 			content += `</div>`;
@@ -76,12 +88,43 @@ function getUsers(){
 	});
 }
 
+//메시지 보내기 함수 (전송 클릭, 엔터)
+function clickSend(){
+	if( $("#message").val()=='' ){
+		alert('메시지를 입력해주세요');
+		return;
+	}
+	var chat = $("#message").val();
+	sendMsg();	
+
+	// DB에 저장
+	$.ajax({
+		url:"sendMsg",
+		type:"post",
+		async: false,
+		data:{"user_sender":<%=login.getUser_seq()%>, "user_target":$("#targetSeq").val(), "msg_content":$('#message').val()},
+		success:function(){
+			//alert('success');
+		},
+		error:function(){
+			alert('error');
+		}
+	});
+	$("#msgData").append('<li class="msg send">' + chat + '</li>')
+	$("#message").val("")
+	
+	getUsers()
+	$("#tempUser").remove()
+	$('#msgData').scrollTop($('#msgData').prop('scrollHeight'));
+}
+
 //메시지 읽음 처리 함수
 function setOpen(user_target){
 	$.ajax({
 		url:"setOpen",
 		type:"post",
 		data:{"user_sender":user_target, "user_target":<%=login.getUser_seq()%>},
+		async:false,
 		success:function(){
 			//alert('read success');	
 		},
@@ -97,26 +140,30 @@ function setOpen(user_target){
 			url:"getMsg",
 			type:"post",
 			data:{"user_sender":<%=login.getUser_seq()%>, "user_target":user_target},
+			async:false,
 			success:function(map){
 				//alert('success');
 				let content = `<div class="detail" id="msgDetail">
-								<div><img src="` + map.target.user_profile+ `">
-								` + map.target.user_nickname + `</div>
-								<div class="msgData" id="msgData">`;
+									<div class="user right">	
+										<div class="frame"><img src="` + map.target.profile_image+ `"></div>
+										<div class="right_nickname">` + map.target.user_nickname + `</div>
+									</div>
+									<div class="msgData" id="msgData">
+									<ul>`;
 				$.each(map.msglist, function(i, msg) {
 
 					if(msg.user_target == user_target){
-						content += `<div class="msg send">보낸 메시지:` + msg.msg_content + `</div>`;
+						content += `<li class="msg send">` + msg.msg_content + `</li>`;
 					}else{
-						content += `<div class="msg target">받은 메시지:` + msg.msg_content + `</div>`;
+						content += `<li class="msg target">` + msg.msg_content + `</li>`;
 					}
 					
 				});
-				content += `</div>
-							<div class="msgInput"><input type="text" id="message" />
-							<input type="button" id="sendBtn" value="submit"/>
+				content += `</ul></div>
+							<div class="msgInput"><input class="form-control form-control-lg" type="text" id="message" placeholder="메시지를 입력해주세요" onkeypress="if(event.keyCode==13) {clickSend();}" />
+							<button class="btn btn-danger disabled" id="sendBtn">전송</button>
 							</div>`;
-				// target user_seq & user_email 히든 값으로 넣어주기
+				// target user_seq & user_email 히든 값으로 넣어주기				
 				content += '<input type="hidden" value="' +map.target.user_email+ '" id="targetId">'
 							+ '<input type="hidden" value="' +map.target.user_seq+ '" id="targetSeq"></div>';
 				$("#msgDetail").remove();
@@ -126,55 +173,26 @@ function setOpen(user_target){
 				alert('error');
 			}
 		});
-
+		 
 		// DB에서 읽음 처리
 		setOpen(user_target)
 		// css 읽음 표시 변경
-		$("#lastMsg" + user_target).attr('class','user'); 
+		$('.fa-circle').remove();
+		// 대화창 스크롤 아래로
+		$('#msgData').scrollTop($('#msgData').prop('scrollHeight'));
+		// 입력창에 focus
+		$("#message").focus();
 	}
 
-	// WEBSOCKET 설정 ========================================
-	<%-- var ws;
-	var userid = "<%=login.getUser_email()%>"; //파라미터로 넘겨서 설정할 (내) 아이디
-
-	function connect() {
-
-		//웹소켓 객체 생성하는 부분
-		//핸들러 등록(연결 생성, 메시지 수신, 연결 종료)
-
-		//url 연결할 서버의 경로
-		ws = new WebSocket('ws://192.168.0.201:8090/Inphomation/echo.do/websocket');	
-
-		ws.onopen = function() {
-			console.log('연결 생성');
-			alert('연결 생성');
-			register();
-		};
-				
-		ws.onmessage = function(e) {
-			console.log('메시지 받음');
-			var data = e.data;
-			//alert("받은 메시지 : " + data);
-			addMsg(data);
-		};
-		ws.onclose = function() {
-			//console.log('연결 끊김');
-			alert('연결 끊김');
-		};
-	} --%>
-
 	function onOpen(){
-		alert('연결 생성');
+		//alert('연결 생성');
 	}
 	
 	// 메시지 수신
 	function addMsg(msg) { //원래 채팅 메시지에 방금 받은 메시지 더해서 설정하기
 		// 알림 표시
-		$('.fa-circle').css('display','inline');
+		//$('.fa-circle').css('display','inline');
 		
-		// 유저리스트 새로고침
-		getUsers()
-
 		// 메시지 받을 때 보낸 사람 seq 받아오기
 		var n = msg.indexOf('*');
 		
@@ -182,25 +200,18 @@ function setOpen(user_target){
 		//alert(from);
 		//alert($("#targetSeq").val());
 		var msgContent = msg.substring(n+1);
-		//alert(msgContent);
 
 		//지금 오픈된 대화창 상대와 같은 seq인지 확인
 		if(from == $("#targetSeq").val()){
-			$("#msgData").append('<div class="msg target">' + msgContent + "</div>");
+			$("#msgData").append('<li class="msg target">' + msgContent + "</li>");
 
-		//DB 읽음처리
-		setOpen($("#targetSeq").val())
+			//DB 읽음처리
+			setOpen($("#targetSeq").val())
 		}
-		
+		// 유저리스트 새로고침
+		getUsers()
+		$('#msgData').scrollTop($('#msgData').prop('scrollHeight'));
 	}
-
-	<%-- function register() { //메시지 수신을 위한 서버에 id 등록하기
-		var msg = {
-			type : "register", //메시지 구분하는 구분자 - 상대방 아이디와 메시지 포함해서 보냄
-			userid : "<%=login.getUser_email()%>"
-		};
-		ws.send(JSON.stringify(msg));
-	} --%>
 
 	function sendMsg() {
 		
@@ -219,34 +230,7 @@ function setOpen(user_target){
 		getUsers();
 		// 메시지 전송 시
 		$(document).on("click", "#sendBtn", function(){
-			if( $("#message").val()=='' ){
-				alert('메시지를 입력해주세요');
-				return;
-			}
-			var chat = $("#message").val();
-			sendMsg();
-			
-
-			// DB에 저장
-			$.ajax({
-				url:"sendMsg",
-				type:"post",
-				async: false,
-				data:{"user_sender":<%=login.getUser_seq()%>, "user_target":$("#targetSeq").val(), "msg_content":$('#message').val()},
-				success:function(){
-					//alert('success');
-				},
-				error:function(){
-					alert('error');
-				}
-			});
-			$("#msgData").append('<div class="msg send">' + chat + '</div>')
-			//$("#lastMsg" + $("#targetSeq").val()).html(chat)
-			$("#message").val("")
-			//$("#tempUser").remove()
-			
-			getUsers()
-			$("#tempUser").remove()
+			clickSend()
 			
 		});
 	}); 
