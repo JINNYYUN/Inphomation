@@ -68,5 +68,5 @@ function searchKeyword(page){
 	}
 	// 메시지 수신 시 알림 표시
 	function addMsg(data){
-		$('.fa-circle').css('opacity','100');
+		$('.fa-circle').css('display','inline');
 	}

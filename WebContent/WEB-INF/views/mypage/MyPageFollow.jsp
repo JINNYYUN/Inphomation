@@ -14,11 +14,12 @@ MemberDto login = (MemberDto)request.getSession().getAttribute("login");
 	for(int i=0; i<list.size(); i++){
 	%>
 	<div class="list">
-			
-		<img src="<%=list.get(i).getProfile_image()%>"
-			onclick="goMyPage(<%=list.get(i).getUser_seq()%>)">
-		
-		<span onclick="goMyPage(<%=list.get(i).getUser_seq()%>)"><%=list.get(i).getUser_nickname() %></span>
+		<div class="list-img">	
+			<img src="<%=list.get(i).getProfile_image()%>"
+				onclick="goMyPage(<%=list.get(i).getUser_seq()%>)">
+		</div>
+		<div class="list-info">
+			<div class="list-nick" onclick="goMyPage(<%=list.get(i).getUser_seq()%>)"><%=list.get(i).getUser_nickname() %></div>
 		<%
 		if(login == null){
 		%>
@@ -38,7 +39,7 @@ MemberDto login = (MemberDto)request.getSession().getAttribute("login");
 			}
 		}
 		%>
-	</div>
+	</div></div>
 	<%
 	}
 	%>
@@ -63,7 +64,7 @@ function goFollow(isFollowing, userSeq){
 	}
 	
 	    $.ajax({
-		url:'follow?user_seq=' + userSeq,
+		url:'myfollow?user_seq=' + userSeq,
 		type:'post',
 		data:{"work":value},
 		success:function(data){ 
