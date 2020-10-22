@@ -13,22 +13,31 @@
 }
 .profile-img{
 	background-color: white;
-	border-radius: 50%;
-	width: 150px;
-	height: 150px;
-	margin: auto;
+    border-radius: 50%;
+    width: 150px;
+    height: 150px;
+    margin: auto;
+    overflow: hidden;
+    border: 2px solid white;
+    clear: both;
 }
 .profile-img img{
-	width:140px;
-	height:140px;
-	border-radius: 50%;
-	margin: 5px;
+	width: 150px;
+    /* height: 140px; */
+    /* border-radius: 50%; */
+    /* margin: 5px; */
+    min-height: 100%;
+    display: inline-block;
 }
 .follow-btn{
 	float: right;
 	color: #fff;
     background-color: #F28705;
     border-color: #F28705;
+    height: 33px;
+    font-size: 15px;
+    padding: 0 5px;
+    margin-left: 5px;
 }
 .top-detail{
 	margin-top: 10px;
@@ -245,11 +254,22 @@ margin-left: 210px;
   text-decoration: none;
   cursor: pointer;
 }
-.list img{
-	width: 50px;
-    height: 50px;
+.list-img{
+	background-color: white;
     border-radius: 50%;
-	margin: 5px;
+    width: 50px;
+    height: 50px;
+    overflow: hidden;
+    display: inline-block;
+}
+.list-img img{
+	width: 50px;
+    min-height: 100%;
+    display: inline-block;
+    
+}
+.list-nick{
+	display: inline-block;
 }
 .btn-modal{
 	float: right;

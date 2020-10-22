@@ -54,9 +54,6 @@ MemberDto login = (MemberDto)request.getSession().getAttribute("login");
 				<button class="btn follow-btn" id="editProfile">프로필 수정</button>
 			<%	
 			}else{
-				%>
-				<i class="far fa-envelope text" onclick="goMypageMsg()"></i>
-				<%
 				if(isFollowing){
 				%>
 					<input type="button" class="btn follow-btn" id="followBtn" value="Unfollow">
@@ -64,8 +61,11 @@ MemberDto login = (MemberDto)request.getSession().getAttribute("login");
 				}else{
 				%>
 					<input type="button" class="btn follow-btn" id="followBtn" value="Follow">
-				<%	
+				<%
 				}
+			%>
+				<input type="button" class="btn follow-btn" value="Message" onclick="goMypageMsg()">
+			<%
 			}
 		}
 		%>
@@ -80,9 +80,8 @@ MemberDto login = (MemberDto)request.getSession().getAttribute("login");
 				<span id="following">팔로잉 <b>${following}</b></span>
 				<span id="follower">팔로워 <b>${follower}</b></span>
 			</div>
-			<br>
-			
 		</div>
+		
 	</div>
 </div>
 <div class="contents">
@@ -122,7 +121,7 @@ $("#followBtn").click( function(){
 
 	var value = $(this).val();
 	  $.ajax({
-		url:'follow?user_seq=' + ${mem.user_seq},
+		url:'myfollow?user_seq=' + ${mem.user_seq},
 		type:'post',
 		data:{"work":value},
 		success:function(data){ 
