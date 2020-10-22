@@ -53,7 +53,7 @@ public class DetailController {
 		List<DetailReplyDto> likeList = service.likeList(post_seq);
 
 		/* 작성자 게시글들 가져오기 */
-		List<DetailPostDto> getAllPost = service.getAllPost(postList.getUser_seq());
+		List<DetailPostDto> getAllPost = service.getAllPost(postList);
 		
 		/* date format */
 		String _date = null;

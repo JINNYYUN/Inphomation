@@ -118,7 +118,8 @@ td .replyImg {
 .nothing{
 	margin-left: 250%;
 	width: 100%;
-	color: black;
+	color: #2B2D36;
+	margin-left: 0%;
 }
 .innerRightBox{
 	white-space: inherit;
@@ -136,7 +137,7 @@ td .replyImg {
 }
 
 .post {
-	color: black;
+	color: #2B2D36;
 	white-space: inherit;
 }
 

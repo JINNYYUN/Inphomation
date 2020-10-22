@@ -14,11 +14,12 @@
 	AND DEL != '1'
 </select>
 
-<select id="getAllPost" parameterType="java.lang.Integer" resultType="bit.com.inpho.dto.DetailPostDto">
+<select id="getAllPost" parameterType="bit.com.inpho.dto.DetailPostDto" resultType="bit.com.inpho.dto.DetailPostDto">
 	SELECT POST_SEQ, USER_SEQ, POST_FILEPATH
 	FROM (SELECT  POST_SEQ, USER_SEQ, POST_FILEPATH
 	      FROM POST
 	      WHERE USER_SEQ = #{user_seq}
+          AND POST_SEQ != #{post_seq}
           AND DEL != '1'
 	      ORDER BY POST_WDATE DESC )
 	WHERE ROWNUM <![CDATA[ <= ]]> 8

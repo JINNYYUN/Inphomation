@@ -7,7 +7,9 @@
 	    </div> 
 	<div class="grid">
 		<c:if test="${empty postList }">
-		<h1 class="text nothing" title="take me to main page!!!" onclick="location.href='main'"><a href="main">FIND MORE <i class="far fa-grimace"></i></a></h1>
+		<h1 class="text h3 text-weight-medium nothing" title="bring me to main page!!!" onclick="location.href='main'">
+			<a href="main">FIND MORE <i class="fas fa-search"></i>
+		</a></h1>
 		</c:if>
 		<c:forEach items="${postList }" var="post" varStatus="i">
 			<div class="item">
