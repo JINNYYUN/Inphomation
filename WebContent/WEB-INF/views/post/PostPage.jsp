@@ -37,7 +37,7 @@ int seq = login.getUser_seq();
 	background-size : 100% 100%;
 }
 
-.content {
+.postContent {
 	outline: 2px dashed #92b0b3;
 	outline-offset: -10px;
 	text-align: center;
@@ -47,7 +47,7 @@ int seq = login.getUser_seq();
 	padding-top: 5%;
 }
 
-.row {
+.postrow {
 	display: flex;
 	flex-wrap: nowrap;
 	margin-right: -16px;
@@ -99,6 +99,12 @@ int seq = login.getUser_seq();
 #disnone{
   display: none;
 }
+.postCamStyle{
+    color: #F25C05;
+    background-color: transparent;
+    background-image: none;
+    border-color: #ea6213;
+}
 </style>
 </head>
 <body>
@@ -119,10 +125,10 @@ int seq = login.getUser_seq();
 		<br>
 		<div id="thumbnailUrl"></div>
 		<!-- Heading Row -->
-		<div class="row align-items-center my-5">
+		<div class="postrow align-items-center my-5">
 			<form id="frm" class="frmst" method="POST" action="Upload"
 				encType="multipart/form-data">
-				<div class="content rounded mb-4 mb-lg-0" id="mylmg">
+				<div class="postContent rounded mb-4 mb-lg-0" id="mylmg">
 
 					<label for="upImgFile">이미지를 드래그 하거나 여기를 클릭하여 파일을 선택해주세요!
 						(PNG, JPG,JEPG)</label> <input type="file" class="imagehide"
@@ -161,7 +167,7 @@ int seq = login.getUser_seq();
 							</div>
 							<c:forEach var="i" items="${cam }">
 								<div style="display: inline-block;">
-									<input type="button" value="${i.camera_serial }"
+									<input class="postCamStyle"type="button" value="${i.camera_serial }"
 										onclick="camInfo(this);">
 								</div>
 							</c:forEach>

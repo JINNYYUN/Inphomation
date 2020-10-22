@@ -57,9 +57,9 @@ public class PostDaoImpl implements PostDao{
 	    }
 	}
 	@Override
-	public void addhashtag(HashMap<String, Object> obj) {
-		sqlSession.insert(ns+"addHashTag",obj);
-//		sqlSession.insert(ns+"addHashTag1",obj);
+	public void addhashtag(PostDto dto) {
+		sqlSession.insert(ns+"addHashTag",dto);
+		sqlSession.insert(ns+"addHashTag1",dto);
 	}
 	@Override
 	public int addCamera(PostDto dto) {
@@ -86,6 +86,16 @@ public class PostDaoImpl implements PostDao{
 	@Override
 	public void setingPost(PostDto dto) {
 		sqlSession.insert(ns+"insertPost",dto);
+		
+	}
+	@Override
+	public int getTagSeq(PostDto dto) {
+		int seq=sqlSession.selectOne(ns+"getTagSeq",dto);
+		return seq;
+	}
+	@Override
+	public void addlocation(PostLocationDto dto) {
+		sqlSession.insert(ns+"addlocation",dto);
 		
 	}
 	
