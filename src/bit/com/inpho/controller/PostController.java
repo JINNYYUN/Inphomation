@@ -66,13 +66,14 @@ public class PostController {
 		List<PostDto> camlist =new ArrayList<PostDto>();
 		camlist = service.getCam(login);
 		int size = 0;
+		
 		System.out.println("들어");
 		for (PostDto postDto : camlist) {
 		camarray[size]=postDto.getCamera_serial();
 		System.out.println(camarray[size]);
 		size++;
 		}
-		
+		}
 		System.out.println(camarray);
 		service.addcam(login,dto,camarray);
 		service.addCamSeq(login,dto,camarray);
@@ -87,23 +88,22 @@ public class PostController {
 		file.transferTo(copyFile);
 		String exifLong= req.getParameter("exifLong");
 		String exifLat= req.getParameter("exifLat");
-		System.out.println(exifLong);
-		System.out.println(exifLat);
-		PostLocationDto Ldto= new PostLocationDto(dto.getPost_seq(), exifLat, exifLong);
 		String fileName=obj.storageUploadObject("thermal-well-290414", "boomkit", file.getOriginalFilename(),
 				root + "/" + file.getOriginalFilename());
 		dto.setFilepath(fileName);
-		}
+		
 		System.out.println(dto.toString());
 		ModelAndView mv = new ModelAndView();
 		//추가시킨 카메라 시퀀스를 받아와서 dto에담고  
 //		int nowCamseq=service.addCamera(dto);
 //		dto.setCamera_seq(nowCamseq);
 		service.setingPost(dto);
-		System.out.println("포스트시컨스"+dto.getPost_seq());
 		service.addhashtag(dto);
-
+		PostLocationDto Ldto= new PostLocationDto(dto.getPost_seq(), exifLong, exifLat);
+		service.addlocation(Ldto);
+		
 		mv.setViewName("PostPage");
+		
 		return mv;
 	} 
 	//테스트입니당

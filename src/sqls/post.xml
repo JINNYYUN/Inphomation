@@ -28,22 +28,22 @@
 	FROM INFO_CAMERA
 	WHERE #{camera_serial}=CAMERA_SERIAL
 </select>
-<insert id="addHashTag"  parameterType="bit.com.inpho.dto.PostDto"  useGeneratedKeys="true" keyProperty="hseq">
-	INSERT into INFO_HASHTAG (TAG_SEQ,HASHTAG)
-	SELECT SEQ_TAG.NEXTVAL, A.HASHTAG  FROM(
-	<foreach item="list" collection="tags" separator="UNION ALL" >
-	 SELECT #{list} AS HASHTAG
-	 FROM DUAL
-	</foreach>
-	) A
+
+<select id="getTagSeq" resultType="int">
+	SELECT SEQ_TAG.NEXTVAL FROM DUAL
+</select>
+<insert id="addlocation" parameterType="bit.com.inpho.dto.PostLocationDto">
+	INSERT INTO POST_LOCATION (POST_SEQ,LATITUDE,LONGITUDE)
+	VALUES(#{post_seq},#{post_latitude},#{post_longitude})
+</insert>
+<insert id="addHashTag"  parameterType="bit.com.inpho.dto.PostDto" >
+	INSERT INTO INFO_HASHTAG (TAG_SEQ,HASHTAG)
+	VALUES(#{tag_seq},#{hashtag})
+
 </insert> 
-<insert id="addHashTag1"  parameterType="java.util.Map">
+<insert id="addHashTag1"  parameterType="bit.com.inpho.dto.PostDto">
 	INSERT into POST_HASHTAG (POST_SEQ,TAG_SEQ)
-	SELECT SEQ_TAG, A.POST_SEQ FROM(
-	<foreach item="item" collection="seq" separator="UNION ALL" >
-	SELECT #{item} AS POST_SEQ
-	</foreach>
-	) A
+	VALUES(#{post_seq},#{tag_seq})
 </insert>
 
 	<insert id="addLocation" parameterType="bit.com.inpho.dto.PostLocationDto">

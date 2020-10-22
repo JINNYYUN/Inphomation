@@ -121,10 +121,10 @@ public class MyPageController {
 	
 	// FOLLOW & UNFOLLOW
 	@ResponseBody
-	@RequestMapping(value = "follow", method = RequestMethod.POST)
+	@RequestMapping(value = "myfollow", method = RequestMethod.POST)
 	public void follow( int user_seq, String work, HttpServletRequest req ) {
 
-		System.out.println("빨로우" + user_seq);
+		//System.out.println("빨로우" + user_seq);
 		MemberDto login = (MemberDto)req.getSession().getAttribute("login");
 		
 		HashMap<String, Integer> hashmap = new HashMap<String, Integer>();

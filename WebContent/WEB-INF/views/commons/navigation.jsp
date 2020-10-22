@@ -63,9 +63,9 @@ pageEncoding="UTF-8"%>
 	      	<li><div class="text nav-gowrite" onclick="goWrite();">글쓰기</div></li>
 	      	<li>
 	      		<%if(member.getProfile_image()==null||member.getProfile_image().equals("default")){ %>
-		        <i class="fas fa-user text" id="drop-btn"></i><!-- 이미지로 나중에 변경할 예정 -->
+		        	<img src="https://ssl.pstatic.net/static/pwe/address/img_profile.png" alt="UserProfileImage" id="drop-btn" /><!-- 이미지로 나중에 변경할 예정 -->
 		        <%}else{ %>
-		        <img src="<%=member.getProfile_image() %>" alt="UserProfileImage" id="drop-btn">
+		        	<img src="<%=member.getProfile_image() %>" alt="UserProfileImage" id="drop-btn">
 		        <%} %>
 	      	</li>
 	      </ol>
