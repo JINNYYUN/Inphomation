@@ -62,7 +62,7 @@ hr{
 .content-detail{
 	background-color: #fff;
     width: 1000px;
-    height: 600px;
+    min-height: 600px;
     margin: auto;
     border-color: black;
     border: 1px;
@@ -105,9 +105,8 @@ hr{
 }
 /* 게시글 이미지 영역*/
 .main-container {
+	padding-top:50px;
   position: relative;
-  top: 50px;
-  margin-bottom: 50px;
 }
 
 .main-container .grid {

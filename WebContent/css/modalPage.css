@@ -121,6 +121,9 @@ button.naver-login{
 	border: 0px;
 	background-color:rgb(4,207,92);
 }
+.form-group span.result-msg{
+	color:red;
+}
 .trigger-btn {
   display: inline-block;
-  margin: 100px auto;
+  margin: 100px auto;}

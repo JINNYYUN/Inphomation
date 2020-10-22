@@ -12,21 +12,21 @@ import org.springframework.web.bind.annotation.RequestMethod;
 
 import bit.com.inpho.dto.MainPostDto;
 import bit.com.inpho.dto.MemberDto;
+import bit.com.inpho.dto.searchDto;
 import bit.com.inpho.service.MainService;
 
 @Controller
 public class MainController {
 	@Autowired
 	MainService mainService;
-	
+	List<MainPostDto> list;
 	@RequestMapping(value="/main",method = {RequestMethod.GET,RequestMethod.POST})
 	public String goMainPage(Model model, HttpSession session) {
-		List<MainPostDto> list;
+		list = null;
 		if(session.getAttribute("login")==null) {
 			list = mainService.getNewFeed();
 		}else {
 			int userSeq = ((MemberDto)session.getAttribute("login")).getUser_seq();
-			System.out.println(userSeq);
 			list = mainService.getNewFeed(userSeq);
 		}
 		
@@ -34,4 +34,18 @@ public class MainController {
 		return "main.tiles";
 	}
 	
+	@RequestMapping(value="/keywordSearch",method = {RequestMethod.GET})
+	public String searchList(searchDto search, Model model, HttpSession session) {
+		list = null;
+		MemberDto member = (MemberDto)session.getAttribute("login");
+		if(member != null) {//로그인중
+			search.setUserSeq(member.getUser_seq());
+			list = mainService.getSearchFeed(search);
+		}else {
+			list = mainService.getSearchFeed(search.getKeywordId());
+		}
+		System.out.println(list.size());
+		model.addAttribute("postList",list);
+		return "search.tiles";
+	}
 }

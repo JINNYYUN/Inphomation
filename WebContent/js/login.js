@@ -25,7 +25,6 @@ checkMsg()
 			url:"logout",
 			type:"get",
 			success:function(){
-				alert('Do Logout')
 				window.location.reload()
 			},error:function(){
 				alert('err')

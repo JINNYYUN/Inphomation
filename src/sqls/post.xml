@@ -15,6 +15,10 @@
 		WHERE #{postcamera}=CAMERA_SERIAL))
 </insert>
 <insert id="insertPost" parameterType="bit.com.inpho.dto.PostDto"> 
+<selectKey keyProperty="post_seq" resultType="Integer" order="AFTER">
+			SELECT  SEQ_POST.CURRVAL
+			FROM DUAL
+</selectKey>
 	INSERT INTO POST 
 	VALUES(SEQ_POST.NEXTVAL,#{user_seq},#{camera_seq},#{content},SYSDATE,#{filepath},0,#{location},0) 
 </insert>
@@ -24,17 +28,24 @@
 	FROM INFO_CAMERA
 	WHERE #{camera_serial}=CAMERA_SERIAL
 </select>
-<insert id="addHashTag"  parameterType="java.util.List">
-	INSERT INTO
-	POST_HASHTAG (TAG_SEQ,HASHTAG)
-	VALUES
-	<foreach item="item" collection="list">
-	
-		(SEQ_TAG.NEXTVAL
-		,#{item})
-			
+<insert id="addHashTag"  parameterType="bit.com.inpho.dto.PostDto"  useGeneratedKeys="true" keyProperty="hseq">
+	INSERT into INFO_HASHTAG (TAG_SEQ,HASHTAG)
+	SELECT SEQ_TAG.NEXTVAL, A.HASHTAG  FROM(
+	<foreach item="list" collection="tags" separator="UNION ALL" >
+	 SELECT #{list} AS HASHTAG
+	 FROM DUAL
 	</foreach>
+	) A
 </insert> 
+<insert id="addHashTag1"  parameterType="java.util.Map">
+	INSERT into POST_HASHTAG (POST_SEQ,TAG_SEQ)
+	SELECT SEQ_TAG, A.POST_SEQ FROM(
+	<foreach item="item" collection="seq" separator="UNION ALL" >
+	SELECT #{item} AS POST_SEQ
+	</foreach>
+	) A
+</insert>
+
 	<insert id="addLocation" parameterType="bit.com.inpho.dto.PostLocationDto">
 		INSERT INTO POST_LOCATION
 		(POST_SEQ,LATITUDE,LONGITUDE)
@@ -65,10 +76,7 @@
 			SELECT SEQ_CAMERA.NEXTVAL 
 			FROM DUAL
 		</selectKey>
-		INSERT INTO INFO_CAMERA(
-				   	CAMERA_SEQ,
-				   	CAMERA_SERIAL
-					)
+		INSERT INTO INFO_CAMERA
 			 VALUES (
 					#{camera_seq},
 					#{camera}

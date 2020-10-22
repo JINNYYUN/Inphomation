@@ -1,6 +1,7 @@
 package bit.com.inpho.dto;
 
-
+import java.util.Arrays;
+import java.util.List;
 
 public class PostDto {
 	private int post_seq;
@@ -14,13 +15,15 @@ public class PostDto {
 	private String location;
 	private String camera_serial;
 	private String hashtag;
+	private String[] hseq;
+	private String[] htag; 
 	
 	public PostDto() {
 		// TODO Auto-generated constructor stub
 	}
 
 	public PostDto(int post_seq, int camera_seq, int user_seq, int readcount, int del, String content, String wdate,
-			String filepath, String location, String camera_serial, String hashtag) {
+			String filepath, String location, String camera_serial, String hashtag, String[] hseq, String[] htag) {
 		super();
 		this.post_seq = post_seq;
 		this.camera_seq = camera_seq;
@@ -33,6 +36,8 @@ public class PostDto {
 		this.location = location;
 		this.camera_serial = camera_serial;
 		this.hashtag = hashtag;
+		this.hseq = hseq;
+		this.htag = htag;
 	}
 
 	public int getPost_seq() {
@@ -123,14 +128,29 @@ public class PostDto {
 		this.hashtag = hashtag;
 	}
 
+	public String[] getHseq() {
+		return hseq;
+	}
+
+	public void setHseq(String[] hseq) {
+		this.hseq = hseq;
+	}
+
+	public String[] getHtag() {
+		return htag;
+	}
+
+	public void setHtag(String[] htag) {
+		this.htag = htag;
+	}
+
 	@Override
 	public String toString() {
 		return "PostDto [post_seq=" + post_seq + ", camera_seq=" + camera_seq + ", user_seq=" + user_seq
 				+ ", readcount=" + readcount + ", del=" + del + ", content=" + content + ", wdate=" + wdate
 				+ ", filepath=" + filepath + ", location=" + location + ", camera_serial=" + camera_serial
-				+ ", hashtag=" + hashtag + "]";
+				+ ", hashtag=" + hashtag + ", hseq=" + Arrays.toString(hseq) + ", htag=" + Arrays.toString(htag) + "]";
 	}
-
 
 	
 	}
