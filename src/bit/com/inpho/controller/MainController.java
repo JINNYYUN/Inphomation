@@ -13,16 +13,17 @@ import org.springframework.web.bind.annotation.RequestMethod;
 
 import bit.com.inpho.dto.MainPostDto;
 import bit.com.inpho.dto.MemberDto;
+import bit.com.inpho.dto.searchDto;
 import bit.com.inpho.service.MainService;
 
 @Controller
 public class MainController {
 	@Autowired
 	MainService mainService;
-	
+	List<MainPostDto> list;
 	@RequestMapping(value="/main",method = {RequestMethod.GET,RequestMethod.POST})
 	public String goMainPage(Model model, HttpSession session) {
-		List<MainPostDto> list;
+		list = null;
 		if(session.getAttribute("login")==null) {
 			list = mainService.getNewFeed();
 		}else {
@@ -35,8 +36,22 @@ public class MainController {
 		return "main.tiles";
 	}
 	
-	@GetMapping("/keywordSearch")
-	public String searchList(String keyworld) {
+	@RequestMapping(value="/keywordSearch",method = {RequestMethod.GET})
+	public String searchList(searchDto search, Model model) {
+		System.out.println(search.toString());
+		list = null;
+		
+		list = mainService.getSearchFeed(search);
+		if(list !=null) {
+			for(int i =0; i<list.size();i++) {
+				System.out.println(list.get(i).toString());
+			}
+		}else {
+			System.out.println("null~");
+		}
+		
+		
+		
 		return "search.tiles";
 	}
 	

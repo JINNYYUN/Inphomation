@@ -19,7 +19,7 @@ function searchKeyword(){
 		keywordInput.value=''
 		keywordInput.focus()
 	}else{
-		location.href= 'http://'+location.host+"/Inphomation/keywordSearch?keyworld="+keyword
+		location.href= 'http://'+location.host+"/keywordSearch?keywordId="+keyword
 	}
 }
 
