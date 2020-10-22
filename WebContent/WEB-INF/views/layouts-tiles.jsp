@@ -7,28 +7,29 @@
 
 <html>
 <head>
-<meta charset="UTF-8">
-<title>Inphomation</title>
-
-<style type="text/css">
-.footer {
-       position : absolute;
-       bottom : 0;
-       width: 100%;
-       height:170px;
-}
-
-.basic-layout{
-	position : relative;
-	min-height :100vh;
-}
-
-.main-wrapper{
-	padding-bottom : 200px;
-}
-</style>
-
-<tiles:insertAttribute name="header"/>
+	<meta charset="UTF-8">
+	<title>Inphomation</title>
+	
+	<style type="text/css">
+	.footer {
+	       position : absolute;
+	       bottom : 0;
+	       width: 100%;
+	       height:170px;
+	}
+	
+	.basic-layout{
+		position : relative;
+		min-height :100vh;
+	}
+	
+	.main-wrapper{
+		margin-top : 80px;
+		padding-bottom : 220px;
+	}
+	</style>
+	
+	<tiles:insertAttribute name="header"/>
 	
 </head>
 <body>
