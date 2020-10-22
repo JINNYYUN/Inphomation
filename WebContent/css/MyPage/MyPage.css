@@ -254,6 +254,10 @@ margin-left: 210px;
   text-decoration: none;
   cursor: pointer;
 }
+.list{
+	height: 50px;
+	margin: 10 0;
+}
 .list-img{
 	background-color: white;
     border-radius: 50%;
@@ -266,10 +270,14 @@ margin-left: 210px;
 	width: 50px;
     min-height: 100%;
     display: inline-block;
-    
+}
+.list-info{
+	float: right;
+    width: 262px;
 }
 .list-nick{
 	display: inline-block;
+	margin: 10 0;
 }
 .btn-modal{
 	float: right;

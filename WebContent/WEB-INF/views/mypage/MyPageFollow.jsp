@@ -18,7 +18,8 @@ MemberDto login = (MemberDto)request.getSession().getAttribute("login");
 			<img src="<%=list.get(i).getProfile_image()%>"
 				onclick="goMyPage(<%=list.get(i).getUser_seq()%>)">
 		</div>
-		<div class="list-nick" onclick="goMyPage(<%=list.get(i).getUser_seq()%>)"><%=list.get(i).getUser_nickname() %></div>
+		<div class="list-info">
+			<div class="list-nick" onclick="goMyPage(<%=list.get(i).getUser_seq()%>)"><%=list.get(i).getUser_nickname() %></div>
 		<%
 		if(login == null){
 		%>
@@ -38,7 +39,7 @@ MemberDto login = (MemberDto)request.getSession().getAttribute("login");
 			}
 		}
 		%>
-	</div>
+	</div></div>
 	<%
 	}
 	%>
