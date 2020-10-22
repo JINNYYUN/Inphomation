@@ -99,7 +99,7 @@ public class MessageController {
 	@RequestMapping(value = "sendMsg", method = RequestMethod.POST)
 	public void sendMsg(MessageDto msg) {
 		int n = service.sendMsg(msg);
-		System.out.println(n>0?"메시지 저장성공":"메시지 저장실패");
+		//System.out.println(n>0?"메시지 저장성공":"메시지 저장실패");
 	}
 	
 	@ResponseBody
@@ -114,7 +114,7 @@ public class MessageController {
 	public boolean getUnread(HttpServletRequest req) {
 		
 		MemberDto mem = (MemberDto)req.getSession().getAttribute("login");
-		System.out.println("불린값:" + service.getUnread(mem.getUser_seq()));
+		//System.out.println("불린값:" + service.getUnread(mem.getUser_seq()));
 		return service.getUnread(mem.getUser_seq());
 		
 	}

@@ -281,8 +281,10 @@ ul.moveSite li:last-child:before{
 .fa-envelope{
 	position: relative;
 }
+
 .loginMode ol li div i.fa-circle{
 	position: absolute;
+<<<<<<< HEAD
 	font-size: 10px;
     color: red;
     top : -9px;
@@ -292,3 +294,12 @@ ul.moveSite li:last-child:before{
 .inphomation-logo{
 		width : 170px
 	}
+=======
+    font-size: 10px;
+    color: red;
+    top: -8px;
+    right: 157px;
+    opacity: 0;
+}
+
+>>>>>>> a26c88f43fdb01cca9e93c98fb74dea53bc4aca4

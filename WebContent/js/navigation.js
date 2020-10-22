@@ -40,7 +40,7 @@ function searchKeyword(){
 
 		ws.onopen = function() {
 			console.log('연결 생성');
-			alert('연결 생성');
+			//alert('연결 생성');
 			register();
 		};
 				
@@ -51,7 +51,7 @@ function searchKeyword(){
 		};
 		ws.onclose = function() {
 			//console.log('연결 끊김');
-			alert('연결 끊김');
+			//alert('연결 끊김');
 		};
 	}
 
@@ -64,11 +64,7 @@ function searchKeyword(){
 		};
 		ws.send(JSON.stringify(msg));
 	}
-	
+	// 메시지 수신 시 알림 표시
 	function addMsg(data){
-		$('.fa-circle').css('display','inline');
+		$('.fa-circle').css('opacity','100');
 	}
-
-
-	
-	

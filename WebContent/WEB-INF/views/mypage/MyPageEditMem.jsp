@@ -22,7 +22,7 @@
 				<td><p>새 비밀번호</p></td><td><input type="password" class="form-control form-control-lg" id="newPwd"></td>
 			</tr>
 		 	<tr>
-		 		<td colspan="2"><input class="btn btn-outline-danger" type="button" value="확인" id="pwdCheck"></td>
+		 		<td colspan="2"><input class="btn btn-primary" type="button" value="확인" id="pwdCheck"></td>
 		 	</tr>
 		
 		</table>

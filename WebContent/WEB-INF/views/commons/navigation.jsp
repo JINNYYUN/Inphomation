@@ -74,11 +74,11 @@ pageEncoding="UTF-8"%>
 	      <div class="dropbox" id="drop-menu">
 	      	<h3><%=member.getUser_nickname() %></h3><!-- 로그인 백엔드 구현하고 정보 받아오면 수정하기 -->
 	      	<ul>
-	      		<li class="text body1 text-weight-medium"><a href="<%=request.getContextPath() %>/mypage?user_seq=<%=member.getUser_seq()%>">내 프로필</a></li>
+				<li class="text body1 text-weight-medium"><a href="<%=request.getContextPath() %>/mypage?user_seq=<%=member.getUser_seq()%>">내 프로필</a></li>
 	      		<li class="text body1 text-weight-medium"><a href="<%=request.getContextPath() %>/bookmark">북마크 게시물</a></li>
 	      		<li class="text body1 text-weight-medium"><a href="<%=request.getContextPath() %>/mypageedit">개인정보수정</a></li>
 	      		<li class="text body1 text-weight-medium"><a href="javascript:doLogout();">로그아웃</a></li>	
-	      	</ul>
+			</ul>
 	      	<input type="hidden" value="<%=member.getUser_email()%>" id="userEmail">
 	      </div>      
       </div>
