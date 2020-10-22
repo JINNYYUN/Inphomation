@@ -8,6 +8,7 @@ import org.springframework.stereotype.Repository;
 
 import bit.com.inpho.dao.MainDao;
 import bit.com.inpho.dto.MainPostDto;
+import bit.com.inpho.dto.searchDto;
 
 @Repository
 public class MainDaoImpl implements MainDao{
@@ -21,6 +22,10 @@ public class MainDaoImpl implements MainDao{
 	@Override
 	public List<MainPostDto> getNewFeed(int userSeq) {
 		return sql.selectList(ns+"newFeedListLogin", userSeq);
+	}
+	@Override
+	public List<MainPostDto> getSearchList(searchDto search) {
+		return sql.selectList(ns+"searchKeywordList",search);
 	}
 	
 	
