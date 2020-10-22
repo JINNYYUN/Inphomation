@@ -18,8 +18,10 @@ public interface PostDao {
 	void addPost(PostDto dto);
 	void addcam(HashMap<String, String> map);
 	void addCamSeq(HashMap<String, String> map);
-	void addhashtag(HashMap<String, Object> obj);
+	void addhashtag(PostDto dto);
+	int getTagSeq(PostDto dto);
 	int getcamseq(PostDto dto);
 	void setingPost(PostDto dto);
+	void addlocation(PostLocationDto dto);
 } 
 
