@@ -79,10 +79,8 @@
 		<put-attribute name="main" value="/WEB-INF/views/post/PostPage.jsp"/>	
 		<put-attribute name="footer" value="/WEB-INF/views/commons/footer.jsp"/>
 	</definition>
-	<definition name="errorPage" template="/WEB-INF/views/layouts-tiles.jsp">
-		
+	<definition name="errorPage" extends="mypage.tiles">
 		<put-attribute name="main" value="/WEB-INF/views/post/errorPage.jsp"/>	
-		<put-attribute name="footer" value="/WEB-INF/views/commons/footer.jsp"/>
 	</definition>
 	<!-- chat -->
 	<definition name="goMessage.tiles" extends="mypage.tiles">

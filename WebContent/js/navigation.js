@@ -1,8 +1,5 @@
-/*
-	지도맵으로 링크
-*/
+//지도맵으로 링크
 function goMap(){
-	//지명씨 필요한 정보
 	location.href= 'http://'+location.host+"/map"
 }
 
@@ -22,7 +19,7 @@ function searchKeyword(){
 		keywordInput.value=''
 		keywordInput.focus()
 	}else{
-		location.href= 'http://'+location.host+"/Inphomation/keywordSearch?keyworld="+keyword
+		location.href= 'http://'+location.host+"/keywordSearch?keywordId="+keyword
 	}
 }
 
