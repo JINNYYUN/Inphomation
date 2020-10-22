@@ -39,7 +39,7 @@ function checkMsg(){
 		type:"post",
 		success:function(hasMsg){
 			if(hasMsg){
-				$('.fa-circle').css('opacity','100');
+				$('.fa-circle').css('display','inline');
 			}
 		},
 		error:function(){
