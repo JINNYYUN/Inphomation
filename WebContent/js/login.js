@@ -5,7 +5,7 @@ checkMsg()
 
 /*글쓰기로 이동 인자값 노필요	*/
 	function goWrite(){
-		location.href= 'http://'+location.host+"/Inphomation/post"
+		location.href= 'http://'+location.host+"/post"
 	}
 	
 /* dropBox의 활성화 비활성화를 위한 function */
@@ -25,7 +25,6 @@ checkMsg()
 			url:"logout",
 			type:"get",
 			success:function(){
-				alert('Do Logout')
 				window.location.reload()
 			},error:function(){
 				alert('err')

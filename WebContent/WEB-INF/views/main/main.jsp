@@ -35,25 +35,28 @@
 			            
 			            <!-- 좋아요 -->
 			            <c:choose>
-			            	<c:when test="${empty scopeSession.login }">
+			            	<c:when test="${empty login }">
 			            		<h4><i class="far fa-heart" onclick="goLogin();">${post.postLike }</i></h4>
 			            	</c:when>
 			            	<c:when test="${post.userLike eq 1 }">
-			            		<h4><i class="fas fa-heart" onclick="clickLike(this,1);">${post.postLike }</i></h4>
+			            		<h4><i class="fas fa-heart" onclick="clickLike(this,${post.postSeq});">${post.postLike }</i></h4>
 			            	</c:when>
 			            	<c:otherwise>
-			            		<h4><i class="far fa-heart" onclick="clickLike(this,1);">${post.postLike }</i></h4>
+			            		<h4><i class="far fa-heart" onclick="clickLike(this,${post.postSeq});">${post.postLike }</i></h4>
 			            	</c:otherwise>
 			            </c:choose>
 			            
 			            
 			            <!-- 북마크 -->
 						<c:choose>
+							<c:when test="${empty login  }">
+								<h4><i class="fas fa-star" onclick="goLogin();">${post.postBookmark }</i></h4>
+							</c:when>
 			            	<c:when test="${post.userBookMark eq 1 }">
-			            		<h4><i class="fas fa-star" onclick="clickBookMark(this,1);">${post.postBookmark }</i></h4>
+			            		<h4><i class="fas fa-star" onclick="clickBookMark(this,${post.postSeq});">${post.postBookmark }</i></h4>
 			            	</c:when>
 			            	<c:otherwise>
-			            		<h4><i class="far fa-star" onclick="clickBookMark(this,1);">${post.postBookmark }</i></h4>
+			            		<h4><i class="far fa-star" onclick="clickBookMark(this,${post.postSeq});">${post.postBookmark }</i></h4>
 			            	</c:otherwise>
 			            </c:choose>
 					</div>
@@ -76,7 +79,7 @@ $('.main-back-ground .search-bar').click(function(){
 }); 
 
 $('#main-search-keyword').blur(function(){
-	$('.search-bar').css("border", "1px solid #D9D9D9");
+	$('.main-back-ground .search-bar').css("border", "1px solid #D9D9D9");
 	$('#main-search-icon g').css("stroke", "#8c8c8c");
 });
 

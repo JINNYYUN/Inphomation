@@ -1,15 +1,12 @@
-/*
-	지도맵으로 링크
-*/
+//지도맵으로 링크
 function goMap(){
-	//지명씨 필요한 정보
-	location.href= 'http://'+location.host+"/Inphomation/map"
+	location.href= 'http://'+location.host+"/map"
 }
 
 /* Follow Look Feed */
 function goFollow(){
 	//친구글 보는페이지..어...근데....없...네? 이게...아니었...나?대화하기였...나?
-	location.href='http://'+location.host+"/Inphomation/main#"
+	location.href='http://'+location.host+"/main#"
 }
 
 /* 검색function */
