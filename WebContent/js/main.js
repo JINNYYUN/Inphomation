@@ -128,6 +128,7 @@ function changeMark(e, cate, seq) {
 }
 
 //메인의 searchBar
+/*
 function searchKeywordMain() {
 	//1.get으로 보내기
 	keywordInput = document.getElementById('main-search-keyword')
@@ -140,7 +141,7 @@ function searchKeywordMain() {
 		location.href = 'http://' + location.host + "/keywordSearch?keyworld=" + keyword
 	}
 }
-
+*/
 function moveUserPage(e){
 	location.href = 'http://' + location.host + "/mypage?user_seq="+e
 }

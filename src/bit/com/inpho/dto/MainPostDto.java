@@ -1,10 +1,8 @@
 package bit.com.inpho.dto;
 
 import java.io.Serializable;
-import java.util.ArrayList;
 import java.util.List;
 
-import org.apache.ibatis.type.Alias;
 
 public class MainPostDto implements Serializable{
 	//post_seq,user_seq,user_nickname,post_like(count),post_bookmark(count),post_reply(count)

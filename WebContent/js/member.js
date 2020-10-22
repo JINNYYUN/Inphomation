@@ -92,12 +92,10 @@ function confirmId(e){
 			},
 			success:function(data){
 				if(data){
-					console.log('안중복')
 					document.getElementById('regeister-btn').disabled = false
-					$('.form-group .result-msg').text('이미 가입된 이메일 입니다')
 				}else{
-					console.log('중복')
 					document.getElementById('regeister-btn').disabled = true
+					$('.form-group .result-msg').text('이미 가입된 이메일 입니다')
 				} 
 			},error:function(){
 				alert('exception')

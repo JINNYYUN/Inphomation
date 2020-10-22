@@ -25,6 +25,11 @@ public class MainServiceImpl implements MainService{
 	}
 
 	@Override
+	public List<MainPostDto> getSearchFeed(String search) {
+		return dao.getSearchList(search);
+	}
+
+	@Override
 	public List<MainPostDto> getSearchFeed(searchDto search) {
 		return dao.getSearchList(search);
 	}

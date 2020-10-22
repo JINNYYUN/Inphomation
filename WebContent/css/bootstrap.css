@@ -1670,23 +1670,23 @@ pre code {
 .table-success,
 .table-success>th,
 .table-success>td {
-    background-color: #b8e7dc;
+    background-color: #e2cbb6;
 }
 
 .table-success th,
 .table-success td,
 .table-success thead th,
 .table-success tbody+tbody {
-    border-color: #7ad2bd;
+    border-color: #dca97c;
 }
 
 .table-hover .table-success:hover {
-    background-color: #a5e1d3;
+    background-color: #f3ddd1;
 }
 
 .table-hover .table-success:hover>td,
 .table-hover .table-success:hover>th {
-    background-color: #a5e1d3;
+    background-color: #e0c3a9;
 }
 
 .table-info,
@@ -1947,7 +1947,7 @@ pre code {
     background-color: #fff;
     border-color: #F2B705;
     outline: 0;
-    box-shadow: 0 0 0 0.2rem rgba(0, 168, 129, 0.25);
+    box-shadow: 0 0 0 0.2rem rgba(242, 116, 5, 0.25);
 }
 
 .form-control::placeholder {
@@ -2733,7 +2733,7 @@ fieldset:disabled a.btn {
 .btn-tag.focus {
     color: #fff;
     background-color: #F27405;
-    box-shadow: 0 0 0 0.2rem rgba(0,168,129,0.8);
+    box-shadow: 0 0 0 0.2rem rgba(242,116,5,0.8);
 }
 
 .btn-tag.disabled,
@@ -2753,7 +2753,7 @@ fieldset:disabled a.btn {
 .btn-tag:not(:disabled):not(.disabled):active:focus,
 .btn-tag:not(:disabled):not(.disabled).active:focus,
 .show>.btn-tag.dropdown-toggle:focus {
-    box-shadow: 0 0 0 0.2rem rgba(0,168,129,0.8);
+    box-shadow: 0 0 0 0.2rem rgba(242,116,5,0.8);
 }
 
 /*btn-tab-------------------------------------------*/

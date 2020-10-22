@@ -10,9 +10,14 @@ function goFollow(){
 }
 
 /* 검색function */
-function searchKeyword(){
+function searchKeyword(page){
 	//1.get으로 보내기
-	keywordInput = document.getElementById('search-keyword')
+	let keywordInput=''
+	if(page=='navi'){
+		keywordInput = document.getElementById('navi-search-keyword')
+	}else{
+		keywordInput = document.getElementById('main-search-keyword')		
+	}
 	let keyword = keywordInput.value.trim()
 	if(keyword==''){
 		//공백인 경우
@@ -63,5 +68,5 @@ function searchKeyword(){
 	}
 	// 메시지 수신 시 알림 표시
 	function addMsg(data){
-		$('.fa-circle').css('opacity','100');
+		$('.fa-circle').css('display','inline');
 	}
