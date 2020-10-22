@@ -75,7 +75,8 @@
 }
 .main-container .content{
 	background-color: #fff;
-    width: 1000px;
+    width: 90%;
+    max-width:1600px;
     height: 600px;
     margin: auto;
     border-color: black;
