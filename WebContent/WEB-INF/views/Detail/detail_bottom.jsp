@@ -11,7 +11,7 @@
 		</c:if>
 		<c:forEach items="${postList }" var="post" varStatus="i">
 			<div class="item">
-				<img src="https://storage.googleapis.com/boomkit/${post.post_filepath }" onclick="movePage(${post.post_seq})">
+				<img src="https://storage.googleapis.com/boomkit/${post.post_filepath }" onclick="movePage(${post.post_seq})" >
 			</div>
 		</c:forEach>
 	</div>
