@@ -20,7 +20,7 @@ public class MainController {
 	@Autowired
 	MainService mainService;
 	List<MainPostDto> list;
-	@RequestMapping(value="/main",method = {RequestMethod.GET,RequestMethod.POST})
+	@RequestMapping(value={"/","/main"},method = {RequestMethod.GET,RequestMethod.POST})
 	public String goMainPage(Model model, HttpSession session) {
 		list = null;
 		if(session.getAttribute("login")==null) {
@@ -44,7 +44,6 @@ public class MainController {
 		}else {
 			list = mainService.getSearchFeed(search.getKeywordId());
 		}
-		System.out.println(list.size());
 		model.addAttribute("postList",list);
 		return "search.tiles";
 	}
