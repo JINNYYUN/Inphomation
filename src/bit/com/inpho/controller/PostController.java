@@ -7,14 +7,9 @@ package bit.com.inpho.controller;
 import java.io.File;
 import java.io.IOException;
 import java.util.ArrayList;
-import java.util.Arrays;
 import java.util.Date;
-import java.util.Iterator;
 import java.util.List;
 import javax.servlet.http.HttpServletRequest;
-import javax.servlet.http.HttpSession;
-
-
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -26,16 +21,9 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.multipart.MultipartFile;
 import org.springframework.web.servlet.ModelAndView;
-
-import com.google.gson.Gson;
-import com.google.gson.JsonElement;
-import com.google.gson.JsonParser;
-
 import bit.com.inpho.dto.MemberDto;
-import bit.com.inpho.dto.MyPageCameraDto;
-import bit.com.inpho.dto.MyPageMemberDto;
 import bit.com.inpho.dto.PostDto;
-import bit.com.inpho.dto.PostHashTagInfoDto;
+import bit.com.inpho.dto.PostLocationDto;
 import bit.com.inpho.postutile.UploadObject;
 import bit.com.inpho.service.PostService;
 
@@ -71,13 +59,14 @@ public class PostController {
 	public ModelAndView fileUpload(HttpServletRequest req,
 	@RequestParam(value = "upImgFile") MultipartFile file,PostDto dto)
 			throws IOException {
+		System.out.println("file : " + file.getOriginalFilename());
 		MemberDto login = (MemberDto)req.getSession().getAttribute("login");
 		if(login!=null) {
 			dto.setUser_seq(login.getUser_seq());
 		List<PostDto> camlist =new ArrayList<PostDto>();
 		camlist = service.getCam(login);
 		int size = 0;
-		
+		System.out.println("들어");
 		for (PostDto postDto : camlist) {
 		camarray[size]=postDto.getCamera_serial();
 		System.out.println(camarray[size]);
@@ -91,42 +80,42 @@ public class PostController {
 		dto.setCamera_seq(camseq);
 		// MultipartFile을 받아온다... 실제 루트경로
 		String root = req.getSession().getServletContext().getRealPath("upload/postImage");
+		
 		// File은 디렉토리 + 파일명
 		File copyFile = new File(root + "/" + file.getOriginalFilename());
 		// 원래 업로드한 파일이 지정한 path 위치로 이동...이때 카피본이 이동
 		file.transferTo(copyFile);
-		String after=dto.getHashtag();
-		int count = 0;
-        String[] str;
-		for (int i = 0; i < count; i++) {
-			str = after.split(",");
-		}
 		String exifLong= req.getParameter("exifLong");
 		String exifLat= req.getParameter("exifLat");
-		String exifLongResult = exifLong.substring(exifLong.lastIndexOf(",")+1);
-		String exifLatResult = exifLat.substring(exifLat.lastIndexOf(",")+1);
+		System.out.println(exifLong);
+		System.out.println(exifLat);
+		PostLocationDto Ldto= new PostLocationDto(dto.getPost_seq(), exifLat, exifLong);
 		String fileName=obj.storageUploadObject("thermal-well-290414", "boomkit", file.getOriginalFilename(),
 				root + "/" + file.getOriginalFilename());
 		dto.setFilepath(fileName);
 		}
 		System.out.println(dto.toString());
 		ModelAndView mv = new ModelAndView();
-		//int nowCamseq=service.addCamera(dto);
-		
+		//추가시킨 카메라 시퀀스를 받아와서 dto에담고  
+//		int nowCamseq=service.addCamera(dto);
+//		dto.setCamera_seq(nowCamseq);
 		service.setingPost(dto);
+		System.out.println("포스트시컨스"+dto.getPost_seq());
+		service.addhashtag(dto);
+
 		mv.setViewName("PostPage");
-		
 		return mv;
-		
 	} 
 	//테스트입니당
 	
+	@RequestMapping(value = "writeupdate", method = { RequestMethod.GET,RequestMethod.POST})
+	public String gogo(Model model ,HttpServletRequest req) {
+		
+		return "detail";
+	}
 	@RequestMapping(value = "reroll", method = { RequestMethod.GET,RequestMethod.POST})
 	public String setHashTag(Model model) {
 		
 		return "PostPage";
-	}@RequestMapping(value = "error", method = { RequestMethod.GET,RequestMethod.POST})
-	public String gogo(Model model) {
-		return "errorPage";
 	}
 }
