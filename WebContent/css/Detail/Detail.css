@@ -15,7 +15,6 @@
 	padding-top: 100px;
 	margin-top: 15px;
 	background-color: #ffffff;
-    margin-left: 23%;
 }
 
 .proflBox {
@@ -51,7 +50,12 @@
 	/*     text-align: center; */
 	float: left;
 }
-
+.replyCont{
+	resize: none;
+    overflow: hidden;
+    border: none;
+    width: 227px;
+}
 .replyImg {
 	width: 30px;
 	height: 30px;
@@ -114,7 +118,8 @@ td .replyImg {
 .nothing{
 	margin-left: 250%;
 	width: 100%;
-	color: black;
+	color: #2B2D36;
+	margin-left: 0%;
 }
 .innerRightBox{
 	white-space: inherit;
@@ -132,7 +137,7 @@ td .replyImg {
 }
 
 .post {
-	color: black;
+	color: #2B2D36;
 	white-space: inherit;
 }
 
@@ -161,7 +166,7 @@ td .replyImg {
 }
 .modal{	
     height: 25%;
-
+	text-align: center;
 }
 .replyTbl {
 	width: 100px;
@@ -304,7 +309,9 @@ a:hover {
 	margin-top: 3px;
 	margin-left: 110px;
 }
-
+.detail-bottom-message{
+	margin-bottom : 20px	
+}
 input:focus {
 	outline: none;
 }
@@ -319,19 +326,22 @@ hr{
 .main-container .grid {
   display: grid;
   max-width: 1600px;
-  width: 80%;
+  width: 100%;
   min-width: 770px;
   margin: 0px auto;
   min-height: 400px;
   grid-template-columns: repeat(auto-fill, minmax(250px, 1fr));
   grid-auto-rows: 20px;
-  grid-gap: 5px;
+  grid-gap: 7px;
 }
 
 .main-container .grid .item {
   width: 100%;
   overflow: hidden;
   position: relative;
+  width: 260px; 
+  height: 260px; 
+  overflow: hidden;
 }
 
 .main-container .grid .item>img {
@@ -341,6 +351,9 @@ hr{
   top: 50%;
   transform: translate(-50%, -50%);
   z-index: 1;
+  width: auto; 
+  height: 260px;
+  object-fit: contain;
 }
 
 .main-container .grid .item>img:hover {

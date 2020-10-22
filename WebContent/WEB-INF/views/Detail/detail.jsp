@@ -37,7 +37,7 @@
 						</div>
 						<div id="ex1" class="modal">
 							<c:if test="${post.user_seq eq user_seq }">
-								<button type="button" id="editDetail" onclick="editDetail()"
+								<button type="button" id="editDetail" onclick="editDetail(${post.post_seq})" 
 									class="btn modalBtn">수정하기</button>
 								<hr>
 								<button type="button" id="deleteDetail" onclick="deleteDetail()"
@@ -125,7 +125,7 @@
 												class="text-weight-bold body1 post replyNick"
 												onclick="profile(${i.user_seq})"> ${i.user_nickname } </a>
 											&emsp;
-											<div class="body1 post replyCont">${i.reply_content }</div>
+											<span class="body1 post replyCont">${i.reply_content }</span>
 										</div>
 										<c:if
 											test="${i.user_seq eq user_seq || post.user_seq eq user_seq}">
@@ -300,6 +300,6 @@ function copy_link(){
 </script>
 <br><br>
 <hr>
-<br><br>
+<br>
 
 <jsp:include page="./detail_bottom.jsp"></jsp:include>

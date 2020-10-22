@@ -1,15 +1,19 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
-
-<div class="main-container">
+<div class="container main-container">
+	<div class="text h3 text-color-gray100 text-weight-regular detail-bottom-message">
+			최근 게시물
+	    </div> 
 	<div class="grid">
 		<c:if test="${empty postList }">
-		<h1 class="text nothing" title="take me to main page!!!" onclick="location.href='main'">NOTHING <i class="far fa-grimace"></i></h1>
+		<h1 class="text h3 text-weight-medium nothing" title="bring me to main page!!!" onclick="location.href='main'">
+			<a href="main">FIND MORE <i class="fas fa-search"></i>
+		</a></h1>
 		</c:if>
 		<c:forEach items="${postList }" var="post" varStatus="i">
 			<div class="item">
-				<img src="https://storage.googleapis.com/boomkit/${post.post_filepath }" onclick="movePage(${post.post_seq})">
+				<img src="https://storage.googleapis.com/boomkit/${post.post_filepath }" onclick="movePage(${post.post_seq})" >
 			</div>
 		</c:forEach>
 	</div>
