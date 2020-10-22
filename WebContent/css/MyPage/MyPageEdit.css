@@ -39,7 +39,7 @@ img{
 .content-detail{
 	background-color: #fff;
     width: 1000px;
-    height: 600px;
+    min-height: 100%;
     margin: auto;
 }
 .profile{

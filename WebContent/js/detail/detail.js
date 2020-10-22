@@ -74,7 +74,7 @@ function addComment(){
 				type: "get",
 				data: {"post_seq":$("#post_seq").val(), "user_seq":$("#user_seq").val(), "reply_content":  $("#comment").val() },
 				async:true,
-				success:function(data){
+				success:function(){
 				//	console.log(data)
 					$("#comment").val("");
 					location.reload(true);
