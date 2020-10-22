@@ -36,7 +36,7 @@ public class memberController {
 	@GetMapping("/noHaveAuth")
 	public String noHaveAuth() {
 		//유저 계정이 활성화가 안되어있는 경우에 이동하는 페이지
-		return "loginPage.tiles";
+		return "nohaveAuth.tiles";
 	}
 	@GetMapping("/authKeyId")
 	public String confirmId(MemberDto member,HttpSession session) {
@@ -57,10 +57,10 @@ public class memberController {
 	}
 	@ResponseBody
 	@PostMapping("/register")
-	public boolean regeisterMember(MemberDto member) {
+	public boolean regeisterMember(MemberDto member, HttpSession session) throws Exception {
 		System.out.println(member.toString());
 		//회원가입 실패 유무를 반환
-		return memberService.regeisterMember(member);
+		return memberService.regeisterMember(member, session);
 	}
 	@ResponseBody
 	@PostMapping("/confirmId")

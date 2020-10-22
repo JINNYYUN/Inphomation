@@ -24,10 +24,7 @@
 	<div>	
 		<tiles:insertAttribute name="main"/>	
 	</div>		
-	
-	<div>
-		<tiles:insertAttribute name="footer"/>
-	</div>
+
 </div>
 
 </body>

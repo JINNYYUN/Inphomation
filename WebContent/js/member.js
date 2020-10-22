@@ -12,6 +12,7 @@ function submitLogin(){
 	}
 	ajaxLogin(id.val().trim(),pw.val().trim())
 }
+//로그인
 function ajaxLogin(id,pw){
 	$.ajax({
 		url:"login",
@@ -27,9 +28,9 @@ function ajaxLogin(id,pw){
 				window.location.reload()
 			}else if(result=='fail'){
 				//실패알람 html에 실패알람 넣기
-				console.log('fail')
+				$('.form-group .result-msg').text('로그인 정보가 일치하지 않습니다')
 			}else{
-				location.href='http://'+location.host+'/Inphomation/noHaveAuth'
+				location.href='http://'+location.host+'/noHaveAuth'
 			}
 		},
 		error:function(){
@@ -63,10 +64,11 @@ function submitRegi(){
 			provider:"homepage"
 		},
 		success:function(data){
+			console.log(data)
 			//회원가입 성공
 			if(data){
 				alert('regiSuccess')
-				window.location.reload()
+				location.href='http://'+location.host+'/noHaveAuth'
 			}else{
 				alert('fail')
 			}
@@ -78,7 +80,6 @@ function submitRegi(){
 	})
 }
 //아이디 중복 확인
-
 function confirmId(e){
 	let inputId =  document.getElementById('regi-id')
 	let result = isEmail(inputId.value.trim())
@@ -90,7 +91,6 @@ function confirmId(e){
 				user_email:inputId.value.trim()
 			},
 			success:function(data){
-				console.log('confirmid:'+data)
 				if(data){
 					console.log('안중복')
 					document.getElementById('regeister-btn').disabled = false
@@ -132,12 +132,6 @@ function loginWithKakao() {
 	        $.ajax({
 	        	url:"socialLogin",
 	        	type:"post",
-	        	/*data:{
-	        		user_email:obj.id,
-	        		user_nickname:obj.properties.nickname,
-	        		profile_image:obj.properties.profile_image,
-	        		provider:"Kakao"
-	        	},*/
 	        	data:makeKakaoData(obj),
 	        	success:function(data){
 	        		if(data){
@@ -216,8 +210,9 @@ function goLogin(){
 		type:'GET',
 		dataType:'html',
 		success:function(data){
-			document.getElementById('modal-container').innerHTML=data
-			$('#myModal').modal('show');
+			$('#modal-container').html(data)
+			//document.getElementById('modal-container').innerHTML=data
+			$('#myModal').modal('show')
 			$('.modal-backdrop').css('z-index',2)
 		},
 		error:function(){

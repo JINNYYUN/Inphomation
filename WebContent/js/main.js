@@ -1,6 +1,8 @@
 /**
  * 
  */
+var getMoreFeed = 1
+ 
 function SetGridItemHeight() {
 	let grid = document.getElementsByClassName('grid')[0];
 	let rowHeight = parseInt(window.getComputedStyle(grid).getPropertyValue('grid-auto-rows'));
@@ -18,13 +20,7 @@ window.addEventListener("load", SetGridItemHeight);
 window.addEventListener("resize", SetGridItemHeight);
 
 function movePage(seq) {
-	location.href = "/post?seq=1"
-}
-
-//각종 페이지 기능들 구현하기
-function test() {
-	alert('테스형')
-	location.href = "/test"
+	location.href = "http://"+location.host+"/detail?post_seq="+seq
 }
 
 
@@ -34,13 +30,13 @@ function test() {
 */
 $(window).scroll(function (e) {
 	var window = $(this).scrollTop()
-	/*
-	if (300 >= window) {
-		$('.navbar').css('display', 'none')
+	
+	if (400 >= window) {
+		$('.navbar .container .menu .search-bar').css('display', 'none')
 	}else {
-		$('.navbar').css('display', 'block')
+		$('.navbar .container .menu .search-bar').css('display', 'block')
 	}
-	*/
+	
 	//우측 하단의 상단방향 화살표가 400px이상 내려가면 화살표가 보이고 이하로 내려가면 안보이게 하는 역할 
 	if(400 >= window){
 		$('#screen-up').css('display','none')
@@ -71,41 +67,43 @@ function clickBookMark(e, seq) {
 //좋아요와 북마크를 클릭했을시 숫자를 증감시키는 역할과 비동기를 통해서 DB에 추가 삭제작업함
 function calculNumber(e, b, cate, seq) {
 	let number = Number(e.innerText)
-	let p = 'plus'
-	let m = 'minus'
+	let url=''
 	
-	//비동기로 DB에 갈때 필요한것 post_seq, 링크주소(pluslike, plusbook, minuslike, minusbook)	, 아이디
-	if (b) { //빼줘야함
+	if(cate=='like'){
+		url= "addLike"
+	}else{
+		url= 'addBookmark'
+	}
+	
+	console.log(url)
+	//비동기로 DB에 갈때 필요한것 post_seq, true/ false
+	if (b) { 
+		//db에서 삭제해야하는 부분
 		e.innerText = --number
+		let data={
+			post_seq : seq,
+			dobook : true
+		}
 		$.ajax({
-			url: m + cate,
-			type: post,
-			data: {
-				postSeq: seq,
-				//userSeq : 유저시퀀스번호
-			},
-			success: function () {
-				alert('삭제 성')
-			},
-			error: function () {
-				alert('삭제 삐뽀삐뽀')
-			}
+			url: url,
+			type: "post",
+			data: data,
+			success: function () {},
+			error: function () {}
 		})
-	} else { //채우기
+	} else { 
+		//db에 추가
 		e.innerText = ++number
+		let data={
+			post_seq : seq,
+			dobook : true
+		}
 		$.ajax({
-			url: p + cate,
-			type: post,
-			data: {
-				postSeq: seq,
-				//userSeq : 유저시퀀스번호
-			},
-			success: function () {
-				alert('추가 성')
-			},
-			error: function () {
-				alert('추가 삐뽀삐뽀')
-			}
+			url: url,
+			type: "post",
+			data: data,
+			success: function () {},
+			error: function () {}
 		})
 	}
 
@@ -139,10 +137,10 @@ function searchKeywordMain() {
 		keywordInput.value = ''
 		keywordInput.focus()
 	} else {
-		location.href = 'http://' + location.host + "/Inphomation/keywordSearch?keyworld=" + keyword
+		location.href = 'http://' + location.host + "/keywordSearch?keyworld=" + keyword
 	}
 }
 
 function moveUserPage(e){
-	location.href = 'http://' + location.host + "/Inphomation/mypage?user_seq="+e
+	location.href = 'http://' + location.host + "/mypage?user_seq="+e
 }

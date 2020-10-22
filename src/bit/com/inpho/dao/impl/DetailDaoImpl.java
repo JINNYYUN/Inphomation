@@ -102,8 +102,8 @@ public class DetailDaoImpl implements DetailDao {
 	}
 
 	@Override
-	public List<DetailPostDto> getAllPost(DetailPostDto dto) {
-		List<DetailPostDto> list = sqlSession.selectList(ns + "getAllPost", dto);
+	public List<DetailPostDto> getAllPost(int user_seq) {
+		List<DetailPostDto> list = sqlSession.selectList(ns + "getAllPost", user_seq);
 		return list;
 	}
 

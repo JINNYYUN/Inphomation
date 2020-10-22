@@ -23,5 +23,4 @@ pageEncoding="UTF-8"%>
       <input type="button" value="Regeister" class="regeister-btn btn btn-primary" id="regeister-btn" disabled onclick="submitRegi();">
     </div>
   </form>
-  
 </div>

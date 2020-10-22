@@ -3,18 +3,20 @@ package bit.com.inpho.service.impl;
 import javax.servlet.http.HttpSession;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.mail.javamail.JavaMailSender;
 import org.springframework.stereotype.Service;
-import org.springframework.web.bind.annotation.ResponseBody;
-
 import bit.com.inpho.dao.MemberDao;
 import bit.com.inpho.dto.MemberDto;
 import bit.com.inpho.service.MemberService;
+import bit.com.inpho.util.MailHandler;
 import bit.com.inpho.util.MemberUtil;
 
 @Service
 public class MemberServiceImpl implements MemberService{
 	@Autowired
-	MemberDao memberDao;
+	private MemberDao memberDao;
+	@Autowired
+	private JavaMailSender mailSender;
 	
 	@Override
 	public boolean confirmId(MemberDto member) {
@@ -24,7 +26,7 @@ public class MemberServiceImpl implements MemberService{
 	@Override
 	public String doLogin(MemberDto member,HttpSession session) {
 		MemberDto result = memberDao.doLogin(member);
-		System.out.println(result.toString());
+		
 		session.setMaxInactiveInterval(24*3600);
 		if(result!=null) {
 			//로그인 성공시에 loginFail 세션은 전부다 초기화가 된다
@@ -51,7 +53,7 @@ public class MemberServiceImpl implements MemberService{
 	}
 
 	@Override
-	public boolean regeisterMember(MemberDto member) {
+	public boolean regeisterMember(MemberDto member, HttpSession session) throws Exception {
 		//회원가입 성공
 		String authKey = "";
 		for(;;) {
@@ -62,6 +64,19 @@ public class MemberServiceImpl implements MemberService{
 		member.setAuthKey(authKey);
 		if(memberDao.regeisterMember(member)>0) {
 			if(memberDao.registerAuthKey(member)>0) {
+				MailHandler sendMail = new MailHandler(mailSender);
+				sendMail.setTitle("Inphomation 회원인증");
+				sendMail.setContent(
+							new StringBuffer()
+							.append("<a href='http://localhost:8090/Inphomation/authKeyId?authKey=") //추후에 주소 변경
+							.append(member.getAuthKey()+"' target='_blank'>이메일 인증</a>")
+							.toString()
+						);
+				sendMail.setFrom("inphomationBitFinal@gmail.com", "인포메이션");
+				sendMail.setTo(member.getUser_email());
+				sendMail.send();
+				
+				doLogin(member, session);
 				return true;
 			}
 		}
@@ -93,6 +108,7 @@ public class MemberServiceImpl implements MemberService{
 		MemberDto reqAuthMember = memberDao.selectAuthKey(member.getAuthKey());
 		if(reqAuthMember!=null) {
 			memberDao.deleteAuthKey(member.getAuthKey());
+			memberDao.activeId(reqAuthMember);
 			reqAuthMember = memberDao.authKeyLogin(reqAuthMember);
 			System.out.println(reqAuthMember.toString());
 			session.setMaxInactiveInterval(24*3600);

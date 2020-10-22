@@ -13,24 +13,20 @@ public class MainPostDto implements Serializable{
 	private int postLike;
 	private int postBookmark;
 	private int postReply;
+	private int userLike;
+	private int userBookMark;
 	private String userNickName;
 	private String wdate;
 	private String filePath;
-	
+	private String cameraSerial;
+	private String positionName;
 	private List<String> hashtag;
-	
 	public MainPostDto() {}
 
 	public int getPostSeq() {
 		return postSeq;
 	}
-	public String getFilePath() {
-		return filePath;
-	}
 
-	public void setFilePath(String filePath) {
-		this.filePath = filePath;
-	}
 	public void setPostSeq(int postSeq) {
 		this.postSeq = postSeq;
 	}
@@ -67,16 +63,28 @@ public class MainPostDto implements Serializable{
 		this.postReply = postReply;
 	}
 
+	public int getUserLike() {
+		return userLike;
+	}
+
+	public void setUserLike(int userLike) {
+		this.userLike = userLike;
+	}
+
+	public int getUserBookMark() {
+		return userBookMark;
+	}
+
+	public void setUserBookMark(int userBookMark) {
+		this.userBookMark = userBookMark;
+	}
+
 	public String getUserNickName() {
 		return userNickName;
 	}
 
 	public void setUserNickName(String userNickName) {
 		this.userNickName = userNickName;
-	}
-
-	public List<String> getHashtag() {
-		return hashtag;
 	}
 
 	public String getWdate() {
@@ -87,6 +95,34 @@ public class MainPostDto implements Serializable{
 		this.wdate = wdate;
 	}
 
+	public String getFilePath() {
+		return filePath;
+	}
+
+	public void setFilePath(String filePath) {
+		this.filePath = filePath;
+	}
+
+	public String getCameraSerial() {
+		return cameraSerial;
+	}
+
+	public void setCameraSerial(String cameraSerial) {
+		this.cameraSerial = cameraSerial;
+	}
+
+	public String getPositionName() {
+		return positionName;
+	}
+
+	public void setPositionName(String positionName) {
+		this.positionName = positionName;
+	}
+
+	public List<String> getHashtag() {
+		return hashtag;
+	}
+
 	public void setHashtag(List<String> hashtag) {
 		this.hashtag = hashtag;
 	}
@@ -94,8 +130,10 @@ public class MainPostDto implements Serializable{
 	@Override
 	public String toString() {
 		return "MainPostDto [postSeq=" + postSeq + ", userSeq=" + userSeq + ", postLike=" + postLike + ", postBookmark="
-				+ postBookmark + ", postReply=" + postReply + ", userNickName=" + userNickName + ", wdate=" + wdate
-				+ ", filePath=" + filePath + ", hashtag=" + hashtag + "]";
+				+ postBookmark + ", postReply=" + postReply + ", userLike=" + userLike + ", userBookMark="
+				+ userBookMark + ", userNickName=" + userNickName + ", wdate=" + wdate + ", filePath=" + filePath
+				+ ", cameraSerical=" + cameraSerial + ", positionName=" + positionName + ", hashtag=" + hashtag + "]";
 	}
+	
 	
 }

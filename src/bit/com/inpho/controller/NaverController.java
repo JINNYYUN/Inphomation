@@ -22,7 +22,7 @@ import bit.com.inpho.dto.NaverLoginApi;
 public class NaverController {
 	private final static String naverClientId="EZAyCLocCK4jspxmXDYC";
 	private final static String naverClientSecret="iOhJCQMv1e";
-	private final static String naverCallbackURL="http://localhost:8090/Inphomation/naverLogin";
+	private final static String naverCallbackURL="http://localhost:8090/naverLogin";
 	private final static String SESSION_STATE = "oauth_state";
 	
 	//네이버 URL인증 생성

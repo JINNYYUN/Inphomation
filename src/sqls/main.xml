@@ -4,24 +4,6 @@
   "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 
 <mapper namespace="Main">
-<!-- 	<select id="newFeedList">
-		SELECT LIST.*,HASH.*  FROM 
-	        (SELECT ROWNUM AS RNUM, PO.POST_SEQ , ME.USER_SEQ AS "USERSEQ", ME.USER_NICKNAME AS "USERNICKNAME", POST_WDATE, PO.DEL AS "DEL",
-	            (SELECT COUNT(A.USER_SEQ) FROM POST_LIKE A WHERE A.POST_SEQ = PO.POST_SEQ) AS "LIKE", 
-	            (SELECT COUNT(A.USER_SEQ) FROM POST_BOOKMARK A WHERE A.POST_SEQ = PO.POST_SEQ) AS "BOOKMARK", 
-	            (SELECT COUNT(A.USER_SEQ) FROM POST_REPLY A WHERE A.POST_SEQ = PO.POST_SEQ) AS "REPLY"
-	                FROM
-	                    POST PO,
-	                    MEMBER ME
-	                WHERE PO.USER_SEQ = ME.USER_SEQ
-	                AND DEL = 0
-	                ORDER BY PO.POST_WDATE DESC) LIST, 
-	            (SELECT PH.POST_SEQ, IF.HASHTAG 
-	                FROM POST_HASHTAG PH, INFO_HASHTAG IF
-	                WHERE PH.TAG_SEQ = IF.TAG_SEQ) HASH
-	    WHERE LIST.POST_SEQ = HASH.POST_SEQ(+)
-	        ORDER BY RNUM
-	</select> -->
 	<resultMap type="bit.com.inpho.dto.MainPostDto" id="newFeedListTotal">
 		<result property="postSeq" column="POSTSEQ"/>
 		<result property="userSeq" column="USERSEQ"/>
@@ -31,6 +13,8 @@
 		<result property="postBookmark" column="BOOKMARK"/>
 		<result property="postReply" column="REPLY"/>
 		<result property="filePath" column="POST_FILEPATH"/>
+		<result property="userLike" column="USERLIKE"/>
+		<result property="userBookMark" column="USERBOOKMAKR"/>
 		<collection property="hashtag" column="POSTSEQ" javaType="java.util.ArrayList" ofType="java.lang.String" select="getFeedHashTag" />
 	</resultMap>
 	
@@ -53,4 +37,63 @@
         FROM POST_HASHTAG PH, INFO_HASHTAG IF
 	    WHERE PH.TAG_SEQ = IF.TAG_SEQ AND  PH.POST_SEQ = #{postSeq}
 	</select>
+	
+	<select id="newFeedListLogin" resultMap="newFeedListTotal" parameterType="java.lang.Integer">
+		SELECT * FROM(
+			SELECT ROWNUM RNUM, PO.POST_SEQ AS "POSTSEQ" , ME.USER_SEQ AS "USERSEQ", ME.USER_NICKNAME AS "NICKNAME", POST_WDATE AS "WDATE", PO.DEL AS "DEL",
+		            (SELECT COUNT(A.USER_SEQ) FROM POST_LIKE A WHERE A.POST_SEQ = PO.POST_SEQ) AS "LIKE", 
+		            (SELECT COUNT(A.USER_SEQ) FROM POST_BOOKMARK A WHERE A.POST_SEQ = PO.POST_SEQ) AS "BOOKMARK", 
+		            (SELECT COUNT(A.USER_SEQ) FROM POST_REPLY A WHERE A.POST_SEQ = PO.POST_SEQ) AS "REPLY",
+                    (SELECT COUNT(A.USER_SEQ) FROM POST_LIKE A WHERE A.POST_SEQ = PO.POST_SEQ AND A.USER_SEQ=#{userseq}) AS "USERLIKE",
+                    (SELECT COUNT(A.USER_SEQ) FROM POST_BOOKMARK A WHERE A.POST_SEQ = PO.POST_SEQ AND A.USER_SEQ=#{userseq}) AS "USERBOOKMARK",
+		            PO.POST_FILEPATH
+	         FROM POST PO, MEMBER ME
+	         WHERE PO.USER_SEQ = ME.USER_SEQ
+	         AND DEL = 0
+	         ORDER BY PO.POST_SEQ DESC
+	    ) WHERE RNUM BETWEEN 1 AND 30
+	</select>
+	
+	
+	
+	<resultMap type="bit.com.inpho.dto.MainPostDto" id="searchFeedList">
+		<result property="postSeq" column="POSTSEQ"/>
+		<result property="userSeq" column="USERSEQ"/>
+		<result property="userNickName" column="NICKNAME"/>
+		<result property="wdate" column="WDATE"/>
+		<result property="postLike" column="LIKE"/>
+		<result property="postBookmark" column="BOOKMARK"/>
+		<result property="postReply" column="REPLY"/>
+		<result property="filePath" column="POST_FILEPATH"/>
+		<result property="userLike" column="USERLIKE"/>
+		<result property="userBookMark" column="USERBOOKMAKR"/>
+		<result property="cameraSerial" column="CAMERASERIAL"/>
+		<result property="positionName" column="POSITIONNAME"/>
+		<collection property="hashtag" column="POSTSEQ" javaType="java.util.ArrayList" ofType="java.lang.String" select="getFeedHashTag" />
+	</resultMap>
+
+	
+	<select id="searchKeywordList" resultMap="searchFeedList" parameterType="bit.com.inpho.dto.searchDto">
+	    SELECT "POSTSEQ", "USERSEQ", "NICKNAME", "CAMERASERIAL", "WDATE", "POST_FILEPATH", "POSITIONNAME", "DEL", "LIKE", "BOOKMARK", "REPLY" FROM
+        (SELECT ROWNUM as "RNUM", "POSTSEQ", "USERSEQ", "NICKNAME", "CAMERASERIAL", "WDATE", "POST_FILEPATH", "POSITIONNAME", "DEL", "LIKE", "BOOKMARK", "REPLY" FROM 
+		   ( SELECT LIST.*,(SELECT IF.HASHTAG FROM INFO_HASHTAG IF WHERE PH.TAG_SEQ = IF.TAG_SEQ) AS "SELHASHTAG" FROM        
+		            (SELECT ROWNUM AS "RNUM",PO.POST_SEQ AS "POSTSEQ", PO.USER_SEQ AS "USERSEQ", ME.USER_NICKNAME AS "NICKNAME",
+		                   IC.CAMERA_SERIAL AS "CAMERASERIAL", PO.POST_WDATE AS "WDATE", PO.POST_FILEPATH AS "POST_FILEPATH", PO.POST_POSITION_NAME AS "POSITIONNAME", 
+		                    PO.DEL AS "DEL",        
+		                    (SELECT COUNT(A.USER_SEQ) FROM POST_LIKE A WHERE A.POST_SEQ = PO.POST_SEQ) AS "LIKE", 
+		                    (SELECT COUNT(A.USER_SEQ) FROM POST_BOOKMARK A WHERE A.POST_SEQ = PO.POST_SEQ) AS "BOOKMARK", 
+		                    (SELECT COUNT(A.USER_SEQ) FROM POST_REPLY A WHERE A.POST_SEQ = PO.POST_SEQ) AS "REPLY"
+		            FROM POST PO, INFO_CAMERA IC, MEMBER ME
+		            WHERE PO.DEL = 0 AND
+		                    ME.USER_SEQ = PO.USER_SEQ AND
+		                    PO.CAMERA_SEQ = IC.CAMERA_SEQ
+		            ORDER BY PO.POST_SEQ DESC
+		        ) LIST LEFT JOIN POST_HASHTAG PH ON ("POSTSEQ" = PH.POST_SEQ)
+		    )LIST WHERE "POSITIONNAME" LIKE '%'||#{keywordId }||'%'
+		    		 OR "NICKNAME" LIKE '%'||#{keywordId }||'%'
+		    		 OR "CAMERASERIAL" LIKE '%'||#{keywordId }||'%'
+		    		 OR "SELHASHTAG" LIKE '%'||#{keywordId }||'%'
+        ) a WHERE RNUM BETWEEN 1 AND 30
+	</select>
+
 </mapper>

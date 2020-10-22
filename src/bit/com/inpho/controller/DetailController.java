@@ -33,25 +33,27 @@ public class DetailController {
 	@RequestMapping(value = "detail", method = {RequestMethod.GET, RequestMethod.POST})
 	public String detail(Model model,int post_seq, DetailCountAllDto count, HttpServletRequest req) throws Exception {
 		
-		String l = (String)req.getSession().getAttribute("login");
-		
-		boolean b = l == null?true:false;
-		
 		MemberDto user = (MemberDto)req.getSession().getAttribute("login");
-		
-		/* 작성자 프로필 */
-		MyPageMemberDto myPage = MyService.getProfile(post_seq);
+	    
+		boolean b;
+	      
+	      if(user==null) { b=true; }
+	      else { b=false; }
+	      
 		
 		/* 디테일 세부 내용 불러오기 */
 		DetailPostDto postList = service.getPost(post_seq);
 		List<DetailPostDto> tagList = service.getHashTag(post_seq);
 		List<DetailReplyDto> reply = service.replyList(post_seq);
 		
+		/* 작성자 프로필 */
+		MyPageMemberDto myPage = MyService.getProfile(postList.getUser_seq());
+		
 		/* 좋아요 리스트 가져오기 */
 		List<DetailReplyDto> likeList = service.likeList(post_seq);
 
-		/* 같은 카메라 사용한 게시글들 가져오기 */
-		List<DetailPostDto> getAllPost = service.getAllPost(postList);
+		/* 작성자 게시글들 가져오기 */
+		List<DetailPostDto> getAllPost = service.getAllPost(postList.getUser_seq());
 		
 		/* date format */
 		String _date = null;
@@ -108,7 +110,7 @@ public class DetailController {
 
 	@RequestMapping(value = "addLikeBook", method = {RequestMethod.GET, RequestMethod.POST})
 	public String addLikeBook(DetailCountAllDto dto, String word, Model model, HttpServletRequest req) throws Exception {
-		MyPageMemberDto user = (MyPageMemberDto)req.getSession().getAttribute("ologin");
+		MemberDto user = (MemberDto)req.getSession().getAttribute("login");
 		
 		if(word.equals("heart")) {
 			
@@ -181,17 +183,17 @@ public class DetailController {
 	
 	@ResponseBody
 	@RequestMapping(value = "follow", method = {RequestMethod.GET, RequestMethod.POST})
-	public String follow(int following, String work, Model model, HttpServletRequest req) {
-		MyPageMemberDto user = (MyPageMemberDto)req.getSession().getAttribute("ologin");
+	public void follow(int following, String work, int user_seq, Model model, HttpServletRequest req) {
+		
+		System.out.println("follow: ");
+		System.out.println("follow: " + user_seq);
 		
 		HashMap<String, Integer> map = new HashMap<String, Integer>();
 		
 		map.put("following", following);
-		map.put("follower", user.getUser_seq());
+		map.put("follower", user_seq);
 		
 		MyService.follow(map, work);
-		
-		return "YES";
 	}
 	
 	@RequestMapping(value = "deleteDetail", method = {RequestMethod.GET, RequestMethod.POST})

@@ -1,30 +1,125 @@
 @charset "UTF-8";
 .left-list{
 	float: left;
-    width: 400px;
-    height: 500px;
+    width: 300px;
+    height: 80%;
+    border: solid #00000021 1px;
+    border-right: none;
+}
+.title{
+	height: 86px;
+	margin: 0 20px;
+    border-bottom: 1px solid rgb(225, 225, 225);
+    text-align: center;
+    line-height: 86px;
+}
+.left-users{
+	/* margin: 20px 0; */
+}
+.profile{
+	margin-right: 20;
+}
+.fa-circle{
+	font-size: 10px;
+	margin-left: 5px;
+	display: inline;
+	color: #F27405;
+}
+.profile-info{
+	align-self: center;
+    width: calc(100% - 80px);
+}
+.frame{
+	height: 60px;
+    width: 60px;
+    overflow: hidden;
+    border-radius: 50%;
+    border: solid #0000004f 1px;
+}
+.frame img{
+	display: inline-block;
+    width: 60px;
+    min-height: 100%;
+}
+.msgData{
+	overflow: auto;
+	height: calc(100% - 147px);
+	padding: 20px 0;
+    padding-right: 10px;
 }
 .right-msg{
-	height: 500px;
-    border: 1px solid black;
+	height: 80%;
+    border: 1px solid #00000021;
     width: 700px;
     float: left;
 }
-img{
-	width: 70px;
+.right_nickname{
+	align-self: center;
+    margin-left: 10px;
 }
-.msgData{
-	margin: 30px;
-	overflow: auto;
-	height: 380px;
+.detail{
+	padding: 15px 30px;
+}
+li{
+    
 }
 .msg{
-	background-color: lightgrey;
-	
+	max-width: 430px;
+	word-break: break-all;
+	border:white solid 1px;
+    list-style:none;
+    padding: 0.7em;
+    border-radius: 14px;
 }
 .msg.send{
-	text-align: right;
+	float: right;
+    clear: both;
+    background: #f0f0f5;
+}
+.msg.target{
+	float: left;
+    clear: both;
+	background: #ffd18d;
+}
+.user{
+	display: flex;
+	border-bottom: 1px solid rgb(225, 225, 225);
+    padding: 8px 0;
+    margin: 0 20px;
 }
 .user.unread{
-	color: red;
+	/* color: red; */
 }
+.user-msg{
+    color: #949494;
+    font-weight: lighter;
+    font-size: 14px;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+}
+.user.right{
+	padding-top: 0px;
+    padding-bottom: 10px;
+    border-bottom: solid #00000021 1px;
+}
+.form-control-lg{
+	width: 80%;
+}
+.form-control-lg:focus{
+    border-color: #ffd18d;
+    box-shadow: 0 1px 1px rgba(229, 103, 23, 0.075) inset, 0 0 8px rgba(229, 103, 23, 0.6);
+    outline: 0 none;
+}
+.msgInput{
+	display: flex;
+	margin-left: 25px;
+}
+#sendBtn{
+	background-color: #ffd18d;
+    border-color: #ffd18d;
+    opacity: 100;
+    align-self: center;
+    margin-left: 10px;
+}
+

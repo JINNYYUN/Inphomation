@@ -1,15 +1,12 @@
-/*
-	지도맵으로 링크
-*/
+//지도맵으로 링크
 function goMap(){
-	//지명씨 필요한 정보
-	location.href= 'http://'+location.host+"/Inphomation/map"
+	location.href= 'http://'+location.host+"/map"
 }
 
 /* Follow Look Feed */
 function goFollow(){
 	//친구글 보는페이지..어...근데....없...네? 이게...아니었...나?대화하기였...나?
-	location.href='http://'+location.host+"/Inphomation/main#"
+	location.href='http://'+location.host+"/main#"
 }
 
 /* 검색function */
@@ -22,7 +19,7 @@ function searchKeyword(){
 		keywordInput.value=''
 		keywordInput.focus()
 	}else{
-		location.href= 'http://'+location.host+"/Inphomation/keywordSearch?keyworld="+keyword
+		location.href= 'http://'+location.host+"/keywordSearch?keywordId="+keyword
 	}
 }
 
@@ -36,11 +33,11 @@ function searchKeyword(){
 		//핸들러 등록(연결 생성, 메시지 수신, 연결 종료)
 
 		//url 연결할 서버의 경로
-		ws = new WebSocket('ws://192.168.0.201:8090/Inphomation/echo.do/websocket');	
+		ws = new WebSocket('ws://192.168.0.201:8090/echo.do/websocket');	
 
 		ws.onopen = function() {
 			console.log('연결 생성');
-			alert('연결 생성');
+			//alert('연결 생성');
 			register();
 		};
 				
@@ -51,7 +48,7 @@ function searchKeyword(){
 		};
 		ws.onclose = function() {
 			//console.log('연결 끊김');
-			alert('연결 끊김');
+			//alert('연결 끊김');
 		};
 	}
 
@@ -64,11 +61,7 @@ function searchKeyword(){
 		};
 		ws.send(JSON.stringify(msg));
 	}
-	
+	// 메시지 수신 시 알림 표시
 	function addMsg(data){
-		$('.fa-circle').css('display','inline');
+		$('.fa-circle').css('opacity','100');
 	}
-
-
-	
-	

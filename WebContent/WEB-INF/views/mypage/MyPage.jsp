@@ -24,7 +24,7 @@ boolean isFollowing = (boolean)request.getAttribute("isFollowing");
 MemberDto login = (MemberDto)request.getSession().getAttribute("login");
 %>
 
-<div class="">
+<div class="full-container">
 
 	<!-- The Modal Following -->
 	<div id="myModal" class="modal">
@@ -52,9 +52,11 @@ MemberDto login = (MemberDto)request.getSession().getAttribute("login");
 			if(mem.getUser_seq() == login.getUser_seq()){
 			%>
 				<button class="btn follow-btn" id="editProfile">프로필 수정</button>
-				<button id="editMember">설정</button>
 			<%	
 			}else{
+				%>
+				<i class="far fa-envelope text" onclick="goMypageMsg()"></i>
+				<%
 				if(isFollowing){
 				%>
 					<input type="button" class="btn follow-btn" id="followBtn" value="Unfollow">
@@ -89,8 +91,8 @@ MemberDto login = (MemberDto)request.getSession().getAttribute("login");
 		<table class="mynav-table">
 			<tr>
 				<td id="nav_post" onclick="getPost('post')" ><i class="fas fa-camera"></i> 게시글</td>
-				<td id="nav_bookmark" onclick="getPost('bmk')"><i class="far fa-bookmark"></i> 북마크</td>
-				<td id="nav_profile"><i class="far fa-user-circle"></i> 프로필</td>
+				<td id="nav_bookmark" onclick="getPost('bmk')"><i class="fas fa-bookmark"></i> 북마크</td>
+				<td id="nav_profile"><i class="fas fa-user-circle"></i> 프로필</td>
 			</tr>
 		</table>
 	</div>
@@ -206,6 +208,7 @@ $(".modal-detail2").load("getFollower?user_seq=" + ${mem.user_seq});
 <script type="text/javascript">
 //ajax로 post 불러오는 함수
 function getPost(work){
+	
 	$.ajax({
 		url:"getPost",
 		type:"post",
@@ -213,6 +216,7 @@ function getPost(work){
 		async: false,
 		success:function(postlist){
 			//alert('success');
+			
 			let content = '';
 			if(postlist.length == 0){
 				content = `<div class="profile">
@@ -227,11 +231,8 @@ function getPost(work){
 							+ '<div class="grid">';
 	
 				$.each(postlist, function(i, post) {
-					content += '<div class="item">'
+					content += '<div class="item" onclick="goDetail(' +post.post_seq+ ')">'
 					+ '<img src="https://storage.googleapis.com/boomkit/' + post.post_filepath +'">'
-						+ '<div class="white-circle">'
-						+ '<i class="fas fa-bars menu" onclick="test();"></i>'
-						+ '</div>'
 					+ '<div class="bottom-icon-bar icon-absoulte">';
 
 					// 좋아요 여부
@@ -262,6 +263,15 @@ function getPost(work){
 			alert('error');
 		}
 	});
+	if(work == 'post'){
+		$("#nav_post").attr("style", 'border-bottom: 1px solid grey');
+		$("#nav_bookmark").attr("style", 'border-bottom: 0px solid grey');
+		$("#nav_profile").attr("style", 'border-bottom: 0px solid grey');
+	}else{
+		$("#nav_bookmark").attr("style", 'border-bottom: 1px solid grey');
+		$("#nav_post").attr("style", 'border-bottom: 0px solid grey');
+		$("#nav_profile").attr("style", 'border-bottom: 0px solid grey');
+	}
 	SetGridItemHeight();
 }
 
@@ -386,8 +396,19 @@ $("#nav_profile").click(function(){
 			alert('error');
 		}
 	});
+	// 클릭 표시 css 설정
+	$("#nav_bookmark").attr("style", 'border-bottom: 0px solid grey');
+	$("#nav_post").attr("style", 'border-bottom: 0px solid grey');
+	$("#nav_profile").attr("style", 'border-bottom: 1px solid grey');
 });
 
+function goMypageMsg(){
+	location.href="mypageMessage?user_target=" + ${mem.user_seq};
+}
+
+function goDetail(post_seq){
+	location.href="detail?post_seq=" + post_seq;
+}
 </script>
 
 

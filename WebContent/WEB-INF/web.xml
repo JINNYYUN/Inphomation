@@ -37,6 +37,7 @@
   	<param-name>contextConfigLocation</param-name>
   	<param-value>
   		/WEB-INF/spring/applicationContext.xml
+  			/WEB-INF/spring/email-context.xml
   	</param-value>
   </context-param>
   

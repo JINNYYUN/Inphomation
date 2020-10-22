@@ -43,12 +43,21 @@
 	   <put-attribute name="footer" value="/WEB-INF/views/commons/footer.jsp"/>
 	</definition>
 	
+	<definition name="detailMap.tiles" template="/WEB-INF/views/layouts-tiles.jsp">
+	   <put-attribute name="header" value="/WEB-INF/views/commons/header.jsp"/>
+	   <put-attribute name="global_navigation" value="/WEB-INF/views/commons/navigation.jsp"/>
+	   <put-attribute name="main" value="/WEB-INF/views/map/detailMap.jsp"/>
+	   <put-attribute name="footer" value="/WEB-INF/views/commons/footer.jsp"/>
+	</definition>
+	
 	<!-- map -->
 	<definition name="map.tiles" template="/WEB-INF/views/map/map.jsp">
 	</definition>
 	
-	<definition name="main.tiles" extends="hello.tiles">
-	   <put-attribute name="main" value="/WEB-INF/views/main/main.jsp" />
+	<definition name="main.tiles" template="/WEB-INF/views/main/noFoot-tile.jsp">
+	   <put-attribute name="header" value="/WEB-INF/views/commons/header.jsp"/>
+	   <put-attribute name="global_navigation" value="/WEB-INF/views/commons/navigation.jsp"/>
+	   <put-attribute name="main" value="/WEB-INF/views/main/main.jsp"/> 
 	</definition>
 	
 	<!-- Contain -->
@@ -84,5 +93,8 @@
 	
 	<definition name="loginPage.tiles" template="/WEB-INF/views/contain.jsp"> <!-- 오로지 로그인폼만 있는 페이지로 이동 -->
 	   <put-attribute name="content" value="/WEB-INF/views/member/loginPage.jsp" />
+	</definition>
+	<definition name="nohaveAuth.tiles" template="/WEB-INF/views/contain.jsp"> <!-- 오로지 로그인폼만 있는 페이지로 이동 -->
+	   <put-attribute name="content" value="/WEB-INF/views/member/noHaveAuth.jsp" />
 	</definition>
 </tiles-definitions>

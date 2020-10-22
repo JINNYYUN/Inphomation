@@ -1,92 +1,158 @@
-.text {
-  color: #f28705;
-}
-
 .navbar {
-  padding: 0;
-  top: 0;
-  width: 100%;
-  min-width: 770px;
-  height: 50px;
-  justify-content: flex-start;
-  border-bottom: 1px solid rgb(219, 219, 219);
-  display: block;
-  position: fixed;
-  z-index: 5;
-  background-color: white;
+	padding: 0;
+	top: 0;
+	width: 100%;
+	min-width: 770px;
+	height: 80px;
+	justify-content: flex-start;
+	border-bottom: 1px solid rgb(219, 219, 219);
+	display: block;
+	position: fixed;
+	z-index: 5;
+	background-color: white;
 }
 
 .navbar .container {
-  padding-left: 0;
-  margin: 0;
-  justify-content: space-between;
-  max-width: 100%;
+  	padding: 0 30px;
+  	margin: 0;
+  	justify-content: space-between;
+  	max-width: 100%;
+  	height:100%;
+  	flex-wrap:nowrap;
+}
+.navbar .container .moveSite{
+	display:flex;
+	height:100%;
 }
 
-nav .container .brand-logo {
-  width: 50px;
-  height: 50px;
-  background-image: url("https://banner2.cleanpng.com/20171207/62f/vector-camera-5a28d563c87e29.6624833315126255078212.jpg");
-  background-repeat: no-repeat;
-  background-position: center center;
-  background-size: contain;
+.navbar .container .logo-wrapper{
+	padding:26px 0;
+	margin-right:20px;
 }
 
-nav .container a {
-  display: flex;
-  flex-wrap: wrap;
-  align-items: center;
-  margin-right: 20px;
+.nav-left-wrapper{
+	display : flex;
+    align-items: center;
+    font-size:17px;
+    font-weight:400;
 }
 
-.container .menu {
-  height: 50px;
-  display: flex;
-  align-items: center;
-  justify-content: space-between;
+.nav-left-wrapper .gosite{
+	color:#989898;
+	padding:0 5px;
 }
 
-.container .menu h1 i {
+.nav-left-wrapper .gosite:hover{
+	cursor:pointer;
+	color:#f28705;
+}
+
+.nav-left-wrapper div{
+	display: inline-block;
+    width: 1px;
+    height: 18px;
+    background: #d4d4d4;
+    margin: 3px 5px 0px 5px;
+    vertical-align: middle;
+}
+
+.navbar .container ul .main a {
+	text-decoration: none;
+	line-height: 80px
+} 
+.navbar .container ul .main a:hover{
+	color:#f28705;
+}
+
+ul.moveSite li:last-child:before{
+	font-size: 15px;
+	color:gray;
+	line-height:50px;
+	margin-right:10px;
+	display: inline-block;
+	opacity: 0.5;
+}
+
+
+.navbar .container .menu {
+	
+}
+
+.navbar .container .menu h1 i {
   cursor: pointer;
   margin-right: 10px;
 }
 
-.search-bar {
-  position: relative;
-  margin-left: 10px;
+.nav-search-box {
+  position:relative;
+ margin-right : 30px;
 }
 
-.search-bar input {
-  border: none;
-  padding-right: 30px;
-  border-radius: 4px;
-  border: 1px solid #ccc;
-  height: 40px;
+.nav-search-box input {
+  padding: 2px 55px 0 25px;
+  height: 50px;
   width: 350px;
+  border: 1px solid #c3c3c3;
+  border-radius: 30px;
+  font-size: 1.15rem;
+  cursor: text;
+  background-color : #f5f6f7;
+  color : #7b7b7b;
 }
 
-.search-bar input:hover,
-.search-bar input:focus {
-  border: 2px solid blue;
+.nav-search-box input:hover {
+  outline:none;
+  background-color : #f1f1f1;
 }
 
-.search-bar i {
+.nav-search-box input:focus {
+  outline:none;
+  background-color : #fff;
+  border: 1px solid #f2740591;
+}
+
+.nav-search-box input::placeholder {
+  color: #cacaca;
+}
+
+.nav-search-box input:focus::-webkit-input-placeholder {
+  color: transparent;
+}
+.nav-search-box input:focus::-moz-placeholder {
+  color: transparent;
+}
+.nav-search-box input:focus:-ms-input-placeholder {
+  color: transparent;
+}
+.nav-search-box input:focus::-ms-input-placeholder {
+  color: transparent;
+}
+
+.nav-search-icon{
+	position: absolute;
+    right: 17;
+    top: 14;
+}
+
+.nav-search-icon{
+	stroke : #989799;
+}
+
+.navbar .container .menu .nav-search-box button {
   position: absolute;
-  right: 10px;
-  top: 10px;
   cursor: pointer;
+  top:18px;
+  border-radius:0;
+/*   top:50%;
+  transform:translateY(-50%); */
+  height:44px;
+  right:0;
+  padding:2px;
+  width:50px;
 }
 
-.container i:hover {
-  color: blue;
-  cursor: pointer;
-}
 
-.loginMode {
-  display: relative;
-}
-
-.dropbox {
+.loginMode .dropbox {
   display: none;
   position: absolute;
   top: 100%;
@@ -99,22 +165,22 @@ nav .container a {
   transition: transform 200ms ease-in;
 }
 
-.dropbox ul {
+.loginMode .dropbox ul {
   list-style-type: none;
   padding: 8px 0;
 }
 
-.dropbox ul:last-child {
+.loginMode .dropbox ul:last-child {
   border-top: 1px solid #e1e4e8;
 }
 
-.dropbox h3 {
+.loginMode .dropbox h3 {
   padding: 8px 16px 16px;
   border-bottom: 1px solid #e1e4e8;
   font-weight: 500;
 }
 
-.dropbox ul a {
+.loginMode .dropbox ul a {
   display: block;
   padding: 8px 16px;
   font-size: 14px;
@@ -123,33 +189,107 @@ nav .container a {
   text-decoration: none;
 }
 
-.dropbox ul a:hover {
-  color: #fff;
-  background-color: #0366d6;
+.loginMode .dropbox ul a:hover {
+  color: #F27405;
+  background-color: #f2740521;
 }
 
-.dropbox.active {
+.loginMode .dropbox.active {
   display: block;
 }
 
-.dropbox a {
+.loginMode .dropbox a {
   line-height: 1.5;
   color: #24292e;
   text-decoration: none;
 }
 
-.guestMode .trigger-btn {
-  margin: 0px;
-  text-decoration: none;
+.guestMode a.nav-login-text{
+	text-decoration: none;
+ 	height:100%;
+ 	display:block;
+	color:#989898;
+	display:block;
+	font-size: 16px;
+    font-weight: 400;
+	line-height:80px;
 }
+.guestMode a.nav-login-text:hover{
+	color:#f28705;
+}
+.loginMode {
+  display: relative;
+}
+
+.user-content{
+	display:flex;
+	align-items : center;
+}
+
+.user-content .loginMode ol{
+	display: flex;
+	flex-wrap: nowrap;
+	height:100%;
+}
+.loginMode ol li{
+	height:100%;
+}
+.loginMode ol li:not(:last-child):after{
+	content:'|';
+	font-size: 15px;
+	color:gray;
+	line-height:50px;
+	margin-left:10px;
+	margin-right:10px;
+	display: inline-block;
+	opacity: 0.5;
+}
+
+.loginMode ol li div,
+.loginMode ol li div i{
+	position: relative;
+	line-height:80px;
+	display:inline-block;
+	color:#989898;
+}
+
+
+.loginMode ol li div .nav-chat-icon{
+	font-size : 23px;
+}
+
+.loginMode ol li .nav-gowrite{
+	font-size: 17px;
+    font-weight: 500;
+}
+
+.loginMode ol li div i:hover{
+	color:#f28705;
+}
+.loginMode ol li img{
+	width:40px;
+	height:40px;
+	margin-top:20px;
+	border-radius: 50%;
+}
+.loginMode ol li div:hover,
+.loginMode ol li img:hover{
+	cursor: pointer;
+	color:#f28705;
+}
+
 .fa-envelope{
 	position: relative;
 }
-.fa-circle{
-	position: relative;
+
+.loginMode ol li div i.fa-circle{
+	position: absolute;
 	font-size: 10px;
     color: red;
-    left: -13px;
-    bottom: 19px;
-    display: none;
+    top : -9px;
+    display : none;
 }
+
+.inphomation-logo{
+		width : 170px
+	}
