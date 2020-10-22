@@ -1,10 +1,8 @@
 package bit.com.inpho.dto;
 
 import java.io.Serializable;
-import java.util.ArrayList;
 import java.util.List;
 
-import org.apache.ibatis.type.Alias;
 
 public class MainPostDto implements Serializable{
 	//post_seq,user_seq,user_nickname,post_like(count),post_bookmark(count),post_reply(count)
@@ -18,20 +16,15 @@ public class MainPostDto implements Serializable{
 	private String userNickName;
 	private String wdate;
 	private String filePath;
+	private String cameraSerial;
+	private String positionName;
 	private List<String> hashtag;
-	
 	public MainPostDto() {}
 
 	public int getPostSeq() {
 		return postSeq;
 	}
-	public String getFilePath() {
-		return filePath;
-	}
 
-	public void setFilePath(String filePath) {
-		this.filePath = filePath;
-	}
 	public void setPostSeq(int postSeq) {
 		this.postSeq = postSeq;
 	}
@@ -68,30 +61,6 @@ public class MainPostDto implements Serializable{
 		this.postReply = postReply;
 	}
 
-	public String getUserNickName() {
-		return userNickName;
-	}
-
-	public void setUserNickName(String userNickName) {
-		this.userNickName = userNickName;
-	}
-
-	public List<String> getHashtag() {
-		return hashtag;
-	}
-
-	public String getWdate() {
-		return wdate;
-	}
-
-	public void setWdate(String wdate) {
-		this.wdate = wdate;
-	}
-
-	public void setHashtag(List<String> hashtag) {
-		this.hashtag = hashtag;
-	}
-
 	public int getUserLike() {
 		return userLike;
 	}
@@ -108,12 +77,60 @@ public class MainPostDto implements Serializable{
 		this.userBookMark = userBookMark;
 	}
 
+	public String getUserNickName() {
+		return userNickName;
+	}
+
+	public void setUserNickName(String userNickName) {
+		this.userNickName = userNickName;
+	}
+
+	public String getWdate() {
+		return wdate;
+	}
+
+	public void setWdate(String wdate) {
+		this.wdate = wdate;
+	}
+
+	public String getFilePath() {
+		return filePath;
+	}
+
+	public void setFilePath(String filePath) {
+		this.filePath = filePath;
+	}
+
+	public String getCameraSerial() {
+		return cameraSerial;
+	}
+
+	public void setCameraSerial(String cameraSerial) {
+		this.cameraSerial = cameraSerial;
+	}
+
+	public String getPositionName() {
+		return positionName;
+	}
+
+	public void setPositionName(String positionName) {
+		this.positionName = positionName;
+	}
+
+	public List<String> getHashtag() {
+		return hashtag;
+	}
+
+	public void setHashtag(List<String> hashtag) {
+		this.hashtag = hashtag;
+	}
+
 	@Override
 	public String toString() {
 		return "MainPostDto [postSeq=" + postSeq + ", userSeq=" + userSeq + ", postLike=" + postLike + ", postBookmark="
 				+ postBookmark + ", postReply=" + postReply + ", userLike=" + userLike + ", userBookMark="
 				+ userBookMark + ", userNickName=" + userNickName + ", wdate=" + wdate + ", filePath=" + filePath
-				+ ", hashtag=" + hashtag + "]";
+				+ ", cameraSerical=" + cameraSerial + ", positionName=" + positionName + ", hashtag=" + hashtag + "]";
 	}
 	
 	

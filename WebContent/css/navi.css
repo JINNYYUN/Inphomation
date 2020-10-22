@@ -94,7 +94,6 @@ ul.moveSite li:last-child:before{
   width: 350px;
   border: 1px solid #c3c3c3;
   border-radius: 30px;
-  font-size: 1.15rem;
   cursor: text;
   background-color : #f5f6f7;
   color : #7b7b7b;
@@ -284,7 +283,6 @@ ul.moveSite li:last-child:before{
 
 .loginMode ol li div i.fa-circle{
 	position: absolute;
-<<<<<<< HEAD
 	font-size: 10px;
     color: red;
     top : -9px;
@@ -294,12 +292,3 @@ ul.moveSite li:last-child:before{
 .inphomation-logo{
 		width : 170px
 	}
-=======
-    font-size: 10px;
-    color: red;
-    top: -8px;
-    right: 157px;
-    opacity: 0;
-}
-
->>>>>>> a26c88f43fdb01cca9e93c98fb74dea53bc4aca4

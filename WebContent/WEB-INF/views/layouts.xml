@@ -60,6 +60,11 @@
 	   <put-attribute name="main" value="/WEB-INF/views/main/main.jsp"/> 
 	</definition>
 	
+	<definition name="search.tiles" template="/WEB-INF/views/main/noFoot-tile.jsp">
+	   <put-attribute name="header" value="/WEB-INF/views/commons/header.jsp"/>
+	   <put-attribute name="global_navigation" value="/WEB-INF/views/commons/navigation.jsp"/>
+	   <put-attribute name="main" value="/WEB-INF/views/main/searchMain.jsp"/> 
+	</definition>
 	<!-- Contain -->
 	<definition name="modal.tiles" template="/WEB-INF/views/contain.jsp">
 	   <put-attribute name="content" value="/WEB-INF/views/member/modal.jsp" />
@@ -79,10 +84,8 @@
 		<put-attribute name="main" value="/WEB-INF/views/post/PostPage.jsp"/>	
 		<put-attribute name="footer" value="/WEB-INF/views/commons/footer.jsp"/>
 	</definition>
-	<definition name="errorPage" template="/WEB-INF/views/layouts-tiles.jsp">
-		
+	<definition name="errorPage" extends="mypage.tiles">
 		<put-attribute name="main" value="/WEB-INF/views/post/errorPage.jsp"/>	
-		<put-attribute name="footer" value="/WEB-INF/views/commons/footer.jsp"/>
 	</definition>
 	<!-- chat -->
 	<definition name="goMessage.tiles" extends="mypage.tiles">
@@ -99,4 +102,7 @@
 	<definition name="nohaveAuth.tiles" template="/WEB-INF/views/contain.jsp"> <!-- 오로지 로그인폼만 있는 페이지로 이동 -->
 	   <put-attribute name="content" value="/WEB-INF/views/member/noHaveAuth.jsp" />
 	</definition>
+	
+	
+	
 </tiles-definitions>

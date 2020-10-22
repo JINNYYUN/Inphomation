@@ -1,5 +1,6 @@
 package bit.com.inpho.service.impl;
 
+import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 
@@ -23,11 +24,15 @@ public class PostServiceImpl implements PostService {
 		return dao.getCseq(dto);
 	}
 
+
+
 	@Override
 	public List<PostHashTagInfoDto> getTag(int postseq, int hashtagseq) {
-
-		return dao.getHashTag(postseq, hashtagseq);
+		// TODO Auto-generated method stub
+		return null;
 	}
+
+
 
 	@Override
 	public List<PostDto> getCam(MemberDto dto) {
@@ -35,8 +40,25 @@ public class PostServiceImpl implements PostService {
 	}
 
 	@Override
-	public void addhashtag(List<String> tag) {
-		// TODO Auto-generated method stub
+	public void addhashtag(PostDto dto) {
+		HashMap<String, Object> postObj = new HashMap<String, Object>();
+		List<String> tags =new ArrayList<String>();
+		List<String> pseq =new ArrayList<String>();
+		
+		String[] hashtags=dto.getHashtag().split(",");
+		int count=0;
+		for (int i = 0; i < hashtags.length; i++) {
+			tags.add(hashtags[i]);
+			count++;
+			
+		}
+		String seq=Integer.toString(dto.getPost_seq());
+		for (int i = 0; i < count; i++) {
+			pseq.add(seq);
+		}
+		postObj.put("tags",tags);
+		postObj.put("seq",pseq);
+		dao.addhashtag(postObj);
 	}
 
 	@Override

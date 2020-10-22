@@ -1,8 +1,5 @@
-/*
-	지도맵으로 링크
-*/
+//지도맵으로 링크
 function goMap(){
-	//지명씨 필요한 정보
 	location.href= 'http://'+location.host+"/map"
 }
 
@@ -13,16 +10,21 @@ function goFollow(){
 }
 
 /* 검색function */
-function searchKeyword(){
+function searchKeyword(page){
 	//1.get으로 보내기
-	keywordInput = document.getElementById('search-keyword')
+	let keywordInput=''
+	if(page=='navi'){
+		keywordInput = document.getElementById('navi-search-keyword')
+	}else{
+		keywordInput = document.getElementById('main-search-keyword')		
+	}
 	let keyword = keywordInput.value.trim()
 	if(keyword==''){
 		//공백인 경우
 		keywordInput.value=''
 		keywordInput.focus()
 	}else{
-		location.href= 'http://'+location.host+"/Inphomation/keywordSearch?keyworld="+keyword
+		location.href= 'http://'+location.host+"/keywordSearch?keywordId="+keyword
 	}
 }
 
