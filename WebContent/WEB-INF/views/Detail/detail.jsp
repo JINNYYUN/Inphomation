@@ -99,7 +99,7 @@
 						<div class="content">
 							<div class="contHash">
 								<p class="text body1 post" style="line-height: 1.9">
-									${post.post_content } <br>
+									${post.post_content } <br><br>
 									<c:forEach items="${tag }" var="i">
 										<a href="javascript:void(0)" class="text body1 post">${i.hashtag }</a>
 									</c:forEach>
