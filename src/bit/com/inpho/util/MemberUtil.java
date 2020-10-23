@@ -1,5 +1,7 @@
 package bit.com.inpho.util;
 
+import bit.com.inpho.dto.searchDto;
+
 public class MemberUtil {
 	public static String makePassword(int length) {
 		
@@ -16,5 +18,10 @@ public class MemberUtil {
 			sb.append(charSet[idx]); 
 		} 
 		return sb.toString();
+	}
+	
+	public static void settingNumber(searchDto search) {
+		search.setStartNum(search.getMoreFeedNum());
+		search.setEndNum(search.getMoreFeedNum());
 	}
 }
