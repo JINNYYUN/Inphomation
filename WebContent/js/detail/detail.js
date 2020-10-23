@@ -98,7 +98,7 @@ function profile(user_seq){
 /* 글 수정 */
 function editDetail(post){
 	console.log("edit");
-	location.href="writeupdate?post_seq=" + post;
+	location.href="update?post_seq=" + post;
 }
 /* 글 삭제 */
 function deleteDetail(){
