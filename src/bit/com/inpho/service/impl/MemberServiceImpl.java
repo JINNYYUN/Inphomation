@@ -68,7 +68,7 @@ public class MemberServiceImpl implements MemberService{
 				sendMail.setTitle("Inphomation 회원인증");
 				sendMail.setContent(
 							new StringBuffer()
-							.append("<a href='http://localhost:8090/Inphomation/authKeyId?authKey=") //추후에 주소 변경
+							.append("<a href='http://localhost:8090/authKeyId?authKey=") //추후에 주소 변경
 							.append(member.getAuthKey()+"' target='_blank'>이메일 인증</a>")
 							.toString()
 						);

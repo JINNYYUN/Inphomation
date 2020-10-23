@@ -1,5 +1,6 @@
 package bit.com.inpho.service.impl;
 
+import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 
@@ -10,6 +11,8 @@ import bit.com.inpho.dao.PostDao;
 import bit.com.inpho.dto.MemberDto;
 import bit.com.inpho.dto.PostDto;
 import bit.com.inpho.dto.PostHashTagInfoDto;
+import bit.com.inpho.dto.PostLocationDto;
+import bit.com.inpho.dto.searchDto;
 import bit.com.inpho.service.PostService;
 
 @Service
@@ -23,11 +26,15 @@ public class PostServiceImpl implements PostService {
 		return dao.getCseq(dto);
 	}
 
+
+
 	@Override
 	public List<PostHashTagInfoDto> getTag(int postseq, int hashtagseq) {
-
-		return dao.getHashTag(postseq, hashtagseq);
+		// TODO Auto-generated method stub
+		return null;
 	}
+
+
 
 	@Override
 	public List<PostDto> getCam(MemberDto dto) {
@@ -35,8 +42,20 @@ public class PostServiceImpl implements PostService {
 	}
 
 	@Override
-	public void addhashtag(List<String> tag) {
-		// TODO Auto-generated method stub
+	public void addhashtag(PostDto dto) {
+		HashMap<String, Object> postObj = new HashMap<String, Object>();
+		
+		List<String> pseq =new ArrayList<String>();
+		
+		String[] hashtags=dto.getHashtag().split(",");
+		
+		for (int i = 0; i < hashtags.length; i++) {
+			dto.setHashtag(hashtags[i]);
+			int seq=dao.getTagSeq(dto);
+			dto.setTag_seq(seq);
+			dao.addhashtag(dto);
+		}
+		
 	}
 
 	@Override
@@ -85,6 +104,16 @@ public class PostServiceImpl implements PostService {
 	public int getcamseq(PostDto dto) {
 	
 		return dao.getcamseq(dto);
+	}
+
+
+
+	@Override
+	public String addlocation(PostLocationDto dto) {
+		dao.addlocation(dto);
+		String Godetail=Integer.toString(dto.getPost_seq());
+		return "detail?"+Godetail; 
+		
 	}
 
 }

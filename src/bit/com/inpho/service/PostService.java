@@ -6,6 +6,7 @@ import bit.com.inpho.dto.MemberDto;
 
 import bit.com.inpho.dto.PostDto;
 import bit.com.inpho.dto.PostHashTagInfoDto;
+import bit.com.inpho.dto.PostLocationDto;
 
 public interface PostService {
 
@@ -13,9 +14,10 @@ public interface PostService {
 	List<PostHashTagInfoDto> getTag(int postseq,int hashtagseq);
 	List<PostDto> getCam(MemberDto dto);
 	List<PostDto>getCseq(MemberDto dto);
-	void addhashtag(List<String> tag);
+	void addhashtag(PostDto dto);
 	int  addCamera(PostDto dto);
 	String addcam(MemberDto mem,PostDto post,String[] arr);
 	String addCamSeq(MemberDto mem,PostDto post,String[] arr);
 	int getcamseq(PostDto dto);
+	String addlocation(PostLocationDto dto);
 }

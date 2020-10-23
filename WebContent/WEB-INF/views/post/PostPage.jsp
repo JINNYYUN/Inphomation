@@ -1,13 +1,13 @@
 <%@page import="bit.com.inpho.dto.MemberDto"%>
 <%@page import="bit.com.inpho.dto.MyPageMemberDto"%>
 <%@page import="io.opencensus.common.ServerStatsFieldEnums.Size"%>
-<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
 <%@ page language="java" contentType="text/html; charset=UTF-8"
 	pageEncoding="UTF-8"%>
-	<%
-	MemberDto login = (MemberDto)request.getSession().getAttribute("login");
-	int seq=login.getUser_seq();
-	%>
+<%
+	MemberDto login = (MemberDto) request.getSession().getAttribute("login");
+int seq = login.getUser_seq();
+%>
 <!DOCTYPE html>
 
 <html>
@@ -17,117 +17,27 @@
 
 
 <style type="text/css">
-a {
-	display: none;
-}
-
-#team {
-	padding: 60px 0;
-	text-align: center;
-	background-color: #6f85ff;
-	color: #fff;
-}
-
-#team h2 {
-	position: relative;
-	padding: 0px 0px 15px;
-}
-
-#team p {
-	font-size: 15px;
-	font-style: italic;
-	padding: 0px;
-	margin: 25px 0px 40px;
-}
-
-#team h2::after {
-	content: '';
-	border-bottom: 2px solid #fff;
-	position: absolute;
-	bottom: 0px;
-	right: 0px;
-	left: 0px;
-	width: 90px;
-	margin: 0 auto;
-	display: block;
-}
-
-#team .member {
-	margin-bottom: 20px;
-	position: relative;
-	overflow: hidden;
-	background-color: #ffffff;
-	padding: 10px;
-	border-radius: 15px 0px 15px 0px;
-	box-shadow: 0px 1px 6px 0px rgba(0, 0, 0, 0.4);
-}
-
-#team .member .member-info {
-	display: block;
-	position: absolute;
-	bottom: 0px;
-	left: -200px;
-	transition: 0.4s;
-	padding: 15px 0;
-	background: rgba(0, 0, 0, 0.4);
-}
-
-#team .member:hover .member-info {
-	left: 0px;
-	right: 0px;
-}
-
-#team .member h4 {
-	font-weight: 700;
-	margin-bottom: 2px;
-	font-size: 18px;
-	color: #fff;
-}
-
-#team .member span {
-	font-style: italic;
-	display: block;
-	font-size: 13px;
-}
-
-#team .member .social-links {
-	margin-top: 15px;
-}
-
-#team .member .social-links a {
-	transition: none;
-	color: #fff;
-}
-
-#team .member .social-links a:hover {
-	color: #ffc107;
-}
-
-#team .member .social-links i {
-	font-size: 18px;
-	margin: 0 2px;
-}
 
 .hashtag {
 	  width:  100%;
 	height:  100%;
-	    margin-left:  auto;     margin-right :  auto;
+	    margin-left:  auto; 
+   margin-right :  auto;
 	    padding:  5px;
 	    text-align:  center;
 	    line-height:  300px;
 	vertical-align: middle;
 }
 
-.btn-primary {
-	margin-top: 30%;
-}
-
 #thumbnailImg {
 	height: 566px;
 	background-repeat: no-repeat;
+	background-image: url("https://storage.googleapis.com/boomkit/image-not-found.jpg");
+	outline : none;
+	background-size : 100% 100%;
 }
 
-.content {
+.postContent {
 	outline: 2px dashed #92b0b3;
 	outline-offset: -10px;
 	text-align: center;
@@ -137,43 +47,13 @@ a {
 	padding-top: 5%;
 }
 
-.row {
+.postrow {
 	display: flex;
 	flex-wrap: nowrap;
 	margin-right: -16px;
 	margin-left: -16px;
 }
 
-button:hover {
-	background-color: #25C05;
-	color: white;
-}
-
-,
-button:active {
-	background-color: #D3F8F;
-	color: white;
-}
-
-.markup {
-	position: relative;
-	top: 40%;
-	left: 43%;
-}
-
-.my-5 {
-	margin-top: 4rem !important;
-	background-color: #F2F2F2F2;
-}
-
-.text-weight-medium {
-	background-color: #F2F2F2F2;
-}
-
-.frmst {
-	margin-bottom: 249px;
-	height: 455px;
-}
 
 /* image hover */
 #photo-gallery {
@@ -216,6 +96,15 @@ button:active {
 	box-shadow: 0px 0px 15px 0px #d0d0d0;
 	border-color: #9c27b0;
 }
+#disnone{
+  display: none;
+}
+.postCamStyle{
+    color: #F25C05;
+    background-color: transparent;
+    background-image: none;
+    border-color: #ea6213;
+}
 </style>
 </head>
 <body>
@@ -228,27 +117,30 @@ button:active {
 		src="https://cdn.jsdelivr.net/npm/popper.js@1.16.0/dist/umd/popper.min.js"></script>
 	<script
 		src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.0/js/bootstrap.min.js"></script>
-
+	<script
+		src="https://maps.googleapis.com/maps/api/js?key=AIzaSyAzh5ul0Fhtb8HKscRuS8zuGYD-3VKlUF4&callback=initAutocomplete&libraries=places&v=weekly"
+		defer>
+	</script>
 	<div class="container">
 		<br>
 		<div id="thumbnailUrl"></div>
 		<!-- Heading Row -->
-		<div class="row align-items-center my-5">
+		<div class="postrow align-items-center my-5">
 			<form id="frm" class="frmst" method="POST" action="Upload"
 				encType="multipart/form-data">
-				<div class="content rounded mb-4 mb-lg-0" id="mylmg">
+				<div class="postContent rounded mb-4 mb-lg-0" id="mylmg">
 
 					<label for="upImgFile">이미지를 드래그 하거나 여기를 클릭하여 파일을 선택해주세요!
 						(PNG, JPG,JEPG)</label> <input type="file" class="imagehide"
 						id="upImgFile" name="upImgFile" accept=".jpg, .jpeg, .png"
 						multiple="multiple">
-					<div class="preview">
+					<div class="previews">
 						<label class="label"></label>
 					</div>
 				</div>
 
 				<section id="photo-gallery">
-
+			
 					<div class="photo-frame">
 						<div class="state-thumb">
 							<div id="thumbnailImg" src="#" class="photo-frame img-fluid">
@@ -256,13 +148,8 @@ button:active {
 									<div class="hashtag"></div>
 								</div>
 
-							</div>
+							</div>  
 						</div>
-						<h4>
-
-							<a id="warp" href="#">${hashtag}</a>
-						</h4>
-
 					</div>
 				</section>
 
@@ -276,18 +163,25 @@ button:active {
 							<div class="postwrite"></div>
 							<div class="md-form">
 
-								<input class="form-control form-control-lg" id="hashtag"
-									value="">
+							
 							</div>
 							<c:forEach var="i" items="${cam }">
-								<div>
-									<input type="button" value="${i.camera_serial }" onclick="camInfo(this);">
+								<div style="display: inline-block;">
+									<input class="postCamStyle"type="button" value="${i.camera_serial }"
+										onclick="camInfo(this);">
 								</div>
 							</c:forEach>
 							<div class="md-form">
+								<label class="text" for="inputLGEx">촬영장소를 알려주세요!</label> <input
+									id="autocomplete" name="location" value="${location}"
+									class="form-control form-control-lg">
+									<span id="disnone">* 촬영장소를 입력하여주십시오 *</span>
+							</div>
+
+							<div class="md-form">
 								<label class="text" for="inputLGEx">사진을 소개해 주세요!</label>
 								<textarea id="conent" name="content"
-									class="form-control form-control-lg">${content}"</textarea>
+									class="form-control form-control-lg">${content}</textarea>
 							</div>
 							<div class="md-form">
 								<label class="text" for="inputLGEx">촬영기기를 알려주세요!</label> <input
@@ -295,21 +189,16 @@ button:active {
 									class="form-control form-control-lg">
 							</div>
 							<div class="md-form">
-								<label class="text" for="inputLGEx">촬영장소를 알려주세요!</label> <input
-									id="location" name="location" value="${location}"
-									class="form-control form-control-lg">
-							</div>
-							<div class="md-form">
 								<label class="text" for="inputLGEx">나만의 해쉬태그를 보여주세요.</label> <input
-									id="hashtags" name="hashtag" value="${hashtag}"
+									id="hashtag" name="hashtag" value="${hashtag}"
 									class="form-control form-control-lg">
 							</div>
-					 		
+
 							<div class="float-right">
 								<input id="done" class="btn btn-primary btn-sm" type="button"
 									value="Write">
 							</div>
-						
+
 						</div>
 					</div>
 				</div>
@@ -317,23 +206,69 @@ button:active {
 		</div>
 
 	</div>
+	
 	<script type="text/javascript">
-		var exifLat;
-		var exifLong;
-		
+		let address = document.querySelector('#autocomplete').value;
+		let exifLat;
+		let exifLong;
+		let input = document.querySelector('input');
+		let preview = document.querySelector('.previews');
+    	let autocomplete;
 		let files;
 		let reader;
 		let fileInfo;
-		var input = document.querySelector('input');
-		var preview = document.querySelector('.preview');
-		input.style.opacity = 0;
+		let wtmY;
+		let wtmX;
+    function initAutocomplete() {
+        autocomplete = new google.maps.places.Autocomplete(
+          document.getElementById("autocomplete"),
+          { types: ["geocode"] }
+        );
+      };
+	
+	const componentForm = {
+			street_number: "short_name",
+			route: "long_name",
+			locality: "long_name",
+			administrative_area_level_1: "short_name",
+			country: "long_name",
+			postal_code: "short_name",
+	};
+	
 		var latestLocaction;
 		function EXIFutil() {
 			EXIF.getData(files[0], function() {
 				exifLong = EXIF.getTag(files[0], "GPSLongitude");
 				exifLat = EXIF.getTag(files[0], "GPSLatitude");
-				/* console.log("E:" + exifLong[2]);
-				console.log("N:" + exifLat[2]); */
+				imgnullCheck(exifLong);
+				var exifLongRef = EXIF.getTag(this, "GPSLongitudeRef");
+		        var exifLatRef = EXIF.getTag(this, "GPSLatitudeRef");
+				 if (exifLatRef == "S") {
+			            var latitude = (exifLat[0]*-1) + (( (exifLat[1]*-60) + (exifLat[2]*-1) ) / 3600);						
+			        } else {
+			            var latitude = exifLat[0] + (( (exifLat[1]*60) + exifLat[2] ) / 3600);
+			        }
+
+			        if (exifLongRef == "W") {
+			            var longitude = (exifLong[0]*-1) + (( (exifLong[1]*-60) + (exifLong[2]*-1) ) / 3600);						
+			        } else {
+			            var longitude = exifLong[0] + (( (exifLong[1]*60) + exifLong[2] ) / 3600);
+			        }
+
+			         wtmXx = latitude,
+			       	 wtmYy = longitude; 
+			         
+			         $.ajax({
+			             url:"https://maps.googleapis.com/maps/api/geocode/json?latlng="+wtmXx+","+wtmYy+"&key=AIzaSyAzh5ul0Fhtb8HKscRuS8zuGYD-3VKlUF4",
+			             type:'GET',
+			    		 success:function(data){
+			    			 
+			    			 $('#autocomplete').val(data.results[0].formatted_address);
+			    	    	 },
+			    		 error : function(e){
+			    		     console.log(e);
+			    		 }
+			    			}); 
 				
 			});
 
@@ -361,13 +296,15 @@ button:active {
 		}
 
 		function dragFiles(e) {
-
+   
 			e.stopPropagation();
 			e.preventDefault();
 			dragOver(e);
 			e.dataTransfer = e.originalEvent.dataTransfer;
 
 			files = e.target.files || e.dataTransfer.files;
+			addFileFromLastInput(files);
+			console.log(files);
 			if (files.length > 1) {
 				arlert("하나만 올려");
 				return;
@@ -381,12 +318,36 @@ button:active {
 							"outline" : "none",
 							"background-size" : "100% 100%"
 						});
+				 $.ajax({
+						url : "beforeImg",
+						type : "POST",
+						data : new FormData($("#frm")[0]),
+						enctype : 'multipart/form-data',
+						processData : false,
+						contentType : false,
+						cache : false,
+						datatype : "json",
+						success : function(data) {
+							$('#hashtag').val(data);
+							console.log(data[0]);
+							 var tags ={
+								data
+							} ;
+							console.log(tags);
+							
+
+						},
+						error : function() {
+
+						}
+					});
 
 			} else {
 				console.log("not image!");
 				return;
 			}
 			console.log("파일 이름" + files[0].name);
+			
 			EXIFutil();
 
 		}
@@ -404,79 +365,118 @@ button:active {
 									"background-size" : "100% 100%"
 								});
 						EXIFutil();
-						//드래그 관련 
-						/* alert($('input[type=file]')[0].files[0].name); //파일이름
-						  alert($("#m_file")[0].files[0].type); // 파일 타임
-						  alert($("#m_file")[0].files[0].size); // 파일 크기 */
-						//  $('input[type=file]')[0].files[0].name;
-						//  $("#imgUpload")[0].files[0].type;
-						//  $("#imgUpload")[0].files[0].size;
+						 $.ajax({
+								url : "beforeImg",
+								type : "POST",
+								data : new FormData($("#frm")[0]),
+								enctype : 'multipart/form-data',
+								processData : false,
+								contentType : false,
+								cache : false,
+								datatype : "json",
+								success : function(data) {
+									$('#hashtag').val(data);
+									console.log(data[0]);
+									 var tags ={
+										data
+									} ;
+									console.log(tags);
+									
+
+								},
+								error : function() {
+
+								}
+							});
+						
 					});
 
 		});
 		  $("#done").on("click",function(e){
-			var onecam = $('#cam').value;
-			 var formm = new FormData($("#frm")[0]);
+			  var locat = document.querySelector('#autocomplete').value;
 			 e.preventDefault();
-			 formm.append("exifLat", exifLat);
-			 formm.append("exifLong", exifLong);
-			 formm.append("onecam",onecam);
-				$.ajax({
-					url : 'Upload',
-					type : "POST",
-					enctype : 'multipart/form-data',
-					data: formm,
-					processData : false,
-					contentType : false,
-					cache : false,
-					success : function(data) {
+			  $.ajax({
+			         url:'https://dapi.kakao.com/v2/local/search/address.json?query='+encodeURIComponent(locat),
+			         type:'GET',
+			         headers: {'Authorization' : 'KakaoAK f0e07a82a957e4d2580b19df431ebeb3'},
+					 success:function(result){
+						 
+						 upLoadNullCheck(result.documents[0]);
 						
-					},
-					error : function() {
-
-					}
-				});
-		  });
-
-		$("#upImgFile").on("change", function(e) {
-			e.preventDefault();
-			$.ajax({
-				url : "beforeImg",
-				type : "POST",
-				data : new FormData($("#frm")[0]),
-				enctype : 'multipart/form-data',
-				processData : false,
-				contentType : false,
-				cache : false,
-				datatype : "json",
-				success : function(data) {
-					$('#hashtag').val(data);
-					console.log(data[0]);
-					 var tags ={
-						data
-					} ;
-					console.log(tags);
+				    	 },
+					 error : function(e){
+					     console.log(e);
+					 }
+						});
 					
+			
+		  });
+		function upLoadNullCheck(str){
 
-				},
-				error : function() {
+			if(str==null || str==undefined || str=="null"){
+				alert('정확한주소를 입력해주세요');
+			}else{
+				wtmX=str.x;
+				wtmY=str.y;
+				console.log("첫번째"+str.x);
+	    		console.log(str.y);
+	    		 var onecam = $('#cam').value;
+				 var formm = new FormData($("#frm")[0]);
+				 formm.append("exifLat", wtmX);
+				 formm.append("exifLong", wtmY);
+				 formm.append("onecam",onecam);
+				 formm.append("upImgFile", files[0]);
+				 console.log(files[0]);
+	 $.ajax({
+			url : "Upload",
+			/* async: false, */
+			type : "POST",
+			data : formm,
+			enctype : 'multipart/form-data',
+			processData : false,
+			contentType : false,
+			cache : false,
+			datatype : "json",
+			success : function(data) {	
+			
+			},
+			error : function() {
 
-				}
-			});
-
+			}
 		});
+	    		
+			}
+
+			return str;
+
+		}
+		function imgnullCheck(str){
 		
-	  $.ajax({
-         url:'https://dapi.kakao.com/v2/local/search/address.json?query='+encodeURIComponent('숭의동'),
-         type:'GET',
-         headers: {'Authorization' : '947798dad31284efccd4088932bc9e07'},
-	 success:function(data){
-    	 console.log(data);
- },
- error : function(e){
-     console.log(e);
- }
-}); 
+			if(str==null || str==undefined || str=="null"){
+				/* $('#autocomplete').val(''); */
+				var styleobj={
+					'color':'#ff4D00',
+					'display':'block'
+				}
+				$("#autocomplete").focus();
+				$('#autocomplete').next().css(styleobj).fadeOut(5000);
+			
+			}else{
+				console.log("두번쨰"+str.x);
+	    		console.log(str.y);
+			}
+
+			return str;
+			
+
+		}
+		function addFileFromLastInput(file){
+		    var a = $('#upImgFile');
+		    a[a.length-1].files = file;
+		}
+		function camInfo(data){
+			$('#cam').val(data.value);
+		}
 	</script>
 
 </body>

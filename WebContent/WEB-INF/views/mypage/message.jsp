@@ -144,7 +144,7 @@ function setOpen(user_target){
 			success:function(map){
 				//alert('success');
 				let content = `<div class="detail" id="msgDetail">
-									<div class="user right">	
+									<div class="user right" onclick="goMypage(` +map.target.user_seq+`)">	
 										<div class="frame"><img src="` + map.target.profile_image+ `"></div>
 										<div class="right_nickname">` + map.target.user_nickname + `</div>
 									</div>
@@ -222,6 +222,10 @@ function setOpen(user_target){
 			from : '<%=login.getUser_seq()%>'
 		};
 		ws.send(JSON.stringify(msg));
+	}
+
+	function goMypage(user_seq){
+		location.href="mypage?user_seq=" + user_seq;
 	}
 
 	//페이지가 로딩되면 connect 실행

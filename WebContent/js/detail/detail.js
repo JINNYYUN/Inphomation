@@ -29,7 +29,7 @@ function viewImage(img){
 	H = img1.height;
 	O = "width=" + W + ",height=" + H + ",scrollerbars=yes";
 	imgWin = window.open("","",O);
-	imgWin.document.write("<html><head><title>확대보기</title></head>");
+	imgWin.document.write("<html style='overflow-x:hidden; overflow-y:auto;'><head><title>확대보기</title></head>");
 	imgWin.document.write("<body topmargin=0 leftmargin=0>");
 	imgWin.document.write("<img src="+img+" onclick='self.close()' style='cursor:pointer;' title ='클릭하시면 창이 닫힙니다.'>");
 	imgWin.document.close();
@@ -74,7 +74,7 @@ function addComment(){
 				type: "get",
 				data: {"post_seq":$("#post_seq").val(), "user_seq":$("#user_seq").val(), "reply_content":  $("#comment").val() },
 				async:true,
-				success:function(data){
+				success:function(){
 				//	console.log(data)
 					$("#comment").val("");
 					location.reload(true);
@@ -96,9 +96,9 @@ function profile(user_seq){
 }
 
 /* 글 수정 */
-function editDetail(){
+function editDetail(post){
 	console.log("edit");
-	/* location.href="editDetail?"; */
+	location.href="writeupdate?post_seq=" + post;
 }
 /* 글 삭제 */
 function deleteDetail(){

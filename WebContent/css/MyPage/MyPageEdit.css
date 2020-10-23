@@ -14,24 +14,25 @@
 
 .profile-img{
 	background-color: white;
-	border-radius: 50%;
-	width: 150px;
-	height: 150px;
-	margin: auto;
+    border-radius: 50%;
+    width: 150px;
+    height: 150px;
+    margin: auto;
+    overflow: hidden;
+    border: 2px solid white;
+    clear: both;
 }
-img{
-	position: relative;
-	width:140px;
-	height:140px;
-	border-radius: 50%;
-	margin: 5px;
-	
+.profile-img img{
+	width: 150px;
+    min-height: 100%;
+    display: inline-block;
 }
 .fa-pen{
 	position: relative;
-	left: 63px;
-    top: -145px;
+    left: 974px;
+    top: -139px;
     color: #f28705;
+    font-size: 24px;
 }
 .top-detail{
 	margin-top: 10px;
@@ -39,7 +40,7 @@ img{
 .content-detail{
 	background-color: #fff;
     width: 1000px;
-    height: 600px;
+    min-height: 100%;
     margin: auto;
 }
 .profile{

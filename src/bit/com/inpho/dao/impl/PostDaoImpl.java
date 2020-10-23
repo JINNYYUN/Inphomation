@@ -24,13 +24,12 @@ public class PostDaoImpl implements PostDao{
 	String ns = "postwrite.";
 	@Override
 	public List<PostDto> getCseq(MemberDto userseq) {
-		System.out.println("gogo");
 		return sqlSession.selectList(ns+"addcam",userseq);
 	}
 	@Override
-	public List<PostHashTagInfoDto> getHashTag(int postseq, int hashtagseq) {
+	public List<PostHashTagInfoDto> getHashTag(List<String> hashtags) {
 		
-		return sqlSession.selectList(ns+"getHashTagName" , postseq);
+		return sqlSession.selectList(ns+"getHashTagName" , hashtags);
 		
 	}
 	@Override
@@ -49,7 +48,6 @@ public class PostDaoImpl implements PostDao{
 	}
 	@Override
 	public void addPost(PostDto dto) {
-		System.out.println("데이터확인");
 		try {
 			sqlSession.insert(ns+"insertPost",dto);
 	        
@@ -59,9 +57,9 @@ public class PostDaoImpl implements PostDao{
 	    }
 	}
 	@Override
-	public void addhashtag(List<String> tag) {
-		sqlSession.insert(ns+"setHashTagName",tag);
-		
+	public void addhashtag(PostDto dto) {
+		sqlSession.insert(ns+"addHashTag",dto);
+		sqlSession.insert(ns+"addHashTag1",dto);
 	}
 	@Override
 	public int addCamera(PostDto dto) {
@@ -88,6 +86,16 @@ public class PostDaoImpl implements PostDao{
 	@Override
 	public void setingPost(PostDto dto) {
 		sqlSession.insert(ns+"insertPost",dto);
+		
+	}
+	@Override
+	public int getTagSeq(PostDto dto) {
+		int seq=sqlSession.selectOne(ns+"getTagSeq",dto);
+		return seq;
+	}
+	@Override
+	public void addlocation(PostLocationDto dto) {
+		sqlSession.insert(ns+"addlocation",dto);
 		
 	}
 	

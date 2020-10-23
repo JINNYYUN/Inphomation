@@ -13,22 +13,31 @@
 }
 .profile-img{
 	background-color: white;
-	border-radius: 50%;
-	width: 150px;
-	height: 150px;
-	margin: auto;
+    border-radius: 50%;
+    width: 150px;
+    height: 150px;
+    margin: auto;
+    overflow: hidden;
+    border: 2px solid white;
+    clear: both;
 }
 .profile-img img{
-	width:140px;
-	height:140px;
-	border-radius: 50%;
-	margin: 5px;
+	width: 150px;
+    /* height: 140px; */
+    /* border-radius: 50%; */
+    /* margin: 5px; */
+    min-height: 100%;
+    display: inline-block;
 }
 .follow-btn{
 	float: right;
 	color: #fff;
     background-color: #F28705;
     border-color: #F28705;
+    height: 33px;
+    font-size: 15px;
+    padding: 0 5px;
+    margin-left: 5px;
 }
 .top-detail{
 	margin-top: 10px;
@@ -53,7 +62,7 @@ hr{
 .content-detail{
 	background-color: #fff;
     width: 1000px;
-    height: 600px;
+    min-height: 600px;
     margin: auto;
     border-color: black;
     border: 1px;
@@ -96,9 +105,8 @@ hr{
 }
 /* 게시글 이미지 영역*/
 .main-container {
+	padding-top:50px;
   position: relative;
-  top: 50px;
-  margin-bottom: 50px;
 }
 
 .main-container .grid {
@@ -245,11 +253,30 @@ margin-left: 210px;
   text-decoration: none;
   cursor: pointer;
 }
-.list img{
-	width: 50px;
-    height: 50px;
+.list{
+	height: 50px;
+	margin: 10 0;
+}
+.list-img{
+	background-color: white;
     border-radius: 50%;
-	margin: 5px;
+    width: 50px;
+    height: 50px;
+    overflow: hidden;
+    display: inline-block;
+}
+.list-img img{
+	width: 50px;
+    min-height: 100%;
+    display: inline-block;
+}
+.list-info{
+	float: right;
+    width: 262px;
+}
+.list-nick{
+	display: inline-block;
+	margin: 10 0;
 }
 .btn-modal{
 	float: right;
