@@ -83,4 +83,9 @@ $('#main-search-keyword').blur(function(){
 	$('#main-search-icon g').css("stroke", "#8c8c8c");
 });
 
+<%if(session.getAttribute("login")==null){%>
+	mainScrollEvent(true)
+<%}else{%>
+	mainScrollEvent(false)
+<%}%>
 </script>
