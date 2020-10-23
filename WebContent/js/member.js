@@ -96,6 +96,7 @@ function confirmId(e){
 			},
 			success:function(data){
 				if(data){
+					$('.form-group .result-msg').html('<span style="color:#F27405;">사용가능한 아이디 입니다</span>')
 					document.getElementById('regeister-btn').disabled = false
 				}else{
 					document.getElementById('regeister-btn').disabled = true

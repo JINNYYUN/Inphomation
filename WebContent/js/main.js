@@ -64,6 +64,7 @@ function calculNumber(e, b, cate, seq) {
 			url: url,
 			type: "post",
 			data: data,
+			async:false,
 			success: function () {},
 			error: function () {}
 		})
@@ -78,6 +79,7 @@ function calculNumber(e, b, cate, seq) {
 			url: url,
 			type: "post",
 			data: data,
+			async:false,
 			success: function () {},
 			error: function () {}
 		})
@@ -152,6 +154,7 @@ function mainScrollEvent(choice){
 			$.ajax({
 				url:'/newMoreFeed',
 				type:'GET',
+				async:false,
 				data:{
 					moreFeedNum:getMoreFeed
 				},success:function(data){
@@ -193,6 +196,7 @@ function searchScrollEvent(choice, keywordId){
 			$.ajax({
 				url:'/searchMoreFeed',
 				type:'GET',
+				async:false,
 				data:{
 					moreFeedNum:getMoreFeed,
 					keywordId:keywordId

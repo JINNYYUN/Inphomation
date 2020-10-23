@@ -27,8 +27,12 @@ function searchKeyword(page){
 		location.href= 'http://'+location.host+"/keywordSearch?keywordId="+keyword
 	}
 }
-
-
+var naviSearch = document.getElementById('navi-search-keyword')
+naviSearch.onkeydown = function(event){
+	if(event.keyCode==13){
+		searchKeyword('navi')
+	}
+}
 // WEBSOCKET 설정 ========================================
 	var ws;
 		
