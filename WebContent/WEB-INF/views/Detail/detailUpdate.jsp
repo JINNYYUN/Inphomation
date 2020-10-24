@@ -33,10 +33,9 @@
 				<div class="contHash">
 					<p class="text body1 post" id="hashtag" style="line-height: 1.9">
 						<c:forEach items="${tag }" var="i" varStatus="j">
-							<div id="hashtag${j.count }" >
+							<div id="hashtag${i.tag_seq }" >
 								<input type="text" value="${i.hashtag }${i.tag_seq }" readonly>
-								<input type="text" id="tag_seq${j.count }" value="${i.tag_seq }">
-								<a href="javascript:void(0)" onclick="deleteTag(${j.count})"><i class="fas fa-times"></i></a>
+								<a href="javascript:void(0)" id="${i.tag_seq }" onclick="deleteTag(this.id)"><i class="fas fa-times"></i></a>
 							</div>
 						</c:forEach>
 					</p>
@@ -64,15 +63,13 @@ function deleteTag(num){
 	console.log(num);
 	$("#hashtag"+num).remove();
 
-	let tag_seq = $("#tag_seq").val();
-	console.log(tag_seq+num);
 	
 	$.ajax({
 		url:"delTag",
 		type:"get",
 		data:{
 				"post_seq" : $("#post_seq").val(),
-				"tag_seq" : tag_seq 
+				"tag_seq" : num 
 			},
 		error:function(){
 			alert("dd");
