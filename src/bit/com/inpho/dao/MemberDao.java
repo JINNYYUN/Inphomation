@@ -22,4 +22,5 @@ public interface MemberDao {
 	public int activeId(MemberDto member);
 	public void changeNoActive(MemberDto member);
 	public boolean changeActive(MemberDto member);
+	public boolean changePwd(MemberDto member);
 }
