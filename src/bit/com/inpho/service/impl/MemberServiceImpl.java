@@ -117,4 +117,19 @@ public class MemberServiceImpl implements MemberService{
 		}
 	}
 
+	@Override //비밀번호 변경 안내 링크
+	public void resetPwdAuthCreate(MemberDto member) throws Exception{
+		MemberUtil.resetPassword(member, memberDao, mailSender);
+	}
+
+	@Override
+	public MemberDto confirmAuthKey(MemberDto member) {
+		return memberDao.selectAuthKey(member.getAuthKey());
+	}
+
+	@Override
+	public boolean changePwd(MemberDto member) {
+		return memberDao.changePwd(member);
+	}
+
 }

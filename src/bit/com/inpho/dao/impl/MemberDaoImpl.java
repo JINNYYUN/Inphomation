@@ -86,4 +86,11 @@ public class MemberDaoImpl implements MemberDao{
 		return sql.update(ns+"changeActive", member)>0?true:false;
 	}
 
+	@Override
+	public boolean changePwd(MemberDto member) {
+		boolean b =  sql.update(ns+"changePwd",member)>0?true:false;
+		if(b) deleteAuthKey(member.getAuthKey());
+		return b;
+	}
+
 }

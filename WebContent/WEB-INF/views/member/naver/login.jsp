@@ -5,7 +5,9 @@
 <script src="https://static.nid.naver.com/js/naveridlogin_js_sdk_2.0.0.js"></script>
 <script type="text/javascript"
     src="http://code.jquery.com/jquery-1.11.3.min.js"></script>
-    
+<%
+Object movePage = session.getAttribute("goPage");
+%>
     
 <script type="text/javascript">
     $(document).ready(function() {
@@ -20,9 +22,13 @@
 			},
 			success:function(data){
 				if(data){
-					//로그인성공
-					opener.location.reload()
-					window.close()
+					<%if(movePage==null){%>
+						//로그인성공
+						opener.location.reload()
+					<%}else{%>
+						opener.location.href='http://'+location.host+'${goPage }'
+					<%}%>
+						window.close()
 				}else{
 					alert('로그인에 실패하였습니다')
 					//로그인실패
