@@ -4,10 +4,12 @@
 function submitLogin(){
 	let id=$("#login-id")
 	if(!isEmail(id.val())){
+		$('.form-group .result-msg').text('아이디를 정상적으로 입력해 주세요')
 		return id.focus()
 	}
 	let pw=$("#login-pw")
 	if(!isPassword(pw.val())){
+		$('.form-group .result-msg').text('패스워드가 형식에 맞지 않습니다')
 		return pw.focus()
 	}
 	ajaxLogin(id.val().trim(),pw.val().trim())
@@ -47,10 +49,12 @@ function submitRegi(){
 	
 	let pw=$("#regi-pw")
 	if(!isPassword(pw.val())){
+		$('.form-group .result-msg').text('패스워드가 형식에 맞지 않습니다')
 		return pw.focus()
 	}
 	let name=$('#regi-nickname')
 	if(name.val().trim()==''){
+		$('.form-group .result-msg').text('닉네임을 적어주시기 바랍니다')
 		return name.focus()
 	}
 	
@@ -92,6 +96,7 @@ function confirmId(e){
 			},
 			success:function(data){
 				if(data){
+					$('.form-group .result-msg').html('<span style="color:#F27405;">사용가능한 아이디 입니다</span>')
 					document.getElementById('regeister-btn').disabled = false
 				}else{
 					document.getElementById('regeister-btn').disabled = true

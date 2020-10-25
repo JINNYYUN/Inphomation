@@ -33,14 +33,21 @@ public class memberController {
 	private void setNaverLoginController(NaverController naver) {
 		this.naver = naver; //naver 서비스생성
 	}
+	
+	@GetMapping("/reActive")
+	public String reActiveId(MemberDto member, HttpSession session) {
+		//비활성화된 유저의 계정을 활성화시킴
+		memberService.reActiveId(member, session);
+		return "redirect:/main";
+	}
+	
 	@GetMapping("/noHaveAuth")
 	public String noHaveAuth() {
 		//유저 계정이 활성화가 안되어있는 경우에 이동하는 페이지
 		return "nohaveAuth.tiles";
 	}
-	@GetMapping("/authKeyId")
+	@GetMapping("/authKeyId") //회원가입후에 계정 인증을 하려고 할 경우
 	public String confirmId(MemberDto member,HttpSession session) {
-		//회원가입후에 계정 인증을 하려고 할 경우
 		if(memberService.idActive(member,session)) {
 			return "redirect:/main";
 		}
@@ -71,7 +78,7 @@ public class memberController {
 	
 	@ResponseBody
 	@PostMapping("/login") //로그인정보 일치시
-	public String doLogin(MemberDto member, HttpSession session) {
+	public String doLogin(MemberDto member, HttpSession session) throws Exception{
 		//로그인 실행         true ==정보가 있슴(성공) false는 정보가 없슴(실패)
 		return memberService.doLogin(member, session);
 	}
