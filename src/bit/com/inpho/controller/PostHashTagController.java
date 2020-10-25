@@ -28,11 +28,6 @@ public class PostHashTagController {
 	@RequestMapping(value = "beforeImg", method = RequestMethod.POST) 
 	 public String[] getHashTag(HttpServletRequest req, @RequestParam(value = "upImgFile") MultipartFile file)	throws IOException {
 	
-		System.out.println("ImgUPUP : " + file);
-		System.out.println("파일의 사이즈 : " + file.getSize());
-		System.out.println("업로드된 파일명 : " + file.getOriginalFilename());
-		System.out.println("파일의 파라미터명 : " + file.getName());
-	
 	// getRealPath()..
 	String root = req.getSession().getServletContext().getRealPath("upload/postImage");
 	

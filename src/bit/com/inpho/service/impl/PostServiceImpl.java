@@ -77,11 +77,12 @@ public class PostServiceImpl implements PostService {
 		memberPostObj.put("postcamera", post.getCamera_serial());
 		for (int i = 0; i < arr.length; i++) {
 			if (memberPostObj.containsValue(arr[i])) {
-				return "reroll";
+					return"doesNotData";
+			 
 			}
 		}
 		dao.addcam(memberPostObj);
-		return "PostPage";
+		return "";
 	}
 
 	@Override
@@ -97,7 +98,7 @@ public class PostServiceImpl implements PostService {
 		}
 		
 		dao.addCamSeq(memberPostObj);
-		return "PostPage";
+		return "";
 	}
 
 	@Override
@@ -111,9 +112,9 @@ public class PostServiceImpl implements PostService {
 	@Override
 	public String addlocation(PostLocationDto dto) {
 		dao.addlocation(dto);
-		String Godetail=Integer.toString(dto.getPost_seq());
-		return "detail?"+Godetail; 
+		return ""; 
 		
 	}
+
 
 }

@@ -1,3 +1,4 @@
+<%@page import="bit.com.inpho.dto.PostDto"%>
 <%@page import="bit.com.inpho.dto.MemberDto"%>
 <%@page import="bit.com.inpho.dto.MyPageMemberDto"%>
 <%@page import="io.opencensus.common.ServerStatsFieldEnums.Size"%>
@@ -6,8 +7,9 @@
 	pageEncoding="UTF-8"%>
 <%
 	MemberDto login = (MemberDto) request.getSession().getAttribute("login");
-int seq = login.getUser_seq();
+	int seq = login.getUser_seq();
 %>
+
 <!DOCTYPE html>
 
 <html>
@@ -19,14 +21,14 @@ int seq = login.getUser_seq();
 <style type="text/css">
 
 .hashtag {
-	  width:  100%;
-	height:  100%;
-	    margin-left:  auto; 
-   margin-right :  auto;
+	    width:  100%;
+		height:  100%;
+	   	margin-left:  auto; 
+ 		margin-right :  auto;
 	    padding:  5px;
 	    text-align:  center;
 	    line-height:  300px;
-	vertical-align: middle;
+		vertical-align: middle;
 }
 
 #thumbnailImg {
@@ -208,6 +210,7 @@ int seq = login.getUser_seq();
 	</div>
 	
 	<script type="text/javascript">
+	
 		let address = document.querySelector('#autocomplete').value;
 		let exifLat;
 		let exifLong;
@@ -219,6 +222,7 @@ int seq = login.getUser_seq();
 		let fileInfo;
 		let wtmY;
 		let wtmX;
+		let nullcheck;
     function initAutocomplete() {
         autocomplete = new google.maps.places.Autocomplete(
           document.getElementById("autocomplete"),
@@ -400,16 +404,15 @@ int seq = login.getUser_seq();
 			         type:'GET',
 			         headers: {'Authorization' : 'KakaoAK f0e07a82a957e4d2580b19df431ebeb3'},
 					 success:function(result){
-						 
+						 console.log(result);
+						 nullcheck = loadNameNullCheck(result.documents[0].road_address);
 						 upLoadNullCheck(result.documents[0]);
-						
+						 
 				    	 },
 					 error : function(e){
-					     console.log(e);
+					     alert("error");
 					 }
 						});
-					
-			
 		  });
 		function upLoadNullCheck(str){
 
@@ -420,8 +423,13 @@ int seq = login.getUser_seq();
 				wtmY=str.y;
 				console.log("첫번째"+str.x);
 	    		console.log(str.y);
+	    		
 	    		 var onecam = $('#cam').value;
 				 var formm = new FormData($("#frm")[0]);
+				 if(nullcheck===false){
+				 road=str.road_address.building_name;
+				 formm.append("roadname",road);
+				 }
 				 formm.append("exifLat", wtmX);
 				 formm.append("exifLong", wtmY);
 				 formm.append("onecam",onecam);
@@ -438,7 +446,8 @@ int seq = login.getUser_seq();
 			cache : false,
 			datatype : "json",
 			success : function(data) {	
-			
+			 	
+				  window.location.href="detail?post_seq="+data; 
 			},
 			error : function() {
 
@@ -453,13 +462,12 @@ int seq = login.getUser_seq();
 		function imgnullCheck(str){
 		
 			if(str==null || str==undefined || str=="null"){
-				/* $('#autocomplete').val(''); */
 				var styleobj={
 					'color':'#ff4D00',
 					'display':'block'
 				}
 				$("#autocomplete").focus();
-				$('#autocomplete').next().css(styleobj).fadeOut(5000);
+				$('#autocomplete').next().css(styleobj).fadeOut(10000);
 			
 			}else{
 				console.log("두번쨰"+str.x);
@@ -477,6 +485,19 @@ int seq = login.getUser_seq();
 		function camInfo(data){
 			$('#cam').val(data.value);
 		}
+	    function loadNameNullCheck(str){
+	         
+	        if(typeof str == "undefined" || str == null || str == ""){
+	        	console.log('투르');
+	            return true;
+	        }
+	        else{
+	        	console.log('펄스');
+	            return false ;
+	        }
+	    }
+
+
 	</script>
 
 </body>
