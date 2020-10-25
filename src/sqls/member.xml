@@ -26,9 +26,18 @@
 	<delete id="authKey" parameterType="java.lang.String">
 		DELETE FROM MEMBER_AUTH WHERE AUTHKEY = #{authKey}
 	</delete>
-	<!-- 계정활성화 -->
+	<!-- 계정인증활성화-->
 	<update id="activeId" parameterType="bit.com.inpho.dto.MemberDto">
 		UPDATE MEMBER SET AUTH_ENABLED = 1, AUTH_ACTIVE = 1 WHERE USER_EMAIL = #{user_email} 
+	</update>
+	
+	<!-- 계정의 비활성화 -->
+	<update id="changeNoActive" parameterType="bit.com.inpho.dto.MemberDto">
+		UPDATE MEMBER SET AUTH_ACTIVE = 0 WHERE USER_EMAIL = #{user_email} 
+	</update>
+	<!-- 비활성화된 계정의 활성화 -->
+	<update id="changeActive" parameterType="bit.com.inpho.dto.MemberDto">
+		UPDATE MEMBER SET AUTH_ACTIVE = 1 WHERE USER_EMAIL = #{user_email} 
 	</update>
 	<!-- 유저로그인 -->
 	<select id="userLogin" parameterType="bit.com.inpho.dto.MemberDto" resultType="bit.com.inpho.dto.MemberDto">

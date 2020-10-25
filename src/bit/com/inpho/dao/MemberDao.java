@@ -21,4 +21,6 @@ public interface MemberDao {
 	public MemberDto doAuthLogin(MemberDto member);
 	public MemberDto authKeyLogin(MemberDto reqAuthMember);
 	public int activeId(MemberDto member);
+	public void changeNoActive(MemberDto member);
+	public boolean changeActive(MemberDto member);
 }

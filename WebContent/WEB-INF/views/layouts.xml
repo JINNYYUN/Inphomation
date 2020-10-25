@@ -64,10 +64,8 @@
 	   <put-attribute name="main" value="/WEB-INF/views/main/main.jsp"/> 
 	</definition>
 	
-	<definition name="search.tiles" template="/WEB-INF/views/main/noFoot-tile.jsp">
-	   <put-attribute name="header" value="/WEB-INF/views/commons/header.jsp"/>
-	   <put-attribute name="global_navigation" value="/WEB-INF/views/commons/navigation.jsp"/>
-	   <put-attribute name="main" value="/WEB-INF/views/main/searchMain.jsp"/> 
+	<definition name="search.tiles" extends="hello.tiles">
+	   <put-attribute name="main" value="/WEB-INF/views/main/searchMain.jsp"/>
 	</definition>
 	<!-- Contain -->
 	<definition name="modal.tiles" template="/WEB-INF/views/contain.jsp">

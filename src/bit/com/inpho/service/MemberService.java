@@ -8,7 +8,8 @@ public interface MemberService {
 	
 	public boolean regeisterMember(MemberDto member, HttpSession session) throws Exception;
 	public boolean confirmId(MemberDto member);
-	public String doLogin(MemberDto member,HttpSession session);
+	public String doLogin(MemberDto member,HttpSession session) throws Exception;
 	public boolean socialLogin(MemberDto member,HttpSession session);
 	public boolean idActive(MemberDto member,HttpSession session);
+	public void reActiveId(MemberDto member, HttpSession session);
 }
