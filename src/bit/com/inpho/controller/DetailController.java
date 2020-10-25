@@ -16,6 +16,7 @@ import bit.com.inpho.dto.DetailCountAllDto;
 import bit.com.inpho.dto.DetailPostDto;
 import bit.com.inpho.dto.DetailReplyDto;
 import bit.com.inpho.dto.MemberDto;
+import bit.com.inpho.dto.MyPageCameraDto;
 import bit.com.inpho.dto.MyPageMemberDto;
 import bit.com.inpho.service.DetailService;
 import bit.com.inpho.service.MyPageService;
@@ -204,6 +205,48 @@ public class DetailController {
 		return "redirect:main";
 	}
 	
+	
+	@RequestMapping(value = "update", method = {RequestMethod.GET, RequestMethod.POST})
+	public String update (int post_seq, Model model) {
+		
+		
+		DetailPostDto dto = service.getPost(post_seq);
+		List<DetailPostDto> tagList = service.getHashTag(post_seq);
+		List<MyPageCameraDto> camera = MyService.getCamera(dto.getUser_seq());
+		
+		model.addAttribute("post", dto);
+		model.addAttribute("camera", camera);
+		model.addAttribute("tag", tagList);
+		
+		return "update.tiles";
+	}
+	
+	@RequestMapping(value = "updateAf", method = {RequestMethod.GET, RequestMethod.POST})
+	public String updateAf (DetailPostDto dto, Model model) {
+		
+		
+		service.updateContent(dto);
+		
+		
+		model.addAttribute("post_seq", dto.getPost_seq());
+		model.addAttribute("user_seq", dto.getUser_seq());	
+		
+		return "redirect:detail";
+	}
+	
+	@RequestMapping(value = "delTag", method = {RequestMethod.GET, RequestMethod.POST})
+	public void delTag (int tag_seq, int post_seq){
+		
+		System.out.println("del" + tag_seq);
+		System.out.println("del" + post_seq);
+		
+		HashMap<String, Integer> map = new HashMap<String, Integer>();
+		
+		map.put("post_seq", post_seq);
+		map.put("tag_seq", tag_seq);
+		
+		service.delTag(map);
+	}
 	
 }
 

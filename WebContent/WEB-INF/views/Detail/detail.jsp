@@ -6,7 +6,7 @@
 	src="https://cdnjs.cloudflare.com/ajax/libs/jquery-modal/0.9.1/jquery.modal.min.js"></script>
 <link rel="stylesheet"
 	href="https://cdnjs.cloudflare.com/ajax/libs/jquery-modal/0.9.1/jquery.modal.min.css" />
-<link rel="stylesheet" type="text/css" href="css/Detail/Detail.css">
+<link rel="stylesheet" type="text/css" href="css/Detail/Detail.css?after">
 <script src="./js/detail/detail.js"></script>
 
 
@@ -99,7 +99,7 @@
 						<div class="content">
 							<div class="contHash">
 								<p class="text body1 post" style="line-height: 1.9">
-									${post.post_content } <br>
+									${post.post_content } <br><br>
 									<c:forEach items="${tag }" var="i">
 										<a href="javascript:void(0)" class="text body1 post">${i.hashtag }</a>
 									</c:forEach>
@@ -259,8 +259,6 @@ $(function(){
 		});
 		
 
-
-	
 	$.ajax({
 		url:"countLikeAll",
 		type:"get",

@@ -119,9 +119,10 @@ public class MyPageEditController {
 		}	 
 		
 		resp.setContentType("text/html; charset=UTF-8");
-		 
+		
 		PrintWriter out = resp.getWriter();
 		if(b) {
+			login.setProfile_image(newfilename);
 			out.println("<script>alert('등록되었습니다'); opener.document.location.reload();" + 
 					"self.close();</script>");
 		}else {
@@ -182,6 +183,7 @@ public class MyPageEditController {
 		 
 		PrintWriter out = resp.getWriter();
 		if(b) {
+			login.setProfile_image("https://storage.googleapis.com/boomkit/" + newfilename);
 			out.println("<script>alert('등록되었습니다'); opener.document.location.reload();" + 
 					"self.close();</script>");
 		}else {
@@ -193,11 +195,14 @@ public class MyPageEditController {
 	
 	// 프로필 수정 
 	@RequestMapping(value = "myPageEditAf", method = RequestMethod.POST)
-	public String myPageEditAf( MyPageMemberDto mem, String[] camera_serial ) {
+	public String myPageEditAf( MyPageMemberDto mem, String[] camera_serial, HttpServletRequest req) {
 		
-		//System.out.println("controller" + mem.toString());
+		// session
+ 		MemberDto login = (MemberDto)req.getSession().getAttribute("login");
+		
 		//닉네임 & 자기소개 수정
 		service.updateProfile(mem);
+		login.setUser_nickname(mem.getUser_nickname());
 		
 		//카메라 수정
 		//전체 카메라 리스트에 추가

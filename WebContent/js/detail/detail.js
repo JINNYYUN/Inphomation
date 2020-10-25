@@ -74,7 +74,7 @@ function addComment(){
 				type: "get",
 				data: {"post_seq":$("#post_seq").val(), "user_seq":$("#user_seq").val(), "reply_content":  $("#comment").val() },
 				async:true,
-				success:function(data){
+				success:function(){
 				//	console.log(data)
 					$("#comment").val("");
 					location.reload(true);
@@ -98,7 +98,7 @@ function profile(user_seq){
 /* 글 수정 */
 function editDetail(post){
 	console.log("edit");
-	location.href="writeupdate?post_seq=" + post;
+	location.href="update?post_seq=" + post;
 }
 /* 글 삭제 */
 function deleteDetail(){
