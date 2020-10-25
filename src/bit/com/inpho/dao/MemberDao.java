@@ -1,7 +1,6 @@
 package bit.com.inpho.dao;
 
 import bit.com.inpho.dto.MemberDto;
-import bit.com.inpho.dto.MyPageMemberDto;
 
 public interface MemberDao {
 	//아이디 확인
