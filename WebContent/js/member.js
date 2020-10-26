@@ -94,6 +94,7 @@ function confirmId(e){
 			data:{
 				user_email:inputId.value.trim()
 			},
+			async:false,
 			success:function(data){
 				if(data){
 					$('.form-group .result-msg').html('<span style="color:#F27405;">사용가능한 아이디 입니다</span>')
@@ -200,9 +201,7 @@ function doPopup(url,name,option){
 }
 
 
-/*
-	로그인버튼 클릭시에 Modal html을 가져오는 역할을 함
-*/
+/* 로그인버튼 클릭시에 Modal html을 가져오는 역할을 함 */
 var modal = document.getElementById('modal-container')
 function goLogin(){
 	//1. login 에서 container 가져와야함.
@@ -212,6 +211,7 @@ function goLogin(){
 		url:"loginModal",
 		type:'GET',
 		dataType:'html',
+		async:false,
 		success:function(data){
 			$('#modal-container').html(data)
 			//document.getElementById('modal-container').innerHTML=data

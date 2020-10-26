@@ -56,4 +56,8 @@
 	<insert id="registerSocialMember" parameterType="bit.com.inpho.dto.MemberDto">
 		INSERT INTO MEMBER VALUES(SEQ_USER.NEXTVAL, #{user_email}, 0, #{user_password}, #{user_nickname},SYSDATE, #{profile_image},'', #{provider}, 1, 1)
 	</insert>
+	
+	<update id="changePwd" parameterType="bit.com.inpho.dto.MemberDto">
+		UPDATE MEMBER SET USER_PASSWORD = #{user_password} WHERE USER_EMAIL = #{user_email}
+	</update>
 </mapper>

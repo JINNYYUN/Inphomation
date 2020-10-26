@@ -73,7 +73,7 @@ function calculNumber(e, b, cate, seq) {
 		e.innerText = ++number
 		let data={
 			post_seq : seq,
-			dobook : true
+			dobook : false
 		}
 		$.ajax({
 			url: url,

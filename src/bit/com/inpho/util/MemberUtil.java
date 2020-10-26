@@ -38,12 +38,8 @@ public class MemberUtil {
 			JavaMailSender mailSender, MemberService service) throws Exception{
 		//회원가입 성공
 		String authKey = "";
-		for(;;) {
-			authKey = MemberUtil.makePassword(50);
-			if(memberDao.selectAuthKey(authKey)==null) 
-				break;
-		}
-		member.setAuthKey(authKey);
+		member.setAuthKey(getAuthKey(memberDao));
+		
 		if(memberDao.regeisterMember(member)>0) {
 			if(memberDao.registerAuthKey(member)>0) {
 				MailHandler sendMail = new MailHandler(mailSender);
@@ -69,14 +65,9 @@ public class MemberUtil {
 			JavaMailSender mailSender) throws Exception{
 		//계정잠금
 		System.out.println("계정잠금");
-		String authKey = "";
-		for(;;) {
-			authKey = MemberUtil.makePassword(50);
-			if(memberDao.selectAuthKey(authKey)==null) 
-				break;
-		}
+		member.setAuthKey(getAuthKey(memberDao));
 		//인증키 생성
-		member.setAuthKey(authKey);
+		
 		//가서하는것 == AUTH_ACTIVE(MEMBER) 를 1로 바꾸고 MEMBER_AUTH에 데이터 INSERT
 		memberDao.changeNoActive(member); 
 		MailHandler sendMail = new MailHandler(mailSender);
@@ -92,4 +83,35 @@ public class MemberUtil {
 		sendMail.setTo(member.getUser_email());
 		sendMail.send();
 	}
+	
+	public static void resetPassword(MemberDto member, MemberDao memberDao, 
+			JavaMailSender mailSender) throws Exception{
+		System.out.println("비밀번호 재생성 메일발송 메소드");
+		//인증키 생성
+		member.setAuthKey(getAuthKey(memberDao));
+		memberDao.registerAuthKey(member);
+		//메일 발송
+		MailHandler sendMail = new MailHandler(mailSender);
+		sendMail.setTitle("비밀번호 변경 URL 안내 메일");
+		sendMail.setContent(
+				new StringBuffer()
+				.append("<h2>비밀번호 변경 URL입니다</h2>")
+				.append("<a href='http://localhost:8090/resetPassword?authKey=") //추후에 서버로 잡을 주소 변경
+				.append(member.getAuthKey()+"' target='_blank'>링크</a>")
+				.toString()
+			);
+		sendMail.setFrom("inphomationBitFinal@gmail.com", "인포메이션");
+		sendMail.setTo(member.getUser_email());
+		sendMail.send();
+	}
+	
+	public static String getAuthKey(MemberDao memberDao) {
+		for(;;) {
+			String authKey = makePassword(50);
+			if(memberDao.selectAuthKey(authKey)==null) {
+				return authKey;
+			}
+		}
+	}
+	
 }
