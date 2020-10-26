@@ -82,5 +82,15 @@ $('#main-search-keyword').blur(function(){
 	$('.main-back-ground .search-bar').css("border", "1px solid #D9D9D9");
 	$('#main-search-icon g').css("stroke", "#8c8c8c");
 });
-
+var mainSearch = document.getElementById('main-search-keyword')
+mainSearch.onkeydown = function(event){
+	if(event.keyCode==13){
+		searchKeyword('main')
+	}
+}
+<%if(session.getAttribute("login")==null){%>
+	mainScrollEvent(true)
+<%}else{%>
+	mainScrollEvent(false)
+<%}%>
 </script>

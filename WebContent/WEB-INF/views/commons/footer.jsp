@@ -30,22 +30,20 @@
 	float: right;
 }
 .footer-content-left{
-	float: left;
-	margin-left: -30px;
-    width: 313px;
+	    float: left;
+    margin-left: -30px;
+    width: inherit;
 }
 .footer-content-bottom{
-	float: right;
-    margin-top: 27px;
-    padding-right: 50%;
+	margin-top: 119px;
     position: relative;
-    margin-right: -124px;
     color: dimgray;
+    margin-left: 38%;
 }
 .footer-content-inform{
-    float: left;
-    width: 62%;
-    margin-top: 10px;
+	float: left;
+    min-width: 100%;
+    margin-top: 11px;
 }
 </style>
 
@@ -63,7 +61,7 @@
 			<a href="javascript:void(0)"><i class="fab fa-youtube"></i></a>
 		</div>
 		<div class="text body2 text-weight-light footer-content-inform">
-			<span><p>상호명 INPHOMATION | 대표 비트 | 개인정보보호책임자 캠프 | 사업자등록번호 123-45-6789 | 통신판매업신고번호 2019-서울서초-0260
+			<span><p>상호명 INPHOMATION | 대표 비트 | 개인정보보호책임자 캠프 | 사업자등록번호 123-45-6789 | 통신판매업신고번호 2019-서울서초-0260 <br>
 				주소 서울특별시 서초구 서초4동 강남대로 459 | 이메일 bitcamp0518@gmail.com | 광고 문의 bitcamp0518@gmail.com
 			</p></span>
 		</div>

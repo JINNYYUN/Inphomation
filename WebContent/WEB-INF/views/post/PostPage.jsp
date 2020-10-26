@@ -1,3 +1,4 @@
+<%@page import="bit.com.inpho.dto.PostDto"%>
 <%@page import="bit.com.inpho.dto.MemberDto"%>
 <%@page import="bit.com.inpho.dto.MyPageMemberDto"%>
 <%@page import="io.opencensus.common.ServerStatsFieldEnums.Size"%>
@@ -6,8 +7,9 @@
 	pageEncoding="UTF-8"%>
 <%
 	MemberDto login = (MemberDto) request.getSession().getAttribute("login");
-int seq = login.getUser_seq();
+	int seq = login.getUser_seq();
 %>
+
 <!DOCTYPE html>
 
 <html>
@@ -17,16 +19,18 @@ int seq = login.getUser_seq();
 
 
 <style type="text/css">
-
+.postContainer{
+padding-top: 26px;
+}
 .hashtag {
-	  width:  100%;
-	height:  100%;
-	    margin-left:  auto; 
-   margin-right :  auto;
+	    width:  100%;
+		height:  100%;
+	   	margin-left:  auto; 
+ 		margin-right :  auto;
 	    padding:  5px;
 	    text-align:  center;
 	    line-height:  300px;
-	vertical-align: middle;
+		vertical-align: middle;
 }
 
 #thumbnailImg {
@@ -99,6 +103,15 @@ int seq = login.getUser_seq();
 #disnone{
   display: none;
 }
+#disnone1{
+  display: none;
+}
+#disnone2{
+  display: none;
+}
+#disnone3{
+  display: none;
+}
 .postCamStyle{
     color: #F25C05;
     background-color: transparent;
@@ -118,13 +131,11 @@ int seq = login.getUser_seq();
 	<script
 		src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.0/js/bootstrap.min.js"></script>
 	<script
-		src="https://maps.googleapis.com/maps/api/js?key=AIzaSyAzh5ul0Fhtb8HKscRuS8zuGYD-3VKlUF4&callback=initAutocomplete&libraries=places&v=weekly"
+		src="https://maps.googleapis.com/maps/api/js?key=AIzaSyDufBnGzI2ttp_WOvh83H8BgH6nT9HJLLc&callback=initAutocomplete&libraries=places&v=weekly"
 		defer>
 	</script>
-	<div class="container">
-		<br>
+	<div class="container postContainer">
 		<div id="thumbnailUrl"></div>
-		<!-- Heading Row -->
 		<div class="postrow align-items-center my-5">
 			<form id="frm" class="frmst" method="POST" action="Upload"
 				encType="multipart/form-data">
@@ -152,9 +163,6 @@ int seq = login.getUser_seq();
 						</div>
 					</div>
 				</section>
-
-				<!-- </form>
-			<form> -->
 				<div class="mr-1">
 					<div class="card h-100">
 
@@ -182,16 +190,19 @@ int seq = login.getUser_seq();
 								<label class="text" for="inputLGEx">사진을 소개해 주세요!</label>
 								<textarea id="conent" name="content"
 									class="form-control form-control-lg">${content}</textarea>
+									<span id="disnone1">* 글을 작성하여주십시오. *</span>
 							</div>
 							<div class="md-form">
 								<label class="text" for="inputLGEx">촬영기기를 알려주세요!</label> <input
 									id="cam" name="camera_serial" value="${oneCamera}"
 									class="form-control form-control-lg">
+									<span id="disnone2">* 촬영기기를 입력하여주십시오 *</span>
 							</div>
 							<div class="md-form">
 								<label class="text" for="inputLGEx">나만의 해쉬태그를 보여주세요.</label> <input
 									id="hashtag" name="hashtag" value="${hashtag}"
 									class="form-control form-control-lg">
+									<span id="disnone3">* 해쉬태그를 입력하여주십시오 *</span>
 							</div>
 
 							<div class="float-right">
@@ -208,6 +219,7 @@ int seq = login.getUser_seq();
 	</div>
 	
 	<script type="text/javascript">
+		// 필요없는 변수 삭제 예정..
 		let address = document.querySelector('#autocomplete').value;
 		let exifLat;
 		let exifLong;
@@ -219,13 +231,18 @@ int seq = login.getUser_seq();
 		let fileInfo;
 		let wtmY;
 		let wtmX;
+		let nullcheck;
+		// 필요없는 변수 삭제 예정..  으드러
+		
+		// 구글 라이브러리로 주소 자동완성 기능
     function initAutocomplete() {
         autocomplete = new google.maps.places.Autocomplete(
           document.getElementById("autocomplete"),
           { types: ["geocode"] }
         );
       };
-	
+	//메타데이터가 담긴 사진의 EXIF라이브러리를 통하여 위치정보를 가져온다...  
+	//가져와서 위도경도 롱랫값 도분초로 보내와지니 소수단위로변환하여 좌표값을만들어낸후 업로드시 이값과함께 경유한다..
 	const componentForm = {
 			street_number: "short_name",
 			route: "long_name",
@@ -259,7 +276,7 @@ int seq = login.getUser_seq();
 			       	 wtmYy = longitude; 
 			         
 			         $.ajax({
-			             url:"https://maps.googleapis.com/maps/api/geocode/json?latlng="+wtmXx+","+wtmYy+"&key=AIzaSyAzh5ul0Fhtb8HKscRuS8zuGYD-3VKlUF4",
+			             url:"https://maps.googleapis.com/maps/api/geocode/json?latlng="+wtmXx+","+wtmYy+"&key=AIzaSyDufBnGzI2ttp_WOvh83H8BgH6nT9HJLLc",
 			             type:'GET',
 			    		 success:function(data){
 			    			 
@@ -294,7 +311,7 @@ int seq = login.getUser_seq();
 				});
 			}
 		}
-
+		// 드래그앤드랍 구현 로직..
 		function dragFiles(e) {
    
 			e.stopPropagation();
@@ -351,6 +368,7 @@ int seq = login.getUser_seq();
 			EXIFutil();
 
 		}
+		//드래그앤드랍 이미지 변경되었을시 해쉬태그 값을가져와 tagInput 폼에 넣어준다..
 		$(function() {
 			$(".imagehide").change(
 					function(e) {
@@ -392,24 +410,74 @@ int seq = login.getUser_seq();
 					});
 
 		});
+
 		  $("#done").on("click",function(e){
-			  var locat = document.querySelector('#autocomplete').value;
-			 e.preventDefault();
+			  //장소,소개,태그,기기 미입력시 널값체크후 자동포커싱이동하여 모든값을 입력하게한다.
+			 var postLocation = document.querySelector('#autocomplete').value;
+			 var postContent = document.querySelector('#conent').value;
+			 var postCam = document.querySelector('#cam').value;
+			 var postHashtags = document.querySelector('#hashtag').value;
+			 var postLocations = NullCheck(postLocation);
+			 postContent = NullCheck(postContent);
+			 postHashtags = NullCheck(postHashtags);
+			 postCam = NullCheck(postCam);
+			 if(postLocations === true){
+				 var styleobj={
+							'color':'#ff4D00',
+							'display':'block'
+						}
+						$("#autocomplete").focus();
+						$('#autocomplete').next().css(styleobj).fadeOut(10000);
+						return 0;
+			 };
+			 if(postContent === true){
+				 var styleobj={
+							'color':'#ff4D00',
+							'display':'block'
+						}
+						$("#conent").focus();
+						$('#conent').next().css(styleobj).fadeOut(10000);
+						return 0;
+			 };
+			 if(postCam === true){
+				 var styleobj={
+							'color':'#ff4D00',
+							'display':'block'
+						}
+						$("#cam").focus();
+						$('#cam').next().css(styleobj).fadeOut(10000);
+						return 0;
+			 };
+			 if(postHashtags === true){
+				 var styleobj={
+							'color':'#ff4D00',
+							'display':'block'
+						}
+						$("#hashtag").focus();
+						$('#hashtag').next().css(styleobj).fadeOut(10000);
+						return 0;
+			 };
+			 
+			if(typeof files == "undefined" || files == null || files == ""){
+				alert('이미지를 올려주세요!');
+				return 0;
+			}
+			
 			  $.ajax({
-			         url:'https://dapi.kakao.com/v2/local/search/address.json?query='+encodeURIComponent(locat),
+			         url:'https://dapi.kakao.com/v2/local/search/address.json?query='+encodeURIComponent(postLocation),
 			         type:'GET',
 			         headers: {'Authorization' : 'KakaoAK f0e07a82a957e4d2580b19df431ebeb3'},
 					 success:function(result){
-						 
+						 console.log(result);
+						 nullcheck = NullCheck(result.documents[0].road_address);
 						 upLoadNullCheck(result.documents[0]);
-						
+						 
 				    	 },
 					 error : function(e){
-					     console.log(e);
+					     alert("error");
 					 }
-						});
-					
-			
+				});
+		
 		  });
 		function upLoadNullCheck(str){
 
@@ -420,8 +488,13 @@ int seq = login.getUser_seq();
 				wtmY=str.y;
 				console.log("첫번째"+str.x);
 	    		console.log(str.y);
+	    		
 	    		 var onecam = $('#cam').value;
 				 var formm = new FormData($("#frm")[0]);
+				 if(nullcheck===false){
+				 road=str.road_address.building_name;
+				 formm.append("roadname",road);
+				 }
 				 formm.append("exifLat", wtmX);
 				 formm.append("exifLong", wtmY);
 				 formm.append("onecam",onecam);
@@ -438,7 +511,8 @@ int seq = login.getUser_seq();
 			cache : false,
 			datatype : "json",
 			success : function(data) {	
-			
+			 	
+				  window.location.href="detail?post_seq="+data; 
 			},
 			error : function() {
 
@@ -453,13 +527,12 @@ int seq = login.getUser_seq();
 		function imgnullCheck(str){
 		
 			if(str==null || str==undefined || str=="null"){
-				/* $('#autocomplete').val(''); */
 				var styleobj={
 					'color':'#ff4D00',
 					'display':'block'
 				}
 				$("#autocomplete").focus();
-				$('#autocomplete').next().css(styleobj).fadeOut(5000);
+				$('#autocomplete').next().css(styleobj).fadeOut(10000);
 			
 			}else{
 				console.log("두번쨰"+str.x);
@@ -477,6 +550,17 @@ int seq = login.getUser_seq();
 		function camInfo(data){
 			$('#cam').val(data.value);
 		}
+	    function NullCheck(str){
+	         
+	        if(typeof str == "undefined" || str == null || str == ""){
+	            return true;
+	        }
+	        else{
+	            return false ;
+	        }
+	    }
+
+
 	</script>
 
 </body>

@@ -31,6 +31,18 @@ public class MainDaoImpl implements MainDao{
 	public List<MainPostDto> getSearchList(searchDto search) {
 		return sql.selectList(ns+"searchKeywordListLogin", search);
 	}
+	@Override
+	public List<MainPostDto> getNewMoreFeed(boolean cate, searchDto search) {
+		if(cate) {return sql.selectList(ns+"newMoreFeedListLogin", search);}
+		//false== 로그인이 되어있지 않음
+		return sql.selectList(ns+"newMoreFeedList", search);
+	}
+	@Override
+	public List<MainPostDto> getSearchMoreList(boolean cate, searchDto search) {
+		if(cate) {return sql.selectList(ns+"searchKeywordMoreList", search);}
+		//false== 로그인이 되어있지 않음
+		return sql.selectList(ns+"searchKeywordMoreListLogin", search);
+	}
 	
 	
 }

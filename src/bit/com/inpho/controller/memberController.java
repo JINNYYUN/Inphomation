@@ -33,14 +33,49 @@ public class memberController {
 	private void setNaverLoginController(NaverController naver) {
 		this.naver = naver; //naver 서비스생성
 	}
+	@ResponseBody
+	@PostMapping("/sendResetPwd")
+	public void sendResetMail(MemberDto member) throws Exception{
+		memberService.resetPwdAuthCreate(member);
+	}
+	@ResponseBody
+	@PostMapping("/changePwd")
+	public boolean changePwd(MemberDto member) {
+		return memberService.changePwd(member);
+	}
+	
+	
+	@GetMapping("/resetPassword")
+	public String resetPassword(MemberDto member, Model model) {
+		//인증키가 없이 들어오는 경우
+		if(member.getAuthKey() == null ) 
+			model.addAttribute("page","0");
+		else{//인증키가 있는 경우
+			MemberDto result = memberService.confirmAuthKey(member);
+			if(result != null) { //데이터가 있는 경우
+				model.addAttribute("page","1");
+				model.addAttribute("info",result);
+			}else {
+				model.addAttribute("page","2");
+			}
+		}
+		return "resetPassword.tiles";
+	}
+	
+	@GetMapping("/reActive")
+	public String reActiveId(MemberDto member, HttpSession session) {
+		//비활성화된 유저의 계정을 활성화시킴
+		memberService.reActiveId(member, session);
+		return "redirect:/main";
+	}
+	
 	@GetMapping("/noHaveAuth")
 	public String noHaveAuth() {
-		//유저 계정이 활성화가 안되어있는 경우에 이동하는 페이지
+		//유저 계정이 활성화가 안되어있거나 비활성화가 되어있는 경우에 이동하는 페이지
 		return "nohaveAuth.tiles";
 	}
-	@GetMapping("/authKeyId")
+	@GetMapping("/authKeyId") //회원가입후에 계정 인증을 하려고 할 경우
 	public String confirmId(MemberDto member,HttpSession session) {
-		//회원가입후에 계정 인증을 하려고 할 경우
 		if(memberService.idActive(member,session)) {
 			return "redirect:/main";
 		}
@@ -52,18 +87,16 @@ public class memberController {
 	public boolean socialLogin(MemberDto member, HttpSession session) {
 		//소셜로그인을 하려하는경우 (+회원이아니면 회원가입까지 진행함)
 		member.setUser_password(MemberUtil.makePassword(10));
-		System.out.println(member.toString());
 		return memberService.socialLogin(member, session);
 	}
 	@ResponseBody
-	@PostMapping("/register")
+	@PostMapping("/register")  //홈페이지를 통한 회원가입시에 사용됨
 	public boolean regeisterMember(MemberDto member, HttpSession session) throws Exception {
-		System.out.println(member.toString());
 		//회원가입 실패 유무를 반환
 		return memberService.regeisterMember(member, session);
 	}
 	@ResponseBody
-	@PostMapping("/confirmId")
+	@PostMapping("/confirmId") //true== 계정이 없슴 false==계정이 있씀
 	public boolean doPageLogin(MemberDto member) {
 		//회원가입 email 중복
 		return memberService.confirmId(member);
@@ -71,7 +104,7 @@ public class memberController {
 	
 	@ResponseBody
 	@PostMapping("/login") //로그인정보 일치시
-	public String doLogin(MemberDto member, HttpSession session) {
+	public String doLogin(MemberDto member, HttpSession session) throws Exception{
 		//로그인 실행         true ==정보가 있슴(성공) false는 정보가 없슴(실패)
 		return memberService.doLogin(member, session);
 	}

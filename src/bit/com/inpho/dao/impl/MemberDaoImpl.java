@@ -6,13 +6,13 @@ import org.springframework.stereotype.Repository;
 
 import bit.com.inpho.dao.MemberDao;
 import bit.com.inpho.dto.MemberDto;
+import bit.com.inpho.util.MemberUtil;
 
 @Repository
 public class MemberDaoImpl implements MemberDao{
 	@Autowired
 	SqlSessionTemplate sql;
 	String ns = "Member.";
-	
 	
 	@Override
 	public boolean confirmID(MemberDto member) {
@@ -73,6 +73,24 @@ public class MemberDaoImpl implements MemberDao{
 	@Override
 	public int activeId(MemberDto member) {
 		return sql.update(ns+"activeId",member);
+	}
+
+	@Override
+	public void changeNoActive(MemberDto member) {
+		sql.update(ns+"changeNoActive", member);
+		sql.insert(ns+"registerAuthKey",member);
+	}
+
+	@Override
+	public boolean changeActive(MemberDto member) {//성공true 실패 false
+		return sql.update(ns+"changeActive", member)>0?true:false;
+	}
+
+	@Override
+	public boolean changePwd(MemberDto member) {
+		boolean b =  sql.update(ns+"changePwd",member)>0?true:false;
+		if(b) deleteAuthKey(member.getAuthKey());
+		return b;
 	}
 
 }

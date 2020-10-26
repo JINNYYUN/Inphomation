@@ -16,11 +16,15 @@ public class DetailPostDto implements Serializable {
 	private String hashtag;
 	
 	private String camera_serial;
+	private int camera_seq;
 	
 	public DetailPostDto() {}
 
+
+	
+	
 	public DetailPostDto(int post_seq, int user_seq, String post_content, String post_wdate, String post_filepath,
-			String post_position_name, int tag_seq, String hashtag, String camera_serial, int del) {
+			String post_position_name, int del, int tag_seq, String hashtag, String camera_serial, int camera_seq) {
 		super();
 		this.post_seq = post_seq;
 		this.user_seq = user_seq;
@@ -28,34 +32,56 @@ public class DetailPostDto implements Serializable {
 		this.post_wdate = post_wdate;
 		this.post_filepath = post_filepath;
 		this.post_position_name = post_position_name;
+		this.del = del;
 		this.tag_seq = tag_seq;
 		this.hashtag = hashtag;
 		this.camera_serial = camera_serial;
-		this.del = del;
+		this.camera_seq = camera_seq;
 	}
 
-	
-	
-	public DetailPostDto(int post_seq, int user_seq, String post_filepath, String camera_serial) {
+
+	public DetailPostDto(int post_seq, int user_seq, String post_filepath, String camera_serial, int camera_seq) {
 		super();
 		this.post_seq = post_seq;
 		this.user_seq = user_seq;
 		this.post_filepath = post_filepath;
 		this.camera_serial = camera_serial;
+		this.camera_seq = camera_seq;
 	}
 	
-	public DetailPostDto(int post_seq, String camera_serial) {
+	public DetailPostDto(int post_seq, String camera_serial, int camera_seq) {
 		super();
 		this.post_seq = post_seq;
 		this.camera_serial = camera_serial;
+		this.camera_seq = camera_seq;
 	}
-	
-	
+
+	public DetailPostDto(int post_seq, String post_content, String post_position_name, int camera_seq) {
+		super();
+		this.post_seq = post_seq;
+		this.post_content = post_content;
+		this.post_position_name = post_position_name;
+		this.camera_seq = camera_seq;
+	}
 
 	public DetailPostDto(int post_seq, int user_seq) {
 		super();
 		this.post_seq = post_seq;
 		this.user_seq = user_seq;
+	}
+
+	public DetailPostDto(int tag_seq, String hashtag) {
+		super();
+		this.tag_seq = tag_seq;
+		this.hashtag = hashtag;
+	}
+
+	public int getCamera_seq() {
+		return camera_seq;
+	}
+
+	public void setCamera_seq(int camera_seq) {
+		this.camera_seq = camera_seq;
 	}
 
 	public int getDel() {

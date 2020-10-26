@@ -16,6 +16,7 @@ pageEncoding="UTF-8"%>
 		</div>
 		<div class="form-group">
 			<input type="button" class="btn btn-primary btn-block btn-lg" value="로그인" onclick="submitLogin();"/>
+			<input type="button" class="btn btn-info btn-block btn-lg" value="비밀번호 찾기" onclick="location.href='http://'+location.host+'/resetPassword'"/>
 		</div>
 		<div class="social-login">
 			<button type="button" class="kakao-login" onclick="loginWithKakao();" >카카오로 시작</button>

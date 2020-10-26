@@ -7,7 +7,7 @@
 
 <select id="getPost" parameterType="java.lang.Integer" resultType="bit.com.inpho.dto.DetailPostDto">
 	SELECT P.POST_SEQ, P.USER_SEQ, P.POST_CONTENT, P.POST_WDATE,
-        	P.POST_FILEPATH, P.POST_POSITION_NAME, IC.CAMERA_SERIAL, P.DEL
+        	P.POST_FILEPATH, P.POST_POSITION_NAME, IC.CAMERA_SERIAL, P.DEL, IC.CAMERA_SEQ
 	FROM POST P, INFO_CAMERA IC
 	WHERE P.CAMERA_SEQ = IC.CAMERA_SEQ
 	AND P.POST_SEQ = #{post_seq}
@@ -115,6 +115,63 @@
 	AND USER_SEQ = #{user_seq}
 	AND REPLY_SEQ = #{reply_seq}
 </delete>
+
+
+
+
+<update id="updateContent" parameterType="bit.com.inpho.dto.DetailPostDto">
+	UPDATE ( 
+	        SELECT CAMERA_SEQ AS CAMERA,
+	               POST_CONTENT AS CONTENT,
+	               POST_POSITION_NAME AS LOCA
+	          FROM POST P
+	          WHERE POST_SEQ = #{post_seq }
+	        )
+	SET CAMERA = #{camera_seq },
+	    CONTENT = #{post_content },
+	    LOCA = #{post_position_name }
+</update>
+
+<select id="getCameraNm" parameterType="bit.com.inpho.dto.DetailPostDto" resultType="java.lang.Integer">
+	SELECT IC.CAMERA_SEQ
+	FROM INFO_CAMERA IC, POST P, MEMBER_MYPAGE_CAMERA MC
+	WHERE IC.CAMERA_SEQ = P.CAMERA_SEQ
+	AND IC.CAMERA_SEQ = MC.CAMERA_SEQ
+	AND P.CAMERA_SEQ = MC.CAMERA_SEQ
+	AND P.POST_SEQ= #{post_seq }
+	AND MC.USER_SEQ = #{user_seq }
+	ORDERB BY IC.CAMERA_SERIAL ASC
+</select>
+
+<select id="getTag">
+	SELECT NVL(COUNT(*),0)
+	FROM POST_HASHTAG
+    WHERE POST_SEQ = #{post_seq }
+    AND TAG_SEQ = #{tag_seq }
+</select>
+
+<insert id="addTag" parameterType="bit.com.inpho.dto.PostHashTagInfoDto">
+	INSERT INTO INFO_HASHTAG
+	VALUES
+	<foreach collection="sUser_type" item="type"  open="(" close=")" separator="or">
+		(#{post_seq }, #{tag_seq})
+	</foreach>
+</insert>
+
+<insert id="addPostTag" parameterType="bit.com.inpho.dto.PostHashTagInfoDto">
+	INSERT INTO POST_HASHTAG
+	VALUES
+	<foreach collection="sUser_type" item="type"  open="(" close=")" separator="or">	
+		(SEQ_TAG.NEXTVAL, #{tag_seq})
+	</foreach>
+</insert>
+
+<delete id="delTag" parameterType="HashMap">
+	DELETE POST_HASHTAG
+	WHERE POST_SEQ = #{post_seq }
+	AND TAG_SEQ = #{tag_seq }
+</delete>
+
 
 </mapper>
 

@@ -1,8 +1,7 @@
 /**
  * 
  */
-var getMoreFeed = 1
- 
+
 function SetGridItemHeight() {
 	let grid = document.getElementsByClassName('grid')[0];
 	let rowHeight = parseInt(window.getComputedStyle(grid).getPropertyValue('grid-auto-rows'));
@@ -22,28 +21,6 @@ window.addEventListener("resize", SetGridItemHeight);
 function movePage(seq) {
 	location.href = "http://"+location.host+"/detail?post_seq="+seq
 }
-
-
-/*
-  메인페이지에서 헤더의 인터렉트를 구현하는 함수 300의 고정값을 준 이유는 
-  현재 메인페이지의 상단에서의 이미지의 크기를 400px로 고정을 해놨기 때문
-*/
-$(window).scroll(function (e) {
-	var window = $(this).scrollTop()
-	
-	if (400 >= window) {
-		$('.navbar .container .menu .search-bar').css('display', 'none')
-	}else {
-		$('.navbar .container .menu .search-bar').css('display', 'block')
-	}
-	
-	//우측 하단의 상단방향 화살표가 400px이상 내려가면 화살표가 보이고 이하로 내려가면 안보이게 하는 역할 
-	if(400 >= window){
-		$('#screen-up').css('display','none')
-	}else{
-		$('#screen-up').css('display','block')	
-	}
-})
 
 //우측 하단의 상단방향 화살표를 클릭시 실행되는 함수로 최상단페이지로 올려주는 역할 
 $('#screen-up').click(function () {
@@ -75,7 +52,6 @@ function calculNumber(e, b, cate, seq) {
 		url= 'addBookmark'
 	}
 	
-	console.log(url)
 	//비동기로 DB에 갈때 필요한것 post_seq, true/ false
 	if (b) { 
 		//db에서 삭제해야하는 부분
@@ -88,6 +64,7 @@ function calculNumber(e, b, cate, seq) {
 			url: url,
 			type: "post",
 			data: data,
+			async:false,
 			success: function () {},
 			error: function () {}
 		})
@@ -96,12 +73,13 @@ function calculNumber(e, b, cate, seq) {
 		e.innerText = ++number
 		let data={
 			post_seq : seq,
-			dobook : true
+			dobook : false
 		}
 		$.ajax({
 			url: url,
 			type: "post",
 			data: data,
+			async:false,
 			success: function () {},
 			error: function () {}
 		})
@@ -144,4 +122,131 @@ function searchKeywordMain() {
 */
 function moveUserPage(e){
 	location.href = 'http://' + location.host + "/mypage?user_seq="+e
+}
+
+ /*
+메인페이지에서 헤더의 인터렉트를 구현하는 함수 300의 고정값을 준 이유는 
+현재 메인페이지의 상단에서의 이미지의 크기를 400px로 고정을 해놨기 때문
+*/
+var getMoreFeed = 0
+function mainScrollEvent(choice){
+	$(window).scroll(function (e) {
+		var window = $(this).scrollTop()
+		
+		// if (400 >= window) {
+		// 	$('.navbar .container .menu .search-bar').css('display', 'none')
+		// }else {
+		// 	$('.navbar .container .menu .search-bar').css('display', 'block')
+		// }
+		
+		//우측 하단의 상단방향 화살표가 400px이상 내려가면 화살표가 보이고 이하로 내려가면 안보이게 하는 역할 
+		if(400 >= window){
+			$('#screen-up').css('display','none')
+		}else{
+			$('#screen-up').css('display','block')	
+		}
+		
+		var scrollHeight = $(document).height();
+		var scrollPosition = $(this).height() + window -500;		
+	
+		if (scrollHeight <= scrollPosition) {
+			getMoreFeed++
+			$.ajax({
+				url:'/newMoreFeed',
+				type:'GET',
+				async:false,
+				data:{
+					moreFeedNum:getMoreFeed
+				},success:function(data){
+						if(data){
+							if(choice){
+								addPostNoLogin(data)
+							}else{
+								addPostLogin(data)
+							}
+					} 
+				}
+			})
+		} 
+	})
+}
+//검색페이지 스크롤
+function searchScrollEvent(choice, keywordId){
+	$(window).scroll(function (e) {
+		var window = $(this).scrollTop()
+		
+		// if (400 >= window) {
+		// 	$('.navbar .container .menu .search-bar').css('display', 'none')
+		// }else {
+		// 	$('.navbar .container .menu .search-bar').css('display', 'block')
+		// }
+		
+		//우측 하단의 상단방향 화살표가 400px이상 내려가면 화살표가 보이고 이하로 내려가면 안보이게 하는 역할 
+		if(400 >= window){
+			$('#screen-up').css('display','none')
+		}else{
+			$('#screen-up').css('display','block')	
+		}
+		
+		var scrollHeight = $(document).height();
+		var scrollPosition = $(this).height() + window -500;		
+		
+		if (scrollHeight <= scrollPosition) {
+			getMoreFeed++
+			$.ajax({
+				url:'/searchMoreFeed',
+				type:'GET',
+				async:false,
+				data:{
+					moreFeedNum:getMoreFeed,
+					keywordId:keywordId
+				},success:function(data){
+					if(data){
+						if(choice){
+							addPostNoLogin(data)
+						}else{
+							addPostLogin(data)
+						}
+					} 
+				}
+			})
+		} 
+	})
+}
+
+function addPostLogin(item){
+	$.each(item,function(key,value){
+		let str = '<div class="item">'
+			+ '<img onclick="movePage('+value.postSeq+')" src="https://storage.googleapis.com/boomkit/'+value.filePath+'">'
+			+ '<div class="bottom-icon-bar icon-absoulte">'
+			+ 	'<h4 onclick="moveUserPage('+value.userSeq+');">'+value.userNickName+'</h4>'
+			if(value.postLike == 1){
+				str +=	'<h4><i class="fas fa-heart" onclick="clickLike(this,'+value.postSeq+');">'+value.postLike+'</i></h4>'
+			}else{
+				str +=	'<h4><i class="far fa-heart" onclick="clickLike(this,'+value.postSeq+');">'+value.postLike+'</i></h4>'
+			}
+			if(value.userBookMark ==1){
+				str +=	'<h4><i class="fas fa-star" onclick="clickBookMark(this,'+value.postSeq+');">'+value.postBookmark+'</i></h4>'
+			}else{
+				str +=	'<h4><i class="far fa-star" onclick="clickBookMark(this,'+value.postSeq+');">'+value.postBookmark+'</i></h4>'
+			}
+			str += '</div></div>'
+			$('.main-container .content .grid').append(str)
+	})
+	SetGridItemHeight()
+}
+
+
+function addPostNoLogin(item){
+	$.each(item,function(key,value){
+		let str = '<div class="item">'
+			+ '<img onclick="movePage('+value.postSeq+')" src="https://storage.googleapis.com/boomkit/'+value.filePath+'">'
+			+ '<div class="bottom-icon-bar icon-absoulte">'
+			+ 	'<h4 onclick="moveUserPage('+value.userSeq+');">'+value.userNickName+'</h4>'
+			+		'<h4><i class="far fa-heart" onclick="goLogin();">'+value.postLike+'</i></h4>'
+			+		'<h4><i class="far fa-star" onclick="goLogin();">'+value.postBookmark+'</i></h4>'
+			+ '</div></div>'
+			$('.main-container .content .grid').append(str)
+	})
+	SetGridItemHeight()
 }
