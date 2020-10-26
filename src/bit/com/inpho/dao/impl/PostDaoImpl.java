@@ -95,12 +95,8 @@ public class PostDaoImpl implements PostDao{
 	}
 	@Override
 	public void addlocation(PostLocationDto dto) {
-		sqlSession.insert(ns+"addlocation",dto);
+		sqlSession.insert(ns+"addLocation",dto);
 		
 	}
-	
-	
-	
-	
 	
 }

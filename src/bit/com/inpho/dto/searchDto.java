@@ -4,8 +4,8 @@ public class searchDto {
 	private int userSeq;
 	private String keywordId;
 	private int moreFeedNum;
-	private int startNum;
-	private int endNum;
+	private String startNum;
+	private String endNum;
 	public searchDto() {}
 	public int getUserSeq() {
 		return userSeq;
@@ -25,17 +25,17 @@ public class searchDto {
 	public void setMoreFeedNum(int moreFeedNum) {
 		this.moreFeedNum = moreFeedNum;
 	}
-	public int getStartNum() {
+	public String getStartNum() {
 		return startNum;
 	}
 	public void setStartNum(int startNum) {
-		this.startNum = (startNum*30)+1;
+		this.startNum = (startNum*30)+1+"";
 	}
-	public int getEndNum() {
+	public String getEndNum() {
 		return endNum;
 	}
 	public void setEndNum(int endNum) {
-		this.endNum = (endNum+1)*30;
+		this.endNum = (endNum+1)*30+"";
 	}
 	@Override
 	public String toString() {
