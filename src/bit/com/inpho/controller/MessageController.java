@@ -51,12 +51,12 @@ public class MessageController {
 		boolean b = service.checkList(msg);
 		
 		if(b) { //대화내역 있을 때 msg_seq = 1	
-			System.out.println("~~~~~~~~있음");
+			//System.out.println("~~~~~~~~있음");
 			MessageUserDto msgUser = new MessageUserDto(1, login.getUser_seq(), user_target, "", null, 0, null, null, 0);
 			model.addAttribute("msgUser", msgUser);
 		}else { //대화내역 없을 때 msg_seq = 0
 			MyPageMemberDto target = mypageService.getProfile(user_target);
-			System.out.println("~~~~~~~~없음");
+			//System.out.println("~~~~~~~~없음");
 			MessageUserDto msgUser = new MessageUserDto(0, login.getUser_seq(), user_target, "", null, 0, target.getUser_nickname(), target.getProfile_image(), 0);
 			model.addAttribute("msgUser", msgUser);
 			
@@ -106,7 +106,7 @@ public class MessageController {
 	@RequestMapping(value = "setOpen", method = RequestMethod.POST)
 	public void setOpen(MessageDto msg) {
 		int n = service.setOpen(msg);
-		System.out.println(n>0?"메시지 읽음 처리":"메시지 읽음 처리 실패");
+		//System.out.println(n>0?"메시지 읽음 처리":"메시지 읽음 처리 실패");
 	}
 	
 	@ResponseBody
@@ -116,7 +116,7 @@ public class MessageController {
 		MemberDto mem = (MemberDto)req.getSession().getAttribute("login");
 		//System.out.println("불린값:" + service.getUnread(mem.getUser_seq()));
 		return service.getUnread(mem.getUser_seq());
-		
+			
 	}
 
 		
