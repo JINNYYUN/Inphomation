@@ -1,11 +1,26 @@
 package bit.com.inpho.service.impl;
 
+import java.nio.charset.Charset;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
+import org.json.JSONObject;
+import org.json.simple.JSONArray;
+import org.json.simple.parser.JSONParser;
+import org.json.simple.parser.ParseException;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpEntity;
+import org.springframework.http.HttpHeaders;
+import org.springframework.http.HttpMethod;
+import org.springframework.http.MediaType;
+import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
+import org.springframework.web.client.RestClientException;
+import org.springframework.web.client.RestTemplate;
+
+import com.google.gson.Gson;
 
 import bit.com.inpho.dao.PostDao;
 import bit.com.inpho.dto.MemberDto;
@@ -113,6 +128,35 @@ public class PostServiceImpl implements PostService {
 	public String addlocation(PostLocationDto dto) {
 		dao.addlocation(dto);
 		return ""; 
+		
+	}
+
+
+
+	@Override
+	public void upDateWrite(String tag, String loc,int seq) {
+		Map<String, Object> parameter =new HashMap<String, Object>();
+		String SERVER_HOST="dapi.kakao.com/v2/local/search/address.json?query=";
+		String srviceKey = "KakaoAK f0e07a82a957e4d2580b19df431ebeb3";
+		
+		 
+	            HttpHeaders headers = new HttpHeaders(); 
+	            headers.setContentType(new MediaType("application", "json", Charset.forName("UTF-8"))); 
+	            headers.add("Authorization", srviceKey); 
+	            String urls = String.format("%s://%s%s","https", SERVER_HOST, loc); 
+	             
+	            @SuppressWarnings({ "rawtypes", "unchecked" }) 
+	            ResponseEntity response = new RestTemplate().exchange(urls, HttpMethod.GET, new HttpEntity(headers), String.class); 
+
+	            Gson jsonParser = new Gson(); 
+	             
+	                String a=jsonParser.toJson(response.getBody().toString()); 
+	                System.out.println("제이슨"+a);
+	               System.out.println("투스트링"+response.getBody().toString());
+//		 	System.out.println(parameter.get("LATITUDE"));
+//		 	System.out.println(parameter.get("LONGITUDE"));
+		
+	
 		
 	}
 

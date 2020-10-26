@@ -156,8 +156,9 @@ ul li {
 
 $("#update").on("click",function(){
 
-	location.href="postUpDate?post_hashtag="+ $("#hash-tag").val() + "&postLoaction=" + $("#post_position_name").val();
-  	
+	location.href="postUpDate?post_hashtag="+$("#hash-tag").val()+"
+		&postLoaction="+$("#post_position_name").val();
+	 	
 	$.ajax({
 		url:"updateAf",
 		type:"post",
