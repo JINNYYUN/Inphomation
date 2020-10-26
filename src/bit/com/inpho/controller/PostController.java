@@ -116,15 +116,10 @@ public class PostController {
 		return Godetail;
 	}
 	// 테스트입니당
+	@RequestMapping(value = "postUpDate", method = { RequestMethod.GET })
+	public String setHashTag(Model model, String postHashTag, String postLocation) {
+	
+		return "redirect:main";
 
-	@RequestMapping(value = "postUpDate", method = { RequestMethod.GET})
-	public String setHashTag(Model model,HttpServletRequest req) {
-		String tag=req.getParameter("post_hashtag");
-		String loc=req.getParameter("postLoaction");
-		String seq = req.getParameter("postseq");
-		int pseq=Integer.parseInt(seq);
-		service.upDateWrite(tag,loc,pseq);
-		
-		return "redirect:/detail?post_seq=203";
 	}
 }

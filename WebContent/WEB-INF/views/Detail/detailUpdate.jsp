@@ -4,7 +4,8 @@
 <script
 	src="https://maps.googleapis.com/maps/api/js?key=AIzaSyDufBnGzI2ttp_WOvh83H8BgH6nT9HJLLc&callback=initAutocomplete&libraries=places&v=weekly"
 	defer>
-	</script>
+	
+</script>
 
 <style>
 .frm {
@@ -29,9 +30,15 @@
 
 .postPhoto {
 	position: relative;
+	max-width: 653px;
+	max-height: 578px;
+	height: 100%;
 	width: 100%;
 	height: 100%;
 	object-fit: contain;
+	max-height: 578px;
+	height: 100%;
+	height: 100%;
 }
 
 .leftTbl {
@@ -48,16 +55,17 @@
 .rightTbl {
 	position: relative;
 	width: 35%;
-	max-height: 100%;
 	float: right;
-}
-
-.btn {
-	background-color: #fff;
+	height: -webkit-fill-available;
+	position: relative;
+	max-height: 580px;
+	min-height: 580px;
+	margin-top: 50px;
 }
 
 .camera-list, .camera {
 	float: left;
+	width: auto;
 }
 
 .btn-outline-primary:hover {
@@ -69,37 +77,65 @@ ul li {
 	list-style: none;
 	float: left;
 }
-.main-content{
+
+.main-content {
 	resize: none;
 	overflow: scroll;
 	width: 350px;
-    height: 100px;
-    overflow-x:hidden;
-   	font-family: "Noto Sans KR", sans-serif;
-}
-.main-content::-webkit-scrollbar {
-	width: 6px;
-}
-.main-content::-webkit-scrollbar-thumb {
-	background-color: lightgray;
-	border-radius: 10px;
+	height: 100px;
+	overflow-x: hidden;
+	font-family: "Noto Sans KR", sans-serif;
 }
 
-.main-content::-webkit-scrollbar-track {
+.main-content::-webkit-scrollbar, .hsh-tag::-webkit-scrollbar {
+	width: 0px;
+}
+
+.main-content::-webkit-scrollbar-thumb, .hsh-tag::-webkit-scrollbar-thumb
+	{
+	background-color: lightgray;
+	border-radius: 0px;
+}
+
+.main-content::-webkit-scrollbar-track, .hsh-tag::-webkit-scrollbar-track
+	{
 	background-color: #F2F2F2;
-	border-radius: 10px;
+	border-radius: 0px;
 	box-shadow: inset 0px 0px 0px black;
 }
-.position{
+
+.position {
 	width: fit-content;
 	font-family: "Noto Sans KR", sans-serif;
 }
-.hsh-tag{
-	border-top: none;
-	border-left: none;
-	border-right: none;
-	border-radius: 0%;
+
+.hsh-tag {
 	resize: none;
+	overflow: scroll;
+	width: 350px;
+	height: 100px;
+	overflow-x: hidden;
+	font-family: "Noto Sans KR", sans-serif;
+}
+
+.finish-btn {
+	font-family: "Noto Sans KR", sans-serif;
+	float: right;
+	border-radius: 10%;
+}
+
+.position, .main-content, .hsh-tag, .camera-input {
+	border-radius: 0.64rem;
+	border: 2px solid #ced4da;
+	width: 305px;
+}
+
+.custom-select {
+	height: calc(1.72em + 0.75rem + 2px);
+}
+
+.loca-wrap, .cont-wrap, .contHash, .camera {
+	margin-top: 5px;
 }
 </style>
 
@@ -119,77 +155,108 @@ ul li {
 			</div>
 		</div>
 		<div class="rightTbl">
-			<div class="innerRightBox">
-				<!-- 위치 -->
-				<input type="text" id="post_position_name" class="text form-control position" value="${post.post_position_name }">
+			<!-- 위치 -->
+			<div class="loca-wrap">
+				<div class="text h6 text-weight-bold" style="float: left;">장소</div>
+				<input type="text" id="post_position_name"
+					class="text form-control position"
+					value="${post.post_position_name }">
 			</div>
-			<textarea id="post_content" class="form-control text main-content">${post.post_content }</textarea>
-			<div class="cmtCls">
-				<div class="content">
-					<div class="contHash">
-						<p class="text body1 post" id="hashtag" style="line-height: 1.9">
-							<textarea class="text form-control form-control-sm hsh-tag" id="hash-tag" style=" height: 100px; width: 350px;">
-								<c:forEach items="${tag }" var="i" varStatus="j">&nbsp;${i.hashtag }</c:forEach></textarea>
-						</p>
-					</div>
-					<div class="camera">
-						<p class="text body1 post">
-							<b>CAMERA</b>
-						</p>
-						<select class="custom-select camera-list">
-							<c:forEach items="${camera }" var="i">
-								<option class="btn btn-outline-primary body2 text-weight-light" id="${i.camera_serial }" onclick="changeCam(this.id, ${i.camera_seq})"
-								value="${i.camera_serial }">${i.camera_serial }</option >
-							</c:forEach>
-						</select>
-						<input type="text" id="camera_serial"
-							value="${post.camera_serial }" readonly> <input
-							type="hidden" id="camera_seq" value="${post.camera_seq }">
-					</div>
+			<hr>
+			<div class="cont-wrap">
+				<div class="text h6 text-weight-bold" style="float: left;">설명</div>
+				<textarea id="post_content" class="form-control text main-content">${post.post_content }</textarea>
+			</div>
+			<hr>
+			<div class="contHash">
+				<p class="text h6 text-weight-bold" style="float: left;">해시태그</p>
+				<!-- <p class="text h6 text-weight-bold" id="hashtag"> -->
+				<textarea class="text form-control post form-control-sm hsh-tag"
+					id="hash-tag"><c:forEach items="${tag }" var="i"
+						varStatus="j">&nbsp;${i.hashtag }</c:forEach></textarea>
+				<!-- </p> -->
+			</div>
+			<div class="camera">
+				<p class="text body1 post">
+					<b>CAMERA</b>
+				</p>
+				<select class="text custom-select custom-select-sm camera-list"
+					id="select_cam" onchange="changeCam(this.form)">
+					<option class="body2 text text-weight-light" selected>CAMERA</option>
+					<c:forEach items="${camera }" var="i">
+						<option class="body2 text text-weight-light"
+							value="${i.camera_seq }">${i.camera_serial }</option>
+					</c:forEach>
+				</select>
+				<div>
+					<input type="text" class="text form-control camera-input"
+						style="background-color: #FFF; color: #2B2D36; width: auto;"
+						id="camera_serial" value="${post.camera_serial }" readonly>
+					<input type="hidden" id="camera_seq" value="${post.camera_seq }">
 				</div>
-				<input type="button" id="update" value="수정">
 			</div>
+			<div>
+				<input type="button" class="btn btn-primary finish-btn" id="update"
+					value="수정">
+			</div>
+
 		</div>
 	</div>
 </div>
-	<script type="text/javascript">
+<script type="text/javascript">
+	$("#update").on(
+			"click",
+			function() {
 
-$("#update").on("click",function(){
+				location.href = "/postUpDate?postHashTag="
+						+ encodeURIComponent($("#hash-tag").val())
+						+ "&postLocation="
+						+ encodeURIComponent($("#post_position_name").val())
+						+ "&post_seq=" + $("#post_seq").val();
 
-	location.href="postUpDate?post_hashtag="+$("#hash-tag").val()+"
-		&postLoaction="+$("#post_position_name").val();
-	 	
-	$.ajax({
-		url:"updateAf",
-		type:"post",
-		data:{
-			"post_seq" : $("#post_seq").val(),
-			"post_content" : $("#post_content").val(),
-			"camera_seq" : $("#camera_seq").val(),
-			"post_position_name" : $("#post_position_name").val()
-			},
-		success:function(){
-			 location.href="detail?post_seq="+$("#post_seq").val(); 
+				$.ajax({
+					url : "updateAf",
+					type : "post",
+					data : {
+						"post_seq" : $("#post_seq").val(),
+						"post_content" : $("#post_content").val(),
+						"camera_seq" : $("#camera_seq").val(),
+						"post_position_name" : $("#post_position_name").val()
+					},
+					success : function() {
+						location.href = "detail?post_seq="
+								+ $("#post_seq").val();
 
-			
-		},
-		error:function(){
+					},
+					error : function() {
 
-		}	
+					}
+				});
+
+			});
+
+	function changeCam(val) {
+
+		var str = val.select - cam.selectedIndex;
+
+		alert("dd" + str);
+
+	}
+
+	$("#select_cam").change(function() {
+		var cam = $(this).val();
+		var txt = $("#select_cam option:checked").text();
+
+		// select한 value를 input에 넣기
+		$("#camera_seq").val(cam);
+		$("#camera_serial").val(txt.trim());
+
 	});
-	
-});
 
-
-function changeCam(val,seq){
-	$("#camera_serial").val(val);
-	$("#camera_seq").val(seq);
-}
-
-function initAutocomplete() {
-    autocomplete = new google.maps.places.Autocomplete(
-      document.getElementById("post_position_name"),
-      { types: ["geocode"] }
-    );
-  };
+	function initAutocomplete() {
+		autocomplete = new google.maps.places.Autocomplete(document
+				.getElementById("post_position_name"), {
+			types : [ "geocode" ]
+		});
+	};
 </script>
