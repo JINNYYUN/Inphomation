@@ -128,7 +128,7 @@ ul li {
 				<div class="content">
 					<div class="contHash">
 						<p class="text body1 post" id="hashtag" style="line-height: 1.9">
-							<textarea class="text form-control form-control-sm" hsh-tag" style=" height: 100px; width: 350px;">
+							<textarea class="text form-control form-control-sm hsh-tag" id="hash-tag" style=" height: 100px; width: 350px;">
 								<c:forEach items="${tag }" var="i" varStatus="j">&nbsp;${i.hashtag }</c:forEach></textarea>
 						</p>
 					</div>
@@ -136,14 +136,12 @@ ul li {
 						<p class="text body1 post">
 							<b>CAMERA</b>
 						</p>
-						<ul class="camera-list">
+						<select class="custom-select camera-list">
 							<c:forEach items="${camera }" var="i">
-								<li id="camera"><input type="button"
-									class="btn btn-outline-primary body2 text-weight-light"
-									onclick="changeCam(this.value, ${i.camera_seq})"
-									value="${i.camera_serial }"></li>
+								<option class="btn btn-outline-primary body2 text-weight-light" id="${i.camera_serial }" onclick="changeCam(this.id, ${i.camera_seq})"
+								value="${i.camera_serial }">${i.camera_serial }</option >
 							</c:forEach>
-						</ul>
+						</select>
 						<input type="text" id="camera_serial"
 							value="${post.camera_serial }" readonly> <input
 							type="hidden" id="camera_seq" value="${post.camera_seq }">
@@ -158,7 +156,7 @@ ul li {
 
 $("#update").on("click",function(){
 
-	/* location.href="postUpDate?tag_seq"+ + "&postLoaction" + ; */
+	location.href="postUpDate?post_hashtag="+ $("#hash-tag").val() + "&postLoaction=" + $("#post_position_name").val();
   	
 	$.ajax({
 		url:"updateAf",
