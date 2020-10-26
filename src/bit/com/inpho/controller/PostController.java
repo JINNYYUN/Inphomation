@@ -117,9 +117,10 @@ public class PostController {
 	}
 	// 테스트입니당
 
-	@RequestMapping(value = "doesNotData", method = { RequestMethod.GET, RequestMethod.POST })
-	public String setHashTag(Model model) {
-		System.out.println("turn");
+	@RequestMapping(value = "postUpDate", method = { RequestMethod.GET, RequestMethod.POST })
+	public String setHashTag(HttpServletRequest req,Model model) {
+		String loc =req.getParameter("postLocation");
+		String tag =req.getParameter("postHashTag");
 		return "main";
 	}
 }
