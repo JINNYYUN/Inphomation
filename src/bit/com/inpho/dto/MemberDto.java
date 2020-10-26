@@ -1,6 +1,8 @@
 package bit.com.inpho.dto;
 
-public class MemberDto {
+import java.io.Serializable;
+
+public class MemberDto implements Serializable{
 	private int user_seq;			//user seq
 	private int auth;				//권한
 	private String user_email;		//id

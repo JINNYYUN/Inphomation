@@ -43,6 +43,19 @@ public class MainDaoImpl implements MainDao{
 		//false== 로그인이 되어있지 않음
 		return sql.selectList(ns+"searchKeywordMoreListLogin", search);
 	}
+	@Override //로그인을 안한경우 가져가는 리스트
+	public List<MainPostDto> getHotFeedList() {
+		return sql.selectList(ns+"hotFeedStartListNoLogin");
+	}
+	@Override //로그인을 한경우 인기게시글 가져가는 list
+	public List<MainPostDto> getHotFeedList(searchDto search) {
+		return sql.selectList(ns+"hotFeedStartListLogin", search);
+	}
+	@Override
+	public List<MainPostDto> getHotFeedMoreList(boolean cate, searchDto search) {
+		// TODO Auto-generated method stub
+		return null;
+	}
 	
 	
 }

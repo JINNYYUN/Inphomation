@@ -4,9 +4,9 @@ function goMap(){
 }
 
 /* Follow Look Feed */
-function goFollow(){
+function goHotFeed(){
 	//친구글 보는페이지..어...근데....없...네? 이게...아니었...나?대화하기였...나?
-	location.href='http://'+location.host+"/main#"
+	location.href='http://'+location.host+'/hotFeed'
 }
 
 /* 검색function */
