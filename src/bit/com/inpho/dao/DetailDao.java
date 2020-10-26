@@ -1,6 +1,5 @@
 package bit.com.inpho.dao;
 
-import java.util.HashMap;
 import java.util.List;
 
 import bit.com.inpho.dto.DetailCountAllDto;
@@ -31,5 +30,5 @@ public interface DetailDao {
 	boolean deleteReply(DetailReplyDto dto);
 	
 	void updateContent (DetailPostDto dto);
-	void delTag (HashMap<String, Integer> Map);
+	void delTag (int post_seq);
 }

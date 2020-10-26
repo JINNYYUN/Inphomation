@@ -1,7 +1,5 @@
 package bit.com.inpho.dao.impl;
 
-import java.util.ArrayList;
-import java.util.HashMap;
 import java.util.List;
 
 import org.apache.ibatis.session.SqlSession;
@@ -114,8 +112,8 @@ public class DetailDaoImpl implements DetailDao {
 	}
 
 	@Override
-	public void delTag(HashMap<String, Integer> Map) {
-		sqlSession.delete(ns + "delTag", Map);
+	public void delTag(int post_seq) {
+		sqlSession.delete(ns + "delTag", post_seq);
 	}
 
 }

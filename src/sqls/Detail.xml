@@ -143,7 +143,8 @@
 	ORDERB BY IC.CAMERA_SERIAL ASC
 </select>
 
-<select id="getTag">
+<select id="getTag" parameterType="bit.com.inpho.dto.PostHashTagInfoDto"
+				resultType="java.lang.Integer">
 	SELECT NVL(COUNT(*),0)
 	FROM POST_HASHTAG
     WHERE POST_SEQ = #{post_seq }
@@ -153,8 +154,8 @@
 <insert id="addTag" parameterType="bit.com.inpho.dto.PostHashTagInfoDto">
 	INSERT INTO INFO_HASHTAG
 	VALUES
-	<foreach collection="sUser_type" item="type"  open="(" close=")" separator="or">
-		(#{post_seq }, #{tag_seq})
+	<foreach collection="list" item="item" separator=" , " >
+		#{post_seq }, #{tag_seq}
 	</foreach>
 </insert>
 
@@ -166,12 +167,10 @@
 	</foreach>
 </insert>
 
-<delete id="delTag" parameterType="HashMap">
+<delete id="delTag" parameterType="java.lang.Integer">
 	DELETE POST_HASHTAG
 	WHERE POST_SEQ = #{post_seq }
-	AND TAG_SEQ = #{tag_seq }
 </delete>
-
 
 </mapper>
 

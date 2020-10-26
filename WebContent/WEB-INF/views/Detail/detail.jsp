@@ -153,7 +153,7 @@
 						<p class="text body1 post">
 							<b>CAMERA</b>
 						</p>
-						<a href="#none"> <span class="badge badge-pill badge-neutral">
+						<a href="/keywordSearch?keywordId=${post.camera_serial }"> <span class="badge badge-pill badge-neutral">
 								${post.camera_serial } </span>
 						</a>
 					</div>
