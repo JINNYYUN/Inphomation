@@ -34,7 +34,7 @@ MyPageMemberDto mem = (MyPageMemberDto)map.get("mem");
 			<div class="profile-img" align="center">
 				<img src="<%=mem.getProfile_image()%>">
 			</div>
-			<i class="fas fa-pen fa-2x" id="faPen"></i>
+			<div><i class="fas fa-pen fa-2x" id="faPen"></i></div>
 		</div>
 	</div>
 	
