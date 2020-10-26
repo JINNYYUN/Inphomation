@@ -48,7 +48,6 @@ public class memberController {
 	@GetMapping("/resetPassword")
 	public String resetPassword(MemberDto member, Model model) {
 		//인증키가 없이 들어오는 경우
-		System.out.println(member.getAuthKey());
 		if(member.getAuthKey() == null ) 
 			model.addAttribute("page","0");
 		else{//인증키가 있는 경우
