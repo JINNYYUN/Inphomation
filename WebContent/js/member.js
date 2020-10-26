@@ -1,5 +1,4 @@
 
-
 //로그인확인
 function submitLogin(){
 	let id=$("#login-id")
@@ -14,6 +13,13 @@ function submitLogin(){
 	}
 	ajaxLogin(id.val().trim(),pw.val().trim())
 }
+
+function enterKeyEvent(e){
+	if(e.keyCode==13){
+		submitLogin()
+	}
+}
+
 //로그인
 function ajaxLogin(id,pw){
 	$.ajax({
