@@ -5,11 +5,6 @@ import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
-
-import org.json.JSONObject;
-import org.json.simple.JSONArray;
-import org.json.simple.parser.JSONParser;
-import org.json.simple.parser.ParseException;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpEntity;
 import org.springframework.http.HttpHeaders;
@@ -17,17 +12,13 @@ import org.springframework.http.HttpMethod;
 import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
-import org.springframework.web.client.RestClientException;
 import org.springframework.web.client.RestTemplate;
-
 import com.google.gson.Gson;
-
 import bit.com.inpho.dao.PostDao;
 import bit.com.inpho.dto.MemberDto;
 import bit.com.inpho.dto.PostDto;
 import bit.com.inpho.dto.PostHashTagInfoDto;
 import bit.com.inpho.dto.PostLocationDto;
-import bit.com.inpho.dto.searchDto;
 import bit.com.inpho.service.PostService;
 
 @Service
@@ -150,11 +141,11 @@ public class PostServiceImpl implements PostService {
 
 	            Gson jsonParser = new Gson(); 
 	             
-	                String a=jsonParser.toJson(response.getBody().toString()); 
-	                System.out.println("제이슨"+a);
+	               String a=jsonParser.toJson(response.getBody().toString()); 
+	               System.out.println("제이슨"+a);
 	               System.out.println("투스트링"+response.getBody().toString());
-//		 	System.out.println(parameter.get("LATITUDE"));
-//		 	System.out.println(parameter.get("LONGITUDE"));
+	               //System.out.println(parameter.get("LATITUDE"));
+	               //System.out.println(parameter.get("LONGITUDE"));
 		
 	
 		
