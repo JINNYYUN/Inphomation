@@ -256,7 +256,7 @@ int seq = login.getUser_seq();
 	</div>
 
 	<script type="text/javascript">
-		// 필요없는 변수 삭제 예정..
+		
 		let address = document.querySelector('#autocomplete').value;
 		let input = document.querySelector('input');
 		let preview = document.querySelector('.previews');
@@ -269,7 +269,7 @@ int seq = login.getUser_seq();
 		let wtmY;
 		let wtmX;
 		let nullcheck;
-		// 필요없는 변수 삭제 예정..  으드러
+		
 		
 		// 구글 라이브러리로 주소 자동완성 기능
     function initAutocomplete() {

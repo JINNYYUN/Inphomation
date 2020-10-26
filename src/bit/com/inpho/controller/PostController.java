@@ -111,9 +111,16 @@ public class PostController {
 	}
 	// 테스트입니당
 	@RequestMapping(value = "postUpDate", method = { RequestMethod.GET })
-	public String setHashTag(Model model, String postHashTag, String postLocation) {
-	
-		return "redirect:main";
+	public String setHashTag(Model model,HttpServletRequest req) {
+	String tag=req.getParameter("postHashTag");
+	String loc=req.getParameter("postLocation");
+	String pseq=req.getParameter("post_seq");
+	System.out.println("해쉬태그 :: "+tag);
+	System.out.println("주소 :: "+loc);
+	System.out.println("포스트seq :: "+pseq);
+	int postSeq=Integer.parseInt(pseq);
+	service.upDateWrite(tag, loc, postSeq);
+		return "redirect:detail?post_seq="+postSeq;
 
 	}
 }
