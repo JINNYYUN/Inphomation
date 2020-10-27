@@ -14,7 +14,7 @@
 	height: 580px;
 	margin-top: auto;
 	box-shadow: 2px 2px 2px 2px #E6E6E6;
-	border-radius: 50px;
+	border-radius: 24px;
 }
 
 .all {
@@ -124,7 +124,10 @@ ul li {
 	border-radius: 10%;
 }
 
-.position, .main-content, .hsh-tag, .camera-input {
+.position,
+.main-content, 
+.hsh-tag, 
+.camera-input {
 	border-radius: 0.64rem;
 	border: 2px solid #ced4da;
 	width: 305px;
@@ -137,6 +140,27 @@ ul li {
 .loca-wrap, .cont-wrap, .contHash, .camera {
 	margin-top: 5px;
 }
+.position,
+.main-content, 
+.hsh-tag{
+	width: 280px;
+    margin-left: 77px;
+}
+.wrap-btn{
+    float: right;
+    margin-top: 20px;
+    margin-right: 30px;
+}
+.camera-input {
+    background-color: #FFF;
+    color: #2B2D36;
+    width: auto;
+    float: right;
+    margin-top: 29px;
+    margin-right: 30px;
+    margin-top: 39px;
+}
+
 </style>
 
 
@@ -165,37 +189,37 @@ ul li {
 			<hr>
 			<div class="cont-wrap">
 				<div class="text h6 text-weight-bold" style="float: left;">설명</div>
-				<textarea id="post_content" class="form-control text main-content">${post.post_content }</textarea>
+				<textarea id="post_content" class="form-control text body2 main-content" style="height: 120px;">${post.post_content }</textarea>
 			</div>
 			<hr>
 			<div class="contHash">
 				<p class="text h6 text-weight-bold" style="float: left;">해시태그</p>
 				<!-- <p class="text h6 text-weight-bold" id="hashtag"> -->
-				<textarea class="text form-control post form-control-sm hsh-tag"
-					id="hash-tag"><c:forEach items="${tag }" var="i"
-						varStatus="j">&nbsp;${i.hashtag }</c:forEach></textarea>
+				<textarea class="text body2 form-control post form-control-sm hsh-tag" 
+					id="hash-tag" style="height: 100px;"><c:forEach items="${tag }" var="i" varStatus="j">&nbsp;${i.hashtag }</c:forEach>
+				</textarea>
 				<!-- </p> -->
 			</div>
+			<hr>
 			<div class="camera">
-				<p class="text body1 post">
+				<p class="text body1 post" style="margin-bottom: 10px;">
 					<b>CAMERA</b>
 				</p>
 				<select class="text custom-select custom-select-sm camera-list"
 					id="select_cam" onchange="changeCam(this.form)">
-					<option class="body2 text text-weight-light" selected>CAMERA</option>
 					<c:forEach items="${camera }" var="i">
 						<option class="body2 text text-weight-light"
 							value="${i.camera_seq }">${i.camera_serial }</option>
 					</c:forEach>
 				</select>
+			</div>
 				<div>
 					<input type="text" class="text form-control camera-input"
-						style="background-color: #FFF; color: #2B2D36; width: auto;"
+						style="background-color: #FFF; color: #2B2D36;"
 						id="camera_serial" value="${post.camera_serial }" readonly>
 					<input type="hidden" id="camera_seq" value="${post.camera_seq }">
 				</div>
-			</div>
-			<div>
+			<div class="wrap-btn">
 				<input type="button" class="btn btn-primary finish-btn" id="update"
 					value="수정">
 			</div>

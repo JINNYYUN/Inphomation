@@ -14,4 +14,5 @@ public interface MainService {
 	public List<MainPostDto> getSearchFeed(String search);
 	public List<MainPostDto> getSearchFeed(searchDto search);
 	public List<MainPostDto> getSearchMoreFeed(HttpSession session,searchDto search);
+	public List<MainPostDto> getHotFeed(HttpSession session);
 }

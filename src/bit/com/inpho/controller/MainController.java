@@ -66,5 +66,9 @@ public class MainController {
 
 		return list;
 	}
-	
+	@GetMapping(value="hotFeed")
+	public String hotFeed(HttpSession session, Model model){
+		model.addAttribute("hotFeed", mainService.getHotFeed(session));
+		return "hotFeed.tiles";
+	}
 }

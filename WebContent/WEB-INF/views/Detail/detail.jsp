@@ -98,7 +98,7 @@
 					<div class="cmtCls">
 						<div class="content">
 							<div class="contHash">
-								<p class="text body1 post" style="line-height: 1.9">
+								<p class="text body1 post" style="line-height: 1.9;line-height: 1.5; word-break: break-all;"">
 									${post.post_content } <br><br>
 									<c:forEach items="${tag }" var="i">
 										<a href="javascript:void(0)" id="${i.hashtag }" onclick="searchWord(this.id)" class="text body1 post">

@@ -5,7 +5,6 @@ import java.util.List;
 
 
 public class MainPostDto implements Serializable{
-	//post_seq,user_seq,user_nickname,post_like(count),post_bookmark(count),post_reply(count)
 	private int postSeq;
 	private int userSeq;
 	private int postLike;
@@ -18,7 +17,10 @@ public class MainPostDto implements Serializable{
 	private String filePath;
 	private String cameraSerial;
 	private String positionName;
+	private String postUserProfile;
+	private String postContent;
 	private List<String> hashtag;
+	private List<DetailReplyDto> replyList;
 	public MainPostDto() {}
 
 	public int getPostSeq() {
@@ -125,12 +127,37 @@ public class MainPostDto implements Serializable{
 		this.hashtag = hashtag;
 	}
 
+	public List<DetailReplyDto> getReplyList() {
+		return replyList;
+	}
+
+	public void setReplyList(List<DetailReplyDto> replyList) {
+		this.replyList = replyList;
+	}
+
+	public String getPostUserProfile() {
+		return postUserProfile;
+	}
+
+	public void setPostUserProfile(String postUserProfile) {
+		this.postUserProfile = postUserProfile;
+	}
+
 	@Override
 	public String toString() {
 		return "MainPostDto [postSeq=" + postSeq + ", userSeq=" + userSeq + ", postLike=" + postLike + ", postBookmark="
 				+ postBookmark + ", postReply=" + postReply + ", userLike=" + userLike + ", userBookMark="
 				+ userBookMark + ", userNickName=" + userNickName + ", wdate=" + wdate + ", filePath=" + filePath
-				+ ", cameraSerical=" + cameraSerial + ", positionName=" + positionName + ", hashtag=" + hashtag + "]";
+				+ ", cameraSerial=" + cameraSerial + ", positionName=" + positionName + ", postUserProfile="
+				+ postUserProfile + ", hashtag=" + hashtag + ", replyList=" + replyList + "]";
+	}
+
+	public String getPostContent() {
+		return postContent;
+	}
+
+	public void setPostContent(String postContent) {
+		this.postContent = postContent;
 	}
 	
 	

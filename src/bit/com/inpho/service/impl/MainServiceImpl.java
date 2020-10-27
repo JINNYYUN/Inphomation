@@ -62,4 +62,15 @@ public class MainServiceImpl implements MainService{
 		return dao.getSearchMoreList(false, search);
 	}
 
+	@Override
+	public List<MainPostDto> getHotFeed(HttpSession session) {
+		MemberDto member = (MemberDto)session.getAttribute("login");
+		if(member==null) {
+			return dao.getHotFeedList();
+		}
+		searchDto search = new searchDto();
+		search.setUserSeq(member.getUser_seq());
+		return dao.getHotFeedList(search);
+	}
+
 }
