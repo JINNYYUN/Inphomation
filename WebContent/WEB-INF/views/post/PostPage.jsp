@@ -166,7 +166,7 @@ int seq = login.getUser_seq();
 											클릭하거나 드래그앤 드랍으로 업로드해주세요!*</label>
 										<label class="imageSection" for="upImgFile"> <img
 											class="imgg" alt="Please image"
-											src="https://storage.googleapis.com/boomkit/20209128625696.jpg">
+											src="https://storage.googleapis.com/boomkit/%E1%84%82%E1%85%A2%E1%84%81%E1%85%A9.png">
 										</label>
 										<div class="wkrhtlvek">
 											<input type="file" class="imagehide" id="upImgFile"
@@ -232,9 +232,7 @@ int seq = login.getUser_seq();
 
 			</form>
 		</div>
-<div>
-  by SeongBoss 
-</div>
+
 	</div>
 
 	<script type="text/javascript">
