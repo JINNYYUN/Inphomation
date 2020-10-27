@@ -1,13 +1,13 @@
 @charset "UTF-8";
 
 .frm {
-	position: relative;
-	width: 1108px;
+    position: relative;
+    width: 1108px;
     height: 580px;
-	margin-top: auto; 
-	box-shadow: 2px 2px 2px 2px #E6E6E6;
-	border-radius: 50px;
-	
+    margin-top: auto;
+    box-shadow: 2px 2px 2px 2px #E6E6E6;
+    border-radius: 24px;
+    overflow: hidden;
 }
 
 .all {
@@ -55,6 +55,7 @@
     overflow: hidden;
     border: none;
     width: 227px;
+    word-break: break-all;
 }
 .replyImg {
 	width: 30px;
@@ -85,19 +86,21 @@ td .replyImg {
 }
 
 .photoBox {
-	max-height: 100%;
+    position: relative;
+    max-height: 100%;
+    width: 100%;
+    height: 100%;
 }
 
 .leftTbl {
-	position: relative;
-	padding-top: 0px;
-	margin-top: 0px;
-	overflow: hidden;
-   	float:left;
-   	position: relative;
-	width: 715px;
-	height: 100%;
-   
+    position: relative;
+    padding-top: 0px;
+    margin-top: 0px;
+    overflow: hidden;
+    float: left;
+    position: relative;
+    width: 715px;
+    height: 100%;
 }
 .likeList{
 	height: 29%;
@@ -111,7 +114,7 @@ td .replyImg {
 }
 .rightTbl {
 	position: relative;
-	width: 35%;
+	width: 34%;
 	max-height: 100%;
 	float: right;
 }
@@ -130,10 +133,13 @@ td .replyImg {
 	margin-left: 20%; 
 }
 .postPhoto {	
-	position: relative;
-    width: 100%;
+	position: absolute;
+    top: 50%;
+    left: 50%;
+    width: auto;
     height: 100%;
-    object-fit: contain;
+    transform: translate(-50%, -50%);
+   
 }
 
 .post {
@@ -194,7 +200,7 @@ td .replyImg {
 	height: 60px;
 }
 .comment {
-    width: 300px;
+    width: 290px;
     /* border: 2px #F28705 solid; */
     /* float: left; */
     margin-top: 1px;
