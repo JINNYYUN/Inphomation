@@ -230,8 +230,8 @@ function getPost(work){
 							+ '<div class="grid">';
 	
 				$.each(postlist, function(i, post) {
-					content += '<div class="item" onclick="goDetail(' +post.post_seq+ ')">'
-					+ '<img src="https://storage.googleapis.com/boomkit/' + post.post_filepath +'">'
+					content += '<div class="item">'
+					+ '<img src="https://storage.googleapis.com/boomkit/' + post.post_filepath +'" onclick="goDetail(' +post.post_seq+ ')">'
 					+ '<div class="bottom-icon-bar icon-absoulte">';
 
 					// 좋아요 여부

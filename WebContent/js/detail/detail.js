@@ -60,7 +60,8 @@ function addComment(){
 	/* 로그인을 하지 않았을 경우 로그인 페이지로 이동 */
 	if($("#user_seq").val() == 0){
 		$("#comment").val("");
-		alert("로그인.........................................");
+		alert("로그인 페이지로 이동합니다");
+		location.href="goLogin";
 	}else{
 	
 		let len =$.trim($('#comment').val()).length;
@@ -110,7 +111,8 @@ function deleteDetail(){
 function addLikeBook(id){
 
 	if($("#user_seq").val() == 0){
-		alert("로그인.......................");
+		alert("로그인 페이지로 이동합니다");
+		location.href="goLogin";
 	}else{
 
 		$.ajax({

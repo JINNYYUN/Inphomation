@@ -98,8 +98,8 @@ public class DetailServiceImpl implements DetailService {
 	}
 
 	@Override
-	public void delTag(HashMap<String, Integer> Map) {
-		dao.delTag(Map);
+	public void delTag(int post_seq) {
+		dao.delTag(post_seq);
 	}
 
 

@@ -6,7 +6,6 @@ import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
 import javax.servlet.http.HttpServletRequest;
-
 import org.apache.http.util.TextUtils;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -18,11 +17,6 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.multipart.MultipartFile;
-import org.springframework.web.servlet.ModelAndView;
-
-import com.google.api.client.json.Json;
-import com.google.gson.Gson;
-
 import bit.com.inpho.dto.MemberDto;
 import bit.com.inpho.dto.PostDto;
 import bit.com.inpho.dto.PostLocationDto;
@@ -43,7 +37,7 @@ public class PostController {
 	@RequestMapping(value = "post", method = { RequestMethod.GET, RequestMethod.POST })
 	public String postwrite(Model model, HttpServletRequest req) {
 		logger.info("post" + new Date());
-		String camkind = "";
+		
 		MemberDto login = (MemberDto) req.getSession().getAttribute("login");
 		if (login != null)
 			System.out.println(login.toString());
@@ -116,10 +110,14 @@ public class PostController {
 		return Godetail;
 	}
 	// 테스트입니당
+	@RequestMapping(value = "postUpDate", method = { RequestMethod.GET })
+	public String setHashTag(Model model,HttpServletRequest req) {
+	String tag=req.getParameter("postHashTag");
+	String loc=req.getParameter("postLocation");
+	String pseq=req.getParameter("post_seq");
+	int postSeq=Integer.parseInt(pseq);
+	service.upDateWrite(tag, loc, postSeq);
+	return "redirect:detail?post_seq="+postSeq;
 
-	@RequestMapping(value = "doesNotData", method = { RequestMethod.GET, RequestMethod.POST })
-	public String setHashTag(Model model) {
-		System.out.println("turn");
-		return "main";
 	}
 }

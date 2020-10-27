@@ -7,7 +7,7 @@
 	pageEncoding="UTF-8"%>
 <%
 	MemberDto login = (MemberDto) request.getSession().getAttribute("login");
-	int seq = login.getUser_seq();
+int seq = login.getUser_seq();
 %>
 
 <!DOCTYPE html>
@@ -19,26 +19,51 @@
 
 
 <style type="text/css">
-.postContainer{
-padding-top: 26px;
+.cameraSection {
+	border: 2px solid #cecece;
+	border-radius: 0.625rem;
 }
-.hashtag {
-	    width:  100%;
-		height:  100%;
-	   	margin-left:  auto; 
- 		margin-right :  auto;
-	    padding:  5px;
-	    text-align:  center;
-	    line-height:  300px;
-		vertical-align: middle;
+#mylmg:hover{
+	box-shadow: 0px 0px 15px 0px #d0d0d0;
+   	outline: 2px dashed #9bc7c1;
+}
+.postpf {
+	float: left;
+}
+
+.postwb {
+	float: left;
+	width: 472px;
+	padding: 1%;
+}
+
+.postContainer {
+	padding-top: 26px;
+}
+
+.hashtag {    
+	width: 100 %
+	height :  100 %; 
+    margin-left : auto;
+	margin-right:  auto;
+    padding:  5px;
+    text-align:  center;
+    line-height:  300px;
+	vertical-align: middle;
+}
+
+.postwr {
+	display: inline-block;
 }
 
 #thumbnailImg {
-	height: 566px;
+	height: 649px;
 	background-repeat: no-repeat;
-	background-image: url("https://storage.googleapis.com/boomkit/image-not-found.jpg");
-	outline : none;
-	background-size : 100% 100%;
+	background-image:
+		url(https://storage.googleapis.com/boomkit/image-not-found.jpg);
+	outline: none;
+	background-size: 100% 100%;
+	width: 631px;
 }
 
 .postContent {
@@ -57,7 +82,6 @@ padding-top: 26px;
 	margin-right: -16px;
 	margin-left: -16px;
 }
-
 
 /* image hover */
 #photo-gallery {
@@ -100,23 +124,36 @@ padding-top: 26px;
 	box-shadow: 0px 0px 15px 0px #d0d0d0;
 	border-color: #9c27b0;
 }
-#disnone{
-  display: none;
+
+#disnone {
+	visibility:hidden;
 }
-#disnone1{
-  display: none;
+
+#disnone1 {
+	visibility:hidden;
 }
-#disnone2{
-  display: none;
+
+#disnone2 {
+	visibility:hidden;
+	
 }
-#disnone3{
-  display: none;
+
+#disnone3 {
+	visibility:hidden;
+	
 }
-.postCamStyle{
-    color: #F25C05;
-    background-color: transparent;
-    background-image: none;
-    border-color: #ea6213;
+
+.postCamStyle {
+	border-radius: 0.625rem;
+	color: #F25C05;
+	background-color: #f2a374;
+	background-image: none;
+	border-color: #ea6213;
+}
+.postCamStyle:hover {
+	box-shadow: 0px 0px 15px 0px #d0d0d0;
+	background-color: transparent;
+	
 }
 </style>
 </head>
@@ -141,7 +178,7 @@ padding-top: 26px;
 				encType="multipart/form-data">
 				<div class="postContent rounded mb-4 mb-lg-0" id="mylmg">
 
-					<label for="upImgFile">이미지를 드래그 하거나 여기를 클릭하여 파일을 선택해주세요!
+					<label for="upImgFile" >이미지를 드래그 하거나 여기를 클릭하여 파일을 선택해주세요!
 						(PNG, JPG,JEPG)</label> <input type="file" class="imagehide"
 						id="upImgFile" name="upImgFile" accept=".jpg, .jpeg, .png"
 						multiple="multiple">
@@ -151,80 +188,80 @@ padding-top: 26px;
 				</div>
 
 				<section id="photo-gallery">
-			
-					<div class="photo-frame">
-						<div class="state-thumb">
-							<div id="thumbnailImg" src="#" class="photo-frame img-fluid">
-								<div class="member-info">
-									<div class="hashtag"></div>
+					<div class="mr-1">
+						<div class="card h-100 postwr">
+
+							<div class="photo-frame postpf">
+								<div class="state-thumb">
+									<div id="thumbnailImg" src="#" class="photo-frame img-fluid">
+										<div class="member-info">
+											<div class="hashtag"></div>
+										</div>
+
+									</div>
+								</div>
+							</div>
+							<div class="card-body postwb">
+								<div class="postwrite"></div>
+								<div class="md-form"></div>
+								<div class="cameraSection">
+								<c:forEach var="i" items="${cam }">
+									<div style="display: inline-block;">
+										<input class="postCamStyle" type="button"
+											value="${i.camera_serial }" onclick="camInfo(this);">
+									</div>
+								</c:forEach>
+								</div>
+								<div class="md-form">
+									<label class="text" for="inputLGEx">촬영장소를 알려주세요!</label> <input
+										id="autocomplete" name="location" value="${location}"
+										class="form-control form-control-lg"> <span
+										id="disnone">* 촬영장소를 입력해 주세요 *</span>
 								</div>
 
-							</div>  
-						</div>
-					</div>
-				</section>
-				<div class="mr-1">
-					<div class="card h-100">
+								<div class="md-form">
+									<label class="text" for="inputLGEx">사진을 소개해 주세요!</label>
+									<textarea id="conent" name="content"
+										class="form-control form-control-lg">${content}</textarea>
+									<span id="disnone1">* 글을 작성해 주세요 *</span>
+								</div>
+								<div class="md-form">
+									<label class="text" for="inputLGEx">촬영기기를 알려주세요!</label> <input
+										id="cam" name="camera_serial" value="${oneCamera}"
+										class="form-control form-control-lg"> <span
+										id="disnone2">* 촬영기기를 입력해 주세요 *</span>
+								</div>
+								<div class="md-form">
+									<label class="text" for="inputLGEx">나만의 해쉬태그를 보여주세요.</label> <input
+										id="hashtag" name="hashtag" value="${hashtag}"
+										class="form-control form-control-lg"> <span
+										id="disnone3">* 해쉬태그를 입력해 주세요 *</span>
+								</div>
 
-						<div class="card-body">
+								<div class="float-right">
+									<input id="done" class="btn btn-primary btn-sm" type="button"
+										value="Write">
+								</div>
 
-							<div class="postwrite"></div>
-							<div class="md-form">
-
+							</div>
 							
-							</div>
-							<c:forEach var="i" items="${cam }">
-								<div style="display: inline-block;">
-									<input class="postCamStyle"type="button" value="${i.camera_serial }"
-										onclick="camInfo(this);">
-								</div>
-							</c:forEach>
-							<div class="md-form">
-								<label class="text" for="inputLGEx">촬영장소를 알려주세요!</label> <input
-									id="autocomplete" name="location" value="${location}"
-									class="form-control form-control-lg">
-									<span id="disnone">* 촬영장소를 입력하여주십시오 *</span>
-							</div>
-
-							<div class="md-form">
-								<label class="text" for="inputLGEx">사진을 소개해 주세요!</label>
-								<textarea id="conent" name="content"
-									class="form-control form-control-lg">${content}</textarea>
-									<span id="disnone1">* 글을 작성하여주십시오. *</span>
-							</div>
-							<div class="md-form">
-								<label class="text" for="inputLGEx">촬영기기를 알려주세요!</label> <input
-									id="cam" name="camera_serial" value="${oneCamera}"
-									class="form-control form-control-lg">
-									<span id="disnone2">* 촬영기기를 입력하여주십시오 *</span>
-							</div>
-							<div class="md-form">
-								<label class="text" for="inputLGEx">나만의 해쉬태그를 보여주세요.</label> <input
-									id="hashtag" name="hashtag" value="${hashtag}"
-									class="form-control form-control-lg">
-									<span id="disnone3">* 해쉬태그를 입력하여주십시오 *</span>
-							</div>
-
-							<div class="float-right">
-								<input id="done" class="btn btn-primary btn-sm" type="button"
-									value="Write">
-							</div>
-
 						</div>
 					</div>
-				</div>
+
+				</section>
+
 			</form>
 		</div>
 
 	</div>
-	
+
 	<script type="text/javascript">
-		// 필요없는 변수 삭제 예정..
+		
 		let address = document.querySelector('#autocomplete').value;
-		let exifLat;
-		let exifLong;
 		let input = document.querySelector('input');
 		let preview = document.querySelector('.previews');
+		let exifLat;
+		let exifLong;
     	let autocomplete;
 		let files;
 		let reader;
@@ -232,7 +269,7 @@ padding-top: 26px;
 		let wtmY;
 		let wtmX;
 		let nullcheck;
-		// 필요없는 변수 삭제 예정..  으드러
+		
 		
 		// 구글 라이브러리로 주소 자동완성 기능
     function initAutocomplete() {
@@ -291,7 +328,7 @@ padding-top: 26px;
 
 		}
 
-		$(".content").on("dragover", dragOver).on("dragleave", dragOver).on(
+		$(".postContent").on("dragover", dragOver).on("dragleave", dragOver).on(
 				"drop", dragFiles);
 		function dragOver(e) {
 			e.stopPropagation();
@@ -417,47 +454,77 @@ padding-top: 26px;
 			 var postContent = document.querySelector('#conent').value;
 			 var postCam = document.querySelector('#cam').value;
 			 var postHashtags = document.querySelector('#hashtag').value;
+			 var dragimg = document.querySelector('.imagehide').value;
 			 var postLocations = NullCheck(postLocation);
 			 postContent = NullCheck(postContent);
 			 postHashtags = NullCheck(postHashtags);
 			 postCam = NullCheck(postCam);
 			 if(postLocations === true){
-				 var styleobj={
-							'color':'#ff4D00',
-							'display':'block'
+				 var beforeStyle={
+							'color': '#ff4D00',
+							'visibility': 'visible'
+						}
+				 var afterStyle={
+						 	'visibility': 'hidden'
 						}
 						$("#autocomplete").focus();
-						$('#autocomplete').next().css(styleobj).fadeOut(10000);
+						$('#autocomplete').next().css(beforeStyle);
+						setTimeout(function() {
+							$('#autocomplete').next().css(afterStyle);
+								}, 5000);
 						return 0;
 			 };
 			 if(postContent === true){
-				 var styleobj={
-							'color':'#ff4D00',
-							'display':'block'
+				 var beforeStyle={
+							'color': '#ff4D00',
+							'visibility': 'visible'
+						}
+				 var afterStyle={
+						 	'visibility': 'hidden'
 						}
 						$("#conent").focus();
-						$('#conent').next().css(styleobj).fadeOut(10000);
+						$('#conent').next().css(beforeStyle);
+						setTimeout(function() {
+							$('#conent').next().css(afterStyle);
+								}, 5000);
 						return 0;
 			 };
 			 if(postCam === true){
-				 var styleobj={
-							'color':'#ff4D00',
-							'display':'block'
+				 var beforeStyle={
+							'color': '#ff4D00',
+							'visibility': 'visible'
+						}
+				 var afterStyle={
+						 	'visibility': 'hidden'
 						}
 						$("#cam").focus();
-						$('#cam').next().css(styleobj).fadeOut(10000);
+						$('#cam').next().css(beforeStyle);
+						setTimeout(function() {
+							$('#cam').next().css(afterStyle);
+								}, 5000);
 						return 0;
 			 };
 			 if(postHashtags === true){
-				 var styleobj={
-							'color':'#ff4D00',
-							'display':'block'
+				 var beforeStyle={
+							'color': '#ff4D00',
+							'visibility': 'visible'
 						}
+				 var afterStyle={
+						 	'visibility': 'hidden'
+						}
+				 
 						$("#hashtag").focus();
-						$('#hashtag').next().css(styleobj).fadeOut(10000);
+						$('#hashtag').next().css(beforeStyle);
+						setTimeout(function() {
+						$('#hashtag').next().css(afterStyle);
+							}, 5000);
 						return 0;
 			 };
 			 
+			if(typeof dragimg == "undefined" || dragimg == null || dragimg == ""){
+				alert('이미지가 업로드되지 않았습니다 다시시도해 주세요');
+				return 0;
+				}
 			if(typeof files == "undefined" || files == null || files == ""){
 				alert('이미지를 올려주세요!');
 				return 0;
@@ -469,6 +536,10 @@ padding-top: 26px;
 			         headers: {'Authorization' : 'KakaoAK f0e07a82a957e4d2580b19df431ebeb3'},
 					 success:function(result){
 						 console.log(result);
+						 if(result.documents.length == 0){
+							alert('정확한 주소를 입력해 주세요');
+							return 0; 
+						 }
 						 nullcheck = NullCheck(result.documents[0].road_address);
 						 upLoadNullCheck(result.documents[0]);
 						 

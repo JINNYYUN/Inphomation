@@ -20,4 +20,5 @@ public interface PostService {
 	String addCamSeq(MemberDto mem,PostDto post,String[] arr);
 	int getcamseq(PostDto dto);
 	String addlocation(PostLocationDto dto);
+	void upDateWrite(String tag,String loc,int seq);
 }
