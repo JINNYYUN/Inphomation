@@ -2,42 +2,46 @@
     pageEncoding="UTF-8"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
 
-<!DOCTYPE html>
-<html>
-<head>
- <meta charset="UTF-8" />
- <meta name="viewport" content="width=device-width, initial-scale=1.0" />
- <link rel="stylesheet" href="<%=request.getContextPath() %>/css/default.css">
- <link rel="stylesheet" href="<%=request.getContextPath() %>/css/bootstrap.css">
- <script src="https://kit.fontawesome.com/6ac784f4b9.js" crossorigin="anonymous"></script>
- <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
- <script src="https://developers.kakao.com/sdk/js/kakao.min.js"></script> 
- <script src="<%=request.getContextPath()%>/js/member.js"></script>
- <title>로그인 / 회원가입</title>
+
  <style>
  	body{
  		background-color: #d8d8d8;
  	}
- 	.inphomation-logo{
+ 	.main-wrapper{
+ 		padding-bottom: 0;
+ 	}
+	.basic-layout{
+		min-height: calc(100vh - 81px)
+	}
+ 	.login-container{
+ 		width: 100%;
+	    height: calc(100vh - 250px);
+	    min-height: 500px;
+	    position: relative;
+	    margin-top:80px;
+	    margin-bottom:170px;
+ 	}
+ 	.login-container .inphomation-logo{
 		max-width: 50%;
     	min-width: 270px;
     	display: block;
     	margin: auto;
+    	cursor: pointer;
  	}
- 	.modal-login{
+ 	.login-container .modal-login{
  		position: absolute;
  		top:50%;
  		left:50%;
  		transform:translate(-50%, -50%);
  		width:100%;
- 		margin:0 auto;
+ 		margin: 0 auto;
  		max-width: 450px;
  		padding:30px;
  		background-color: #f2f2f2;
  		border-radius: 10px;
  		box-shadow: 3px 3px #5a5a77;
  	}
-	.login-header {
+	.login-container .login-header {
 	  display: flex;
 	  border-bottom: none;
 	  position: relative;
@@ -45,7 +49,7 @@
 	  padding: 20px 0 10px;
 	}
 	
-	.login-header h4 {
+	.login-container .login-header h4 {
 	  text-align: center;
 	  font-size: 26px;
 	  font-weight: 600;
@@ -54,53 +58,53 @@
 	  cursor: pointer;
 	}
 	
-	.login-header h4.select {
+	.login-container .login-header h4.select {
 	  background-color: #F27405;
 	}
 	
-	.login-header h4.select-no {
+	.login-container .login-header h4.select-no {
 	  background-color: gray;
 	}
-	.login-form .form-group {
+	.login-container .login-form .form-group {
 	  position: relative;
 	}
 	
-	.form-group i {
+	.login-container .form-group i {
 	  position: absolute;
 	  top: 11px;
 	  font-size: 18px;
 	}
- 	.form-group .left-icon{
+ 	.login-container .form-group .left-icon{
  	  left: 13px;
  	}
-	.form-group .control-password {
+	.login-container .form-group .control-password {
 	  right: 10px;
 	}
 	
-	.modal-login .form-control {
+	.login-container .modal-login .form-control {
 	  padding-left: 40px;
 	}
 	
-	.modal-login .form-control.pwd {
+	.login-container .modal-login .form-control.pwd {
 	  padding-left: 40px;
 	  padding-right: 40px;
 	}
 	
-	.modal-login .form-control,
-	.modal-login .btn {
+	.login-container .modal-login .form-control,
+	.login-container .modal-login .btn {
 	  min-height: 40px;
 	  border-radius: 3px;
 	 } 
-	.modal-login .btn,
-	.modal-login .btn:active {
+	.login-container .modal-login .btn,
+	.login-container .modal-login .btn:active {
 		  border: none;
 		  color: white;
 		  line-height: normal;
 	}
-	.modal-body .social-login{
+	.login-container .modal-body .social-login{
 		width:100%;
 	}
-	button.kakao-login{
+	.login-container button.kakao-login{
 	    width: calc(50% - 5px);
 	    height: 50px;
 	    color: rgb(34, 34, 34);
@@ -110,7 +114,7 @@
 	    background-color: rgb(247, 229, 6);
 	    margin-right:5px;
 	}
-	button.naver-login{
+	.login-container button.naver-login{
 		width: calc(50% - 5px);
 		height: 50px;
 		color:white;
@@ -119,84 +123,84 @@
 		border: 0px;
 		background-color:rgb(4,207,92);
 	}
-	.form-group span.result-msg{
+	.login-container .form-group span.result-msg{
 		color:red;
 	}
-	.modal-login .form-group.btn-group{
+	.login-container .modal-login .form-group.btn-group{
 		width:100%;
 	}
 	
-	.cate.no-select{
+	.login-container .cate.no-select{
 		display:none;
 	}
-	.cate.select{
+	.login-container .cate.select{
 		display:block;
 	}
  </style>
-</head>
-<body>
-   	<div class="container">
-		<div class="modal-login">
-			<img src="/img/Inphomation-logo.svg" alt="인포메이션 로고입니다" class="inphomation-logo">
-			<div class="login-header">
-				<h4 class="text modal-title select" id="modal-login-btn" onclick="categoryChange(this);">로그인</h4>
-				<h4 class="text modal-title select-no" id="modal-regeister-btn" onclick="categoryChange(this);">회원가입</h4>
-			</div>
-			<div id="login-window" class="cate select">
-		  		<form action="#" method="post" class="login-form" id="login-form">
-		            <div class="form-group">
-		            	<i class="fa fa-user left-icon"></i>
-		            	<input type="email" class="form-control" placeholder="email" name="user_email" id="login-id" required="required" onkeydown="enterKeyEvent(event)" />
-		            </div>
-		            <div class="form-group">
-		              	<i class="fa fa-lock left-icon"></i>
-		              	<input type="password" class="form-control pwd user-pwd" placeholder="Password" id="login-pw" required="required" onkeydown="enterKeyEvent(event)" />
-		              	<i class="fas fa-eye control-password" id="control-password" onclick="lookPw(this);"></i>
-		            </div>
-		            <div class="form-group">
-		              	<span class="result-msg"></span>
-		            </div>
-		            <div class="form-group">
-		              	<input type="button" class="btn btn-primary btn-block btn-lg" value="로그인" onclick="pageLogin();"/>
-		              	 <input type="button" class="btn btn-info btn-block btn-lg" value="비밀번호 찾기" onclick="location.href='http://'+location.host+'/resetPassword'"/>
-		            </div>
-		            <div class="social-login">
-		            	<button type="button" class="kakao-login" onclick="pageWithKakao();" >카카오로 시작</button>
-		              	<button type="button" class="naver-login" onclick="loginWithNaver();">네이버로 시작</button>
-		            </div>
-		 		</form>
-	 		</div>
-	 		
-	 		<div id="register-window" class="cate no-select">
-	 			<form action="#" method="post" class="login-form" id="register-form">
-	 				<div class="form-group">
-				    	<i class="fa fa-user left-icon"></i>
-				    	<input type="email" class="form-control" placeholder="email" id="regi-id" required="required" onblur="confirmId(this);"/>
-				    </div>
-				    
-				    <div class="form-group">
-				    	<i class="fa fa-lock left-icon"></i>
-				    	<input type="password" class="form-control pwd user-pwd" placeholder="Password 8~10글자" id="regi-pw" required="required" />
-				    	<i class="fas fa-eye control-password" id="control-password" onclick="lookPw(this);"></i>
-				    </div>
-				    
-				    <div class="form-group">
-				    	<i class="fas fa-id-card left-icon"></i>
-				    	<input type="text" class="form-control" placeholder="NickName" id="regi-nickname" required="required" />
-				    </div>
-				    
-				    <div class="form-group">
-				    	<span class="result-msg"></span>
-				    </div>
-				    
-				    <div class="form-group btn-group">
-				    	<input type="button" value="Cancel" class="cancel-btn btn btn-danger" id="cancel-btn" onclick="location.href='../main'"> 
-				    	<input type="button" value="Regeister" class="regeister-btn btn btn-primary" id="regeister-btn" disabled onclick="submitRegi();">
-				    </div>
-	 			</form>
-	 		</div>
+  <div class="login-container">
+
+	<div class="modal-login">
+		<img src="/img/Inphomation-logo.svg" alt="인포메이션 로고입니다" class="inphomation-logo" onclick="javascript:location.href='../main'" >
+		<div class="login-header">
+			<h4 class="text modal-title select" id="modal-login-btn" onclick="categoryChange(this);">로그인</h4>
+			<h4 class="text modal-title select-no" id="modal-regeister-btn" onclick="categoryChange(this);">회원가입</h4>
 		</div>
-   </div>
+		<div id="login-window" class="cate select">
+	  		<form action="#" method="post" class="login-form" id="login-form">
+	            <div class="form-group">
+	            	<i class="fa fa-user left-icon"></i>
+	            	<input type="email" class="form-control" placeholder="email" name="user_email" id="login-id" required="required" onkeydown="enterKeyEvent(event)" />
+	            </div>
+	            <div class="form-group">
+	              	<i class="fa fa-lock left-icon"></i>
+	              	<input type="password" class="form-control pwd user-pwd" placeholder="Password" id="login-pw" required="required" onkeydown="enterKeyEvent(event)" />
+	              	<i class="fas fa-eye control-password" id="control-password" onclick="lookPw(this);"></i>
+	            </div>
+	            <div class="form-group">
+	              	<span class="result-msg"></span>
+	            </div>
+	            <div class="form-group">
+	              	<input type="button" class="btn btn-primary btn-block btn-lg" value="로그인" onclick="pageLogin();"/>
+	              	 <input type="button" class="btn btn-info btn-block btn-lg" value="비밀번호 찾기" onclick="location.href='http://'+location.host+'/resetPassword'"/>
+	            </div>
+	            <div class="social-login">
+	            	<button type="button" class="kakao-login" onclick="pageWithKakao();" >카카오로 시작</button>
+	              	<button type="button" class="naver-login" onclick="loginWithNaver();">네이버로 시작</button>
+	            </div>
+	 		</form>
+ 		</div>
+ 		
+ 		<div id="register-window" class="cate no-select">
+ 			<form action="#" method="post" class="login-form" id="register-form">
+ 				<div class="form-group">
+			    	<i class="fa fa-user left-icon"></i>
+			    	<input type="email" class="form-control" placeholder="email" id="regi-id" required="required" onblur="confirmId(this);"/>
+			    </div>
+			    
+			    <div class="form-group">
+			    	<i class="fa fa-lock left-icon"></i>
+			    	<input type="password" class="form-control pwd user-pwd" placeholder="Password 8~10글자" id="regi-pw" required="required" />
+			    	<i class="fas fa-eye control-password" id="control-password" onclick="lookPw(this);"></i>
+			    </div>
+			    
+			    <div class="form-group">
+			    	<i class="fas fa-id-card left-icon"></i>
+			    	<input type="text" class="form-control" placeholder="NickName" id="regi-nickname" required="required" />
+			    </div>
+			    
+			    <div class="form-group">
+			    	<span class="result-msg"></span>
+			    </div>
+			    
+			    <div class="form-group btn-group">
+			    	<input type="button" value="Cancel" class="cancel-btn btn btn-danger" id="cancel-btn" onclick="location.href='../main'"> 
+			    	<input type="button" value="Regeister" class="regeister-btn btn btn-primary" id="regeister-btn" disabled onclick="submitRegi();">
+			    </div>
+ 			</form>
+ 		</div>
+	</div>
+  </div>
+
    <script type="text/javascript">
 	var loginBtn = document.getElementById('modal-login-btn')
 	var regiBtn = document.getElementById('modal-regeister-btn')
@@ -306,5 +310,3 @@
 	    })
 	  }
    </script>
-</body>
-</html>

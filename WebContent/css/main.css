@@ -89,9 +89,9 @@
   min-width: 770px;
   margin: 0px auto;
   min-height: 400px;
-  grid-template-columns: repeat(auto-fill, minmax(250px, 1fr));
-  grid-auto-rows: 20px;
-  grid-gap: 5px;
+  grid-template-columns: repeat(auto-fill, minmax(345px, 1fr));
+  grid-auto-rows: 50px;
+  grid-gap: 15px;
 }
 
 .main-container .grid .item {
@@ -121,10 +121,17 @@
   align-items: center;
   opacity: 0.8;
 }
-
+div.main-container div.content div.grid div.item div.bottom-icon-bar,
+div.main-container div.content div.grid div.item div.bottom-icon-bar h6{
+	font-weight:400;
+}
+div.main-container div.content div.grid div.item div.bottom-icon-bar{
+	padding-left:10px;
+	padding-right:10px;
+}
 .main-container .grid>.item .bottom-icon-bar {
   width: 100%;
-  height: 30px;
+  height: 25px;
   bottom: 0px;
   left: 0px;
   display: none;
@@ -134,7 +141,7 @@
   text-align: center;
 }
 
-.main-container .grid>.item .bottom-icon-bar h4 {
+.main-container .grid>.item .bottom-icon-bar h6 {
   display: block;
   padding: 0 10px;
 }

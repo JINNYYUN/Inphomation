@@ -287,13 +287,13 @@
 							<div class="user-bookmark">
 								<c:choose>
 									<c:when test="${empty login  }">
-										<h4><i class="far fa-star" onclick="goLogin();"> ${post.postBookmark }</i></h4>
+										<h4><i class="far fa-bookmark" onclick="goLogin();"> ${post.postBookmark }</i></h4>
 									</c:when>
 					            	<c:when test="${post.userBookMark gt 0  }">
-					            		<h4><i class="fas fa-star" onclick="clickBookMark(this,${post.postSeq});"> ${post.postBookmark }</i></h4>
+					            		<h4><i class="fas fa-bookmark" onclick="clickBookMark(this,${post.postSeq});"> ${post.postBookmark }</i></h4>
 					            	</c:when>
 					            	<c:otherwise>
-					            		<h4><i class="far fa-star" onclick="clickBookMark(this,${post.postSeq});"> ${post.postBookmark }</i></h4>
+					            		<h4><i class="far fa-bookmark" onclick="clickBookMark(this,${post.postSeq});"> ${post.postBookmark }</i></h4>
 					            	</c:otherwise>
 				            	</c:choose>
 							</div>
