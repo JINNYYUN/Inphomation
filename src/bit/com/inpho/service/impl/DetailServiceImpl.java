@@ -1,5 +1,6 @@
 package bit.com.inpho.service.impl;
 
+import java.util.HashMap;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -89,6 +90,16 @@ public class DetailServiceImpl implements DetailService {
 	@Override
 	public List<DetailPostDto> getAllPost(DetailPostDto dto) {
 		return dao.getAllPost(dto);
+	}
+
+	@Override
+	public void updateContent(DetailPostDto dto) {
+		dao.updateContent(dto);
+	}
+
+	@Override
+	public void delTag(int post_seq) {
+		dao.delTag(post_seq);
 	}
 
 

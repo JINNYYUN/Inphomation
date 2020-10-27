@@ -6,7 +6,7 @@
 	src="https://cdnjs.cloudflare.com/ajax/libs/jquery-modal/0.9.1/jquery.modal.min.js"></script>
 <link rel="stylesheet"
 	href="https://cdnjs.cloudflare.com/ajax/libs/jquery-modal/0.9.1/jquery.modal.min.css" />
-<link rel="stylesheet" type="text/css" href="css/Detail/Detail.css">
+<link rel="stylesheet" type="text/css" href="css/Detail/Detail.css?after">
 <script src="./js/detail/detail.js"></script>
 
 
@@ -98,10 +98,11 @@
 					<div class="cmtCls">
 						<div class="content">
 							<div class="contHash">
-								<p class="text body1 post" style="line-height: 1.9">
-									${post.post_content } <br>
+								<p class="text body1 post" style="line-height: 1.9;line-height: 1.5; word-break: break-all;"">
+									${post.post_content } <br><br>
 									<c:forEach items="${tag }" var="i">
-										<a href="javascript:void(0)" class="text body1 post">${i.hashtag }</a>
+										<a href="javascript:void(0)" id="${i.hashtag }" onclick="searchWord(this.id)" class="text body1 post">
+											${i.hashtag }</a>
 									</c:forEach>
 								</p>
 							</div>
@@ -152,7 +153,7 @@
 						<p class="text body1 post">
 							<b>CAMERA</b>
 						</p>
-						<a href="#none"> <span class="badge badge-pill badge-neutral">
+						<a href="/keywordSearch?keywordId=${post.camera_serial }"> <span class="badge badge-pill badge-neutral">
 								${post.camera_serial } </span>
 						</a>
 					</div>
@@ -255,12 +256,11 @@ $(function(){
 				});
 			}else{
 				alert("로그인 페이지로 이동합니다");
+				location.href="goLogin";
 			}
 		});
 		
 
-
-	
 	$.ajax({
 		url:"countLikeAll",
 		type:"get",
@@ -296,6 +296,15 @@ function copy_link(){
     copyText.select();
     document.execCommand("copy");
     alert("URL이 복사 되었습니다. 원하시는 곳에 붙여넣기 해 주세요.");
+}
+
+function searchWord(i){
+
+	var str = i;
+	var key = str.replace("#", "");
+
+ 	location.href="keywordSearch?keywordId="+ key;
+ 		
 }
 </script>
 <br><br>

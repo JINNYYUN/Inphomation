@@ -54,9 +54,8 @@ function getUsers(){
 					}
 					getmsg(${msgUser.user_target})
 				}
-				
+			// 대화내역이 있는 유저일 때
 			$.each(userlist, function(i, user) {
-				
 				
 				content+= '<div class="user" onclick="getmsg(' + user.user_target + ')" id="lastMsg' + user.user_target + '">';
 
@@ -113,8 +112,8 @@ function clickSend(){
 	$("#msgData").append('<li class="msg send">' + chat + '</li>')
 	$("#message").val("")
 	
-	getUsers()
 	$("#tempUser").remove()
+	getUsers()
 	$('#msgData').scrollTop($('#msgData').prop('scrollHeight'));
 }
 
@@ -144,7 +143,7 @@ function setOpen(user_target){
 			success:function(map){
 				//alert('success');
 				let content = `<div class="detail" id="msgDetail">
-									<div class="user right">	
+									<div class="user right" onclick="goMypage(` +map.target.user_seq+`)">	
 										<div class="frame"><img src="` + map.target.profile_image+ `"></div>
 										<div class="right_nickname">` + map.target.user_nickname + `</div>
 									</div>
@@ -182,6 +181,8 @@ function setOpen(user_target){
 		$('#msgData').scrollTop($('#msgData').prop('scrollHeight'));
 		// 입력창에 focus
 		$("#message").focus();
+		// 유저리스트 새로고침
+		getUsers()
 	}
 
 	function onOpen(){
@@ -189,7 +190,7 @@ function setOpen(user_target){
 	}
 	
 	// 메시지 수신
-	function addMsg(msg) { //원래 채팅 메시지에 방금 받은 메시지 더해서 설정하기
+	function addMsg(msg) {
 		// 알림 표시
 		//$('.fa-circle').css('display','inline');
 		
@@ -222,6 +223,10 @@ function setOpen(user_target){
 			from : '<%=login.getUser_seq()%>'
 		};
 		ws.send(JSON.stringify(msg));
+	}
+
+	function goMypage(user_seq){
+		location.href="mypage?user_seq=" + user_seq;
 	}
 
 	//페이지가 로딩되면 connect 실행

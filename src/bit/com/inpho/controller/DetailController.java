@@ -1,5 +1,6 @@
 package bit.com.inpho.controller;
 
+import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 
@@ -16,7 +17,9 @@ import bit.com.inpho.dto.DetailCountAllDto;
 import bit.com.inpho.dto.DetailPostDto;
 import bit.com.inpho.dto.DetailReplyDto;
 import bit.com.inpho.dto.MemberDto;
+import bit.com.inpho.dto.MyPageCameraDto;
 import bit.com.inpho.dto.MyPageMemberDto;
+import bit.com.inpho.dto.PostHashTagInfoDto;
 import bit.com.inpho.service.DetailService;
 import bit.com.inpho.service.MyPageService;
 
@@ -31,7 +34,7 @@ public class DetailController {
 	
 	
 	@RequestMapping(value = "detail", method = {RequestMethod.GET, RequestMethod.POST})
-	public String detail(Model model,int post_seq, DetailCountAllDto count, HttpServletRequest req) throws Exception {
+	public String detail(Model model,int post_seq, HttpServletRequest req) throws Exception {
 		
 		MemberDto user = (MemberDto)req.getSession().getAttribute("login");
 	    
@@ -204,6 +207,44 @@ public class DetailController {
 		return "redirect:main";
 	}
 	
+	
+	@RequestMapping(value = "update", method = {RequestMethod.GET, RequestMethod.POST})
+	public String update (int post_seq, Model model, HttpServletRequest req) {
+		
+		MemberDto user = (MemberDto)req.getSession().getAttribute("login");
+		
+		if (user == null) {
+			return "redirect:main";
+		}
+		
+		DetailPostDto dto = service.getPost(post_seq);
+		List<DetailPostDto> tagList = service.getHashTag(post_seq);
+		List<MyPageCameraDto> camera = MyService.getCamera(dto.getUser_seq());
+		
+		model.addAttribute("post", dto);
+		model.addAttribute("camera", camera);
+		model.addAttribute("tag", tagList);
+		
+		return "update.tiles";
+	}
+	
+	@RequestMapping(value = "updateAf", method = {RequestMethod.GET, RequestMethod.POST})
+	public String updateAf (DetailPostDto dto, Model model, HttpServletRequest req) {
+		
+		MemberDto user = (MemberDto)req.getSession().getAttribute("login");
+		
+		if (user == null) {
+			return "redirect:main";
+		}
+		service.updateContent(dto);
+		
+		
+		model.addAttribute("post_seq", dto.getPost_seq());
+		model.addAttribute("user_seq", dto.getUser_seq());	
+		
+		return "redirect:detail";
+	}
+
 	
 }
 

@@ -36,13 +36,13 @@
 			            <!-- 좋아요 -->
 			            <c:choose>
 			            	<c:when test="${empty login }">
-			            		<h4><i class="far fa-heart" onclick="goLogin();">${post.postLike }</i></h4>
+			            		<h4><i class="far fa-heart" onclick="goLogin();"> ${post.postLike }</i></h4>
 			            	</c:when>
-			            	<c:when test="${post.userLike eq 1 }">
-			            		<h4><i class="fas fa-heart" onclick="clickLike(this,${post.postSeq});">${post.postLike }</i></h4>
+			            	<c:when test="${post.userLike gt 0 }">
+			            		<h4><i class="fas fa-heart" onclick="clickLike(this,${post.postSeq});"> ${post.postLike }</i></h4>
 			            	</c:when>
 			            	<c:otherwise>
-			            		<h4><i class="far fa-heart" onclick="clickLike(this,${post.postSeq});">${post.postLike }</i></h4>
+			            		<h4><i class="far fa-heart" onclick="clickLike(this,${post.postSeq});"> ${post.postLike }</i></h4>
 			            	</c:otherwise>
 			            </c:choose>
 			            
@@ -50,13 +50,13 @@
 			            <!-- 북마크 -->
 						<c:choose>
 							<c:when test="${empty login  }">
-								<h4><i class="far fa-star" onclick="goLogin();">${post.postBookmark }</i></h4>
+								<h4><i class="far fa-star" onclick="goLogin();"> ${post.postBookmark }</i></h4>
 							</c:when>
-			            	<c:when test="${post.userBookMark eq 1 }">
-			            		<h4><i class="fas fa-star" onclick="clickBookMark(this,${post.postSeq});">${post.postBookmark }</i></h4>
+			            	<c:when test="${post.userBookMark gt 0 }">
+			            		<h4><i class="fas fa-star" onclick="clickBookMark(this,${post.postSeq});"> ${post.postBookmark }</i></h4>
 			            	</c:when>
 			            	<c:otherwise>
-			            		<h4><i class="far fa-star" onclick="clickBookMark(this,${post.postSeq});">${post.postBookmark }</i></h4>
+			            		<h4><i class="far fa-star" onclick="clickBookMark(this,${post.postSeq});"> ${post.postBookmark }</i></h4>
 			            	</c:otherwise>
 			            </c:choose>
 					</div>
@@ -82,5 +82,15 @@ $('#main-search-keyword').blur(function(){
 	$('.main-back-ground .search-bar').css("border", "1px solid #D9D9D9");
 	$('#main-search-icon g').css("stroke", "#8c8c8c");
 });
-
+var mainSearch = document.getElementById('main-search-keyword')
+mainSearch.onkeydown = function(event){
+	if(event.keyCode==13){
+		searchKeyword('main')
+	}
+}
+<%if(session.getAttribute("login")==null){%>
+	mainScrollEvent(true)
+<%}else{%>
+	mainScrollEvent(false)
+<%}%>
 </script>

@@ -1,6 +1,5 @@
 package bit.com.inpho.dao.impl;
 
-import java.util.ArrayList;
 import java.util.List;
 
 import org.apache.ibatis.session.SqlSession;
@@ -105,6 +104,16 @@ public class DetailDaoImpl implements DetailDao {
 	public List<DetailPostDto> getAllPost(DetailPostDto dto) {
 		List<DetailPostDto> list = sqlSession.selectList(ns + "getAllPost", dto);
 		return list;
+	}
+
+	@Override
+	public void updateContent(DetailPostDto dto) {
+		sqlSession.update(ns + "updateContent", dto);
+	}
+
+	@Override
+	public void delTag(int post_seq) {
+		sqlSession.delete(ns + "delTag", post_seq);
 	}
 
 }

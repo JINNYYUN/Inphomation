@@ -27,4 +27,7 @@ public interface DetailService {
 	boolean addReply(DetailReplyDto dto);
 	List<DetailReplyDto> replyList(int post_seq);
 	boolean deleteReply(DetailReplyDto dto);
+	
+	void updateContent (DetailPostDto dto);
+	void delTag (int post_seq);
 }

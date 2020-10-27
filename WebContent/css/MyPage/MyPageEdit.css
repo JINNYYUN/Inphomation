@@ -29,8 +29,8 @@
 }
 .fa-pen{
 	position: relative;
-    left: 974px;
-    top: -139px;
+    left: 53%;
+    top: -144px;
     color: #f28705;
     font-size: 24px;
 }
@@ -40,7 +40,7 @@
 .content-detail{
 	background-color: #fff;
     width: 1000px;
-    height: 600px;
+    min-height: 100%;
     margin: auto;
 }
 .profile{
