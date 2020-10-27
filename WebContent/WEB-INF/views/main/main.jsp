@@ -31,18 +31,18 @@
 					
 			        <div class="bottom-icon-bar icon-absoulte">
 			            <!-- Back 작성하면 변경하기 해당작성자 프로필로 이동으로 -->
-			            <h4 onclick="moveUserPage(${post.userSeq});">${post.userNickName }</h4>
+			            <h6 onclick="moveUserPage(${post.userSeq});">${post.userNickName }</h6>
 			            
 			            <!-- 좋아요 -->
 			            <c:choose>
 			            	<c:when test="${empty login }">
-			            		<h4><i class="far fa-heart" onclick="goLogin();"> ${post.postLike }</i></h4>
+			            		<h6><i class="far fa-heart" onclick="goLogin();"> ${post.postLike }</i> Likes</h6>
 			            	</c:when>
 			            	<c:when test="${post.userLike gt 0 }">
-			            		<h4><i class="fas fa-heart" onclick="clickLike(this,${post.postSeq});"> ${post.postLike }</i></h4>
+			            		<h6><i class="fas fa-heart" onclick="clickLike(this,${post.postSeq});"> ${post.postLike }</i> Likes</h6>
 			            	</c:when>
 			            	<c:otherwise>
-			            		<h4><i class="far fa-heart" onclick="clickLike(this,${post.postSeq});"> ${post.postLike }</i></h4>
+			            		<h6><i class="far fa-heart" onclick="clickLike(this,${post.postSeq});"> ${post.postLike }</i> Likes</h6>
 			            	</c:otherwise>
 			            </c:choose>
 			            
@@ -50,13 +50,13 @@
 			            <!-- 북마크 -->
 						<c:choose>
 							<c:when test="${empty login  }">
-								<h4><i class="far fa-star" onclick="goLogin();"> ${post.postBookmark }</i></h4>
+								<h6><i class="far fa-bookmark" onclick="goLogin();"> ${post.postBookmark }</i> Book</h6>
 							</c:when>
 			            	<c:when test="${post.userBookMark gt 0 }">
-			            		<h4><i class="fas fa-star" onclick="clickBookMark(this,${post.postSeq});"> ${post.postBookmark }</i></h4>
+			            		<h6><i class="fas fa-bookmark" onclick="clickBookMark(this,${post.postSeq});"> ${post.postBookmark }</i> Book</h6>
 			            	</c:when>
 			            	<c:otherwise>
-			            		<h4><i class="far fa-star" onclick="clickBookMark(this,${post.postSeq});"> ${post.postBookmark }</i></h4>
+			            		<h6><i class="far fa-bookmark" onclick="clickBookMark(this,${post.postSeq});"> ${post.postBookmark }</i> Book</h6>
 			            	</c:otherwise>
 			            </c:choose>
 					</div>

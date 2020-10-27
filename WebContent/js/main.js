@@ -9,7 +9,7 @@ function SetGridItemHeight() {
 
 	let item = grid.getElementsByClassName('item');
 	for (let i = 0; i < item.length; ++i) {
-		let a = Math.floor((item[i].children[0].offsetHeight) / 25)
+		let a = Math.floor((item[i].children[0].offsetHeight) / 65)
 		//item[i].style.gridRowEnd = `span ${Math.floor((item[i].children[0].offsetHeight) / 25)}`
 		item[i].style.gridRowEnd = `span ` + a
 	}
@@ -161,7 +161,7 @@ function mainScrollEvent(choice){
 		}
 		
 		var scrollHeight = $(document).height();
-		var scrollPosition = $(this).height() + window -500;		
+		var scrollPosition = $(this).height() + window-100;		
 	
 		if (scrollHeight <= scrollPosition) {
 			getMoreFeed++
