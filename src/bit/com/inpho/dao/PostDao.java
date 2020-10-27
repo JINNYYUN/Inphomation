@@ -25,5 +25,8 @@ public interface PostDao {
 	void setingPost(PostDto dto);
 	void addlocation(PostLocationDto dto);
 	void upDateWrite(Map<String, Object> parameter);
+	List<String> upDateTagSeq(int seq);
+	int upDateHashtag(String tags,String afseq);
+	void deleteTagSeq(String seq);
 } 
 
