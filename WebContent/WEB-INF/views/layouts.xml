@@ -64,7 +64,7 @@
 	   <put-attribute name="main" value="/WEB-INF/views/main/main.jsp"/> 
 	</definition>
 	
-	<definition name="search.tiles" extends="hello.tiles">
+	<definition name="search.tiles" extends="main.tiles">
 	   <put-attribute name="main" value="/WEB-INF/views/main/searchMain.jsp"/>
 	</definition>
 	<!-- Contain -->
@@ -107,6 +107,10 @@
 	
 	<definition name="resetPassword.tiles" template="/WEB-INF/views/contain.jsp"> 
 	   <put-attribute name="content" value="/WEB-INF/views/member/resetPwd.jsp" />
+	</definition>
+	
+	<definition name="hotFeed.tiles" extends="main.tiles">
+	   <put-attribute name="main" value="/WEB-INF/views/main/hotFeed.jsp"/>
 	</definition>
 	
 </tiles-definitions>

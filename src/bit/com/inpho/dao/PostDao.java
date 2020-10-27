@@ -2,6 +2,7 @@ package bit.com.inpho.dao;
 
 import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 import bit.com.inpho.dto.MemberDto;
 import bit.com.inpho.dto.PostDto;
@@ -23,5 +24,6 @@ public interface PostDao {
 	int getcamseq(PostDto dto);
 	void setingPost(PostDto dto);
 	void addlocation(PostLocationDto dto);
+	void upDateWrite(Map<String, Object> parameter);
 } 
 

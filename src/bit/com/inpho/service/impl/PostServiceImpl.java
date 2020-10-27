@@ -5,6 +5,9 @@ import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
+
+import org.json.JSONArray;
+import org.json.JSONObject;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpEntity;
 import org.springframework.http.HttpHeaders;
@@ -139,17 +142,19 @@ public class PostServiceImpl implements PostService {
 	            @SuppressWarnings({ "rawtypes", "unchecked" }) 
 	            ResponseEntity response = new RestTemplate().exchange(urls, HttpMethod.GET, new HttpEntity(headers), String.class); 
 
-	            Gson jsonParser = new Gson(); 
-	             
-	               String a=jsonParser.toJson(response.getBody().toString()); 
-	               System.out.println("제이슨"+a);
-	               System.out.println("투스트링"+response.getBody().toString());
-	               //System.out.println(parameter.get("LATITUDE"));
-	               //System.out.println(parameter.get("LONGITUDE"));
-		
-	
-		
+	               JSONObject jObject = new JSONObject(response.getBody().toString());
+	               JSONArray jArray = jObject.getJSONArray("documents");
+	               
+	                   JSONObject obj = jArray.getJSONObject(0);
+	                   String addressName = obj.getString("address_name");
+	                   String loclong = obj.getString("x");
+	                   String loclet = obj.getString("y");
+	                   parameter.put("seq", seq);
+	                   parameter.put("loc", loc);
+	                   parameter.put("tag", tag);
+	                   parameter.put("addressName", addressName);
+	                   parameter.put("loclong", loclong);
+	                   parameter.put("loclet", loclet);
+	                   dao.upDateWrite(parameter);
 	}
-
-
 }

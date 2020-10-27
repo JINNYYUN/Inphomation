@@ -1,6 +1,8 @@
 package bit.com.inpho.dao.impl;
 import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
+
 import org.apache.ibatis.session.SqlSession;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
@@ -98,5 +100,8 @@ public class PostDaoImpl implements PostDao{
 		sqlSession.insert(ns+"addLocation",dto);
 		
 	}
-	
+	@Override
+	public void upDateWrite(Map<String, Object> map) {
+		sqlSession.update(ns+"loctionUpdate",map);
+	}
 }

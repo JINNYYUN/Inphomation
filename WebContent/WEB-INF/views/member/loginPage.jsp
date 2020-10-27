@@ -146,11 +146,11 @@
 		  		<form action="#" method="post" class="login-form" id="login-form">
 		            <div class="form-group">
 		            	<i class="fa fa-user left-icon"></i>
-		            	<input type="email" class="form-control" placeholder="email" name="user_email" id="login-id" required="required" />
+		            	<input type="email" class="form-control" placeholder="email" name="user_email" id="login-id" required="required" onkeydown="enterKeyEvent(event)" />
 		            </div>
 		            <div class="form-group">
 		              	<i class="fa fa-lock left-icon"></i>
-		              	<input type="password" class="form-control pwd user-pwd" placeholder="Password" id="login-pw" required="required" />
+		              	<input type="password" class="form-control pwd user-pwd" placeholder="Password" id="login-pw" required="required" onkeydown="enterKeyEvent(event)" />
 		              	<i class="fas fa-eye control-password" id="control-password" onclick="lookPw(this);"></i>
 		            </div>
 		            <div class="form-group">

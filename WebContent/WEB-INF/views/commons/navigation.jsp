@@ -23,7 +23,7 @@ pageEncoding="UTF-8"%>
   		<div class="nav-left-wrapper">
 	  		<a class="goSite" onclick="goMap();">지도로 보기</a>
 	  		<div></div>
-	  		<a class="goSite" onclick="goFollow();">팔로우</a>
+	  		<a class="goSite" onclick="goHotFeed();">이달의 사진</a>
   		</div>
   	</div>
     <div class="menu">

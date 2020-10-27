@@ -5,11 +5,14 @@
 
 <mapper namespace="postwrite">
 
-	<insert id="setcam" parameterType="HashMap" >
-		INSERT INTO INFO_CAMERA
-		SELECT SEQ_CAMERA.NEXTVAL,#{postcamera},null
+	<insert id="setcam" parameterType="HashMap">
+		INSERT INTO
+		INFO_CAMERA
+		SELECT
+		SEQ_CAMERA.NEXTVAL,#{postcamera},null
 		FROM DUAL
-		WHERE NOT EXISTS
+		WHERE
+		NOT EXISTS
 		(SELECT
 		*
 		FROM INFO_CAMERA
@@ -103,5 +106,11 @@
 		#{camera}
 		)
 	</insert>
-	
+
+	<update id="loctionUpdate" parameterType="Map">
+		UPDATE POST_LOCATION SET 
+		LATITUDE = #{loclet},
+		LONGITUDE = #{loclong}
+		WHERE #{seq}= POST_SEQ
+	</update>
 </mapper>

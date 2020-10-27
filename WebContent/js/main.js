@@ -45,21 +45,39 @@ function clickBookMark(e, seq) {
 function calculNumber(e, b, cate, seq) {
 	let number = Number(e.innerText)
 	let url=''
-	
+	var data=""
 	if(cate=='like'){
-		url= "addLike"
+		url= "./addLike"
+		if(b){
+			data={
+				post_seq:seq,
+				dolike:true
+			}
+		}else{
+			data={
+				post_seq:seq,
+				dolike:false
+			}
+		}
 	}else{
-		url= 'addBookmark'
+		url= './addBookmark'
+		if(b){
+			data={
+				post_seq:seq,
+				dobook:true
+			}
+		}else{
+			data={
+				post_seq:seq,
+				dobook:false
+			}
+		}
 	}
 	
 	//비동기로 DB에 갈때 필요한것 post_seq, true/ false
 	if (b) { 
 		//db에서 삭제해야하는 부분
-		e.innerText = --number
-		let data={
-			post_seq : seq,
-			dobook : true
-		}
+		e.innerText = " " + --number+" "
 		$.ajax({
 			url: url,
 			type: "post",
@@ -70,11 +88,7 @@ function calculNumber(e, b, cate, seq) {
 		})
 	} else { 
 		//db에 추가
-		e.innerText = ++number
-		let data={
-			post_seq : seq,
-			dobook : false
-		}
+		e.innerText = " "+ ++number+" "
 		$.ajax({
 			url: url,
 			type: "post",
