@@ -139,10 +139,13 @@ function loginWithKakao() {
 	      url: '/v2/user/me',
 	      success:function(obj){
 	        console.log(obj)
+	        var kakaoObjdata = makeKakaoData(obj)
+	        console.log(kakaoObjdata)
+	       
 	        $.ajax({
 	        	url:"socialLogin",
 	        	type:"post",
-	        	data:makeKakaoData(obj),
+	        	data:kakaoObjdata,
 	        	success:function(data){
 	        		if(data){
 	        			window.location.reload()
@@ -169,23 +172,13 @@ function loginWithKakao() {
     })
   }
  function makeKakaoData(obj){
- 	if(!obj.properties.profile_image){
-	 	console.log('empty')
-	 	let data = {
-	 		user_email:obj.id,
-			user_nickname:obj.properties.nickname,
-			provider:"Kakao"
-	 	}
-	 	console.log('empty ho')
- 		return data
- 	}else{
- 		let data = {
-	 		user_email:obj.id,
-			user_nickname:obj.properties.nickname,
-			provider:"Kakao"
-	 	}
-	 	return data
+ 	let data = {
+ 		user_email:obj.id,
+		user_nickname:obj.properties.nickname,
+		profile_image:obj.properties.profile_image,
+		provider:"Kakao"
  	}
+	return data
  }
 //naver로그인
 function loginWithNaver(){
