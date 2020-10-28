@@ -46,7 +46,7 @@ public class MemberUtil {
 				sendMail.setTitle("Inphomation 회원인증");
 				sendMail.setContent(
 						new StringBuffer()
-						.append("<a href='http://localhost:8090/authKeyId?authKey=") //추후에 서버로 잡을 주소 변경
+						.append("<a href='http://222.117.114.82:8090/authKeyId?authKey=") //추후에 서버로 잡을 주소 변경
 						.append(member.getAuthKey()+"' target='_blank'>이메일 인증</a>")
 						.toString()
 					);
@@ -75,7 +75,7 @@ public class MemberUtil {
 		sendMail.setContent(
 				new StringBuffer()
 				.append("<h2>과한 비밀번호 입력으로 인하여 로그인이 불가능합니다</h2>")
-				.append("<a href='http://localhost:8090/reActive?authKey=") //추후에 서버로 잡을 주소 변경
+				.append("<a href='http://222.117.114.82:8090/reActive?authKey=") //추후에 서버로 잡을 주소 변경
 				.append(member.getAuthKey()+"' target='_blank'>재인증 해주시기 바랍니다</a>")
 				.toString()
 			);
@@ -96,7 +96,7 @@ public class MemberUtil {
 		sendMail.setContent(
 				new StringBuffer()
 				.append("<h2>비밀번호 변경 URL입니다</h2>")
-				.append("<a href='http://localhost:8090/resetPassword?authKey=") //추후에 서버로 잡을 주소 변경
+				.append("<a href='http://222.117.114.82:8090/resetPassword?authKey=") //추후에 서버로 잡을 주소 변경
 				.append(member.getAuthKey()+"' target='_blank'>링크</a>")
 				.toString()
 			);
