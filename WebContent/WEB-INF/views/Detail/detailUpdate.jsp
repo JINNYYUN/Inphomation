@@ -222,12 +222,18 @@
 	</div>
 </div>
 <script type="text/javascript">
+
+// 해시태그 공백 제거
+let hash_tag = $("#hash-tag").val();
+var hsh = hash_tag.replace(/\s/gi, "");
+
+
 	$("#update").on(
 			"click",
 			function() {
 
 				location.href = "/postUpDate?postHashTag="
-						+ encodeURIComponent($("#hash-tag").val())
+						+ encodeURIComponent(hsh)
 						+ "&postLocation="
 						+ encodeURIComponent($("#post_position_name").val())
 						+ "&post_seq=" + $("#post_seq").val();
@@ -242,8 +248,8 @@
 						"post_position_name" : $("#post_position_name").val()
 					},
 					success : function() {
-						location.href = "detail?post_seq="
-								+ $("#post_seq").val();
+					/* 	location.href = "detail?post_seq="
+								+ $("#post_seq").val(); */
 
 					},
 					error : function() {
