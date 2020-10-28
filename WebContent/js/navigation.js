@@ -74,3 +74,13 @@ naviSearch.onkeydown = function(event){
 	function addMsg(data){
 		$('.fa-circle').css('display','inline');
 	}
+
+$('#navi-search-keyword').focus(function(){
+	//$('#main-search-keyword').focus();
+	$('#nav-search-icon').css("stroke", "#F27405");	
+}); 
+
+$('#navi-search-keyword').blur(function(){
+	//$('#main-search-keyword').focus();
+	$('#nav-search-icon').css("stroke", "#989799");	
+}); 
