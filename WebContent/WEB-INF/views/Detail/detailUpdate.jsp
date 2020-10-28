@@ -68,6 +68,10 @@
 	float: left;
 	width: auto;
 }
+.camera-list{
+    width: 170PX;
+    float: left;
+}
 
 .btn-outline-primary:hover {
 	color: #F27405;
@@ -150,7 +154,7 @@
 .camera-input {
     background-color: #FFF;
     color: #2B2D36;
-    width: 190px;
+    width: 178px;
     float: right;
     /* margin-top: 29px; */
     margin-left: 8px;
