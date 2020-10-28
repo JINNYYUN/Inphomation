@@ -112,9 +112,9 @@ function clickSend(){
 	$("#msgData").append('<li class="msg send">' + chat + '</li>')
 	$("#message").val("")
 	
-	$("#tempUser").remove()
 	getUsers()
 	$('#msgData').scrollTop($('#msgData').prop('scrollHeight'));
+	$("#tempUser").remove()
 }
 
 //메시지 읽음 처리 함수

@@ -6,10 +6,7 @@ pageEncoding="UTF-8"%>
 	MemberDto member = null;
 	member = (MemberDto)session.getAttribute("login");
 %>
-<style>
 
-
-</style>
 
 <script src="https://developers.kakao.com/sdk/js/kakao.min.js"></script>
 <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.0/js/bootstrap.min.js"></script>
@@ -21,9 +18,9 @@ pageEncoding="UTF-8"%>
 			<img src="${pageContext.request.contextPath}/img/Inphomation-logo.svg" alt="인포메이션 로고입니다" class="inphomation-logo" onclick="location.href='../main'"/>
   		</div>
   		<div class="nav-left-wrapper">
-	  		<a class="goSite" onclick="goMap();">지도로 보기</a>
+	  		<a class="gosite" onclick="goMap();">지도로 보기</a>
 	  		<div></div>
-	  		<a class="goSite" onclick="goHotFeed();">이달의 사진</a>
+	  		<a class="gosite" onclick="goHotFeed();">이달의 사진</a>
   		</div>
   	</div>
     <div class="menu">
@@ -91,17 +88,3 @@ pageEncoding="UTF-8"%>
 <%}else{ %>
 <script src="<%=request.getContextPath() %>/js/login.js" ></script>
 <%} %>
-
-
-<script>
-$('#navi-search-keyword').focus(function(){
-	//$('#main-search-keyword').focus();
-	$('#nav-search-icon').css("stroke", "#F27405");	
-}); 
-
-$('#navi-search-keyword').blur(function(){
-	//$('#main-search-keyword').focus();
-	$('#nav-search-icon').css("stroke", "#989799");	
-}); 
-
-</script>
