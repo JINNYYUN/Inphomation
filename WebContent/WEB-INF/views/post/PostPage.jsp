@@ -19,11 +19,7 @@ int seq = login.getUser_seq();
 
 
 <style type="text/css">
-.verticalLines {
-    border-right: 2px solid #F25C05;
-    width: 116%;
-    min-height: 115%;
-}
+
 .postCamStyle {
 	width: 100%;
 }
@@ -36,6 +32,7 @@ int seq = login.getUser_seq();
 .postpf {
 	float: left;
 	margin-top: 2%;
+	border: 1px solid #efefef;
 }
 
 .postwb {
@@ -65,8 +62,7 @@ int seq = login.getUser_seq();
 }
 
 .state-thumb {
-    padding-left: 9%;
-   /*  max-height: 100%; */
+    padding: 37px;
 }
 
 .postContent {
@@ -112,6 +108,7 @@ int seq = login.getUser_seq();
 .imgg {
 	width: 100%;
    	max-height: 721px;
+    padding: 25%;
 }
 
 .imageSection {
@@ -129,10 +126,11 @@ int seq = login.getUser_seq();
 
 .postImageContent {
 	color: ff4D00;
+	text-align: center;
 }
-.wkrhtlvek{
+/* .wkrhtlvek{
     height: 148px; 
-}
+} */
 </style>
 </head>
 <body>
@@ -160,13 +158,13 @@ int seq = login.getUser_seq();
 
 							<div class="photo-frame postpf">
 								<div class="state-thumb verticalLines">
-
-									<div id="thumbnailImg" class="photo-frame img-fluid">
 									<label class="imageSection postImageContent" for="upImgFile">*이미지를
 											클릭하거나 드래그앤 드랍으로 업로드해주세요!*</label>
+
+									<div id="thumbnailImg" class="photo-frame img-fluid">
 										<label class="imageSection" for="upImgFile"> <img
 											class="imgg" alt="Please image"
-											src="https://storage.googleapis.com/boomkit/%E1%84%82%E1%85%A2%E1%84%81%E1%85%A9.png">
+											src="https://storage.googleapis.com/boomkit/file-upload.svg">
 										</label>
 										<div class="wkrhtlvek">
 											<input type="file" class="imagehide" id="upImgFile"
