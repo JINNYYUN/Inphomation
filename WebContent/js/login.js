@@ -43,7 +43,7 @@ function checkMsg(){
 			}
 		},
 		error:function(){
-			alert('error');
+			//alert('error');
 		}
 	});
 }	
