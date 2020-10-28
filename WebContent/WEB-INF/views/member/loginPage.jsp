@@ -4,9 +4,6 @@
 
 
  <style>
- 	body{
- 		background-color: #d8d8d8;
- 	}
  	.main-wrapper{
  		padding-bottom: 0;
  	}
