@@ -147,8 +147,8 @@
 				},
 				async:false,
 				success:function(){
-					alert('입력하신 메일을 확인해주시기 바랍니다')
-					//location.href="../main"
+					alert('입력하신 메일의 링크를 통해 비밀번호 변경이 가능합니다.\n메일을 확인해주시기 바랍니다')
+					location.href="../main"
 				}
 			})
 		}

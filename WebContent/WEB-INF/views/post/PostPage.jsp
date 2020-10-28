@@ -19,51 +19,54 @@ int seq = login.getUser_seq();
 
 
 <style type="text/css">
-.cameraSection {
-	border: 2px solid #cecece;
-	border-radius: 0.625rem;
+.verticalLines {
+    border-right: 2px solid #F25C05;
+    width: 116%;
+    min-height: 115%;
 }
-#mylmg:hover{
+.postCamStyle {
+	width: 100%;
+}
+
+#mylmg:hover {
 	box-shadow: 0px 0px 15px 0px #d0d0d0;
-   	outline: 2px dashed #9bc7c1;
+	outline: 2px dashed #9bc7c1;
 }
+
 .postpf {
 	float: left;
+	margin-top: 2%;
 }
 
 .postwb {
-	float: left;
-	width: 472px;
-	padding: 1%;
+	float: right;
+	padding: 1.2%;
+	margin-right: 4%;
 }
 
 .postContainer {
-	padding-top: 26px;
-}
-
-.hashtag {    
-	width: 100 %
-	height :  100 %; 
-    margin-left : auto;
-	margin-right:  auto;
-    padding:  5px;
-    text-align:  center;
-    line-height:  300px;
-	vertical-align: middle;
+	margin-top: 5%;
+	margin-bottom: 12%;
 }
 
 .postwr {
+    margin-top: 13%;
+	margin-bottom: 3%;
+	width: 100%;
 	display: inline-block;
+	position: relative;
+	box-shadow: 2px 2px 2px 2px #E6E6E6;
+	border-radius: 24px;
+	overflow: hidden;
 }
 
 #thumbnailImg {
-	height: 649px;
-	background-repeat: no-repeat;
-	background-image:
-		url(https://storage.googleapis.com/boomkit/image-not-found.jpg);
-	outline: none;
-	background-size: 100% 100%;
-	width: 631px;
+	width: 545px;
+}
+
+.state-thumb {
+    padding-left: 9%;
+   /*  max-height: 100%; */
 }
 
 .postContent {
@@ -77,83 +80,58 @@ int seq = login.getUser_seq();
 }
 
 .postrow {
-	display: flex;
-	flex-wrap: nowrap;
-	margin-right: -16px;
-	margin-left: -16px;
+    margin: -5%;
 }
 
-/* image hover */
-#photo-gallery {
-	padding: 20px 0px 40px;
-}
-
-#photo-gallery .state-thumb {
-	overflow: hidden;
-	border-radius: 10px;
-}
-
-#photo-gallery .state-thumb img {
-	width: 100%;
-	transition: 0.5s;
-}
-
-#photo-gallery .photo-frame:hover img {
-	transform: scale(1.3, 1.3);
-}
-
-#photo-gallery h4 {
-	margin: 10px 0px 0px;
-	text-align: right;
-}
-
-#photo-gallery h4 a {
-	color: #9c27b0;
-	font-size: 20px;
-}
-
-#photo-gallery .photo-frame {
-	border: 1px solid #cecece;
-	padding: 15px;
-	border-radius: 10px;
-	transition: 0.3s;
-	background-color: #fff;
-}
-
-#photo-gallery .photo-frame:hover {
-	box-shadow: 0px 0px 15px 0px #d0d0d0;
-	border-color: #9c27b0;
+.posttexxt {
+	min-height: 374px;
+	resize: none;
 }
 
 #disnone {
-	visibility:hidden;
+	visibility: hidden;
 }
 
 #disnone1 {
-	visibility:hidden;
+	visibility: hidden;
 }
 
 #disnone2 {
-	visibility:hidden;
-	
+	visibility: hidden;
 }
 
 #disnone3 {
-	visibility:hidden;
-	
+	visibility: hidden;
 }
 
-.postCamStyle {
-	border-radius: 0.625rem;
-	color: #F25C05;
-	background-color: #f2a374;
-	background-image: none;
-	border-color: #ea6213;
-}
 .postCamStyle:hover {
 	box-shadow: 0px 0px 15px 0px #d0d0d0;
 	background-color: transparent;
-	
+}
+
+.imgg {
+	width: 100%;
+   	max-height: 721px;
+}
+
+.imageSection {
+	width: 100%;
+}
+
+.sizeUpdic {
+	width: 105px;
+	height: 50;
+}
+
+.imagehide {
+	opacity: 0;
+}
+
+.postImageContent {
+	color: ff4D00;
+}
+.wkrhtlvek{
+    height: 148px; 
 }
 </style>
 </head>
@@ -173,45 +151,35 @@ int seq = login.getUser_seq();
 	</script>
 	<div class="container postContainer">
 		<div id="thumbnailUrl"></div>
-		<div class="postrow align-items-center my-5">
+		<div class="postrow">
 			<form id="frm" class="frmst" method="POST" action="Upload"
 				encType="multipart/form-data">
-				<div class="postContent rounded mb-4 mb-lg-0" id="mylmg">
-
-					<label for="upImgFile" >이미지를 드래그 하거나 여기를 클릭하여 파일을 선택해주세요!
-						(PNG, JPG,JEPG)</label> <input type="file" class="imagehide"
-						id="upImgFile" name="upImgFile" accept=".jpg, .jpeg, .png"
-						multiple="multiple">
-					<div class="previews">
-						<label class="label"></label>
-					</div>
-				</div>
-
 				<section id="photo-gallery">
 					<div class="mr-1">
-						<div class="card h-100 postwr">
+						<div class="postwr">
 
 							<div class="photo-frame postpf">
-								<div class="state-thumb">
-									<div id="thumbnailImg" src="#" class="photo-frame img-fluid">
-										<div class="member-info">
-											<div class="hashtag"></div>
-										</div>
+								<div class="state-thumb verticalLines">
 
+									<div id="thumbnailImg" class="photo-frame img-fluid">
+									<label class="imageSection postImageContent" for="upImgFile">*이미지를
+											클릭하거나 드래그앤 드랍으로 업로드해주세요!*</label>
+										<label class="imageSection" for="upImgFile"> <img
+											class="imgg" alt="Please image"
+											src="https://storage.googleapis.com/boomkit/%E1%84%82%E1%85%A2%E1%84%81%E1%85%A9.png">
+										</label>
+										<div class="wkrhtlvek">
+											<input type="file" class="imagehide" id="upImgFile"
+												name="upImgFile" accept=".jpg, .jpeg, .png"
+												multiple="multiple">
+										</div>
 									</div>
 								</div>
 							</div>
 							<div class="card-body postwb">
 								<div class="postwrite"></div>
 								<div class="md-form"></div>
-								<div class="cameraSection">
-								<c:forEach var="i" items="${cam }">
-									<div style="display: inline-block;">
-										<input class="postCamStyle" type="button"
-											value="${i.camera_serial }" onclick="camInfo(this);">
-									</div>
-								</c:forEach>
-								</div>
+								
 								<div class="md-form">
 									<label class="text" for="inputLGEx">촬영장소를 알려주세요!</label> <input
 										id="autocomplete" name="location" value="${location}"
@@ -222,12 +190,24 @@ int seq = login.getUser_seq();
 								<div class="md-form">
 									<label class="text" for="inputLGEx">사진을 소개해 주세요!</label>
 									<textarea id="conent" name="content"
-										class="form-control form-control-lg">${content}</textarea>
+										class=" form-control form-control-lg posttexxt">${content}</textarea>
 									<span id="disnone1">* 글을 작성해 주세요 *</span>
 								</div>
 								<div class="md-form">
-									<label class="text" for="inputLGEx">촬영기기를 알려주세요!</label> <input
-										id="cam" name="camera_serial" value="${oneCamera}"
+									<div style="width: 100%;margin-bottom: 4px;">
+										<div class="cameraSection">
+											<label class="text" for="inputLGEx">촬영기기를 알려주세요!</label> <select
+												class="text custom-select custom-select-sm camera-list postCamStyle"
+												id="cameraSelect" onchange="camInfo(this);">
+												<option value="">--CAMERA--</option>
+												<c:forEach var="i" items="${cam }">
+													<option class="body2 text text-weight-light postCamStyle"
+														value="${i.camera_serial }">${i.camera_serial }</option>
+												</c:forEach>
+											</select>
+										</div>
+									</div>
+									<input id="cam" name="camera_serial" value="${oneCamera}"
 										class="form-control form-control-lg"> <span
 										id="disnone2">* 촬영기기를 입력해 주세요 *</span>
 								</div>
@@ -239,12 +219,12 @@ int seq = login.getUser_seq();
 								</div>
 
 								<div class="float-right">
-									<input id="done" class="btn btn-primary btn-sm" type="button"
-										value="Write">
+									<input id="done" class="sizeUpdic btn btn-primary btn-sm"
+										type="button" value="Write">
 								</div>
 
 							</div>
-							
+
 						</div>
 					</div>
 
@@ -302,13 +282,11 @@ int seq = login.getUser_seq();
 			        } else {
 			            var latitude = exifLat[0] + (( (exifLat[1]*60) + exifLat[2] ) / 3600);
 			        }
-
 			        if (exifLongRef == "W") {
 			            var longitude = (exifLong[0]*-1) + (( (exifLong[1]*-60) + (exifLong[2]*-1) ) / 3600);						
 			        } else {
 			            var longitude = exifLong[0] + (( (exifLong[1]*60) + exifLong[2] ) / 3600);
 			        }
-
 			         wtmXx = latitude,
 			       	 wtmYy = longitude; 
 			         
@@ -325,10 +303,8 @@ int seq = login.getUser_seq();
 			    			}); 
 				
 			});
-
 		}
-
-		$(".postContent").on("dragover", dragOver).on("dragleave", dragOver).on(
+		$(".imageSection").on("dragover", dragOver).on("dragleave", dragOver).on(
 				"drop", dragFiles);
 		function dragOver(e) {
 			e.stopPropagation();
@@ -337,14 +313,11 @@ int seq = login.getUser_seq();
 				$(e.target).css * ({
 					"background-color" : "black",
 					"outline-offset" : "-20px"
-
 				});
-
 			} else {
 				$(e.target).css({
 					"background-colr" : "gray",
 					"outline-offset" : "-10px"
-
 				});
 			}
 		}
@@ -355,7 +328,6 @@ int seq = login.getUser_seq();
 			e.preventDefault();
 			dragOver(e);
 			e.dataTransfer = e.originalEvent.dataTransfer;
-
 			files = e.target.files || e.dataTransfer.files;
 			addFileFromLastInput(files);
 			console.log(files);
@@ -364,14 +336,8 @@ int seq = login.getUser_seq();
 				return;
 			}
 			if (files[0].type.match(/image.*/)) {
-				$('#thumbnailImg').css(
-						{
-							"background-image" : "url("
-									+ window.URL.createObjectURL(files[0])
-									+ ")",
-							"outline" : "none",
-							"background-size" : "100% 100%"
-						});
+				document.querySelector('.imgg').src=window.URL.createObjectURL(files[0]);
+						
 				 $.ajax({
 						url : "beforeImg",
 						type : "POST",
@@ -389,13 +355,10 @@ int seq = login.getUser_seq();
 							} ;
 							console.log(tags);
 							
-
 						},
 						error : function() {
-
 						}
 					});
-
 			} else {
 				console.log("not image!");
 				return;
@@ -403,22 +366,14 @@ int seq = login.getUser_seq();
 			console.log("파일 이름" + files[0].name);
 			
 			EXIFutil();
-
 		}
 		//드래그앤드랍 이미지 변경되었을시 해쉬태그 값을가져와 tagInput 폼에 넣어준다..
 		$(function() {
 			$(".imagehide").change(
 					function(e) {
 						files = e.target.files || e.dataTransfer.files;
-						$('#thumbnailImg').css(
-								{
-									"background-image" : "url("
-											+ window.URL
-													.createObjectURL(files[0])
-											+ ")",
-									"outline" : "none",
-									"background-size" : "100% 100%"
-								});
+						document.querySelector('.imgg').src=window.URL.createObjectURL(files[0]);
+								
 						EXIFutil();
 						 $.ajax({
 								url : "beforeImg",
@@ -437,17 +392,13 @@ int seq = login.getUser_seq();
 									} ;
 									console.log(tags);
 									
-
 								},
 								error : function() {
-
 								}
 							});
 						
 					});
-
 		});
-
 		  $("#done").on("click",function(e){
 			  //장소,소개,태그,기기 미입력시 널값체크후 자동포커싱이동하여 모든값을 입력하게한다.
 			 var postLocation = document.querySelector('#autocomplete').value;
@@ -551,7 +502,6 @@ int seq = login.getUser_seq();
 		
 		  });
 		function upLoadNullCheck(str){
-
 			if(str==null || str==undefined || str=="null"){
 				alert('정확한주소를 입력해주세요');
 			}else{
@@ -586,33 +536,35 @@ int seq = login.getUser_seq();
 				  window.location.href="detail?post_seq="+data; 
 			},
 			error : function() {
-
 			}
 		});
 	    		
 			}
-
 			return str;
-
 		}
 		function imgnullCheck(str){
 		
 			if(str==null || str==undefined || str=="null"){
-				var styleobj={
-					'color':'#ff4D00',
-					'display':'block'
-				}
-				$("#autocomplete").focus();
-				$('#autocomplete').next().css(styleobj).fadeOut(10000);
+				$("#autocomplete").value('');
+				 var beforeStyle={
+							'color': '#ff4D00',
+							'visibility': 'visible'
+						}
+				 var afterStyle={
+						 	'visibility': 'hidden'
+						}
+				    $("#autocomplete").focus();
+					$('#autocomplete').next().css(beforeStyle);
+					setTimeout(function() {
+						$('#autocomplete').next().css(afterStyle);
+							}, 5000);
+					return 0;
 			
 			}else{
-				console.log("두번쨰"+str.x);
-	    		console.log(str.y);
+				console.log('Ok');
 			}
-
 			return str;
 			
-
 		}
 		function addFileFromLastInput(file){
 		    var a = $('#upImgFile');
@@ -630,8 +582,6 @@ int seq = login.getUser_seq();
 	            return false ;
 	        }
 	    }
-
-
 	</script>
 
 </body>

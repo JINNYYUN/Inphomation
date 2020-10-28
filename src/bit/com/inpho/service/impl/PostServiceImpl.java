@@ -130,31 +130,33 @@ public class PostServiceImpl implements PostService {
 	@Override
 	public void upDateWrite(String tag, String loc,int seq) {
 		Map<String, Object> parameter =new HashMap<String, Object>();
-		String SERVER_HOST="dapi.kakao.com/v2/local/search/address.json?query=";
-		String srviceKey = "KakaoAK f0e07a82a957e4d2580b19df431ebeb3";
-		
-		 
-	            HttpHeaders headers = new HttpHeaders(); 
-	            headers.setContentType(new MediaType("application", "json", Charset.forName("UTF-8"))); 
-	            headers.add("Authorization", srviceKey); 
-	            String urls = String.format("%s://%s%s","https", SERVER_HOST, loc); 
-	             
-	            @SuppressWarnings({ "rawtypes", "unchecked" }) 
-	            ResponseEntity response = new RestTemplate().exchange(urls, HttpMethod.GET, new HttpEntity(headers), String.class); 
-
-	               JSONObject jObject = new JSONObject(response.getBody().toString());
-	               JSONArray jArray = jObject.getJSONArray("documents");
-	               
-	                   JSONObject obj = jArray.getJSONObject(0);
-	                   String addressName = obj.getString("address_name");
-	                   String loclong = obj.getString("x");
-	                   String loclet = obj.getString("y");
+	                   String[] tags =tag.split("#");
+	                   String afTag ="";
+	                    
+	                   for (int i = 0; i < tags.length; i++) {
+	                	   if(tags.length == i+1){
+	                		   break;
+	                	   }
+	                	  afTag+=("#"+tags[i+1]+",");
+	                	  
+					}
+	                   tags=afTag.split(",");
 	                   parameter.put("seq", seq);
 	                   parameter.put("loc", loc);
-	                   parameter.put("tag", tag);
-	                   parameter.put("addressName", addressName);
-	                   parameter.put("loclong", loclong);
-	                   parameter.put("loclet", loclet);
-	                   dao.upDateWrite(parameter);
+	                   parameter.put("tag", tags);
+	                   
+	                   PostDto dto= new PostDto();
+	                   
+	                   String postSeq= Integer.toString(seq);
+	                   dao.deleteTagSeq(postSeq);
+	                   for (int i = 0; i < tags.length; i++) {
+	                	   dto.setPost_seq(seq);
+	                	   dto.setHashtag(tags[i]);
+	                	   int postseq=dao.getTagSeq(dto);
+	                	   dto.setTag_seq(postseq);
+	                	   dao.addhashtag(dto);
+	                	   
+           }
+	 
+		}
 	}
-}

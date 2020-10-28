@@ -37,7 +37,7 @@ public class PostController {
 	@RequestMapping(value = "post", method = { RequestMethod.GET, RequestMethod.POST })
 	public String postwrite(Model model, HttpServletRequest req) {
 		logger.info("post" + new Date());
-		String camkind = "";
+		
 		MemberDto login = (MemberDto) req.getSession().getAttribute("login");
 		if (login != null)
 			System.out.println(login.toString());
@@ -115,12 +115,9 @@ public class PostController {
 	String tag=req.getParameter("postHashTag");
 	String loc=req.getParameter("postLocation");
 	String pseq=req.getParameter("post_seq");
-	System.out.println("해쉬태그 :: "+tag);
-	System.out.println("주소 :: "+loc);
-	System.out.println("포스트seq :: "+pseq);
 	int postSeq=Integer.parseInt(pseq);
 	service.upDateWrite(tag, loc, postSeq);
-		return "redirect:detail?post_seq="+postSeq;
+	return "redirect:detail?post_seq="+postSeq;
 
 	}
 }

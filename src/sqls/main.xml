@@ -141,7 +141,7 @@
                     AND DEL=0
 	          ORDER BY LIST."LIKE" DESC)
 	    )A
-	) WHERE "RNUM" BETWEEN 1 AND 10 
+	) WHERE "RNUM" BETWEEN 1 AND 30
 	</select> 
 	<select id="hotFeedStartListLogin" resultMap="hotFeedMap" parameterType="bit.com.inpho.dto.searchDto">
 	SELECT "POSTSEQ", "LIKE", "USERSEQ", "NICKNAME", "WDATE", "POSTCONTENT", "POSTUSERPROFILE", "DEL","BOOKMARK", "REPLY", POST_FILEPATH, "CAMERASERIAL", "POSITIONNAME", "USERLIKE", "USERBOOKMARK" FROM(
@@ -165,7 +165,7 @@
                     AND DEL=0
 	          ORDER BY LIST."LIKE" DESC)
 	    )A
-	) WHERE "RNUM" BETWEEN 1 AND 10
+	) WHERE "RNUM" BETWEEN 1 AND 30
 	</select> 
 	
 

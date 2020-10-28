@@ -104,4 +104,24 @@ public class PostDaoImpl implements PostDao{
 	public void upDateWrite(Map<String, Object> map) {
 		sqlSession.update(ns+"loctionUpdate",map);
 	}
+	@Override
+	public List<String> upDateTagSeq(int seq) {
+		String afseq = Integer.toString(seq);
+		List<String> result = sqlSession.selectList(ns+"upDateTagSeq",afseq);
+		return result;
+	}
+	@Override
+	public int upDateHashtag(String tags, String afseq) {
+		Map<String, Object> map = new HashMap<String, Object>();
+		map.put("tags", tags);
+		map.put("afseq", afseq);
+		int result=sqlSession.update(ns+"upDateHashtag",map);
+		return result;
+	}
+	@Override
+	public void deleteTagSeq(String seq) {
+		sqlSession.delete(ns+"deleteseq",seq);
+	}
+
+	
 }
