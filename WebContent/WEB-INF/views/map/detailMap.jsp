@@ -63,7 +63,7 @@
 	position: absolute;
 	top: 0px;
 	left: 0px;
-	z-index: 5;
+	z-index: 3;
 }
 
 .grid>.item:hover .map-detail-icon-wrapper{

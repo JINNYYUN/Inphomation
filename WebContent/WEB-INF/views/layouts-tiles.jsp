@@ -24,7 +24,7 @@
 }
 
 .main-wrapper{
-	padding-bottom : 200px;
+	padding-bottom : 240px;
 }
 </style>
 
