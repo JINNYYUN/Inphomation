@@ -191,7 +191,7 @@
 			    
 			    <div class="form-group btn-group">
 			    	<input type="button" value="Cancel" class="cancel-btn btn btn-danger" id="cancel-btn" onclick="location.href='../main'"> 
-			    	<input type="button" value="Regeister" class="regeister-btn btn btn-primary" id="regeister-btn" disabled onclick="submitRegi();">
+			    	<input type="button" value="Regeiester" class="regeister-btn btn btn-primary" id="regeister-btn" disabled onclick="submitRegi();">
 			    </div>
  			</form>
  		</div>
