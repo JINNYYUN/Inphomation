@@ -32,7 +32,7 @@
 				<div class="innerRightBox">
 					<!-- modal Menu -->
 					<div>
-						<div class="modalMenu">
+						<div class="text h5 modalMenu">
 							<a href="#ex1" rel="modal:open">···</a>
 						</div>
 						<div id="ex1" class="modal">
@@ -98,13 +98,13 @@
 					<div class="cmtCls">
 						<div class="content">
 							<div class="contHash">
-								<p class="text body1 post" style="line-height: 1.9;line-height: 1.5; word-break: break-all;"">
-									${post.post_content } <br><br>
+								<div class="text body1 post" style="line-height: 1.9 style="line-height: 1.5; word-break: break-all;"">
+									<div style="word-break: break-word;">${post.post_content }</div> <br><br>
 									<c:forEach items="${tag }" var="i">
 										<a href="javascript:void(0)" id="${i.hashtag }" onclick="searchWord(this.id)" class="text body1 post">
 											${i.hashtag }</a>
 									</c:forEach>
-								</p>
+								</div>
 							</div>
 	
 							<div id="cmt" class="cmtTbl">

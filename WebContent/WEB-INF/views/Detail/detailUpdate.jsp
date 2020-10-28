@@ -19,9 +19,10 @@
 
 .all {
 	position: relative;
-	padding-top: 100px;
-	margin-top: 15px;
-	background-color: #ffffff;
+    /* padding-top: 100px; */
+    margin-top: 148px;
+    background-color: #ffffff;
+    margin-bottom: 200px;
 }
 
 .photoBox {
@@ -71,11 +72,6 @@
 .btn-outline-primary:hover {
 	color: #F27405;
 	background: #F2F2F2;
-}
-
-ul li {
-	list-style: none;
-	float: left;
 }
 
 .main-content {
@@ -154,11 +150,11 @@ ul li {
 .camera-input {
     background-color: #FFF;
     color: #2B2D36;
-    width: auto;
+    width: 190px;
     float: right;
-    margin-top: 29px;
-    margin-right: 30px;
-    margin-top: 39px;
+    /* margin-top: 29px; */
+    margin-left: 8px;
+    /* margin-top: 39px;*/
 }
 
 </style>
@@ -212,13 +208,11 @@ ul li {
 							value="${i.camera_seq }">${i.camera_serial }</option>
 					</c:forEach>
 				</select>
+				<input type="text" class="text form-control camera-input"
+					style="background-color: #FFF; color: #2B2D36;"
+					id="camera_serial" value="${post.camera_serial }" readonly>
+				<input type="hidden" id="camera_seq" value="${post.camera_seq }">
 			</div>
-				<div>
-					<input type="text" class="text form-control camera-input"
-						style="background-color: #FFF; color: #2B2D36;"
-						id="camera_serial" value="${post.camera_serial }" readonly>
-					<input type="hidden" id="camera_seq" value="${post.camera_seq }">
-				</div>
 			<div class="wrap-btn">
 				<input type="button" class="btn btn-primary finish-btn" id="update"
 					value="수정">
@@ -228,12 +222,18 @@ ul li {
 	</div>
 </div>
 <script type="text/javascript">
+
+// 해시태그 공백 제거
+let hash_tag = $("#hash-tag").val();
+var hsh = hash_tag.replace(/\s/gi, "");
+
+
 	$("#update").on(
 			"click",
 			function() {
 
 				location.href = "/postUpDate?postHashTag="
-						+ encodeURIComponent($("#hash-tag").val())
+						+ encodeURIComponent(hsh)
 						+ "&postLocation="
 						+ encodeURIComponent($("#post_position_name").val())
 						+ "&post_seq=" + $("#post_seq").val();
@@ -248,8 +248,8 @@ ul li {
 						"post_position_name" : $("#post_position_name").val()
 					},
 					success : function() {
-						location.href = "detail?post_seq="
-								+ $("#post_seq").val();
+					/* 	location.href = "detail?post_seq="
+								+ $("#post_seq").val(); */
 
 					},
 					error : function() {
