@@ -1,6 +1,8 @@
 package bit.com.inpho.controller;
 
 import java.io.File;
+import java.io.FileInputStream;
+import java.io.FileNotFoundException;
 import java.io.IOException;
 import java.util.ArrayList;
 import java.util.Date;
@@ -17,6 +19,12 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.multipart.MultipartFile;
+import com.google.cloud.storage.Storage;
+import com.google.cloud.storage.StorageOptions;
+
+import com.google.auth.oauth2.ServiceAccountCredentials;
+
+
 import bit.com.inpho.dto.MemberDto;
 import bit.com.inpho.dto.PostDto;
 import bit.com.inpho.dto.PostLocationDto;
@@ -32,7 +40,7 @@ public class PostController {
 	private UploadObject obj;
 	@Autowired
 	private PostService service;
-
+	private String projectId = "thermal-well-290414";
 	// 첫 화면도착시 데이터뿌려주는 메서드
 	@RequestMapping(value = "post", method = { RequestMethod.GET, RequestMethod.POST })
 	public String postwrite(Model model, HttpServletRequest req) {
@@ -45,6 +53,15 @@ public class PostController {
 		List<PostDto> camlist = new ArrayList<PostDto>();
 		camlist = service.getCam(login);
 		model.addAttribute("cam", camlist);
+		try {
+			StorageOptions.newBuilder().setProjectId(projectId).setCredentials(ServiceAccountCredentials.fromStream(new FileInputStream("C://iiiii.json"))).build().getService();
+		} catch (FileNotFoundException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		} catch (IOException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
 		return "PostPage";
 
 	}

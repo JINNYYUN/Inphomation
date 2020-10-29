@@ -152,16 +152,17 @@ public class MyPageEditController {
 			HttpServletRequest req, HttpServletResponse resp) throws IOException {
 		
 		//jspform에서 MultipartFile을 받아온다...
-	    System.out.println("MultipartFile : " + fileload);
-		
-	        System.out.println("파일의 사이즈 : " + fileload.getSize());
-	        System.out.println("업로드된 파일명 : " + fileload.getOriginalFilename());
-	        System.out.println("파일의 파라미터명 : " + fileload.getName());
+		/*
+		 * System.out.println("MultipartFile : " + fileload);
+		 * System.out.println("파일의 사이즈 : " + fileload.getSize());
+		 * System.out.println("업로드된 파일명 : " + fileload.getOriginalFilename());
+		 * System.out.println("파일의 파라미터명 : " + fileload.getName());
+		 */
 	        
 
 	    //getRealPath()..
 	    String root = req.getSession().getServletContext().getRealPath("/upload/profileImage");
-	    System.out.println("path :: " + root);
+	    //System.out.println("path :: " + root);
 			
 	    //File은 디렉토리 + 파일명
 	    File copyFile = new File(root+"/"+fileload.getOriginalFilename());
@@ -170,7 +171,6 @@ public class MyPageEditController {
 	    fileload.transferTo(copyFile);
 	    
 	    String newfilename = obj.storageUploadObject("thermal-well-290414", "boomkit", fileload.getOriginalFilename(), root + "/" + fileload.getOriginalFilename());
-	    
 	    // session
  		MemberDto login = (MemberDto)req.getSession().getAttribute("login");
  		MyPageMemberDto mem = service.getProfile(login.getUser_seq());

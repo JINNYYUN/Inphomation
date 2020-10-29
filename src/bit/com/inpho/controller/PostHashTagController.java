@@ -35,13 +35,15 @@ public class PostHashTagController {
 
 	// File은 디렉토리 + 파일명
 	File copyFile = new File(root + "/" + file.getOriginalFilename());
+	System.out.println(copyFile.getName());
 	// 원래 업로드한 파일이 지정한 path 위치로 이동...이때 카피본이 이동
 	file.transferTo(copyFile);
 	hashTag.removeAll(hashTag); 
 
 	
 		try {
-			hashTag = googleObj.detectLabels(root + "/" + file.getOriginalFilename());
+			hashTag = googleObj.detectLabels(root + "/"+copyFile.getName());
+			System.out.println("실행되니?");
 		} catch (Exception e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
