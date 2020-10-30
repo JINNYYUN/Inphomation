@@ -3,7 +3,7 @@
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
 <link rel="stylesheet" type="text/css" href="<%=request.getContextPath() %>/css/main.css">
 <div class="searchResult" style="margin-top:100px;margin-left:20%;">
-	<h2><strong class="text text-color-orange text-weight-bold display-4">"${param.keywordId }"</strong>에 대한 검색결과 입니다.</h2>
+	<h2><strong class="text text-color-orange text-weight-bold display-4">'${param.keywordId }'</strong>에 대한 검색결과 입니다.</h2>
 </div>
 <div class="main-container">
 	<div class="content">

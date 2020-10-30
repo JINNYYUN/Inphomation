@@ -110,6 +110,11 @@ int seq = login.getUser_seq();
    	max-height: 721px;
     padding: 25%;
 }
+.imggs{
+	width: 100%;
+   	max-height: 721px;
+   	padding: inherit !important;
+}
 
 .imageSection {
 	width: 100%;
@@ -128,9 +133,7 @@ int seq = login.getUser_seq();
 	color: ff4D00;
 	text-align: center;
 }
-/* .wkrhtlvek{
-    height: 148px; 
-} */
+
 </style>
 </head>
 <body>
@@ -321,7 +324,7 @@ int seq = login.getUser_seq();
 		}
 		// 드래그앤드랍 구현 로직..
 		function dragFiles(e) {
-   
+			$(".imgg").addClass('imggs');
 			e.stopPropagation();
 			e.preventDefault();
 			dragOver(e);
@@ -365,10 +368,11 @@ int seq = login.getUser_seq();
 			
 			EXIFutil();
 		}
-		//드래그앤드랍 이미지 변경되었을시 해쉬태그 값을가져와 tagInput 폼에 넣어준다..
+		//파일 이미지 변경되었을시 해쉬태그 값을가져와 tagInput 폼에 넣어준다..
 		$(function() {
 			$(".imagehide").change(
 					function(e) {
+					$(".imgg").addClass('imggs');
 						files = e.target.files || e.dataTransfer.files;
 						document.querySelector('.imgg').src=window.URL.createObjectURL(files[0]);
 								
