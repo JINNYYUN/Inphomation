@@ -97,7 +97,7 @@ public class PostController {
 		// File은 디렉토리 + 파일명
 		File copyFile = new File(root + "/" + file.getOriginalFilename());
 		// 원래 업로드한 파일이 지정한 path 위치로 이동...이때 카피본이 이동
-		file.transferTo(copyFile);
+		//file.transferTo(copyFile);
 		String roadname = "";
 		String exifLong = req.getParameter("exifLong");
 		String exifLat = req.getParameter("exifLat");
